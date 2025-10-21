@@ -107,7 +107,10 @@ impl From<ConnectorData> for ConnectorRoutingData {
         Self {
             connector_data,
             network: None,
+<<<<<<< HEAD
             action_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

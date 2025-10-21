@@ -37,10 +37,17 @@ use hyperswitch_domain_models::router_flow_types::{
     mandate_revoke::MandateRevoke,
     payments::{
         Approve, Authorize, AuthorizeSessionToken, Balance, CalculateTax, Capture,
+<<<<<<< HEAD
         CompleteAuthorize, CreateConnectorCustomer, CreateOrder, ExtendAuthorization,
         ExternalVaultProxy, IncrementalAuthorization, InitPayment, PSync, PostCaptureVoid,
         PostProcessing, PostSessionTokens, PreProcessing, Reject, SdkSessionUpdate, Session,
         SetupMandate, UpdateMetadata, Void,
+=======
+        CompleteAuthorize, CreateConnectorCustomer, CreateOrder, ExternalVaultProxy,
+        IncrementalAuthorization, InitPayment, PSync, PostCaptureVoid, PostProcessing,
+        PostSessionTokens, PreProcessing, Reject, SdkSessionUpdate, Session, SetupMandate,
+        UpdateMetadata, Void,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     refunds::{Execute, RSync},
     webhooks::VerifyWebhookSource,
@@ -61,7 +68,11 @@ pub use hyperswitch_domain_models::{
     router_request_types::{
         revenue_recovery::{
             BillingConnectorInvoiceSyncRequest, BillingConnectorPaymentsSyncRequest,
+<<<<<<< HEAD
             InvoiceRecordBackRequest,
+=======
+            RevenueRecoveryRecordBackRequest,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
         unified_authentication_service::{
             UasAuthenticationRequestData, UasAuthenticationResponseData,
@@ -76,9 +87,15 @@ pub use hyperswitch_domain_models::{
         FetchDisputesRequestData, MandateRevokeRequestData, MultipleCaptureRequestData,
         PaymentMethodTokenizationData, PaymentsApproveData, PaymentsAuthorizeData,
         PaymentsCancelData, PaymentsCancelPostCaptureData, PaymentsCaptureData,
+<<<<<<< HEAD
         PaymentsExtendAuthorizationData, PaymentsIncrementalAuthorizationData,
         PaymentsPostProcessingData, PaymentsPostSessionTokensData, PaymentsPreProcessingData,
         PaymentsRejectData, PaymentsSessionData, PaymentsSyncData, PaymentsTaxCalculationData,
+=======
+        PaymentsIncrementalAuthorizationData, PaymentsPostProcessingData,
+        PaymentsPostSessionTokensData, PaymentsPreProcessingData, PaymentsRejectData,
+        PaymentsSessionData, PaymentsSyncData, PaymentsTaxCalculationData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         PaymentsUpdateMetadataData, RefundsData, ResponseId, RetrieveFileRequestData,
         SdkPaymentsSessionUpdateData, SetupMandateRequestData, SplitRefundsRequest,
         SubmitEvidenceRequestData, SyncRequestType, UploadFileRequestData, VaultRequestData,
@@ -87,7 +104,11 @@ pub use hyperswitch_domain_models::{
     router_response_types::{
         revenue_recovery::{
             BillingConnectorInvoiceSyncResponse, BillingConnectorPaymentsSyncResponse,
+<<<<<<< HEAD
             InvoiceRecordBackResponse,
+=======
+            RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
         AcceptDisputeResponse, CaptureSyncResponse, DefendDisputeResponse, DisputeSyncResponse,
         FetchDisputesResponse, MandateReference, MandateRevokeResponseData, PaymentsResponseData,
@@ -123,6 +144,11 @@ pub use hyperswitch_interfaces::{
 #[cfg(feature = "v2")]
 use crate::core::errors;
 pub use crate::core::payments::CustomerDetails;
+<<<<<<< HEAD
+=======
+#[cfg(feature = "payouts")]
+use crate::core::utils::IRRELEVANT_CONNECTOR_REQUEST_REFERENCE_ID_IN_PAYOUTS_FLOW;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::{
     consts,
     core::payments::{OperationSessionGetters, PaymentData},
@@ -153,8 +179,11 @@ pub type PaymentsIncrementalAuthorizationRouterData = RouterData<
     PaymentsIncrementalAuthorizationData,
     PaymentsResponseData,
 >;
+<<<<<<< HEAD
 pub type PaymentsExtendAuthorizationRouterData =
     RouterData<ExtendAuthorization, PaymentsExtendAuthorizationData, PaymentsResponseData>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub type PaymentsTaxCalculationRouterData =
     RouterData<CalculateTax, PaymentsTaxCalculationData, TaxCalculationResponseData>;
 
@@ -195,12 +224,15 @@ pub type PaymentsCancelResponseRouterData<R> =
     ResponseRouterData<Void, R, PaymentsCancelData, PaymentsResponseData>;
 pub type PaymentsCancelPostCaptureResponseRouterData<R> =
     ResponseRouterData<PostCaptureVoid, R, PaymentsCancelPostCaptureData, PaymentsResponseData>;
+<<<<<<< HEAD
 pub type PaymentsExtendAuthorizationResponseRouterData<R> = ResponseRouterData<
     ExtendAuthorization,
     R,
     PaymentsExtendAuthorizationData,
     PaymentsResponseData,
 >;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub type PaymentsBalanceResponseRouterData<R> =
     ResponseRouterData<Balance, R, PaymentsAuthorizeData, PaymentsResponseData>;
 pub type PaymentsSyncResponseRouterData<R> =
@@ -587,7 +619,11 @@ impl Capturable for PaymentsSyncData {
     #[cfg(feature = "v1")]
     fn get_captured_amount<F>(
         &self,
+<<<<<<< HEAD
         amount_captured: Option<i64>,
+=======
+        _amount_captured: Option<i64>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         payment_data: &PaymentData<F>,
     ) -> Option<i64>
     where
@@ -597,7 +633,10 @@ impl Capturable for PaymentsSyncData {
             .payment_attempt
             .amount_to_capture
             .or(payment_data.payment_intent.amount_captured)
+<<<<<<< HEAD
             .or(amount_captured.map(MinorUnit::new))
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .or_else(|| Some(payment_data.payment_attempt.get_total_amount()))
             .map(|amt| amt.get_amount_as_i64())
     }
@@ -656,6 +695,7 @@ impl Capturable for PaymentsSyncData {
         }
     }
 }
+<<<<<<< HEAD
 impl Capturable for PaymentsExtendAuthorizationData {
     fn get_captured_amount<F>(
         &self,
@@ -700,6 +740,8 @@ impl Capturable for PaymentsExtendAuthorizationData {
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 pub struct AddAccessTokenResult {
     pub access_token_result: Result<Option<AccessToken>, ErrorResponse>,
@@ -1292,9 +1334,12 @@ impl ForeignFrom<&SetupMandateRouterData> for PaymentsAuthorizeData {
             locale: None,
             payment_channel: None,
             enable_partial_authorization: data.request.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: None,
             is_stored_credential: data.request.is_stored_credential,
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1314,7 +1359,10 @@ impl<F1, F2, T1, T2> ForeignFrom<(&RouterData<F1, T1, PaymentsResponseData>, T2)
             tenant_id: data.tenant_id.clone(),
             status: data.status,
             payment_method: data.payment_method,
+<<<<<<< HEAD
             payment_method_type: data.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_auth_type: data.connector_auth_type.clone(),
             description: data.description.clone(),
             address: data.address.clone(),
@@ -1361,7 +1409,10 @@ impl<F1, F2, T1, T2> ForeignFrom<(&RouterData<F1, T1, PaymentsResponseData>, T2)
             is_payment_id_from_merchant: data.is_payment_id_from_merchant,
             l2_l3_data: data.l2_l3_data.clone(),
             minor_amount_capturable: data.minor_amount_capturable,
+<<<<<<< HEAD
             authorized_amount: data.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1390,7 +1441,10 @@ impl<F1, F2>
             tenant_id: data.tenant_id.clone(),
             status: data.status,
             payment_method: data.payment_method,
+<<<<<<< HEAD
             payment_method_type: data.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_auth_type: data.connector_auth_type.clone(),
             description: data.description.clone(),
             address: data.address.clone(),
@@ -1409,7 +1463,12 @@ impl<F1, F2>
             recurring_mandate_payment_data: None,
             preprocessing_id: None,
             connector_customer: data.connector_customer.clone(),
+<<<<<<< HEAD
             connector_request_reference_id: data.connector_request_reference_id.clone(),
+=======
+            connector_request_reference_id:
+                IRRELEVANT_CONNECTOR_REQUEST_REFERENCE_ID_IN_PAYOUTS_FLOW.to_string(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payout_method_data: data.payout_method_data.clone(),
             quote_id: data.quote_id.clone(),
             test_mode: data.test_mode,
@@ -1433,7 +1492,10 @@ impl<F1, F2>
             is_payment_id_from_merchant: data.is_payment_id_from_merchant,
             l2_l3_data: None,
             minor_amount_capturable: None,
+<<<<<<< HEAD
             authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

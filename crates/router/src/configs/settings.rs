@@ -7,11 +7,15 @@ use std::{
 #[cfg(feature = "olap")]
 use analytics::{opensearch::OpenSearchConfig, ReportConfig};
 use api_models::enums;
+<<<<<<< HEAD
 use common_utils::{
     ext_traits::ConfigExt,
     id_type,
     types::{user::EmailThemeConfig, Url},
 };
+=======
+use common_utils::{ext_traits::ConfigExt, id_type, types::user::EmailThemeConfig};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use config::{Environment, File};
 use error_stack::ResultExt;
 #[cfg(feature = "email")]
@@ -24,6 +28,7 @@ use external_services::{
         encryption_management::EncryptionManagementConfig,
         secrets_management::SecretsManagementConfig,
     },
+<<<<<<< HEAD
     superposition::SuperpositionClientConfig,
 };
 pub use hyperswitch_interfaces::{
@@ -31,6 +36,11 @@ pub use hyperswitch_interfaces::{
         Connectors, GlobalTenant, InternalMerchantIdProfileIdAuthSettings, InternalServicesConfig,
         Tenant, TenantUserConfig,
     },
+=======
+};
+pub use hyperswitch_interfaces::configs::Connectors;
+use hyperswitch_interfaces::{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     secrets_interface::secret_state::{
         RawSecret, SecretState, SecretStateContainer, SecuredSecret,
     },
@@ -79,7 +89,11 @@ pub struct Settings<S: SecretState> {
     pub server: Server,
     pub proxy: Proxy,
     pub env: Env,
+<<<<<<< HEAD
     pub chat: SecretStateContainer<ChatSettings, S>,
+=======
+    pub chat: ChatSettings,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub master_database: SecretStateContainer<Database, S>,
     #[cfg(feature = "olap")]
     pub replica_database: SecretStateContainer<Database, S>,
@@ -171,15 +185,22 @@ pub struct Settings<S: SecretState> {
     pub revenue_recovery: revenue_recovery::RevenueRecoverySettings,
     pub clone_connector_allowlist: Option<CloneConnectorAllowlistConfig>,
     pub merchant_id_auth: MerchantIdAuthSettings,
+<<<<<<< HEAD
     pub internal_merchant_id_profile_id_auth: InternalMerchantIdProfileIdAuthSettings,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(default)]
     pub infra_values: Option<HashMap<String, String>>,
     #[serde(default)]
     pub enhancement: Option<HashMap<String, String>>,
+<<<<<<< HEAD
     pub superposition: SecretStateContainer<SuperpositionClientConfig, S>,
     pub proxy_status_mapping: ProxyStatusMapping,
     pub internal_services: InternalServicesConfig,
     pub comparison_service: Option<ComparisonServiceConfig>,
+=======
+    pub proxy_status_mapping: ProxyStatusMapping,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Deserialize, Clone, Default)]
@@ -208,6 +229,7 @@ pub struct CloneConnectorAllowlistConfig {
     pub connector_names: HashSet<enums::Connector>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Deserialize, Clone)]
 pub struct ComparisonServiceConfig {
     pub url: Url,
@@ -215,6 +237,8 @@ pub struct ComparisonServiceConfig {
     pub timeout_secs: Option<u64>,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Deserialize, Clone, Default)]
 pub struct Platform {
     pub enabled: bool,
@@ -226,7 +250,10 @@ pub struct Platform {
 pub struct ChatSettings {
     pub enabled: bool,
     pub hyperswitch_ai_host: String,
+<<<<<<< HEAD
     pub encryption_key: Secret<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Default, Deserialize)]
@@ -348,6 +375,71 @@ pub struct L2L3DataConfig {
     pub enabled: bool,
 }
 
+<<<<<<< HEAD
+=======
+#[derive(Debug, Clone)]
+pub struct Tenant {
+    pub tenant_id: id_type::TenantId,
+    pub base_url: String,
+    pub schema: String,
+    pub accounts_schema: String,
+    pub redis_key_prefix: String,
+    pub clickhouse_database: String,
+    pub user: TenantUserConfig,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub struct TenantUserConfig {
+    pub control_center_url: String,
+}
+
+impl storage_impl::config::TenantConfig for Tenant {
+    fn get_tenant_id(&self) -> &id_type::TenantId {
+        &self.tenant_id
+    }
+    fn get_accounts_schema(&self) -> &str {
+        self.accounts_schema.as_str()
+    }
+    fn get_schema(&self) -> &str {
+        self.schema.as_str()
+    }
+    fn get_redis_key_prefix(&self) -> &str {
+        self.redis_key_prefix.as_str()
+    }
+    fn get_clickhouse_database(&self) -> &str {
+        self.clickhouse_database.as_str()
+    }
+}
+
+// Todo: Global tenant should not be part of tenant config(https://github.com/juspay/hyperswitch/issues/7237)
+#[derive(Debug, Deserialize, Clone)]
+pub struct GlobalTenant {
+    #[serde(default = "id_type::TenantId::get_default_global_tenant_id")]
+    pub tenant_id: id_type::TenantId,
+    pub schema: String,
+    pub redis_key_prefix: String,
+    pub clickhouse_database: String,
+}
+// Todo: Global tenant should not be part of tenant config
+impl storage_impl::config::TenantConfig for GlobalTenant {
+    fn get_tenant_id(&self) -> &id_type::TenantId {
+        &self.tenant_id
+    }
+    fn get_accounts_schema(&self) -> &str {
+        self.schema.as_str()
+    }
+    fn get_schema(&self) -> &str {
+        self.schema.as_str()
+    }
+    fn get_redis_key_prefix(&self) -> &str {
+        self.redis_key_prefix.as_str()
+    }
+    fn get_clickhouse_database(&self) -> &str {
+        self.clickhouse_database.as_str()
+    }
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Deserialize, Clone, Default)]
 pub struct UnmaskedHeaders {
     #[serde(deserialize_with = "deserialize_hashset")]
@@ -490,6 +582,11 @@ pub struct TempLockerEnableConfig(pub HashMap<String, TempLockerEnablePaymentMet
 
 #[derive(Debug, Deserialize, Clone, Default)]
 pub struct ConnectorCustomer {
+<<<<<<< HEAD
+=======
+    #[serde(deserialize_with = "deserialize_hashset")]
+    pub connector_list: HashSet<enums::Connector>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "payouts")]
     #[serde(deserialize_with = "deserialize_hashset")]
     pub payout_connector_list: HashSet<enums::PayoutConnectors>,
@@ -593,7 +690,10 @@ pub struct PaymentMethodTokenFilter {
     pub payment_method_type: Option<PaymentMethodTypeTokenFilter>,
     pub long_lived_token: bool,
     pub apple_pay_pre_decrypt_flow: Option<ApplePayPreDecryptFlow>,
+<<<<<<< HEAD
     pub google_pay_pre_decrypt_flow: Option<GooglePayPreDecryptFlow>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub flow: Option<PaymentFlow>,
 }
 
@@ -612,6 +712,7 @@ pub enum ApplePayPreDecryptFlow {
 }
 
 #[derive(Debug, Deserialize, Clone, Default)]
+<<<<<<< HEAD
 #[serde(deny_unknown_fields, rename_all = "snake_case")]
 pub enum GooglePayPreDecryptFlow {
     #[default]
@@ -620,6 +721,8 @@ pub enum GooglePayPreDecryptFlow {
 }
 
 #[derive(Debug, Deserialize, Clone, Default)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct TempLockerEnablePaymentMethodFilter {
     #[serde(deserialize_with = "deserialize_hashset")]
     pub payment_method: HashSet<diesel_models::enums::PaymentMethod>,
@@ -1013,7 +1116,12 @@ impl Settings<SecuredSecret> {
         self.secrets.get_inner().validate()?;
         self.locker.validate()?;
         self.connectors.validate("connectors")?;
+<<<<<<< HEAD
         self.chat.get_inner().validate()?;
+=======
+        self.chat.validate()?;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         self.cors.validate()?;
 
         self.scheduler
@@ -1089,11 +1197,14 @@ impl Settings<SecuredSecret> {
             .transpose()
             .map_err(|err| ApplicationError::InvalidConfigurationValueError(err.to_string()))?;
 
+<<<<<<< HEAD
         self.superposition
             .get_inner()
             .validate()
             .map_err(|err| ApplicationError::InvalidConfigurationValueError(err.to_string()))?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(())
     }
 }

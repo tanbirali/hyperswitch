@@ -298,7 +298,10 @@ impl<F: Send + Clone + Sync> GetTracker<F, PaymentConfirmData<F>, ExternalVaultP
             payment_method: None,
             merchant_connector_details: None,
             external_vault_pmd: payment_method_data,
+<<<<<<< HEAD
             webhook_url: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let get_trackers_response = operations::GetTrackerResponse { payment_data };
@@ -313,6 +316,7 @@ impl<F: Clone + Send + Sync> Domain<F, ExternalVaultProxyPaymentsRequest, Paymen
 {
     async fn get_customer_details<'a>(
         &'a self,
+<<<<<<< HEAD
         state: &SessionState,
         payment_data: &mut PaymentConfirmData<F>,
         merchant_key_store: &domain::MerchantKeyStore,
@@ -335,6 +339,16 @@ impl<F: Clone + Send + Sync> Domain<F, ExternalVaultProxyPaymentsRequest, Paymen
             }
             None => Ok((Box::new(self), None)),
         }
+=======
+        _state: &SessionState,
+        _payment_data: &mut PaymentConfirmData<F>,
+        _merchant_key_store: &domain::MerchantKeyStore,
+        _storage_scheme: storage_enums::MerchantStorageScheme,
+    ) -> CustomResult<(BoxedConfirmOperation<'a, F>, Option<domain::Customer>), errors::StorageError>
+    {
+        // TODO: Implement external vault specific customer details retrieval
+        Ok((Box::new(self), None))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     #[instrument(skip_all)]
@@ -429,16 +443,26 @@ impl<F: Clone + Send + Sync> Domain<F, ExternalVaultProxyPaymentsRequest, Paymen
         merchant_context: &domain::MerchantContext,
         payment_data: &mut PaymentConfirmData<F>,
     ) {
+<<<<<<< HEAD
         if let (true, Some(payment_method)) = (
             payment_data.payment_attempt.customer_acceptance.is_some(),
             payment_data.payment_method.as_ref(),
+=======
+        if let (true, Some(payment_method_id)) = (
+            payment_data.payment_attempt.customer_acceptance.is_some(),
+            payment_data.payment_attempt.payment_method_id.clone(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ) {
             payment_methods::update_payment_method_status_internal(
                 state,
                 merchant_context.get_merchant_key_store(),
                 merchant_context.get_merchant_account().storage_scheme,
                 common_enums::PaymentMethodStatus::Active,
+<<<<<<< HEAD
                 payment_method.get_id(),
+=======
+                &payment_method_id,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
             .await
             .map_err(|err| router_env::logger::error!(err=?err));

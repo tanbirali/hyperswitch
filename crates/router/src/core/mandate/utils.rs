@@ -43,7 +43,10 @@ pub async fn construct_mandate_revoke_router_data(
         attempt_id: IRRELEVANT_ATTEMPT_ID_IN_MANDATE_REVOKE_FLOW.to_string(),
         status: diesel_models::enums::AttemptStatus::default(),
         payment_method: diesel_models::enums::PaymentMethod::default(),
+<<<<<<< HEAD
         payment_method_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: None,
         address: PaymentAddress::default(),
@@ -90,7 +93,10 @@ pub async fn construct_mandate_revoke_router_data(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)

@@ -1,5 +1,6 @@
 use std::marker::PhantomData;
 
+<<<<<<< HEAD
 use base64::Engine;
 use common_utils::{
     consts,
@@ -7,6 +8,9 @@ use common_utils::{
     errors::CustomResult,
     ext_traits::ValueExt,
 };
+=======
+use common_utils::{errors::CustomResult, ext_traits::ValueExt};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use error_stack::{Report, ResultExt};
 use redis_interface as redis;
 use router_env::tracing;
@@ -95,7 +99,10 @@ pub async fn construct_webhook_router_data(
         attempt_id: IRRELEVANT_ATTEMPT_ID_IN_SOURCE_VERIFICATION_FLOW.to_string(),
         status: diesel_models::enums::AttemptStatus::default(),
         payment_method: diesel_models::enums::PaymentMethod::default(),
+<<<<<<< HEAD
         payment_method_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: None,
         address: PaymentAddress::default(),
@@ -144,7 +151,10 @@ pub async fn construct_webhook_router_data(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     Ok(router_data)
 }
@@ -154,12 +164,17 @@ pub(crate) fn get_idempotent_event_id(
     primary_object_id: &str,
     event_type: types::storage::enums::EventType,
     delivery_attempt: types::storage::enums::WebhookDeliveryAttempt,
+<<<<<<< HEAD
 ) -> Result<String, Report<errors::WebhooksFlowError>> {
+=======
+) -> String {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     use crate::types::storage::enums::WebhookDeliveryAttempt;
 
     const EVENT_ID_SUFFIX_LENGTH: usize = 8;
 
     let common_prefix = format!("{primary_object_id}_{event_type}");
+<<<<<<< HEAD
 
     // Hash the common prefix with SHA256 and encode with URL-safe base64 without padding
     let digest = crypto::Sha256
@@ -176,6 +191,14 @@ pub(crate) fn get_idempotent_event_id(
     };
 
     Ok(result)
+=======
+    match delivery_attempt {
+        WebhookDeliveryAttempt::InitialAttempt => common_prefix,
+        WebhookDeliveryAttempt::AutomaticRetry | WebhookDeliveryAttempt::ManualRetry => {
+            common_utils::generate_id(EVENT_ID_SUFFIX_LENGTH, &common_prefix)
+        }
+    }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[inline]

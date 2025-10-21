@@ -499,7 +499,10 @@ impl TryFrom<utils::CardIssuer> for Gateway {
             utils::CardIssuer::DinersClub
             | utils::CardIssuer::JCB
             | utils::CardIssuer::CarteBlanche
+<<<<<<< HEAD
             | utils::CardIssuer::UnionPay
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | utils::CardIssuer::CartesBancaires => Err(errors::ConnectorError::NotImplemented(
                 utils::get_unimplemented_payment_method_error_message("Multisafe pay"),
             )
@@ -526,7 +529,10 @@ impl TryFrom<&MultisafepayRouterData<&types::PaymentsAuthorizeRouterData>>
                 WalletData::MbWayRedirect(_) => Type::Redirect,
                 WalletData::AliPayQr(_)
                 | WalletData::AliPayHkRedirect(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::AmazonPayRedirect(_)
                 | WalletData::Paysera(_)
                 | WalletData::Skrill(_)
@@ -597,7 +603,10 @@ impl TryFrom<&MultisafepayRouterData<&types::PaymentsAuthorizeRouterData>>
                 WalletData::MbWayRedirect(_) => Gateway::MbWay,
                 WalletData::AliPayQr(_)
                 | WalletData::AliPayHkRedirect(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::AmazonPayRedirect(_)
                 | WalletData::Paysera(_)
                 | WalletData::Skrill(_)
@@ -775,7 +784,10 @@ impl TryFrom<&MultisafepayRouterData<&types::PaymentsAuthorizeRouterData>>
                 }
                 WalletData::AliPayQr(_)
                 | WalletData::AliPayHkRedirect(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::AmazonPayRedirect(_)
                 | WalletData::Paysera(_)
                 | WalletData::Skrill(_)

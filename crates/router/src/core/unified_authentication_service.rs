@@ -70,7 +70,10 @@ impl UnifiedAuthenticationService for ClickToPay {
         billing_address: Option<&hyperswitch_domain_models::address::Address>,
         acquirer_bin: Option<String>,
         acquirer_merchant_id: Option<String>,
+<<<<<<< HEAD
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<UasPreAuthenticationRequestData> {
         let domain_service_details = hyperswitch_domain_models::router_request_types::unified_authentication_service::CtpServiceDetails {
             service_session_ids: Some(ServiceSessionIds {
@@ -122,7 +125,10 @@ impl UnifiedAuthenticationService for ClickToPay {
         merchant_id: &common_utils::id_type::MerchantId,
         payment_id: Option<&common_utils::id_type::PaymentId>,
         payment_method_data: Option<&domain::PaymentMethodData>,
+<<<<<<< HEAD
         payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         merchant_connector_account: &MerchantConnectorAccountType,
         connector_name: &str,
         authentication_id: &common_utils::id_type::AuthenticationId,
@@ -144,7 +150,10 @@ impl UnifiedAuthenticationService for ClickToPay {
             billing_address,
             acquirer_bin,
             acquirer_merchant_id,
+<<<<<<< HEAD
             payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )?;
 
         let pre_auth_router_data: UasPreAuthenticationRouterData =
@@ -206,6 +215,11 @@ impl UnifiedAuthenticationService for ClickToPay {
 
     async fn confirmation(
         state: &SessionState,
+<<<<<<< HEAD
+=======
+        _key_store: &domain::MerchantKeyStore,
+        _business_profile: &domain::Profile,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         authentication_id: Option<&common_utils::id_type::AuthenticationId>,
         currency: Option<common_enums::Currency>,
         status: common_enums::AttemptStatus,
@@ -225,9 +239,13 @@ impl UnifiedAuthenticationService for ClickToPay {
             field_name: "currency",
         })?;
 
+<<<<<<< HEAD
         let current_time = common_utils::date_time::date_as_yyyymmddthhmmssmmmz()
             .change_context(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to get current time")?;
+=======
+        let current_time = common_utils::date_time::now();
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         let payment_attempt_status = status;
 
@@ -248,7 +266,11 @@ impl UnifiedAuthenticationService for ClickToPay {
             confirmation_reason,
             confirmation_timestamp: Some(current_time),
             network_authorization_code: Some("01".to_string()), // hardcoded to '01' since only authorise flow is implemented
+<<<<<<< HEAD
             network_transaction_identifier: Some("mastercard".to_string()), // hardcoded to 'mastercard' since only mastercard has confirmation flow requirement
+=======
+            network_transaction_identifier: Some("01".to_string()), // hardcoded to '01' since only authorise flow is implemented
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             correlation_id: click_to_pay_details
                 .clone()
                 .and_then(|details| details.correlation_id),
@@ -292,7 +314,10 @@ impl UnifiedAuthenticationService for ExternalAuthentication {
         billing_address: Option<&hyperswitch_domain_models::address::Address>,
         acquirer_bin: Option<String>,
         acquirer_merchant_id: Option<String>,
+<<<<<<< HEAD
         payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<UasPreAuthenticationRequestData> {
         let payment_method_data = payment_method_data
             .ok_or(ApiErrorResponse::InternalServerError)
@@ -302,13 +327,21 @@ impl UnifiedAuthenticationService for ExternalAuthentication {
                 Some(PaymentDetails {
                     pan: card.card_number.clone(),
                     digital_card_id: None,
+<<<<<<< HEAD
                     payment_data_type: payment_method_type,
+=======
+                    payment_data_type: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     encrypted_src_card_details: None,
                     card_expiry_month: card.card_exp_month.clone(),
                     card_expiry_year: card.card_exp_year.clone(),
                     cardholder_name: card.card_holder_name.clone(),
                     card_token_number: None,
+<<<<<<< HEAD
                     account_type: payment_method_type,
+=======
+                    account_type: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     card_cvc: Some(card.card_cvc.clone()),
                 })
             } else {
@@ -338,7 +371,10 @@ impl UnifiedAuthenticationService for ExternalAuthentication {
         merchant_id: &common_utils::id_type::MerchantId,
         payment_id: Option<&common_utils::id_type::PaymentId>,
         payment_method_data: Option<&domain::PaymentMethodData>,
+<<<<<<< HEAD
         payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         merchant_connector_account: &MerchantConnectorAccountType,
         connector_name: &str,
         authentication_id: &common_utils::id_type::AuthenticationId,
@@ -360,7 +396,10 @@ impl UnifiedAuthenticationService for ExternalAuthentication {
             billing_address,
             acquirer_bin,
             acquirer_merchant_id,
+<<<<<<< HEAD
             payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )?;
 
         let pre_auth_router_data: UasPreAuthenticationRouterData =
@@ -593,7 +632,10 @@ pub async fn create_new_authentication(
         three_ds_method_url: None,
         acs_url: None,
         challenge_request: None,
+<<<<<<< HEAD
         challenge_request_key: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         acs_reference_number: None,
         acs_trans_id: None,
         acs_signed_content: None,
@@ -920,7 +962,11 @@ pub async fn authentication_eligibility_core(
         None,
         None,
         &merchant_context,
+<<<<<<< HEAD
         req.profile_id.as_ref(),
+=======
+        None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         db,
         true,
     )
@@ -949,7 +995,11 @@ pub async fn authentication_eligibility_core(
     let notification_url = match authentication_connector {
         common_enums::AuthenticationConnectors::Juspaythreedsserver => {
             Some(url::Url::parse(&format!(
+<<<<<<< HEAD
                 "{base_url}/authentication/{merchant_id}/{authentication_id}/redirect",
+=======
+                "{base_url}/authentication/{merchant_id}/{authentication_id}/sync",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 base_url = state.base_url,
                 merchant_id = merchant_id.get_string_repr(),
                 authentication_id = authentication_id.get_string_repr()
@@ -1001,7 +1051,11 @@ pub async fn authentication_eligibility_core(
         merchant_id: Some(authentication.merchant_id.get_string_repr().to_string()),
         merchant_name: acquirer_details.clone().map(|detail| detail.merchant_name.clone()).or(metadata.clone().and_then(|metadata| metadata.merchant_name)),
         merchant_category_code: business_profile.merchant_category_code.or(metadata.clone().and_then(|metadata| metadata.merchant_category_code)),
+<<<<<<< HEAD
         endpoint_prefix: metadata.clone().and_then(|metadata| metadata.endpoint_prefix),
+=======
+        endpoint_prefix: metadata.clone().map(|metadata| metadata.endpoint_prefix),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         three_ds_requestor_url: business_profile.authentication_connector_details.map(|details| details.three_ds_requestor_url),
         three_ds_requestor_id: metadata.clone().and_then(|metadata| metadata.three_ds_requestor_id),
         three_ds_requestor_name: metadata.clone().and_then(|metadata| metadata.three_ds_requestor_name),
@@ -1020,7 +1074,10 @@ pub async fn authentication_eligibility_core(
             merchant_id,
             None,
             Some(&payment_method_data),
+<<<<<<< HEAD
             req.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             &three_ds_connector_account,
             &authentication_connector_name,
             &authentication_id,

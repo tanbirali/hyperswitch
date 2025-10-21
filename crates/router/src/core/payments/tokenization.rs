@@ -15,7 +15,10 @@ use common_utils::{
     metrics::utils::record_operation_time,
     pii,
 };
+<<<<<<< HEAD
 use diesel_models::business_profile::ExternalVaultConnectorDetails;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use error_stack::{report, ResultExt};
 #[cfg(feature = "v1")]
 use hyperswitch_domain_models::{
@@ -27,8 +30,11 @@ use masking::{ExposeInterface, Secret};
 use router_env::{instrument, tracing};
 
 use super::helpers;
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 use crate::core::payment_methods::vault_payment_method_external_v1;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::{
     consts,
     core::{
@@ -53,6 +59,7 @@ use crate::{
     utils::{generate_id, OptionExt},
 };
 
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 async fn save_in_locker(
     state: &SessionState,
@@ -85,6 +92,8 @@ async fn save_in_locker(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct SavePaymentMethodData<Req> {
     request: Req,
     response: Result<types::PaymentsResponseData, types::ErrorResponse>,
@@ -276,7 +285,10 @@ where
                         merchant_context,
                         payment_method_create_request.clone(),
                         is_network_tokenization_enabled,
+<<<<<<< HEAD
                         business_profile,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     )
                     .await?
                 };
@@ -369,6 +381,7 @@ where
 
                 let mut payment_method_id = resp.payment_method_id.clone();
                 let mut locker_id = None;
+<<<<<<< HEAD
                 let (external_vault_details, vault_type) = match &business_profile.external_vault_details{
                     hyperswitch_domain_models::business_profile::ExternalVaultDetails::ExternalVaultEnabled(external_vault_connector_details) => {
                         (Some(external_vault_connector_details), Some(common_enums::VaultType::External))
@@ -384,6 +397,8 @@ where
                 ))
                 .change_context(errors::ApiErrorResponse::InternalServerError)
                 .attach_printable("Unable to create vault source details")?;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
                 match duplication_check {
                     Some(duplication_check) => match duplication_check {
@@ -476,7 +491,10 @@ where
                                                 network_token_requestor_ref_id,
                                                 network_token_locker_id,
                                                 pm_network_token_data_encrypted,
+<<<<<<< HEAD
                                                 Some(vault_source_details),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                             )
                                             .await
                                     } else {
@@ -596,7 +614,10 @@ where
                                                     network_token_requestor_ref_id,
                                                     network_token_locker_id,
                                                     pm_network_token_data_encrypted,
+<<<<<<< HEAD
                                                     Some(vault_source_details),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                                 )
                                                 .await
                                         } else {
@@ -818,7 +839,10 @@ where
                                     network_token_requestor_ref_id.clone(),
                                     network_token_locker_id,
                                     pm_network_token_data_encrypted,
+<<<<<<< HEAD
                                     Some(vault_source_details),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                 )
                                 .await?;
 
@@ -1097,7 +1121,11 @@ async fn skip_saving_card_in_locker(
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 pub async fn save_in_locker_internal(
+=======
+pub async fn save_in_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     state: &SessionState,
     merchant_context: &domain::MerchantContext,
     payment_method_request: api::PaymentMethodCreate,
@@ -1147,6 +1175,7 @@ pub async fn save_in_locker_internal(
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 pub async fn save_in_locker_external(
     state: &SessionState,
@@ -1241,6 +1270,10 @@ pub async fn save_in_locker_external(
 
 #[cfg(feature = "v2")]
 pub async fn save_in_locker_internal(
+=======
+#[cfg(feature = "v2")]
+pub async fn save_in_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     _state: &SessionState,
     _merchant_context: &domain::MerchantContext,
     _payment_method_request: api::PaymentMethodCreate,
@@ -1741,7 +1774,10 @@ pub async fn save_card_and_network_token_in_locker(
     merchant_context: &domain::MerchantContext,
     payment_method_create_request: api::PaymentMethodCreate,
     is_network_tokenization_enabled: bool,
+<<<<<<< HEAD
     business_profile: &domain::Profile,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<(
     (
         api_models::payment_methods::PaymentMethodResponse,
@@ -1780,7 +1816,10 @@ pub async fn save_card_and_network_token_in_locker(
                 merchant_context,
                 payment_method_create_request.to_owned(),
                 Some(card_data),
+<<<<<<< HEAD
                 business_profile,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ))
             .await
             .change_context(errors::ApiErrorResponse::InternalServerError)
@@ -1802,7 +1841,11 @@ pub async fn save_card_and_network_token_in_locker(
             );
 
             if payment_method_status == common_enums::PaymentMethodStatus::Active {
+<<<<<<< HEAD
                 let (res, dc) = Box::pin(save_in_locker_internal(
+=======
+                let (res, dc) = Box::pin(save_in_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     state,
                     merchant_context,
                     payment_method_create_request.to_owned(),
@@ -1847,7 +1890,11 @@ pub async fn save_card_and_network_token_in_locker(
                     )
                     .await;
                 }
+<<<<<<< HEAD
                 let (res, dc) = Box::pin(save_in_locker_internal(
+=======
+                let (res, dc) = Box::pin(save_in_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     state,
                     merchant_context,
                     payment_method_create_request.to_owned(),
@@ -1861,17 +1908,26 @@ pub async fn save_card_and_network_token_in_locker(
             }
         }
         _ => {
+<<<<<<< HEAD
             let card_data = payment_method_create_request.card.clone();
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let (res, dc) = Box::pin(save_in_locker(
                 state,
                 merchant_context,
                 payment_method_create_request.to_owned(),
+<<<<<<< HEAD
                 card_data,
                 business_profile,
             ))
             .await
             .change_context(errors::ApiErrorResponse::InternalServerError)
             .attach_printable("Add Card In Locker Failed")?;
+=======
+                None,
+            ))
+            .await?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             if is_network_tokenization_enabled {
                 match &payment_method_data {

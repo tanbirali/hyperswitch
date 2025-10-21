@@ -321,8 +321,11 @@ pub enum ApiErrorResponse {
     },
     #[error(error_type = ErrorType::ObjectNotFound, code = "HE_02", message = "Tokenization record not found for the given token_id {id}")]
     TokenizationRecordNotFound { id: String },
+<<<<<<< HEAD
     #[error(error_type = ErrorType::ConnectorError, code = "CE_00", message = "Subscription operation: {operation} failed with connector")]
     SubscriptionError { operation: String },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Clone)]
@@ -712,9 +715,12 @@ impl ErrorSwitch<api_models::errors::types::ApiErrorResponse> for ApiErrorRespon
             Self::TokenizationRecordNotFound{ id } => {
                 AER::NotFound(ApiError::new("HE", 2, format!("Tokenization record not found for the given token_id '{id}' "), None))
             }
+<<<<<<< HEAD
             Self::SubscriptionError { operation } => {
                 AER::BadRequest(ApiError::new("CE", 9, format!("Subscription operation: {operation} failed with connector"), None))
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

@@ -285,8 +285,11 @@ pub enum StripeErrorCode {
     PlatformUnauthorizedRequest,
     #[error(error_type = StripeErrorType::HyperswitchError, code = "", message = "Profile Acquirer not found")]
     ProfileAcquirerNotFound,
+<<<<<<< HEAD
     #[error(error_type = StripeErrorType::HyperswitchError, code = "Subscription Error", message = "Subscription operation: {operation} failed with connector")]
     SubscriptionError { operation: String },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // [#216]: https://github.com/juspay/hyperswitch/issues/216
     // Implement the remaining stripe error codes
 
@@ -699,9 +702,12 @@ impl From<errors::ApiErrorResponse> for StripeErrorCode {
                 object: "tokenization record".to_owned(),
                 id,
             },
+<<<<<<< HEAD
             errors::ApiErrorResponse::SubscriptionError { operation } => {
                 Self::SubscriptionError { operation }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -786,8 +792,12 @@ impl actix_web::ResponseError for StripeErrorCode {
             | Self::WebhookProcessingError
             | Self::InvalidTenant
             | Self::ExternalVaultFailed
+<<<<<<< HEAD
             | Self::AmountConversionFailed { .. }
             | Self::SubscriptionError { .. } => StatusCode::INTERNAL_SERVER_ERROR,
+=======
+            | Self::AmountConversionFailed { .. } => StatusCode::INTERNAL_SERVER_ERROR,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self::ReturnUrlUnavailable => StatusCode::SERVICE_UNAVAILABLE,
             Self::ExternalConnectorError { status_code, .. } => {
                 StatusCode::from_u16(*status_code).unwrap_or(StatusCode::INTERNAL_SERVER_ERROR)
@@ -861,9 +871,12 @@ impl ErrorSwitch<StripeErrorCode> for CustomersErrorResponse {
         match self {
             Self::CustomerRedacted => SC::CustomerRedacted,
             Self::InternalServerError => SC::InternalServerError,
+<<<<<<< HEAD
             Self::InvalidRequestData { message } => SC::InvalidRequestData {
                 message: message.clone(),
             },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self::MandateActive => SC::MandateActive,
             Self::CustomerNotFound => SC::CustomerNotFound,
             Self::CustomerAlreadyExists => SC::DuplicateCustomer,

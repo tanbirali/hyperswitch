@@ -1,8 +1,13 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::sync::LazyLock;
 
 use api_models::webhooks::{IncomingWebhookEvent, ObjectReferenceId};
 use common_enums::enums;
+=======
+
+use api_models::webhooks::{IncomingWebhookEvent, ObjectReferenceId};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{
     errors::CustomResult,
     ext_traits::BytesExt,
@@ -21,10 +26,14 @@ use hyperswitch_domain_models::{
         PaymentsCancelData, PaymentsCaptureData, PaymentsPostProcessingData, PaymentsSessionData,
         PaymentsSyncData, RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
         SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{PaymentsAuthorizeRouterData, PaymentsSyncRouterData},
 };
 use hyperswitch_interfaces::{
@@ -448,6 +457,7 @@ impl IncomingWebhook for Plaid {
     }
 }
 
+<<<<<<< HEAD
 static PLAID_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -492,3 +502,6 @@ impl ConnectorSpecifications for Plaid {
         Some(&PLAID_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Plaid {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

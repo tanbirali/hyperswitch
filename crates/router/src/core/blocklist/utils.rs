@@ -290,16 +290,28 @@ async fn delete_card_bin_blocklist_entry(
         })
 }
 
+<<<<<<< HEAD
 pub async fn should_payment_be_blocked(
     state: &SessionState,
     merchant_context: &domain::MerchantContext,
     payment_method_data: &Option<domain::PaymentMethodData>,
 ) -> CustomResult<bool, errors::ApiErrorResponse> {
+=======
+pub async fn validate_data_for_blocklist<F>(
+    state: &SessionState,
+    merchant_context: &domain::MerchantContext,
+    payment_data: &mut PaymentData<F>,
+) -> CustomResult<bool, errors::ApiErrorResponse>
+where
+    F: Send + Clone,
+{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let db = &state.store;
     let merchant_id = merchant_context.get_merchant_account().get_id();
     let merchant_fingerprint_secret = get_merchant_fingerprint_secret(state, merchant_id).await?;
 
     // Hashed Fingerprint to check whether or not this payment should be blocked.
+<<<<<<< HEAD
     let card_number_fingerprint =
         if let Some(domain::PaymentMethodData::Card(card)) = payment_method_data {
             generate_fingerprint(
@@ -324,6 +336,34 @@ pub async fn should_payment_be_blocked(
 
     // Hashed Cardbin to check whether or not this payment should be blocked.
     let card_bin_fingerprint = payment_method_data
+=======
+    let card_number_fingerprint = if let Some(domain::PaymentMethodData::Card(card)) =
+        payment_data.payment_method_data.as_ref()
+    {
+        generate_fingerprint(
+            state,
+            StrongSecret::new(card.card_number.get_card_no()),
+            StrongSecret::new(merchant_fingerprint_secret.clone()),
+            api_models::enums::LockerChoice::HyperswitchCardVault,
+        )
+        .await
+        .attach_printable("error in pm fingerprint creation")
+        .map_or_else(
+            |error| {
+                logger::error!(?error);
+                None
+            },
+            Some,
+        )
+        .map(|payload| payload.card_fingerprint)
+    } else {
+        None
+    };
+
+    // Hashed Cardbin to check whether or not this payment should be blocked.
+    let card_bin_fingerprint = payment_data
+        .payment_method_data
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         .as_ref()
         .and_then(|pm_data| match pm_data {
             domain::PaymentMethodData::Card(card) => Some(card.card_number.get_card_isin()),
@@ -332,7 +372,12 @@ pub async fn should_payment_be_blocked(
 
     // Hashed Extended Cardbin to check whether or not this payment should be blocked.
     let extended_card_bin_fingerprint =
+<<<<<<< HEAD
         payment_method_data
+=======
+        payment_data
+            .payment_method_data
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .as_ref()
             .and_then(|pm_data| match pm_data {
                 domain::PaymentMethodData::Card(card) => {
@@ -379,6 +424,7 @@ pub async fn should_payment_be_blocked(
             }
         }
     }
+<<<<<<< HEAD
     Ok(should_payment_be_blocked)
 }
 
@@ -394,6 +440,8 @@ where
     let should_payment_be_blocked =
         should_payment_be_blocked(state, merchant_context, &payment_data.payment_method_data)
             .await?;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     if should_payment_be_blocked {
         // Update db for attempt and intent status.
         db.update_payment_intent(

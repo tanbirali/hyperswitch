@@ -12,8 +12,12 @@ use crate::{
     connectors::adyen::transformers as adyen,
     types::PayoutsResponseRouterData,
     utils::{
+<<<<<<< HEAD
         self, AddressDetailsData, CardData, PayoutFulfillRequestData, PayoutsData as _,
         RouterData as _,
+=======
+        self, AddressDetailsData, PayoutFulfillRequestData, PayoutsData as _, RouterData as _,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 
@@ -50,7 +54,10 @@ pub struct AdyenTransferRequest {
 pub enum AdyenPayoutMethod {
     Bank,
     Card,
+<<<<<<< HEAD
     PlatformPayment,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -207,7 +214,11 @@ pub enum AdyenTransactionDirection {
     Outgoing,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, strum::Display)]
+=======
+#[derive(Debug, Serialize, Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "lowercase")]
 pub enum AdyenTransferStatus {
     Authorised,
@@ -459,20 +470,32 @@ impl<F> TryFrom<RawPaymentCounterparty<'_, F>>
         let request = &raw_payment.item.router_data.request;
 
         match raw_payment.raw_payout_method_data {
+<<<<<<< HEAD
             payouts::PayoutMethodData::Wallet(_) | payouts::PayoutMethodData::BankRedirect(_) => {
                 Err(ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("Adyenplatform"),
                 ))?
             }
+=======
+            payouts::PayoutMethodData::Wallet(_) => Err(ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Adyenplatform"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payouts::PayoutMethodData::Card(c) => {
                 let card_holder: AdyenAccountHolder =
                     (raw_payment.item.router_data, &c).try_into()?;
 
                 let card_identification =
                     AdyenCardIdentification::Card(AdyenRawCardIdentification {
+<<<<<<< HEAD
                         expiry_year: c.get_expiry_year_4_digit(),
                         card_number: c.card_number,
                         expiry_month: c.expiry_month,
+=======
+                        card_number: c.card_number,
+                        expiry_month: c.expiry_month,
+                        expiry_year: c.expiry_year,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         issue_number: None,
                         start_month: None,
                         start_year: None,
@@ -585,6 +608,7 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, AdyenTransferResponse>> for Payouts
         let response: AdyenTransferResponse = item.response;
         let status = enums::PayoutStatus::from(response.status);
 
+<<<<<<< HEAD
         if matches!(status, enums::PayoutStatus::Failed) {
             return Ok(Self {
                 response: Err(hyperswitch_domain_models::router_data::ErrorResponse {
@@ -606,6 +630,12 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, AdyenTransferResponse>> for Payouts
                 ..item.data
             });
         }
+=======
+        let error_code = match status {
+            enums::PayoutStatus::Ineligible => Some(response.reason),
+            _ => None,
+        };
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(Self {
             response: Ok(types::PayoutsResponseData {
@@ -613,9 +643,14 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, AdyenTransferResponse>> for Payouts
                 connector_payout_id: Some(response.id),
                 payout_eligible: None,
                 should_add_next_step_to_process_tracker: false,
+<<<<<<< HEAD
                 error_code: None,
                 error_message: None,
                 payout_connector_metadata: None,
+=======
+                error_code,
+                error_message: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -626,7 +661,12 @@ impl From<AdyenTransferStatus> for enums::PayoutStatus {
     fn from(adyen_status: AdyenTransferStatus) -> Self {
         match adyen_status {
             AdyenTransferStatus::Authorised => Self::Initiated,
+<<<<<<< HEAD
             AdyenTransferStatus::Error | AdyenTransferStatus::Refused => Self::Failed,
+=======
+            AdyenTransferStatus::Refused => Self::Ineligible,
+            AdyenTransferStatus::Error => Self::Failed,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -665,12 +705,19 @@ impl TryFrom<enums::PayoutType> for AdyenPayoutMethod {
         match payout_type {
             enums::PayoutType::Bank => Ok(Self::Bank),
             enums::PayoutType::Card => Ok(Self::Card),
+<<<<<<< HEAD
             enums::PayoutType::Wallet | enums::PayoutType::BankRedirect => {
                 Err(report!(ConnectorError::NotSupported {
                     message: "Bakredirect or wallet payouts".to_string(),
                     connector: "Adyenplatform",
                 }))
             }
+=======
+            enums::PayoutType::Wallet => Err(report!(ConnectorError::NotSupported {
+                message: "Card or wallet payouts".to_string(),
+                connector: "Adyenplatform",
+            })),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -688,21 +735,34 @@ pub struct AdyenplatformIncomingWebhook {
 pub struct AdyenplatformIncomingWebhookData {
     pub status: AdyenplatformWebhookStatus,
     pub reference: String,
+<<<<<<< HEAD
     pub tracking: Option<AdyenplatformTrackingData>,
+=======
+    pub tracking: Option<AdyenplatformInstantStatus>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub category: Option<AdyenPayoutMethod>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+<<<<<<< HEAD
 pub struct AdyenplatformTrackingData {
     status: TrackingStatus,
+=======
+pub struct AdyenplatformInstantStatus {
+    status: Option<InstantPriorityStatus>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     estimated_arrival_time: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+<<<<<<< HEAD
 pub enum TrackingStatus {
     Accepted,
+=======
+pub enum InstantPriorityStatus {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Pending,
     Credited,
 }
@@ -725,6 +785,7 @@ pub enum AdyenplatformWebhookStatus {
     Returned,
     Received,
 }
+<<<<<<< HEAD
 pub fn get_adyen_payout_webhook_event(
     event_type: AdyenplatformWebhookEventType,
     status: AdyenplatformWebhookStatus,
@@ -740,15 +801,42 @@ pub fn get_adyen_payout_webhook_event(
                     webhooks::IncomingWebhookEvent::PayoutSuccess
                 }
                 TrackingStatus::Pending => webhooks::IncomingWebhookEvent::PayoutProcessing,
+=======
+pub fn get_adyen_webhook_event(
+    event_type: AdyenplatformWebhookEventType,
+    status: AdyenplatformWebhookStatus,
+    instant_status: Option<AdyenplatformInstantStatus>,
+    category: Option<&AdyenPayoutMethod>,
+) -> webhooks::IncomingWebhookEvent {
+    match (event_type, status, instant_status) {
+        (AdyenplatformWebhookEventType::PayoutCreated, _, _) => {
+            webhooks::IncomingWebhookEvent::PayoutCreated
+        }
+        (AdyenplatformWebhookEventType::PayoutUpdated, _, Some(instant_status)) => {
+            match (instant_status.status, instant_status.estimated_arrival_time) {
+                (Some(InstantPriorityStatus::Credited), _) | (None, Some(_)) => {
+                    webhooks::IncomingWebhookEvent::PayoutSuccess
+                }
+                _ => webhooks::IncomingWebhookEvent::PayoutProcessing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
         }
         (AdyenplatformWebhookEventType::PayoutUpdated, status, _) => match status {
             AdyenplatformWebhookStatus::Authorised | AdyenplatformWebhookStatus::Received => {
                 webhooks::IncomingWebhookEvent::PayoutCreated
             }
+<<<<<<< HEAD
             AdyenplatformWebhookStatus::Booked | AdyenplatformWebhookStatus::Pending => {
                 webhooks::IncomingWebhookEvent::PayoutProcessing
             }
+=======
+            AdyenplatformWebhookStatus::Booked => match category {
+                Some(AdyenPayoutMethod::Card) => webhooks::IncomingWebhookEvent::PayoutSuccess,
+                Some(AdyenPayoutMethod::Bank) => webhooks::IncomingWebhookEvent::PayoutProcessing,
+                None => webhooks::IncomingWebhookEvent::PayoutProcessing,
+            },
+            AdyenplatformWebhookStatus::Pending => webhooks::IncomingWebhookEvent::PayoutProcessing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             AdyenplatformWebhookStatus::Failed => webhooks::IncomingWebhookEvent::PayoutFailure,
             AdyenplatformWebhookStatus::Returned => webhooks::IncomingWebhookEvent::PayoutReversed,
         },

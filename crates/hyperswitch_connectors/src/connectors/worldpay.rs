@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 mod payout_requests;
 #[cfg(feature = "payouts")]
 mod payout_response;
 #[cfg(feature = "payouts")]
 pub mod payout_transformers;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 mod requests;
 mod response;
 pub mod transformers;
@@ -44,11 +47,14 @@ use hyperswitch_domain_models::{
         RefundSyncRouterData, RefundsRouterData, SetupMandateRouterData,
     },
 };
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 use hyperswitch_domain_models::{
     router_flow_types::payouts::PoFulfill, router_request_types::PayoutsData,
     router_response_types::PayoutsResponseData, types::PayoutsRouterData,
 };
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use hyperswitch_interfaces::{
     api::{
         self, ConnectorCommon, ConnectorCommonExt, ConnectorIntegration, ConnectorRedirectResponse,
@@ -61,10 +67,13 @@ use hyperswitch_interfaces::{
     webhooks::{IncomingWebhook, IncomingWebhookRequestDetails},
 };
 use masking::Mask;
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 use payout_requests::WorldpayPayoutRequest;
 #[cfg(feature = "payouts")]
 use payout_response::WorldpayPayoutResponse;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use requests::{
     WorldpayCompleteAuthorizationRequest, WorldpayPartialRequest, WorldpayPaymentsRequest,
 };
@@ -75,8 +84,11 @@ use response::{
 };
 use ring::hmac;
 
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 use self::payout_transformers as worldpay_payout;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use self::transformers as worldpay;
 use crate::{
     constants::headers,
@@ -87,9 +99,12 @@ use crate::{
     },
 };
 
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 const WORLDPAY_PAYOUT_CONTENT_TYPE: &str = "application/vnd.worldpay.payouts-v4+json";
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Clone)]
 pub struct Worldpay {
     amount_converter: &'static (dyn AmountConvertor<Output = MinorUnit> + Sync),
@@ -1107,6 +1122,7 @@ impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Worldpay 
     }
 }
 
+<<<<<<< HEAD
 impl api::Payouts for Worldpay {}
 #[cfg(feature = "payouts")]
 impl api::PayoutFulfill for Worldpay {}
@@ -1225,6 +1241,8 @@ impl ConnectorIntegration<PoFulfill, PayoutsData, PayoutsResponseData> for World
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[async_trait::async_trait]
 impl IncomingWebhook for Worldpay {
     fn get_webhook_source_verification_algorithm(

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use std::collections::HashMap;
 
 use api_models::payments::{QrCodeInformation, VoucherNextStepData};
@@ -8,10 +9,20 @@ use common_utils::{
     id_type,
     request::Method,
     types::{AmountConvertor, FloatMajorUnit, StringMajorUnit, StringMajorUnitForConnector},
+=======
+use api_models::payments::QrCodeInformation;
+use chrono::Utc;
+use common_enums::enums;
+use common_utils::{
+    errors::CustomResult,
+    ext_traits::Encode,
+    types::{AmountConvertor, StringMajorUnit, StringMajorUnitForConnector},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use crc::{Algorithm, Crc};
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
+<<<<<<< HEAD
     payment_method_data::{BankTransferData, PaymentMethodData, VoucherData},
     router_data::{AccessToken, ConnectorAuthType, ErrorResponse, RouterData},
     router_request_types::ResponseId,
@@ -26,6 +37,16 @@ use hyperswitch_interfaces::{
     errors,
 };
 use masking::{ExposeInterface, PeekInterface, Secret};
+=======
+    payment_method_data::{BankTransferData, PaymentMethodData},
+    router_data::{AccessToken, ConnectorAuthType, RouterData},
+    router_request_types::ResponseId,
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+    types::{PaymentsAuthorizeRouterData, PaymentsCancelRouterData, RefundsRouterData},
+};
+use hyperswitch_interfaces::errors;
+use masking::{ExposeInterface, Secret};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use time::OffsetDateTime;
@@ -61,16 +82,24 @@ impl<T> From<(StringMajorUnit, T)> for SantanderRouterData<T> {
         }
     }
 }
+<<<<<<< HEAD
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+=======
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct SantanderMetadataObject {
     pub pix_key: Secret<String>,
     pub expiration_time: i32,
     pub cpf: Secret<String>,
     pub merchant_city: String,
     pub merchant_name: String,
+<<<<<<< HEAD
     pub workspace_id: String,
     pub covenant_code: String, // max_size : 9
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&Option<common_utils::pii::SecretSerdeValue>> for SantanderMetadataObject {
@@ -164,12 +193,15 @@ pub struct SantanderCard {
     complete: bool,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SantanderPSyncBoletoRequest {
     payer_document_number: Secret<i64>,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct SantanderAuthType {
     pub(super) _api_key: Secret<String>,
     pub(super) _key1: Secret<String>,
@@ -208,20 +240,35 @@ impl<F, T> TryFrom<ResponseRouterData<F, SantanderAuthUpdateResponse, T, AccessT
 impl TryFrom<&SantanderRouterData<&PaymentsAuthorizeRouterData>> for SantanderPaymentRequest {
     type Error = Error;
     fn try_from(
+<<<<<<< HEAD
         value: &SantanderRouterData<&PaymentsAuthorizeRouterData>,
     ) -> Result<Self, Self::Error> {
         if value.router_data.request.capture_method != Some(enums::CaptureMethod::Automatic) {
             return Err(errors::ConnectorError::FlowNotSupported {
                 flow: format!("{:?}", value.router_data.request.capture_method),
+=======
+        item: &SantanderRouterData<&PaymentsAuthorizeRouterData>,
+    ) -> Result<Self, Self::Error> {
+        if item.router_data.request.capture_method != Some(enums::CaptureMethod::Automatic) {
+            return Err(errors::ConnectorError::FlowNotSupported {
+                flow: format!("{:?}", item.router_data.request.capture_method),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 connector: "Santander".to_string(),
             }
             .into());
         }
+<<<<<<< HEAD
         match value.router_data.request.payment_method_data.clone() {
             PaymentMethodData::BankTransfer(ref bank_transfer_data) => {
                 Self::try_from((value, bank_transfer_data.as_ref()))
             }
             PaymentMethodData::Voucher(ref voucher_data) => Self::try_from((value, voucher_data)),
+=======
+        match item.router_data.request.payment_method_data.clone() {
+            PaymentMethodData::BankTransfer(ref bank_transfer_data) => {
+                Self::try_from((item, bank_transfer_data.as_ref()))
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             _ => Err(errors::ConnectorError::NotImplemented(
                 crate::utils::get_unimplemented_payment_method_error_message("Santander"),
             ))?,
@@ -229,6 +276,7 @@ impl TryFrom<&SantanderRouterData<&PaymentsAuthorizeRouterData>> for SantanderPa
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&SantanderRouterData<&PaymentsSyncRouterData>> for SantanderPSyncBoletoRequest {
     type Error = Error;
     fn try_from(value: &SantanderRouterData<&PaymentsSyncRouterData>) -> Result<Self, Self::Error> {
@@ -369,6 +417,8 @@ impl
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl
     TryFrom<(
         &SantanderRouterData<&PaymentsAuthorizeRouterData>,
@@ -385,6 +435,7 @@ impl
         let santander_mca_metadata =
             SantanderMetadataObject::try_from(&value.0.router_data.connector_meta_data)?;
 
+<<<<<<< HEAD
         let debtor = Some(SantanderDebtor {
             cpf: santander_mca_metadata.cpf.clone(),
             name: value.0.router_data.get_billing_full_name()?,
@@ -396,6 +447,16 @@ impl
                     .date()
                     .format(&time::macros::format_description!("[year]-[month]-[day]"))
                     .change_context(errors::ConnectorError::DateFormattingFailed)?,
+=======
+        let debtor = SantanderDebtor {
+            cpf: santander_mca_metadata.cpf.clone(),
+            name: value.0.router_data.get_billing_full_name()?,
+        };
+
+        Ok(Self {
+            calender: SantanderCalendar {
+                creation: Utc::now().to_rfc3339(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 expiration: santander_mca_metadata.expiration_time,
             },
             debtor,
@@ -405,11 +466,16 @@ impl
             key: santander_mca_metadata.pix_key.clone(),
             request_payer: value.0.router_data.request.statement_descriptor.clone(),
             additional_info: None,
+<<<<<<< HEAD
         })))
+=======
+        })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
 #[derive(Debug, Serialize)]
+<<<<<<< HEAD
 pub enum SantanderPaymentRequest {
     PixQR(Box<SantanderPixQRPaymentRequest>),
     Boleto(Box<SantanderBoletoPaymentRequest>),
@@ -592,6 +658,10 @@ pub struct Key {
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SantanderPixQRCodeRequest {
+=======
+#[serde(rename_all = "camelCase")]
+pub struct SantanderPaymentRequest {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(rename = "calendario")]
     pub calender: SantanderCalendar,
     #[serde(rename = "devedor")]
@@ -661,17 +731,27 @@ pub enum SantanderVoidStatus {
     RemovedByReceivingUser,
 }
 
+<<<<<<< HEAD
 impl From<SantanderPaymentStatus> for AttemptStatus {
+=======
+impl From<SantanderPaymentStatus> for common_enums::AttemptStatus {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn from(item: SantanderPaymentStatus) -> Self {
         match item {
             SantanderPaymentStatus::Active => Self::Authorizing,
             SantanderPaymentStatus::Completed => Self::Charged,
+<<<<<<< HEAD
             SantanderPaymentStatus::RemovedByReceivingUser => Self::Voided,
             SantanderPaymentStatus::RemovedByPSP => Self::Failure,
+=======
+            SantanderPaymentStatus::RemovedByReceivingUser
+            | SantanderPaymentStatus::RemovedByPSP => Self::Failure,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
 
+<<<<<<< HEAD
 impl From<router_env::env::Env> for Environment {
     fn from(item: router_env::env::Env) -> Self {
         match item {
@@ -730,6 +810,10 @@ pub struct SantanderBoletoPaymentsResponse {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SantanderPixQRCodePaymentsResponse {
     pub status: SantanderPaymentStatus,
+=======
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct SantanderPaymentsResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(rename = "calendario")]
     pub calendar: SantanderCalendar,
     #[serde(rename = "txid")]
@@ -739,6 +823,10 @@ pub struct SantanderPixQRCodePaymentsResponse {
     #[serde(rename = "devedor")]
     pub debtor: Option<SantanderDebtor>,
     pub location: Option<String>,
+<<<<<<< HEAD
+=======
+    pub status: SantanderPaymentStatus,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(rename = "valor")]
     pub value: SantanderValue,
     #[serde(rename = "chave")]
@@ -751,7 +839,11 @@ pub struct SantanderPixQRCodePaymentsResponse {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
+<<<<<<< HEAD
 pub struct SantanderPixVoidResponse {
+=======
+pub struct SantanderVoidResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(rename = "calendario")]
     pub calendar: SantanderCalendar,
     #[serde(rename = "txid")]
@@ -780,6 +872,7 @@ pub struct SantanderCalendar {
     pub expiration: i32,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum SantanderPaymentsSyncResponse {
     PixQRCode(Box<SantanderPixPSyncResponse>),
@@ -796,6 +889,29 @@ pub struct SantanderPixPSyncResponse {
     #[serde(flatten)]
     pub base: SantanderPixQRCodePaymentsResponse,
     pub pix: Vec<SantanderPix>,
+=======
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct SantanderPaymentsSyncResponse {
+    pub status: SantanderPaymentStatus,
+    pub pix: Vec<SantanderPix>,
+    #[serde(rename = "calendario")]
+    pub calendar: SantanderCalendar,
+    #[serde(rename = "devedor")]
+    pub debtor: Option<SantanderDebtor>,
+    #[serde(rename = "valor")]
+    pub value: SantanderValue,
+    #[serde(rename = "chave")]
+    pub key: Secret<String>,
+    #[serde(rename = "solicitacaoPagador")]
+    pub request_payer: Option<String>,
+    #[serde(rename = "infoAdicionais")]
+    pub additional_info: Option<Vec<SantanderAdditionalInfo>>,
+    #[serde(rename = "txid")]
+    pub transaction_id: String,
+    #[serde(rename = "revisao")]
+    pub revision: i32,
+    pub location: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -826,6 +942,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, SantanderPaymentsSyncResponse, T, Payme
         item: ResponseRouterData<F, SantanderPaymentsSyncResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
         let response = item.response.clone();
+<<<<<<< HEAD
 
         match response {
             SantanderPaymentsSyncResponse::PixQRCode(pix_data) => {
@@ -909,6 +1026,27 @@ pub fn get_error_response(
         network_decline_code: None,
         network_error_message: None,
         connector_metadata: None,
+=======
+        let connector_metadata = response.pix.first().map(|pix| {
+            serde_json::json!({
+                "end_to_end_id": pix.end_to_end_id.clone().expose()
+            })
+        });
+        Ok(Self {
+            status: common_enums::AttemptStatus::from(item.response.status),
+            response: Ok(PaymentsResponseData::TransactionResponse {
+                resource_id: ResponseId::ConnectorTransactionId(response.transaction_id.clone()),
+                redirection_data: Box::new(None),
+                mandate_reference: Box::new(None),
+                connector_metadata,
+                network_txn_id: None,
+                connector_response_reference_id: None,
+                incremental_authorization_allowed: None,
+                charges: None,
+            }),
+            ..item.data
+        })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -920,6 +1058,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, SantanderPaymentsResponse, T, PaymentsR
         item: ResponseRouterData<F, SantanderPaymentsResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
         let response = item.response.clone();
+<<<<<<< HEAD
 
         match response {
             SantanderPaymentsResponse::PixQRCode(pix_data) => {
@@ -1017,15 +1156,43 @@ impl<F, T> TryFrom<ResponseRouterData<F, SantanderPaymentsResponse, T, PaymentsR
 }
 
 impl<F, T> TryFrom<ResponseRouterData<F, SantanderPixVoidResponse, T, PaymentsResponseData>>
+=======
+        Ok(Self {
+            status: common_enums::AttemptStatus::from(item.response.status.clone()),
+            response: Ok(PaymentsResponseData::TransactionResponse {
+                resource_id: ResponseId::ConnectorTransactionId(response.transaction_id.clone()),
+                redirection_data: Box::new(None),
+                mandate_reference: Box::new(None),
+                connector_metadata: get_qr_code_data(&item)?,
+                network_txn_id: None,
+                connector_response_reference_id: None,
+                incremental_authorization_allowed: None,
+                charges: None,
+            }),
+            ..item.data
+        })
+    }
+}
+
+impl<F, T> TryFrom<ResponseRouterData<F, SantanderVoidResponse, T, PaymentsResponseData>>
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     for RouterData<F, T, PaymentsResponseData>
 {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
+<<<<<<< HEAD
         item: ResponseRouterData<F, SantanderPixVoidResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
         let response = item.response.clone();
         Ok(Self {
             status: AttemptStatus::from(item.response.status),
+=======
+        item: ResponseRouterData<F, SantanderVoidResponse, T, PaymentsResponseData>,
+    ) -> Result<Self, Self::Error> {
+        let response = item.response.clone();
+        Ok(Self {
+            status: common_enums::AttemptStatus::from(item.response.status),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             response: Ok(PaymentsResponseData::TransactionResponse {
                 resource_id: ResponseId::ConnectorTransactionId(response.transaction_id.clone()),
                 redirection_data: Box::new(None),
@@ -1052,12 +1219,20 @@ impl TryFrom<&PaymentsCancelRouterData> for SantanderPaymentsCancelRequest {
 
 fn get_qr_code_data<F, T>(
     item: &ResponseRouterData<F, SantanderPaymentsResponse, T, PaymentsResponseData>,
+<<<<<<< HEAD
     pix_data: &SantanderPixQRCodePaymentsResponse,
 ) -> CustomResult<Option<Value>, errors::ConnectorError> {
     let santander_mca_metadata = SantanderMetadataObject::try_from(&item.data.connector_meta_data)?;
 
     let response = pix_data.clone();
     let expiration_time = response.calendar.expiration;
+=======
+) -> CustomResult<Option<Value>, errors::ConnectorError> {
+    let santander_mca_metadata = SantanderMetadataObject::try_from(&item.data.connector_meta_data)?;
+
+    let response = item.response.clone();
+    let expiration_time = item.response.calendar.expiration;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let expiration_i64 = i64::from(expiration_time);
 
@@ -1187,6 +1362,7 @@ impl<F> TryFrom<RefundsResponseRouterData<F, SantanderRefundResponse>> for Refun
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+<<<<<<< HEAD
 pub enum SantanderErrorResponse {
     PixQrCode(SantanderPixQRCodeErrorResponse),
     Boleto(SantanderBoletoErrorResponse),
@@ -1228,6 +1404,10 @@ pub struct ErrorObject {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SantanderPixQRCodeErrorResponse {
+=======
+#[serde(rename_all = "camelCase")]
+pub struct SantanderErrorResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(rename = "type")]
     pub field_type: Secret<String>,
     pub title: String,
@@ -1247,6 +1427,7 @@ pub struct SantanderViolations {
     #[serde(rename = "valor")]
     pub value: Option<String>,
 }
+<<<<<<< HEAD
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -1363,3 +1544,5 @@ pub(crate) fn get_santander_webhook_event(
         FunctionType::Estorno => api_models::webhooks::IncomingWebhookEvent::RefundSuccess,
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

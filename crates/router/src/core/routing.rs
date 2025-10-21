@@ -896,6 +896,7 @@ pub async fn link_routing_config(
             }
         }
     }
+<<<<<<< HEAD
 
     // redact cgraph cache on rule activation
     helpers::redact_cgraph_cache(
@@ -913,6 +914,8 @@ pub async fn link_routing_config(
     )
     .await?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     metrics::ROUTING_LINK_CONFIG_SUCCESS_RESPONSE.add(1, &[]);
     Ok(service_api::ApplicationResponse::Json(
         routing_algorithm.foreign_into(),
@@ -1126,12 +1129,17 @@ pub async fn unlink_routing_config(
                         db,
                         key_manager_state,
                         merchant_context.get_merchant_key_store(),
+<<<<<<< HEAD
                         business_profile.clone(),
+=======
+                        business_profile,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         routing_algorithm,
                         &transaction_type,
                     )
                     .await?;
 
+<<<<<<< HEAD
                     // redact cgraph cache on rule activation
                     helpers::redact_cgraph_cache(
                         &state,
@@ -1148,6 +1156,8 @@ pub async fn unlink_routing_config(
                     )
                     .await?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     metrics::ROUTING_UNLINK_CONFIG_SUCCESS_RESPONSE.add(1, &[]);
                     Ok(service_api::ApplicationResponse::Json(response))
                 }

@@ -168,8 +168,12 @@ api_key="API Key"
 
 [boku]
 api_key="API Key"
+<<<<<<< HEAD
 key1 = "transaction key"
 
 [peachpayments]
 api_key="API Key"
 key1="Tenant ID"
+=======
+key1 = "transaction key"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

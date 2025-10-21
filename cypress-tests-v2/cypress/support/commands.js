@@ -27,10 +27,14 @@
 //  cy.task can only be used in support files (spec files or commands file)
 
 import { nanoid } from "nanoid";
+<<<<<<< HEAD
 import {
   defaultErrorHandler,
   getValueByKey,
 } from "../e2e/configs/Payment/Utils.js";
+=======
+import { getValueByKey } from "../e2e/configs/Payment/Utils.js";
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 import { isoTimeTomorrow, validateEnv } from "../utils/RequestBodyUtils.js";
 
 function logRequestId(xRequestId) {
@@ -58,7 +62,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       body: organizationCreateBody,
       failOnStatusCode: false,
@@ -94,7 +102,11 @@ Cypress.Commands.add("organizationRetrieveCall", (globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     failOnStatusCode: false,
   }).then((response) => {
@@ -138,7 +150,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       body: organizationUpdateBody,
       failOnStatusCode: false,
@@ -188,7 +204,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         "X-Organization-Id": organization_id,
       },
       body: merchantAccountCreateBody,
@@ -233,7 +253,11 @@ Cypress.Commands.add("merchantAccountRetrieveCall", (globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     failOnStatusCode: false,
   }).then((response) => {
@@ -277,7 +301,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       body: merchantAccountUpdateBody,
       failOnStatusCode: false,
@@ -327,7 +355,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         "x-merchant-id": merchant_id,
         ...customHeaders,
       },
@@ -372,7 +404,11 @@ Cypress.Commands.add("businessProfileRetrieveCall", (globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       ...customHeaders,
     },
     failOnStatusCode: false,
@@ -414,7 +450,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ...customHeaders,
       },
       body: businessProfileUpdateBody,
@@ -506,7 +546,11 @@ Cypress.Commands.add(
           url: url,
           headers: {
             "Content-Type": "application/json",
+<<<<<<< HEAD
             Authorization: `admin-api-key=${api_key}`,
+=======
+            "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ...customHeaders,
           },
           body: mcaCreateBody,
@@ -554,7 +598,11 @@ Cypress.Commands.add("mcaRetrieveCall", (globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       ...customHeaders,
     },
     failOnStatusCode: false,
@@ -614,7 +662,11 @@ Cypress.Commands.add(
       url: url,
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `admin-api-key=${api_key}`,
+=======
+        "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ...customHeaders,
       },
       body: mcaUpdateBody,
@@ -674,7 +726,11 @@ Cypress.Commands.add("apiKeyCreateCall", (apiKeyCreateBody, globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       ...customHeaders,
     },
     body: apiKeyCreateBody,
@@ -721,7 +777,11 @@ Cypress.Commands.add("apiKeyRetrieveCall", (globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       ...customHeaders,
     },
     failOnStatusCode: false,
@@ -771,7 +831,11 @@ Cypress.Commands.add("apiKeyUpdateCall", (apiKeyUpdateBody, globalState) => {
     url: url,
     headers: {
       "Content-Type": "application/json",
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       ...customHeaders,
     },
     body: apiKeyUpdateBody,
@@ -1179,7 +1243,11 @@ Cypress.Commands.add("merchantAccountsListCall", (globalState) => {
     method: "GET",
     url: url,
     headers: {
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Content-Type": "application/json",
     },
     failOnStatusCode: false,
@@ -1221,7 +1289,11 @@ Cypress.Commands.add("businessProfilesListCall", (globalState) => {
     method: "GET",
     url: url,
     headers: {
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Content-Type": "application/json",
       ...customHeaders,
     },
@@ -1264,7 +1336,11 @@ Cypress.Commands.add("mcaListCall", (globalState, service_type) => {
     method: "GET",
     url: url,
     headers: {
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Content-Type": "application/json",
       ...customHeaders,
     },
@@ -1326,7 +1402,11 @@ Cypress.Commands.add("apiKeysListCall", (globalState) => {
     method: "GET",
     url: url,
     headers: {
+<<<<<<< HEAD
       Authorization: `admin-api-key=${api_key}`,
+=======
+      "Authorization": `admin-api-key=${api_key}`,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Content-Type": "application/json",
       ...customHeaders,
     },
@@ -1357,6 +1437,7 @@ Cypress.Commands.add("apiKeysListCall", (globalState) => {
 // Payment API calls
 // Update the below commands while following the conventions
 // Below is an example of how the payment intent create call should look like (update the below command as per the need)
+<<<<<<< HEAD
 
 Cypress.Commands.add(
   "paymentVoidCall",
@@ -1407,14 +1488,21 @@ Cypress.Commands.add(
     });
   }
 );
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 Cypress.Commands.add(
   "paymentIntentCreateCall",
   (
     globalState,
     paymentRequestBody,
+<<<<<<< HEAD
     paymentResponseBody,
     authentication_type,
     capture_method
+=======
+    paymentResponseBody
+    /* Add more variables based on the need*/
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   ) => {
     // Define the necessary variables and constants at the top
     // Also construct the URL here
@@ -1423,9 +1511,14 @@ Cypress.Commands.add(
     const profile_id = globalState.get("profileId");
     const url = `${base_url}/v2/payments/create-intent`;
 
+<<<<<<< HEAD
     // Set capture_method and authentication_type as parameters (like V1)
     paymentRequestBody.authentication_type = authentication_type;
     paymentRequestBody.capture_method = capture_method;
+=======
+    // Update request body if needed
+    paymentRequestBody = {};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     // Pass Custom Headers
     const customHeaders = {
@@ -1436,7 +1529,11 @@ Cypress.Commands.add(
       method: "POST",
       url: url,
       headers: {
+<<<<<<< HEAD
         Authorization: `api-key=${api_key}`,
+=======
+        "api-key": api_key,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         "Content-Type": "application/json",
         ...customHeaders,
       },
@@ -1446,6 +1543,7 @@ Cypress.Commands.add(
       // Logging x-request-id is mandatory
       logRequestId(response.headers["x-request-id"]);
 
+<<<<<<< HEAD
       cy.wrap(response).then(() => {
         expect(response.headers["content-type"]).to.include("application/json");
         if (response.status === 200) {
@@ -1556,3 +1654,30 @@ Cypress.Commands.add(
     });
   }
 );
+=======
+      if (response.status === 200) {
+        // Update the assertions based on the need
+        expect(response.body).to.deep.equal(paymentResponseBody);
+      } else if (response.status === 400) {
+        // Add 4xx validations here
+        expect(response.body).to.deep.equal(paymentResponseBody);
+      } else if (response.status === 500) {
+        // Add 5xx validations here
+        expect(response.body).to.deep.equal(paymentResponseBody);
+      } else {
+        // If status code is other than the ones mentioned above, default should be thrown
+        throw new Error(
+          `Payment intent create call failed with status ${response.status} and message: "${response.body.error.message}"`
+        );
+      }
+    });
+  }
+);
+Cypress.Commands.add("paymentIntentConfirmCall", (globalState) => {});
+Cypress.Commands.add("paymentIntentRetrieveCall", (globalState) => {});
+
+// templates for future use
+Cypress.Commands.add("", () => {
+  cy.request({}).then((response) => {});
+});
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

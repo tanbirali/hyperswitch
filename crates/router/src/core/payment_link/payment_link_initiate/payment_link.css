@@ -635,10 +635,13 @@ body {
   text-align: center;
 }
 
+<<<<<<< HEAD
 #payment-form::-webkit-scrollbar {
   display: none;
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #submit {
   cursor: pointer;
   margin-top: 20px;

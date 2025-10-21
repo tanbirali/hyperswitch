@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use std::str::FromStr;
 
 use async_trait::async_trait;
@@ -11,6 +12,15 @@ use hyperswitch_domain_models::payments::PaymentConfirmData;
 use hyperswitch_domain_models::{
     errors::api_error_response::ApiErrorResponse, payments as domain_payments,
 };
+=======
+use async_trait::async_trait;
+use common_enums as enums;
+use common_types::payments as common_payments_types;
+use error_stack::ResultExt;
+use hyperswitch_domain_models::errors::api_error_response::ApiErrorResponse;
+#[cfg(feature = "v2")]
+use hyperswitch_domain_models::payments::PaymentConfirmData;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::{ExposeInterface, Secret};
 use unified_connector_service_client::payments as payments_grpc;
 
@@ -26,7 +36,11 @@ use crate::{
         unified_connector_service::{
             build_unified_connector_service_auth_metadata,
             handle_unified_connector_service_response_for_payment_authorize,
+<<<<<<< HEAD
             handle_unified_connector_service_response_for_payment_repeat, ucs_logging_wrapper,
+=======
+            handle_unified_connector_service_response_for_payment_repeat,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
     },
     logger,
@@ -56,7 +70,11 @@ impl
         customer: &Option<domain::Customer>,
         merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<
         types::RouterData<
             api::Authorize,
@@ -121,9 +139,13 @@ impl
         customer: &Option<domain::Customer>,
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
         _payment_method: Option<common_enums::PaymentMethod>,
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<
         types::RouterData<
             api::Authorize,
@@ -143,8 +165,11 @@ impl
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+<<<<<<< HEAD
             None,
             None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ))
         .await
     }
@@ -190,7 +215,11 @@ impl Feature<api::Authorize, types::PaymentsAuthorizeData> for types::PaymentsAu
         call_connector_action: payments::CallConnectorAction,
         connector_request: Option<services::Request>,
         business_profile: &domain::Profile,
+<<<<<<< HEAD
         header_payload: domain_payments::HeaderPayload,
+=======
+        header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return_raw_connector_response: Option<bool>,
     ) -> RouterResult<Self> {
         let connector_integration: services::BoxedPaymentConnectorIntegrationInterface<
@@ -527,12 +556,16 @@ impl Feature<api::Authorize, types::PaymentsAuthorizeData> for types::PaymentsAu
     async fn call_unified_connector_service<'a>(
         &mut self,
         state: &SessionState,
+<<<<<<< HEAD
         header_payload: &domain_payments::HeaderPayload,
         lineage_ids: grpc_client::LineageIds,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
         #[cfg(feature = "v2")]
         merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
         merchant_context: &domain::MerchantContext,
+<<<<<<< HEAD
         unified_connector_service_execution_mode: enums::ExecutionMode,
     ) -> RouterResult<()> {
         if self.request.mandate_id.is_some() {
@@ -556,6 +589,24 @@ impl Feature<api::Authorize, types::PaymentsAuthorizeData> for types::PaymentsAu
                 merchant_context,
                 unified_connector_service_execution_mode,
             ))
+=======
+    ) -> RouterResult<()> {
+        if self.request.mandate_id.is_some() {
+            call_unified_connector_service_repeat_payment(
+                self,
+                state,
+                merchant_connector_account,
+                merchant_context,
+            )
+            .await
+        } else {
+            call_unified_connector_service_authorize(
+                self,
+                state,
+                merchant_connector_account,
+                merchant_context,
+            )
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .await
         }
     }
@@ -815,7 +866,11 @@ async fn process_capture_flow(
     connector: &api::ConnectorData,
     call_connector_action: payments::CallConnectorAction,
     business_profile: &domain::Profile,
+<<<<<<< HEAD
     header_payload: domain_payments::HeaderPayload,
+=======
+    header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<
     types::RouterData<api::Authorize, types::PaymentsAuthorizeData, types::PaymentsResponseData>,
 > {
@@ -852,12 +907,18 @@ async fn call_unified_connector_service_authorize(
         types::PaymentsResponseData,
     >,
     state: &SessionState,
+<<<<<<< HEAD
     header_payload: &domain_payments::HeaderPayload,
     lineage_ids: grpc_client::LineageIds,
     #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
     #[cfg(feature = "v2")] merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
     merchant_context: &domain::MerchantContext,
     unified_connector_service_execution_mode: enums::ExecutionMode,
+=======
+    #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
+    #[cfg(feature = "v2")] merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
+    merchant_context: &domain::MerchantContext,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<()> {
     let client = state
         .grpc_client
@@ -875,6 +936,7 @@ async fn call_unified_connector_service_authorize(
         build_unified_connector_service_auth_metadata(merchant_connector_account, merchant_context)
             .change_context(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to construct request metadata")?;
+<<<<<<< HEAD
     let merchant_order_reference_id = header_payload
         .x_reference_id
         .clone()
@@ -932,6 +994,35 @@ async fn call_unified_connector_service_authorize(
 
     // Copy back the updated data
     *router_data = updated_router_data;
+=======
+
+    let response = client
+        .payment_authorize(
+            payment_authorize_request,
+            connector_auth_metadata,
+            state.get_grpc_headers(),
+        )
+        .await
+        .change_context(ApiErrorResponse::InternalServerError)
+        .attach_printable("Failed to authorize payment")?;
+
+    let payment_authorize_response = response.into_inner();
+
+    let (status, router_data_response, status_code) =
+        handle_unified_connector_service_response_for_payment_authorize(
+            payment_authorize_response.clone(),
+        )
+        .change_context(ApiErrorResponse::InternalServerError)
+        .attach_printable("Failed to deserialize UCS response")?;
+
+    router_data.status = status;
+    router_data.response = router_data_response;
+    router_data.raw_connector_response = payment_authorize_response
+        .raw_connector_response
+        .map(Secret::new);
+    router_data.connector_http_status_code = Some(status_code);
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Ok(())
 }
 
@@ -942,12 +1033,18 @@ async fn call_unified_connector_service_repeat_payment(
         types::PaymentsResponseData,
     >,
     state: &SessionState,
+<<<<<<< HEAD
     header_payload: &domain_payments::HeaderPayload,
     lineage_ids: grpc_client::LineageIds,
     #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
     #[cfg(feature = "v2")] merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
     merchant_context: &domain::MerchantContext,
     unified_connector_service_execution_mode: enums::ExecutionMode,
+=======
+    #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
+    #[cfg(feature = "v2")] merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
+    merchant_context: &domain::MerchantContext,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<()> {
     let client = state
         .grpc_client
@@ -957,14 +1054,21 @@ async fn call_unified_connector_service_repeat_payment(
         .attach_printable("Failed to fetch Unified Connector Service client")?;
 
     let payment_repeat_request =
+<<<<<<< HEAD
         payments_grpc::PaymentServiceRepeatEverythingRequest::foreign_try_from(&*router_data)
             .change_context(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to construct Payment Repeat Request")?;
+=======
+        payments_grpc::PaymentServiceRepeatEverythingRequest::foreign_try_from(router_data)
+            .change_context(ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed to construct Payment Authorize Request")?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let connector_auth_metadata =
         build_unified_connector_service_auth_metadata(merchant_connector_account, merchant_context)
             .change_context(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to construct request metadata")?;
+<<<<<<< HEAD
     let merchant_order_reference_id = header_payload
         .x_reference_id
         .clone()
@@ -1022,5 +1126,34 @@ async fn call_unified_connector_service_repeat_payment(
 
     // Copy back the updated data
     *router_data = updated_router_data;
+=======
+
+    let response = client
+        .payment_repeat(
+            payment_repeat_request,
+            connector_auth_metadata,
+            state.get_grpc_headers(),
+        )
+        .await
+        .change_context(ApiErrorResponse::InternalServerError)
+        .attach_printable("Failed to authorize payment")?;
+
+    let payment_repeat_response = response.into_inner();
+
+    let (status, router_data_response, status_code) =
+        handle_unified_connector_service_response_for_payment_repeat(
+            payment_repeat_response.clone(),
+        )
+        .change_context(ApiErrorResponse::InternalServerError)
+        .attach_printable("Failed to deserialize UCS response")?;
+
+    router_data.status = status;
+    router_data.response = router_data_response;
+    router_data.raw_connector_response = payment_repeat_response
+        .raw_connector_response
+        .map(Secret::new);
+    router_data.connector_http_status_code = Some(status_code);
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Ok(())
 }

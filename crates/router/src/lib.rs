@@ -67,7 +67,10 @@ pub mod headers {
     pub const X_API_VERSION: &str = "X-ApiVersion";
     pub const X_FORWARDED_FOR: &str = "X-Forwarded-For";
     pub const X_MERCHANT_ID: &str = "X-Merchant-Id";
+<<<<<<< HEAD
     pub const X_INTERNAL_API_KEY: &str = "X-Internal-Api-Key";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub const X_ORGANIZATION_ID: &str = "X-Organization-Id";
     pub const X_LOGIN: &str = "X-Login";
     pub const X_TRANS_KEY: &str = "X-Trans-Key";
@@ -99,8 +102,11 @@ pub mod headers {
     pub const X_CONNECTOR_HTTP_STATUS_CODE: &str = "connector_http_status_code";
     #[cfg(feature = "v2")]
     pub const X_CONNECTOR_HTTP_STATUS_CODE: &str = "x-connector-http-status-code";
+<<<<<<< HEAD
 
     pub const X_REFERENCE_ID: &str = "X-Reference-Id";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub mod pii {
@@ -212,7 +218,10 @@ pub fn mk_app(
                 .service(routes::Files::server(state.clone()))
                 .service(routes::Disputes::server(state.clone()))
                 .service(routes::Blocklist::server(state.clone()))
+<<<<<<< HEAD
                 .service(routes::Subscription::server(state.clone()))
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .service(routes::Gsm::server(state.clone()))
                 .service(routes::ApplePayCertificatesMigration::server(state.clone()))
                 .service(routes::PaymentLink::server(state.clone()))
@@ -228,8 +237,12 @@ pub fn mk_app(
                 .service(routes::UserDeprecated::server(state.clone()))
                 .service(routes::ProcessTrackerDeprecated::server(state.clone()))
                 .service(routes::ProcessTracker::server(state.clone()))
+<<<<<<< HEAD
                 .service(routes::Gsm::server(state.clone()))
                 .service(routes::RecoveryDataBackfill::server(state.clone()));
+=======
+                .service(routes::Gsm::server(state.clone()));
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 

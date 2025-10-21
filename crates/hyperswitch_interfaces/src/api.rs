@@ -22,8 +22,11 @@ pub mod refunds;
 pub mod refunds_v2;
 pub mod revenue_recovery;
 pub mod revenue_recovery_v2;
+<<<<<<< HEAD
 pub mod subscriptions;
 pub mod subscriptions_v2;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod vault;
 pub mod vault_v2;
 
@@ -81,8 +84,13 @@ pub use self::payouts::*;
 pub use self::payouts_v2::*;
 pub use self::{payments::*, refunds::*, vault::*, vault_v2::*};
 use crate::{
+<<<<<<< HEAD
     api::subscriptions::Subscriptions, connector_integration_v2::ConnectorIntegrationV2, consts,
     errors, events::connector_api_logs::ConnectorEvent, metrics, types, webhooks,
+=======
+    connector_integration_v2::ConnectorIntegrationV2, consts, errors,
+    events::connector_api_logs::ConnectorEvent, metrics, types, webhooks,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 /// Connector trait
@@ -106,7 +114,10 @@ pub trait Connector:
     + UnifiedAuthenticationService
     + revenue_recovery::RevenueRecovery
     + ExternalVault
+<<<<<<< HEAD
     + Subscriptions
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
 }
 
@@ -129,8 +140,12 @@ impl<
             + TaxCalculation
             + UnifiedAuthenticationService
             + revenue_recovery::RevenueRecovery
+<<<<<<< HEAD
             + ExternalVault
             + Subscriptions,
+=======
+            + ExternalVault,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     > Connector for T
 {
 }
@@ -401,6 +416,7 @@ pub trait ConnectorSpecifications {
         false
     }
 
+<<<<<<< HEAD
     /// Check if connector should make another request to create an customer
     /// Connectors should override this method if they require to create a connector customer
     fn should_call_connector_customer(
@@ -433,6 +449,8 @@ pub trait ConnectorSpecifications {
                 .contains(current_core_payment_method_type)
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(not(feature = "v2"))]
     /// Generate connector request reference ID
     fn generate_connector_request_reference_id(

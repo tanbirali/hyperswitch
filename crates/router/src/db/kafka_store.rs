@@ -5,7 +5,11 @@ use common_enums::enums::MerchantStorageScheme;
 use common_utils::{
     errors::CustomResult,
     id_type,
+<<<<<<< HEAD
     types::{keymanager::KeyManagerState, user::ThemeLineage, TenantConfig},
+=======
+    types::{keymanager::KeyManagerState, user::ThemeLineage},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 #[cfg(feature = "v2")]
 use diesel_models::ephemeral_key::{ClientSecretType, ClientSecretTypeNew};
@@ -23,6 +27,7 @@ use hyperswitch_domain_models::payouts::{
 use hyperswitch_domain_models::{
     cards_info::CardsInfoInterface,
     disputes,
+<<<<<<< HEAD
     invoice::{Invoice as DomainInvoice, InvoiceInterface, InvoiceUpdate as DomainInvoiceUpdate},
     payment_methods::PaymentMethodInterface,
     payments::{payment_attempt::PaymentAttemptInterface, payment_intent::PaymentIntentInterface},
@@ -31,6 +36,11 @@ use hyperswitch_domain_models::{
         Subscription as DomainSubscription, SubscriptionInterface,
         SubscriptionUpdate as DomainSubscriptionUpdate,
     },
+=======
+    payment_methods::PaymentMethodInterface,
+    payments::{payment_attempt::PaymentAttemptInterface, payment_intent::PaymentIntentInterface},
+    refunds,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 #[cfg(not(feature = "payouts"))]
 use hyperswitch_domain_models::{PayoutAttemptInterface, PayoutsInterface};
@@ -42,13 +52,20 @@ use scheduler::{
     SchedulerInterface,
 };
 use serde::Serialize;
+<<<<<<< HEAD
 use storage_impl::redis::kv_store::RedisConnInterface;
+=======
+use storage_impl::{config::TenantConfig, redis::kv_store::RedisConnInterface};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use time::PrimitiveDateTime;
 
 use super::{
     dashboard_metadata::DashboardMetadataInterface,
     ephemeral_key::ClientSecretInterface,
+<<<<<<< HEAD
     hyperswitch_ai_interaction::HyperswitchAiInteractionInterface,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     role::RoleInterface,
     user::{sample_data::BatchSampleDataInterface, theme::ThemeInterface, UserInterface},
     user_authentication_method::UserAuthenticationMethodInterface,
@@ -318,7 +335,10 @@ impl CardsInfoInterface for KafkaStore {
 
 #[async_trait::async_trait]
 impl ConfigInterface for KafkaStore {
+<<<<<<< HEAD
     type Error = errors::StorageError;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn insert_config(
         &self,
         config: storage::ConfigNew,
@@ -510,6 +530,7 @@ impl CustomerInterface for KafkaStore {
             .await
     }
 
+<<<<<<< HEAD
     async fn list_customers_by_merchant_id_with_count(
         &self,
         state: &KeyManagerState,
@@ -522,6 +543,8 @@ impl CustomerInterface for KafkaStore {
             .await
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "v1")]
     async fn find_customer_by_customer_id_merchant_id(
         &self,
@@ -1073,7 +1096,10 @@ impl PaymentLinkInterface for KafkaStore {
 
 #[async_trait::async_trait]
 impl MerchantAccountInterface for KafkaStore {
+<<<<<<< HEAD
     type Error = errors::StorageError;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn insert_merchant(
         &self,
         state: &KeyManagerState,
@@ -1251,7 +1277,10 @@ impl FileMetadataInterface for KafkaStore {
 
 #[async_trait::async_trait]
 impl MerchantConnectorAccountInterface for KafkaStore {
+<<<<<<< HEAD
     type Error = errors::StorageError;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn update_multiple_merchant_connector_accounts(
         &self,
         merchant_connector_accounts: Vec<(
@@ -2963,7 +2992,10 @@ impl RefundInterface for KafkaStore {
 
 #[async_trait::async_trait]
 impl MerchantKeyStoreInterface for KafkaStore {
+<<<<<<< HEAD
     type Error = errors::StorageError;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn insert_merchant_key_store(
         &self,
         state: &KeyManagerState,
@@ -3021,7 +3053,10 @@ impl MerchantKeyStoreInterface for KafkaStore {
 
 #[async_trait::async_trait]
 impl ProfileInterface for KafkaStore {
+<<<<<<< HEAD
     type Error = errors::StorageError;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn insert_business_profile(
         &self,
         key_manager_state: &KeyManagerState,
@@ -3338,6 +3373,7 @@ impl StorageInterface for KafkaStore {
         Box::new(self.clone())
     }
 
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static> {
         Box::new(self.clone())
     }
@@ -3345,12 +3381,19 @@ impl StorageInterface for KafkaStore {
     fn get_subscription_store(
         &self,
     ) -> Box<dyn subscriptions::state::SubscriptionStorageInterface> {
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Box::new(self.clone())
     }
 }
 
 impl GlobalStorageInterface for KafkaStore {
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static> {
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Box::new(self.clone())
     }
 }
@@ -3358,8 +3401,11 @@ impl AccountsStorageInterface for KafkaStore {}
 
 impl PaymentMethodsStorageInterface for KafkaStore {}
 
+<<<<<<< HEAD
 impl subscriptions::state::SubscriptionStorageInterface for KafkaStore {}
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl CommonStorageInterface for KafkaStore {
     fn get_storage_interface(&self) -> Box<dyn StorageInterface> {
         Box::new(self.clone())
@@ -4159,6 +4205,7 @@ impl UserAuthenticationMethodInterface for KafkaStore {
 }
 
 #[async_trait::async_trait]
+<<<<<<< HEAD
 impl HyperswitchAiInteractionInterface for KafkaStore {
     async fn insert_hyperswitch_ai_interaction(
         &self,
@@ -4182,6 +4229,8 @@ impl HyperswitchAiInteractionInterface for KafkaStore {
 }
 
 #[async_trait::async_trait]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl ThemeInterface for KafkaStore {
     async fn insert_theme(
         &self,
@@ -4365,6 +4414,7 @@ impl TokenizationInterface for KafkaStore {
 
 #[cfg(not(all(feature = "v2", feature = "tokenization_v2")))]
 impl TokenizationInterface for KafkaStore {}
+<<<<<<< HEAD
 
 #[async_trait::async_trait]
 impl InvoiceInterface for KafkaStore {
@@ -4481,3 +4531,5 @@ impl SubscriptionInterface for KafkaStore {
             .await
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -836,6 +836,7 @@ impl ConnectorSpecifications for Razorpay {
     #[cfg(feature = "v2")]
     fn generate_connector_request_reference_id(
         &self,
+<<<<<<< HEAD
         payment_intent: &hyperswitch_domain_models::payments::PaymentIntent,
         _payment_attempt: &hyperswitch_domain_models::payments::payment_attempt::PaymentAttempt,
     ) -> String {
@@ -845,5 +846,12 @@ impl ConnectorSpecifications for Razorpay {
             .as_ref()
             .map(|id| id.get_string_repr().to_owned())
             .unwrap_or_else(|| uuid::Uuid::now_v7().to_string())
+=======
+        _payment_intent: &hyperswitch_domain_models::payments::PaymentIntent,
+        _payment_attempt: &hyperswitch_domain_models::payments::payment_attempt::PaymentAttempt,
+    ) -> String {
+        // The length of receipt for Razorpay order request should not exceed 40 characters.
+        uuid::Uuid::now_v7().to_string()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }

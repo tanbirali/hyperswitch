@@ -12,9 +12,13 @@ impl ForeignFrom<AttemptStatus> for RevenueRecoveryPaymentsAttemptStatus {
             AttemptStatus::Authorized
             | AttemptStatus::Charged
             | AttemptStatus::AutoRefunded
+<<<<<<< HEAD
             | AttemptStatus::PartiallyAuthorized
             | AttemptStatus::PartialCharged
             | AttemptStatus::PartialChargedAndChargeable => Self::Succeeded,
+=======
+            | AttemptStatus::PartiallyAuthorized => Self::Succeeded,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             AttemptStatus::Started
             | AttemptStatus::AuthenticationSuccessful
@@ -34,6 +38,11 @@ impl ForeignFrom<AttemptStatus> for RevenueRecoveryPaymentsAttemptStatus {
             AttemptStatus::Voided
             | AttemptStatus::VoidedPostCharge
             | AttemptStatus::ConfirmationAwaited
+<<<<<<< HEAD
+=======
+            | AttemptStatus::PartialCharged
+            | AttemptStatus::PartialChargedAndChargeable
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | AttemptStatus::PaymentMethodAwaited
             | AttemptStatus::AuthenticationPending
             | AttemptStatus::DeviceDataCollectionPending
@@ -56,8 +65,11 @@ impl ForeignFrom<api_models::payments::RecoveryPaymentsCreate>
             retry_count: None,
             next_billing_at: None,
             billing_started_at: data.billing_started_at,
+<<<<<<< HEAD
             metadata: data.metadata,
             enable_partial_authorization: data.enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -66,6 +78,14 @@ impl ForeignFrom<&api_models::payments::RecoveryPaymentsCreate>
     for hyperswitch_domain_models::revenue_recovery::RevenueRecoveryAttemptData
 {
     fn foreign_from(data: &api_models::payments::RecoveryPaymentsCreate) -> Self {
+<<<<<<< HEAD
+=======
+        let primary_token = &data
+            .primary_processor_payment_method_token
+            .peek()
+            .to_string();
+        let card_info = data.payment_method_units.units.get(primary_token);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Self {
             amount: data.amount_details.order_amount().into(),
             currency: data.amount_details.currency(),
@@ -76,7 +96,10 @@ impl ForeignFrom<&api_models::payments::RecoveryPaymentsCreate>
             error_code: data.error.as_ref().map(|error| error.code.clone()),
             error_message: data.error.as_ref().map(|error| error.message.clone()),
             processor_payment_method_token: data
+<<<<<<< HEAD
                 .payment_method_data
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .primary_processor_payment_method_token
                 .peek()
                 .to_string(),
@@ -101,6 +124,7 @@ impl ForeignFrom<&api_models::payments::RecoveryPaymentsCreate>
                 .error
                 .as_ref()
                 .and_then(|error| error.network_error_message.clone()),
+<<<<<<< HEAD
             // retry count will be updated whenever there is new attempt is created.
             retry_count: None,
             invoice_next_billing_time: None,
@@ -109,6 +133,31 @@ impl ForeignFrom<&api_models::payments::RecoveryPaymentsCreate>
                 .payment_method_data
                 .additional_payment_method_info
                 .clone(),
+=======
+            /// retry count will be updated whenever there is new attempt is created.
+            retry_count: None,
+            invoice_next_billing_time: None,
+            invoice_billing_started_at_time: data.billing_started_at,
+            card_info: card_info
+                .cloned()
+                .unwrap_or(api_models::payments::AdditionalCardInfo {
+                    card_issuer: None,
+                    card_network: None,
+                    card_type: None,
+                    card_issuing_country: None,
+                    bank_code: None,
+                    last4: None,
+                    card_isin: None,
+                    card_extended_bin: None,
+                    card_exp_month: None,
+                    card_exp_year: None,
+                    card_holder_name: None,
+                    payment_checks: None,
+                    authentication_data: None,
+                    is_regulated: None,
+                    signature_network: None,
+                }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             charge_id: None,
         }
     }

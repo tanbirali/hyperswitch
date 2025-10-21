@@ -693,10 +693,13 @@ impl<T: DatabaseStore> PaymentAttemptInterface for KVRouterStore<T> {
                         .clone(),
                     debit_routing_savings: None,
                     network_transaction_id: payment_attempt.network_transaction_id.clone(),
+<<<<<<< HEAD
                     is_overcapture_enabled: None,
                     network_details: payment_attempt.network_details.clone(),
                     is_stored_credential: payment_attempt.is_stored_credential,
                     authorized_amount: payment_attempt.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 };
 
                 let field = format!("pa_{}", created_attempt.attempt_id);
@@ -1906,10 +1909,13 @@ impl DataModelExt for PaymentAttempt {
             created_by: self.created_by.map(|created_by| created_by.to_string()),
             connector_request_reference_id: self.connector_request_reference_id,
             network_transaction_id: self.network_transaction_id,
+<<<<<<< HEAD
             is_overcapture_enabled: self.is_overcapture_enabled,
             network_details: self.network_details,
             is_stored_credential: self.is_stored_credential,
             authorized_amount: self.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -2004,10 +2010,13 @@ impl DataModelExt for PaymentAttempt {
             connector_request_reference_id: storage_model.connector_request_reference_id,
             debit_routing_savings: None,
             network_transaction_id: storage_model.network_transaction_id,
+<<<<<<< HEAD
             is_overcapture_enabled: storage_model.is_overcapture_enabled,
             network_details: storage_model.network_details,
             is_stored_credential: storage_model.is_stored_credential,
             authorized_amount: storage_model.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -2100,9 +2109,12 @@ impl DataModelExt for PaymentAttemptNew {
             routing_approach: self.routing_approach,
             connector_request_reference_id: self.connector_request_reference_id,
             network_transaction_id: self.network_transaction_id,
+<<<<<<< HEAD
             network_details: self.network_details,
             is_stored_credential: self.is_stored_credential,
             authorized_amount: self.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -2188,9 +2200,12 @@ impl DataModelExt for PaymentAttemptNew {
             routing_approach: storage_model.routing_approach,
             connector_request_reference_id: storage_model.connector_request_reference_id,
             network_transaction_id: storage_model.network_transaction_id,
+<<<<<<< HEAD
             network_details: storage_model.network_details,
             is_stored_credential: storage_model.is_stored_credential,
             authorized_amount: storage_model.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

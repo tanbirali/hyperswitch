@@ -3,7 +3,11 @@ use std::{collections::HashMap, ops::Not};
 use common_enums::{EntityType, ParentGroup, PermissionGroup, PermissionScope, Resource};
 use strum::IntoEnumIterator;
 
+<<<<<<< HEAD
 use super::permissions;
+=======
+use super::permissions::{self, ResourceExt};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 pub trait PermissionGroupExt {
     fn scope(&self) -> PermissionScope;
@@ -20,6 +24,10 @@ impl PermissionGroupExt for PermissionGroup {
             | Self::WorkflowsView
             | Self::AnalyticsView
             | Self::UsersView
+<<<<<<< HEAD
+=======
+            | Self::MerchantDetailsView
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | Self::AccountView
             | Self::ReconOpsView
             | Self::ReconReportsView
@@ -29,6 +37,11 @@ impl PermissionGroupExt for PermissionGroup {
             | Self::ConnectorsManage
             | Self::WorkflowsManage
             | Self::UsersManage
+<<<<<<< HEAD
+=======
+            | Self::MerchantDetailsManage
+            | Self::OrganizationManage
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | Self::AccountManage
             | Self::ReconOpsManage
             | Self::ReconReportsManage
@@ -44,7 +57,15 @@ impl PermissionGroupExt for PermissionGroup {
             Self::WorkflowsView | Self::WorkflowsManage => ParentGroup::Workflows,
             Self::AnalyticsView => ParentGroup::Analytics,
             Self::UsersView | Self::UsersManage => ParentGroup::Users,
+<<<<<<< HEAD
             Self::AccountView | Self::AccountManage => ParentGroup::Account,
+=======
+            Self::MerchantDetailsView
+            | Self::OrganizationManage
+            | Self::MerchantDetailsManage
+            | Self::AccountView
+            | Self::AccountManage => ParentGroup::Account,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             Self::ThemeView | Self::ThemeManage => ParentGroup::Theme,
             Self::ReconOpsView | Self::ReconOpsManage => ParentGroup::ReconOps,
@@ -89,6 +110,16 @@ impl PermissionGroupExt for PermissionGroup {
             Self::ReconReportsView => vec![Self::ReconReportsView],
             Self::ReconReportsManage => vec![Self::ReconReportsView, Self::ReconReportsManage],
 
+<<<<<<< HEAD
+=======
+            Self::MerchantDetailsView => vec![Self::MerchantDetailsView],
+            Self::MerchantDetailsManage => {
+                vec![Self::MerchantDetailsView, Self::MerchantDetailsManage]
+            }
+
+            Self::OrganizationManage => vec![Self::OrganizationManage],
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self::AccountView => vec![Self::AccountView],
             Self::AccountManage => vec![Self::AccountView, Self::AccountManage],
 
@@ -133,8 +164,20 @@ impl ParentGroupExt for ParentGroup {
                 if !groups.iter().any(|group| group.parent() == parent) {
                     return None;
                 }
+<<<<<<< HEAD
                 let filtered_resources =
                     permissions::filter_resources_by_entity_type(parent.resources(), entity_type)?;
+=======
+                let filtered_resources: Vec<_> = parent
+                    .resources()
+                    .into_iter()
+                    .filter(|res| res.entities().iter().any(|entity| entity <= &entity_type))
+                    .collect();
+
+                if filtered_resources.is_empty() {
+                    return None;
+                }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
                 let description = filtered_resources
                     .iter()

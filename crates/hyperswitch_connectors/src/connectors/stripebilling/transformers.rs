@@ -422,9 +422,12 @@ impl TryFrom<StripebillingInvoiceBody> for revenue_recovery::RevenueRecoveryInvo
             retry_count: Some(item.data.object.attempt_count),
             next_billing_at,
             billing_started_at,
+<<<<<<< HEAD
             metadata: None,
             // TODO! This field should be handled for billing connnector integrations
             enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -630,16 +633,26 @@ pub struct StripebillingRecordBackResponse {
 impl
     TryFrom<
         ResponseRouterData<
+<<<<<<< HEAD
             recovery_router_flows::InvoiceRecordBack,
             StripebillingRecordBackResponse,
             recovery_request_types::InvoiceRecordBackRequest,
             recovery_response_types::InvoiceRecordBackResponse,
         >,
     > for recovery_router_data_types::InvoiceRecordBackRouterData
+=======
+            recovery_router_flows::RecoveryRecordBack,
+            StripebillingRecordBackResponse,
+            recovery_request_types::RevenueRecoveryRecordBackRequest,
+            recovery_response_types::RevenueRecoveryRecordBackResponse,
+        >,
+    > for recovery_router_data_types::RevenueRecoveryRecordBackRouterData
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: ResponseRouterData<
+<<<<<<< HEAD
             recovery_router_flows::InvoiceRecordBack,
             StripebillingRecordBackResponse,
             recovery_request_types::InvoiceRecordBackRequest,
@@ -648,6 +661,16 @@ impl
     ) -> Result<Self, Self::Error> {
         Ok(Self {
             response: Ok(recovery_response_types::InvoiceRecordBackResponse {
+=======
+            recovery_router_flows::RecoveryRecordBack,
+            StripebillingRecordBackResponse,
+            recovery_request_types::RevenueRecoveryRecordBackRequest,
+            recovery_response_types::RevenueRecoveryRecordBackResponse,
+        >,
+    ) -> Result<Self, Self::Error> {
+        Ok(Self {
+            response: Ok(recovery_response_types::RevenueRecoveryRecordBackResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 merchant_reference_id: id_type::PaymentReferenceId::from_str(
                     item.response.id.as_str(),
                 )

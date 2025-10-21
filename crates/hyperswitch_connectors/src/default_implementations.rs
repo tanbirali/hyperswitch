@@ -8,7 +8,11 @@ use common_enums::{CallConnectorAction, PaymentAction};
 use common_utils::errors::CustomResult;
 #[cfg(all(feature = "v2", feature = "revenue_recovery"))]
 use hyperswitch_domain_models::router_flow_types::{
+<<<<<<< HEAD
     BillingConnectorInvoiceSync, BillingConnectorPaymentsSync,
+=======
+    BillingConnectorInvoiceSync, BillingConnectorPaymentsSync, RecoveryRecordBack,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 #[cfg(feature = "dummy_connector")]
 use hyperswitch_domain_models::router_request_types::authentication::{
@@ -17,10 +21,18 @@ use hyperswitch_domain_models::router_request_types::authentication::{
 #[cfg(all(feature = "v2", feature = "revenue_recovery"))]
 use hyperswitch_domain_models::router_request_types::revenue_recovery::{
     BillingConnectorInvoiceSyncRequest, BillingConnectorPaymentsSyncRequest,
+<<<<<<< HEAD
+=======
+    RevenueRecoveryRecordBackRequest,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 #[cfg(all(feature = "v2", feature = "revenue_recovery"))]
 use hyperswitch_domain_models::router_response_types::revenue_recovery::{
     BillingConnectorInvoiceSyncResponse, BillingConnectorPaymentsSyncResponse,
+<<<<<<< HEAD
+=======
+    RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use hyperswitch_domain_models::{
     router_data::AccessTokenAuthenticationResponse,
@@ -33,6 +45,7 @@ use hyperswitch_domain_models::{
         mandate_revoke::MandateRevoke,
         payments::{
             Approve, AuthorizeSessionToken, CalculateTax, CompleteAuthorize,
+<<<<<<< HEAD
             CreateConnectorCustomer, CreateOrder, ExtendAuthorization, GiftCardBalanceCheck,
             IncrementalAuthorization, PostCaptureVoid, PostProcessing, PostSessionTokens,
             PreProcessing, Reject, SdkSessionUpdate, UpdateMetadata,
@@ -51,6 +64,19 @@ use hyperswitch_domain_models::{
             GetSubscriptionEstimateRequest, GetSubscriptionPlanPricesRequest,
             GetSubscriptionPlansRequest, SubscriptionCreateRequest,
         },
+=======
+            CreateConnectorCustomer, CreateOrder, IncrementalAuthorization, PostCaptureVoid,
+            PostProcessing, PostSessionTokens, PreProcessing, Reject, SdkSessionUpdate,
+            UpdateMetadata,
+        },
+        webhooks::VerifyWebhookSource,
+        AccessTokenAuthentication, Authenticate, AuthenticationConfirmation,
+        ExternalVaultCreateFlow, ExternalVaultDeleteFlow, ExternalVaultInsertFlow,
+        ExternalVaultProxy, ExternalVaultRetrieveFlow, PostAuthenticate, PreAuthenticate,
+    },
+    router_request_types::{
+        authentication,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         unified_authentication_service::{
             UasAuthenticationRequestData, UasAuthenticationResponseData,
             UasConfirmationRequestData, UasPostAuthenticationRequestData,
@@ -59,6 +85,7 @@ use hyperswitch_domain_models::{
         AcceptDisputeRequestData, AccessTokenAuthenticationRequestData, AuthorizeSessionTokenData,
         CompleteAuthorizeData, ConnectorCustomerData, CreateOrderRequestData,
         DefendDisputeRequestData, DisputeSyncData, ExternalVaultProxyPaymentsData,
+<<<<<<< HEAD
         FetchDisputesRequestData, GiftCardBalanceCheckRequestData, MandateRevokeRequestData,
         PaymentsApproveData, PaymentsAuthenticateData, PaymentsCancelPostCaptureData,
         PaymentsExtendAuthorizationData, PaymentsIncrementalAuthorizationData,
@@ -78,6 +105,20 @@ use hyperswitch_domain_models::{
         DisputeSyncResponse, FetchDisputesResponse, GiftCardBalanceCheckResponseData,
         MandateRevokeResponseData, PaymentsResponseData, RetrieveFileResponse,
         SubmitEvidenceResponse, TaxCalculationResponseData, UploadFileResponse, VaultResponseData,
+=======
+        FetchDisputesRequestData, MandateRevokeRequestData, PaymentsApproveData,
+        PaymentsCancelPostCaptureData, PaymentsIncrementalAuthorizationData,
+        PaymentsPostProcessingData, PaymentsPostSessionTokensData, PaymentsPreProcessingData,
+        PaymentsRejectData, PaymentsTaxCalculationData, PaymentsUpdateMetadataData,
+        RetrieveFileRequestData, SdkPaymentsSessionUpdateData, SubmitEvidenceRequestData,
+        UploadFileRequestData, VaultRequestData, VerifyWebhookSourceRequestData,
+    },
+    router_response_types::{
+        AcceptDisputeResponse, AuthenticationResponseData, DefendDisputeResponse,
+        DisputeSyncResponse, FetchDisputesResponse, MandateRevokeResponseData,
+        PaymentsResponseData, RetrieveFileResponse, SubmitEvidenceResponse,
+        TaxCalculationResponseData, UploadFileResponse, VaultResponseData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         VerifyWebhookSourceResponseData,
     },
 };
@@ -130,6 +171,7 @@ use hyperswitch_interfaces::{
         files::{FileUpload, RetrieveFile, UploadFile},
         payments::{
             ConnectorCustomer, ExternalVaultProxyPaymentsCreateV1, PaymentApprove,
+<<<<<<< HEAD
             PaymentAuthorizeSessionToken, PaymentExtendAuthorization,
             PaymentIncrementalAuthorization, PaymentPostCaptureVoid, PaymentPostSessionTokens,
             PaymentReject, PaymentSessionUpdate, PaymentUpdateMetadata, PaymentsAuthenticate,
@@ -142,6 +184,14 @@ use hyperswitch_interfaces::{
             GetSubscriptionEstimateFlow, GetSubscriptionPlanPricesFlow, GetSubscriptionPlansFlow,
             SubscriptionCreate, SubscriptionRecordBackFlow, Subscriptions,
         },
+=======
+            PaymentAuthorizeSessionToken, PaymentIncrementalAuthorization, PaymentPostCaptureVoid,
+            PaymentPostSessionTokens, PaymentReject, PaymentSessionUpdate, PaymentUpdateMetadata,
+            PaymentsCompleteAuthorize, PaymentsCreateOrder, PaymentsPostProcessing,
+            PaymentsPreProcessing, TaxCalculation,
+        },
+        revenue_recovery::RevenueRecovery,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         vault::{
             ExternalVault, ExternalVaultCreate, ExternalVaultDelete, ExternalVaultInsert,
             ExternalVaultRetrieve,
@@ -186,7 +236,11 @@ default_imp_for_authorize_session_token!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -209,14 +263,20 @@ default_imp_for_authorize_session_token!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -232,7 +292,10 @@ default_imp_for_authorize_session_token!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -253,7 +316,10 @@ default_imp_for_authorize_session_token!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -278,12 +344,18 @@ default_imp_for_authorize_session_token!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::UnifiedAuthenticationService,
     connectors::Volt,
     connectors::Threedsecureio,
     connectors::Thunes,
+<<<<<<< HEAD
     connectors::Tokenex,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -333,7 +405,11 @@ default_imp_for_calculate_tax!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -356,14 +432,20 @@ default_imp_for_calculate_tax!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -379,7 +461,10 @@ default_imp_for_calculate_tax!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -406,7 +491,10 @@ default_imp_for_calculate_tax!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -426,10 +514,15 @@ default_imp_for_calculate_tax!(
     connectors::Square,
     connectors::Stripe,
     connectors::Stripebilling,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -482,7 +575,11 @@ default_imp_for_session_update!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -504,12 +601,18 @@ default_imp_for_session_update!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Helcim,
     connectors::HyperswitchVault,
     connectors::Hyperwallet,
@@ -520,7 +623,10 @@ default_imp_for_session_update!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Rapyd,
     connectors::Razorpay,
     connectors::Recurly,
@@ -536,7 +642,10 @@ default_imp_for_session_update!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -561,7 +670,10 @@ default_imp_for_session_update!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -587,7 +699,10 @@ default_imp_for_session_update!(
     connectors::Prophetpay,
     connectors::Threedsecureio,
     connectors::Thunes,
+<<<<<<< HEAD
     connectors::Tokenex,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -629,7 +744,11 @@ default_imp_for_post_session_tokens!(
     connectors::Barclaycard,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -652,12 +771,18 @@ default_imp_for_post_session_tokens!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Helcim,
     connectors::HyperswitchVault,
     connectors::Hyperwallet,
@@ -668,7 +793,10 @@ default_imp_for_post_session_tokens!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Rapyd,
     connectors::Razorpay,
     connectors::Recurly,
@@ -684,7 +812,10 @@ default_imp_for_post_session_tokens!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -709,7 +840,10 @@ default_imp_for_post_session_tokens!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -732,7 +866,10 @@ default_imp_for_post_session_tokens!(
     connectors::Prophetpay,
     connectors::Threedsecureio,
     connectors::Thunes,
+<<<<<<< HEAD
     connectors::Tokenex,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -775,7 +912,11 @@ default_imp_for_create_order!(
     connectors::Barclaycard,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -798,12 +939,18 @@ default_imp_for_create_order!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Helcim,
     connectors::HyperswitchVault,
     connectors::Hyperwallet,
@@ -814,7 +961,10 @@ default_imp_for_create_order!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Rapyd,
     connectors::Recurly,
     connectors::Redsys,
@@ -829,7 +979,10 @@ default_imp_for_create_order!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -856,7 +1009,10 @@ default_imp_for_create_order!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -879,7 +1035,10 @@ default_imp_for_create_order!(
     connectors::Prophetpay,
     connectors::Threedsecureio,
     connectors::Thunes,
+<<<<<<< HEAD
     connectors::Tokenex,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -923,7 +1082,11 @@ default_imp_for_update_metadata!(
     connectors::Barclaycard,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -946,12 +1109,18 @@ default_imp_for_update_metadata!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Helcim,
     connectors::HyperswitchVault,
     connectors::Hyperwallet,
@@ -962,7 +1131,10 @@ default_imp_for_update_metadata!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Paypal,
     connectors::Paysafe,
     connectors::Rapyd,
@@ -978,7 +1150,10 @@ default_imp_for_update_metadata!(
     connectors::Stax,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -1002,7 +1177,10 @@ default_imp_for_update_metadata!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -1027,7 +1205,10 @@ default_imp_for_update_metadata!(
     connectors::Riskified,
     connectors::Threedsecureio,
     connectors::Thunes,
+<<<<<<< HEAD
     connectors::Tokenex,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -1071,7 +1252,11 @@ default_imp_for_cancel_post_capture!(
     connectors::Barclaycard,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -1094,12 +1279,18 @@ default_imp_for_cancel_post_capture!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Helcim,
     connectors::HyperswitchVault,
     connectors::Hyperwallet,
@@ -1110,7 +1301,10 @@ default_imp_for_cancel_post_capture!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Paypal,
     connectors::Paysafe,
     connectors::Rapyd,
@@ -1127,7 +1321,10 @@ default_imp_for_cancel_post_capture!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -1150,7 +1347,10 @@ default_imp_for_cancel_post_capture!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -1174,7 +1374,10 @@ default_imp_for_cancel_post_capture!(
     connectors::Riskified,
     connectors::Threedsecureio,
     connectors::Thunes,
+<<<<<<< HEAD
     connectors::Tokenex,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -1205,6 +1408,10 @@ macro_rules! default_imp_for_complete_authorize {
 }
 
 default_imp_for_complete_authorize!(
+<<<<<<< HEAD
+=======
+    connectors::Paysafe,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Silverflow,
     connectors::Vgs,
     connectors::Aci,
@@ -1218,7 +1425,11 @@ default_imp_for_complete_authorize!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Boku,
     connectors::Cashtocode,
     connectors::Celero,
@@ -1235,14 +1446,20 @@ default_imp_for_complete_authorize!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globepay,
     connectors::Gocardless,
     connectors::Gpayments,
@@ -1257,7 +1474,10 @@ default_imp_for_complete_authorize!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Moneris,
     connectors::Mpgs,
@@ -1276,7 +1496,10 @@ default_imp_for_complete_authorize!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -1292,10 +1515,15 @@ default_imp_for_complete_authorize!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -1347,7 +1575,11 @@ default_imp_for_incremental_authorization!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -1369,14 +1601,20 @@ default_imp_for_incremental_authorization!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -1392,7 +1630,10 @@ default_imp_for_incremental_authorization!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -1412,7 +1653,10 @@ default_imp_for_incremental_authorization!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -1437,10 +1681,15 @@ default_imp_for_incremental_authorization!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -1459,6 +1708,7 @@ default_imp_for_incremental_authorization!(
     connectors::CtpMastercard
 );
 
+<<<<<<< HEAD
 macro_rules! default_imp_for_extend_authorization {
     ($($path:ident::$connector:ident),*) => {
         $( impl PaymentExtendAuthorization for $path::$connector {}
@@ -1606,6 +1856,8 @@ default_imp_for_extend_authorization!(
     connectors::CtpMastercard
 );
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 macro_rules! default_imp_for_create_customer {
     ($($path:ident::$connector:ident),*) => {
         $(
@@ -1638,13 +1890,21 @@ default_imp_for_create_customer!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
     connectors::Cashtocode,
     connectors::Celero,
+<<<<<<< HEAD
+=======
+    connectors::Chargebee,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Checkbook,
     connectors::Checkout,
     connectors::Coinbase,
@@ -1664,7 +1924,10 @@ default_imp_for_create_customer!(
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gpayments,
@@ -1678,7 +1941,10 @@ default_imp_for_create_customer!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -1701,10 +1967,17 @@ default_imp_for_create_customer!(
     connectors::Payload,
     connectors::Payone,
     connectors::Paypal,
+<<<<<<< HEAD
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
     connectors::Peachpayments,
+=======
+    connectors::Paysafe,
+    connectors::Paystack,
+    connectors::Paytm,
+    connectors::Payu,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -1723,10 +1996,15 @@ default_imp_for_create_customer!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -1777,7 +2055,11 @@ default_imp_for_connector_redirect_response!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bamboraapac,
     connectors::Bankofamerica,
     connectors::Barclaycard,
@@ -1798,14 +2080,20 @@ default_imp_for_connector_redirect_response!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globepay,
     connectors::Gocardless,
     connectors::Gpayments,
@@ -1820,7 +2108,10 @@ default_imp_for_connector_redirect_response!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Moneris,
     connectors::Mpgs,
@@ -1837,7 +2128,10 @@ default_imp_for_connector_redirect_response!(
     connectors::Paytm,
     connectors::Payone,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -1857,10 +2151,15 @@ default_imp_for_connector_redirect_response!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Tsys,
     connectors::UnifiedAuthenticationService,
@@ -1875,6 +2174,7 @@ default_imp_for_connector_redirect_response!(
     connectors::CtpMastercard
 );
 
+<<<<<<< HEAD
 macro_rules! default_imp_for_pre_authenticate_steps{
     ($($path:ident::$connector:ident),*)=> {
         $(
@@ -2316,6 +2616,8 @@ default_imp_for_post_authenticate_steps!(
     connectors::Zsl
 );
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 macro_rules! default_imp_for_pre_processing_steps{
     ($($path:ident::$connector:ident),*)=> {
         $(
@@ -2332,6 +2634,10 @@ macro_rules! default_imp_for_pre_processing_steps{
 }
 
 default_imp_for_pre_processing_steps!(
+<<<<<<< HEAD
+=======
+    connectors::Paysafe,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Trustpayments,
     connectors::Silverflow,
     connectors::Vgs,
@@ -2347,7 +2653,11 @@ default_imp_for_pre_processing_steps!(
     connectors::Bankofamerica,
     connectors::Billwerk,
     connectors::Bitpay,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -2369,14 +2679,20 @@ default_imp_for_pre_processing_steps!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gpayments,
@@ -2391,7 +2707,10 @@ default_imp_for_pre_processing_steps!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nomupay,
     connectors::Noon,
@@ -2406,7 +2725,10 @@ default_imp_for_pre_processing_steps!(
     connectors::Paytm,
     connectors::Payone,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -2429,10 +2751,15 @@ default_imp_for_pre_processing_steps!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Tsys,
     connectors::UnifiedAuthenticationService,
@@ -2482,7 +2809,11 @@ default_imp_for_post_processing_steps!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -2505,14 +2836,20 @@ default_imp_for_post_processing_steps!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -2528,7 +2865,10 @@ default_imp_for_post_processing_steps!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -2550,7 +2890,10 @@ default_imp_for_post_processing_steps!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Powertranz,
@@ -2575,10 +2918,15 @@ default_imp_for_post_processing_steps!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -2631,7 +2979,11 @@ default_imp_for_approve!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -2654,14 +3006,20 @@ default_imp_for_approve!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -2677,7 +3035,10 @@ default_imp_for_approve!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nomupay,
     connectors::Noon,
@@ -2699,7 +3060,10 @@ default_imp_for_approve!(
     connectors::Paytm,
     connectors::Payone,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -2725,10 +3089,15 @@ default_imp_for_approve!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -2781,7 +3150,11 @@ default_imp_for_reject!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -2804,14 +3177,20 @@ default_imp_for_reject!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -2827,7 +3206,10 @@ default_imp_for_reject!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -2849,7 +3231,10 @@ default_imp_for_reject!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -2875,10 +3260,15 @@ default_imp_for_reject!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -2932,7 +3322,11 @@ default_imp_for_webhook_source_verification!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -2955,14 +3349,20 @@ default_imp_for_webhook_source_verification!(
     connectors::Elavon,
     connectors::Ebanx,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -2978,7 +3378,10 @@ default_imp_for_webhook_source_verification!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -2998,7 +3401,10 @@ default_imp_for_webhook_source_verification!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3024,10 +3430,15 @@ default_imp_for_webhook_source_verification!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3080,7 +3491,11 @@ default_imp_for_accept_dispute!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -3102,14 +3517,20 @@ default_imp_for_accept_dispute!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -3125,7 +3546,10 @@ default_imp_for_accept_dispute!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -3147,7 +3571,10 @@ default_imp_for_accept_dispute!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3173,10 +3600,15 @@ default_imp_for_accept_dispute!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3227,7 +3659,11 @@ default_imp_for_submit_evidence!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -3249,14 +3685,20 @@ default_imp_for_submit_evidence!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -3272,7 +3714,10 @@ default_imp_for_submit_evidence!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -3294,7 +3739,10 @@ default_imp_for_submit_evidence!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3319,10 +3767,15 @@ default_imp_for_submit_evidence!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3373,7 +3826,11 @@ default_imp_for_defend_dispute!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -3395,14 +3852,20 @@ default_imp_for_defend_dispute!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -3417,7 +3880,10 @@ default_imp_for_defend_dispute!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Helcim,
     connectors::Netcetera,
     connectors::Nmi,
@@ -3440,7 +3906,10 @@ default_imp_for_defend_dispute!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3466,10 +3935,15 @@ default_imp_for_defend_dispute!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3520,7 +3994,11 @@ default_imp_for_fetch_disputes!(
     connectors::Bankofamerica,
     connectors::Barclaycard,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Bluesnap,
@@ -3545,14 +4023,20 @@ default_imp_for_fetch_disputes!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Forte,
     connectors::Flexiti,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -3566,7 +4050,10 @@ default_imp_for_fetch_disputes!(
     connectors::Jpmorgan,
     connectors::Juspaythreedsserver,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Katapult,
     connectors::Helcim,
     connectors::Netcetera,
@@ -3590,7 +4077,10 @@ default_imp_for_fetch_disputes!(
     connectors::Paystack,
     connectors::Payu,
     connectors::Paytm,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3616,10 +4106,15 @@ default_imp_for_fetch_disputes!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3672,7 +4167,11 @@ default_imp_for_dispute_sync!(
     connectors::Bitpay,
     connectors::Bluesnap,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Breadpay,
     connectors::Boku,
@@ -3694,14 +4193,20 @@ default_imp_for_dispute_sync!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Forte,
     connectors::Flexiti,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -3715,7 +4220,10 @@ default_imp_for_dispute_sync!(
     connectors::Jpmorgan,
     connectors::Juspaythreedsserver,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Katapult,
     connectors::Helcim,
     connectors::Netcetera,
@@ -3739,7 +4247,10 @@ default_imp_for_dispute_sync!(
     connectors::Paystack,
     connectors::Payu,
     connectors::Paytm,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3765,10 +4276,15 @@ default_imp_for_dispute_sync!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3828,7 +4344,11 @@ default_imp_for_file_upload!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -3850,14 +4370,20 @@ default_imp_for_file_upload!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -3873,7 +4399,10 @@ default_imp_for_file_upload!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -3895,7 +4424,10 @@ default_imp_for_file_upload!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -3920,10 +4452,15 @@ default_imp_for_file_upload!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -3967,7 +4504,11 @@ default_imp_for_payouts!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -3988,7 +4529,10 @@ default_imp_for_payouts!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
@@ -4025,13 +4569,20 @@ default_imp_for_payouts!(
     connectors::Nmi,
     connectors::Noon,
     connectors::Novalnet,
+<<<<<<< HEAD
+=======
+    connectors::Nuvei,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Payeezy,
     connectors::Payload,
     connectors::Payme,
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -4051,9 +4602,13 @@ default_imp_for_payouts!(
     connectors::Stax,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -4061,6 +4616,10 @@ default_imp_for_payouts!(
     connectors::UnifiedAuthenticationService,
     connectors::Volt,
     connectors::Worldline,
+<<<<<<< HEAD
+=======
+    connectors::Worldpay,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Worldpayvantiv,
     connectors::Worldpayxml,
     connectors::Wellsfargo,
@@ -4106,7 +4665,11 @@ default_imp_for_payouts_create!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -4128,7 +4691,10 @@ default_imp_for_payouts_create!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
@@ -4150,7 +4716,10 @@ default_imp_for_payouts_create!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Noon,
@@ -4169,7 +4738,10 @@ default_imp_for_payouts_create!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -4194,10 +4766,15 @@ default_imp_for_payouts_create!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -4252,7 +4829,11 @@ default_imp_for_payouts_retrieve!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -4275,7 +4856,10 @@ default_imp_for_payouts_retrieve!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
@@ -4314,7 +4898,10 @@ default_imp_for_payouts_retrieve!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Payone,
     connectors::Placetopay,
@@ -4341,10 +4928,15 @@ default_imp_for_payouts_retrieve!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -4397,7 +4989,11 @@ default_imp_for_payouts_eligibility!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -4419,14 +5015,20 @@ default_imp_for_payouts_eligibility!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -4442,7 +5044,10 @@ default_imp_for_payouts_eligibility!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Noon,
@@ -4463,7 +5068,10 @@ default_imp_for_payouts_eligibility!(
     connectors::Paytm,
     connectors::Payone,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -4489,10 +5097,15 @@ default_imp_for_payouts_eligibility!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -4545,7 +5158,11 @@ default_imp_for_payouts_fulfill!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -4566,7 +5183,10 @@ default_imp_for_payouts_fulfill!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
@@ -4597,6 +5217,10 @@ default_imp_for_payouts_fulfill!(
     connectors::Opayo,
     connectors::Opennode,
     connectors::Nmi,
+<<<<<<< HEAD
+=======
+    connectors::Nuvei,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Paybox,
     connectors::Payeezy,
     connectors::Payload,
@@ -4604,7 +5228,10 @@ default_imp_for_payouts_fulfill!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -4629,16 +5256,25 @@ default_imp_for_payouts_fulfill!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
     connectors::Tsys,
     connectors::UnifiedAuthenticationService,
     connectors::Worldline,
+<<<<<<< HEAD
+=======
+    connectors::Worldpay,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Worldpayvantiv,
     connectors::Worldpayxml,
     connectors::Wellsfargo,
@@ -4684,7 +5320,11 @@ default_imp_for_payouts_cancel!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -4706,14 +5346,20 @@ default_imp_for_payouts_cancel!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -4729,7 +5375,10 @@ default_imp_for_payouts_cancel!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Noon,
@@ -4750,7 +5399,10 @@ default_imp_for_payouts_cancel!(
     connectors::Paytm,
     connectors::Payone,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -4775,10 +5427,15 @@ default_imp_for_payouts_cancel!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -4832,7 +5489,11 @@ default_imp_for_payouts_quote!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -4854,7 +5515,10 @@ default_imp_for_payouts_quote!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
@@ -4876,7 +5540,10 @@ default_imp_for_payouts_quote!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Noon,
@@ -4897,7 +5564,10 @@ default_imp_for_payouts_quote!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -4923,10 +5593,15 @@ default_imp_for_payouts_quote!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -4980,7 +5655,11 @@ default_imp_for_payouts_recipient!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5002,14 +5681,20 @@ default_imp_for_payouts_recipient!(
     connectors::Dwolla,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5025,7 +5710,10 @@ default_imp_for_payouts_recipient!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Noon,
@@ -5046,7 +5734,10 @@ default_imp_for_payouts_recipient!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5071,10 +5762,15 @@ default_imp_for_payouts_recipient!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -5128,7 +5824,11 @@ default_imp_for_payouts_recipient_account!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5151,14 +5851,20 @@ default_imp_for_payouts_recipient_account!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5174,7 +5880,10 @@ default_imp_for_payouts_recipient_account!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Noon,
@@ -5195,7 +5904,10 @@ default_imp_for_payouts_recipient_account!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5220,10 +5932,15 @@ default_imp_for_payouts_recipient_account!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -5278,7 +5995,11 @@ default_imp_for_frm_sale!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5301,14 +6022,20 @@ default_imp_for_frm_sale!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5324,7 +6051,10 @@ default_imp_for_frm_sale!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nomupay,
     connectors::Nmi,
@@ -5346,7 +6076,10 @@ default_imp_for_frm_sale!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5370,10 +6103,15 @@ default_imp_for_frm_sale!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -5428,7 +6166,11 @@ default_imp_for_frm_checkout!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5451,14 +6193,20 @@ default_imp_for_frm_checkout!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5474,7 +6222,10 @@ default_imp_for_frm_checkout!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -5496,7 +6247,10 @@ default_imp_for_frm_checkout!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5520,10 +6274,15 @@ default_imp_for_frm_checkout!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -5578,7 +6337,11 @@ default_imp_for_frm_transaction!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5601,14 +6364,20 @@ default_imp_for_frm_transaction!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5624,7 +6393,10 @@ default_imp_for_frm_transaction!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -5646,7 +6418,10 @@ default_imp_for_frm_transaction!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5670,10 +6445,15 @@ default_imp_for_frm_transaction!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -5728,7 +6508,11 @@ default_imp_for_frm_fulfillment!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5751,14 +6535,20 @@ default_imp_for_frm_fulfillment!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5774,7 +6564,10 @@ default_imp_for_frm_fulfillment!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -5796,7 +6589,10 @@ default_imp_for_frm_fulfillment!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5820,10 +6616,15 @@ default_imp_for_frm_fulfillment!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -5878,7 +6679,11 @@ default_imp_for_frm_record_return!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -5901,14 +6706,20 @@ default_imp_for_frm_record_return!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -5924,7 +6735,10 @@ default_imp_for_frm_record_return!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -5946,7 +6760,10 @@ default_imp_for_frm_record_return!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -5970,10 +6787,15 @@ default_imp_for_frm_record_return!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6025,7 +6847,11 @@ default_imp_for_revoking_mandates!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Boku,
     connectors::Breadpay,
@@ -6046,14 +6872,20 @@ default_imp_for_revoking_mandates!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6069,7 +6901,10 @@ default_imp_for_revoking_mandates!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -6090,7 +6925,10 @@ default_imp_for_revoking_mandates!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -6116,10 +6954,15 @@ default_imp_for_revoking_mandates!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6171,7 +7014,11 @@ default_imp_for_uas_pre_authentication!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -6194,14 +7041,20 @@ default_imp_for_uas_pre_authentication!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6216,7 +7069,10 @@ default_imp_for_uas_pre_authentication!(
     connectors::Jpmorgan,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -6237,7 +7093,10 @@ default_imp_for_uas_pre_authentication!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Powertranz,
     connectors::Prophetpay,
@@ -6264,10 +7123,15 @@ default_imp_for_uas_pre_authentication!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6317,7 +7181,11 @@ default_imp_for_uas_post_authentication!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -6341,14 +7209,20 @@ default_imp_for_uas_post_authentication!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6363,7 +7237,10 @@ default_imp_for_uas_post_authentication!(
     connectors::Jpmorgan,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -6384,7 +7261,10 @@ default_imp_for_uas_post_authentication!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Powertranz,
     connectors::Prophetpay,
@@ -6411,10 +7291,15 @@ default_imp_for_uas_post_authentication!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6466,7 +7351,11 @@ default_imp_for_uas_authentication_confirmation!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -6489,14 +7378,20 @@ default_imp_for_uas_authentication_confirmation!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6511,7 +7406,10 @@ default_imp_for_uas_authentication_confirmation!(
     connectors::Jpmorgan,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -6530,7 +7428,10 @@ default_imp_for_uas_authentication_confirmation!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Powertranz,
     connectors::Prophetpay,
@@ -6559,10 +7460,15 @@ default_imp_for_uas_authentication_confirmation!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6606,7 +7512,11 @@ default_imp_for_connector_request_id!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -6629,14 +7539,20 @@ default_imp_for_connector_request_id!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6651,7 +7567,10 @@ default_imp_for_connector_request_id!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -6667,7 +7586,10 @@ default_imp_for_connector_request_id!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Payme,
     connectors::Payone,
@@ -6698,10 +7620,15 @@ default_imp_for_connector_request_id!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6748,7 +7675,11 @@ default_imp_for_fraud_check!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -6771,14 +7702,20 @@ default_imp_for_fraud_check!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6794,7 +7731,10 @@ default_imp_for_fraud_check!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -6812,7 +7752,10 @@ default_imp_for_fraud_check!(
     connectors::Paypal,
     connectors::Paysafe,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Powertranz,
     connectors::Prophetpay,
@@ -6840,10 +7783,15 @@ default_imp_for_fraud_check!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -6920,7 +7868,11 @@ default_imp_for_connector_authentication!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -6943,14 +7895,20 @@ default_imp_for_connector_authentication!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -6965,7 +7923,10 @@ default_imp_for_connector_authentication!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Nmi,
     connectors::Nomupay,
     connectors::Noon,
@@ -6981,7 +7942,10 @@ default_imp_for_connector_authentication!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Payone,
     connectors::Powertranz,
@@ -7012,9 +7976,13 @@ default_imp_for_connector_authentication!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -7064,7 +8032,11 @@ default_imp_for_uas_authentication!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Boku,
@@ -7088,14 +8060,20 @@ default_imp_for_uas_authentication!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -7110,7 +8088,10 @@ default_imp_for_uas_authentication!(
     connectors::Jpmorgan,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -7126,7 +8107,10 @@ default_imp_for_uas_authentication!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Powertranz,
     connectors::Prophetpay,
@@ -7158,10 +8142,15 @@ default_imp_for_uas_authentication!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -7205,7 +8194,11 @@ default_imp_for_revenue_recovery!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -7228,14 +8221,20 @@ default_imp_for_revenue_recovery!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -7251,7 +8250,10 @@ default_imp_for_revenue_recovery!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -7268,7 +8270,10 @@ default_imp_for_revenue_recovery!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -7299,6 +8304,7 @@ default_imp_for_revenue_recovery!(
     connectors::Square,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
@@ -7478,6 +8484,10 @@ default_imp_for_subscriptions!(
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -7531,7 +8541,11 @@ default_imp_for_billing_connector_payment_sync!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -7554,14 +8568,20 @@ default_imp_for_billing_connector_payment_sync!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -7577,7 +8597,10 @@ default_imp_for_billing_connector_payment_sync!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Nomupay,
     connectors::Netcetera,
     connectors::Nmi,
@@ -7594,7 +8617,10 @@ default_imp_for_billing_connector_payment_sync!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -7624,10 +8650,15 @@ default_imp_for_billing_connector_payment_sync!(
     connectors::Stax,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -7650,6 +8681,16 @@ default_imp_for_billing_connector_payment_sync!(
 macro_rules! default_imp_for_revenue_recovery_record_back {
     ($($path:ident::$connector:ident),*) => {
         $( impl recovery_traits::RevenueRecoveryRecordBack for $path::$connector {}
+<<<<<<< HEAD
+=======
+            impl
+            ConnectorIntegration<
+            RecoveryRecordBack,
+            RevenueRecoveryRecordBackRequest,
+            RevenueRecoveryRecordBackResponse
+            > for $path::$connector
+            {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )*
     };
 }
@@ -7674,7 +8715,11 @@ default_imp_for_revenue_recovery_record_back!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -7696,14 +8741,20 @@ default_imp_for_revenue_recovery_record_back!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -7719,7 +8770,10 @@ default_imp_for_revenue_recovery_record_back!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nmi,
     connectors::Nomupay,
@@ -7736,7 +8790,10 @@ default_imp_for_revenue_recovery_record_back!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -7766,10 +8823,15 @@ default_imp_for_revenue_recovery_record_back!(
     connectors::Stax,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -7822,7 +8884,11 @@ default_imp_for_billing_connector_invoice_sync!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -7845,14 +8911,20 @@ default_imp_for_billing_connector_invoice_sync!(
     connectors::Elavon,
     connectors::Ebanx,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -7868,7 +8940,10 @@ default_imp_for_billing_connector_invoice_sync!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Nomupay,
     connectors::Nmi,
     connectors::Noon,
@@ -7885,7 +8960,10 @@ default_imp_for_billing_connector_invoice_sync!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -7917,9 +8995,13 @@ default_imp_for_billing_connector_invoice_sync!(
     connectors::Stripebilling,
     connectors::Threedsecureio,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -7965,7 +9047,11 @@ default_imp_for_external_vault!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -7988,14 +9074,20 @@ default_imp_for_external_vault!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -8011,7 +9103,10 @@ default_imp_for_external_vault!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nordea,
     connectors::Nomupay,
@@ -8028,7 +9123,10 @@ default_imp_for_external_vault!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -8059,7 +9157,10 @@ default_imp_for_external_vault!(
     connectors::Stripebilling,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenio,
@@ -8113,7 +9214,11 @@ default_imp_for_external_vault_insert!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -8136,14 +9241,20 @@ default_imp_for_external_vault_insert!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -8159,7 +9270,10 @@ default_imp_for_external_vault_insert!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nordea,
     connectors::Nomupay,
@@ -8176,7 +9290,10 @@ default_imp_for_external_vault_insert!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -8207,7 +9324,10 @@ default_imp_for_external_vault_insert!(
     connectors::Stripebilling,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenio,
@@ -8228,6 +9348,7 @@ default_imp_for_external_vault_insert!(
     connectors::Zsl
 );
 
+<<<<<<< HEAD
 macro_rules! default_imp_for_gift_card_balance_check {
     ($($path:ident::$connector:ident),*) => {
         $(
@@ -8376,6 +9497,8 @@ default_imp_for_gift_card_balance_check!(
     connectors::Zsl
 );
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 macro_rules! default_imp_for_external_vault_retrieve {
     ($($path:ident::$connector:ident),*) => {
         $(
@@ -8409,7 +9532,11 @@ default_imp_for_external_vault_retrieve!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -8432,14 +9559,20 @@ default_imp_for_external_vault_retrieve!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -8455,7 +9588,10 @@ default_imp_for_external_vault_retrieve!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nordea,
     connectors::Nomupay,
@@ -8472,7 +9608,10 @@ default_imp_for_external_vault_retrieve!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -8503,7 +9642,10 @@ default_imp_for_external_vault_retrieve!(
     connectors::Stripebilling,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenio,
@@ -8557,7 +9699,11 @@ default_imp_for_external_vault_delete!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -8580,14 +9726,20 @@ default_imp_for_external_vault_delete!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -8603,7 +9755,10 @@ default_imp_for_external_vault_delete!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nordea,
     connectors::Nomupay,
@@ -8620,7 +9775,10 @@ default_imp_for_external_vault_delete!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -8651,10 +9809,15 @@ default_imp_for_external_vault_delete!(
     connectors::Stripebilling,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -8708,7 +9871,11 @@ default_imp_for_external_vault_create!(
     connectors::Bluesnap,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Braintree,
     connectors::Boku,
     connectors::Breadpay,
@@ -8731,14 +9898,20 @@ default_imp_for_external_vault_create!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -8752,7 +9925,10 @@ default_imp_for_external_vault_create!(
     connectors::Katapult,
     connectors::Jpmorgan,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Netcetera,
     connectors::Nordea,
     connectors::Nomupay,
@@ -8769,7 +9945,10 @@ default_imp_for_external_vault_create!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -8800,10 +9979,15 @@ default_imp_for_external_vault_create!(
     connectors::Stripebilling,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -8854,7 +10038,11 @@ default_imp_for_connector_authentication_token!(
     connectors::Bankofamerica,
     connectors::Billwerk,
     connectors::Bitpay,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Blackhawknetwork,
     connectors::Boku,
@@ -8879,14 +10067,20 @@ default_imp_for_connector_authentication_token!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -8902,7 +10096,10 @@ default_imp_for_connector_authentication_token!(
     connectors::Jpmorgan,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mpgs,
     connectors::Netcetera,
     connectors::Nomupay,
@@ -8919,7 +10116,10 @@ default_imp_for_connector_authentication_token!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Paypal,
     connectors::Paysafe,
@@ -8949,10 +10149,15 @@ default_imp_for_connector_authentication_token!(
     connectors::Stripebilling,
     connectors::Square,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -9003,7 +10208,11 @@ default_imp_for_external_vault_proxy_payments_create!(
     connectors::Billwerk,
     connectors::Bitpay,
     connectors::Blackhawknetwork,
+<<<<<<< HEAD
     connectors::Calida,
+=======
+    connectors::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Bluesnap,
     connectors::Braintree,
     connectors::Breadpay,
@@ -9026,14 +10235,20 @@ default_imp_for_external_vault_proxy_payments_create!(
     connectors::Ebanx,
     connectors::Elavon,
     connectors::Facilitapay,
+<<<<<<< HEAD
     connectors::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Fiserv,
     connectors::Fiservemea,
     connectors::Fiuu,
     connectors::Flexiti,
     connectors::Forte,
     connectors::Getnet,
+<<<<<<< HEAD
     connectors::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Globalpay,
     connectors::Globepay,
     connectors::Gocardless,
@@ -9049,7 +10264,10 @@ default_imp_for_external_vault_proxy_payments_create!(
     connectors::Juspaythreedsserver,
     connectors::Katapult,
     connectors::Klarna,
+<<<<<<< HEAD
     connectors::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Mifinity,
     connectors::Mollie,
     connectors::Moneris,
@@ -9076,7 +10294,10 @@ default_imp_for_external_vault_proxy_payments_create!(
     connectors::Paystack,
     connectors::Paytm,
     connectors::Payu,
+<<<<<<< HEAD
     connectors::Peachpayments,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Phonepe,
     connectors::Placetopay,
     connectors::Plaid,
@@ -9097,10 +10318,15 @@ default_imp_for_external_vault_proxy_payments_create!(
     connectors::Stripe,
     connectors::Stripebilling,
     connectors::Taxjar,
+<<<<<<< HEAD
     connectors::Tesouro,
     connectors::Threedsecureio,
     connectors::Thunes,
     connectors::Tokenex,
+=======
+    connectors::Threedsecureio,
+    connectors::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connectors::Tokenio,
     connectors::Trustpay,
     connectors::Trustpayments,
@@ -9226,6 +10452,7 @@ impl<const T: u8> ConnectorIntegration<Dsync, DisputeSyncData, DisputeSyncRespon
 }
 
 #[cfg(feature = "dummy_connector")]
+<<<<<<< HEAD
 impl<const T: u8> PaymentsGiftCardBalanceCheck for connectors::DummyConnector<T> {}
 #[cfg(feature = "dummy_connector")]
 impl<const T: u8>
@@ -9238,6 +10465,8 @@ impl<const T: u8>
 }
 
 #[cfg(feature = "dummy_connector")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<const T: u8> PaymentsPreProcessing for connectors::DummyConnector<T> {}
 #[cfg(feature = "dummy_connector")]
 impl<const T: u8>
@@ -9528,6 +10757,7 @@ impl<const T: u8>
 }
 
 #[cfg(feature = "dummy_connector")]
+<<<<<<< HEAD
 impl<const T: u8> PaymentExtendAuthorization for connectors::DummyConnector<T> {}
 #[cfg(feature = "dummy_connector")]
 impl<const T: u8>
@@ -9537,6 +10767,8 @@ impl<const T: u8>
 }
 
 #[cfg(feature = "dummy_connector")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<const T: u8> UasPreAuthentication for connectors::DummyConnector<T> {}
 #[cfg(feature = "dummy_connector")]
 impl<const T: u8> UnifiedAuthenticationService for connectors::DummyConnector<T> {}
@@ -9612,8 +10844,16 @@ impl<const T: u8> api::revenue_recovery::RevenueRecoveryRecordBack
 #[cfg(all(feature = "v2", feature = "revenue_recovery"))]
 #[cfg(feature = "dummy_connector")]
 impl<const T: u8>
+<<<<<<< HEAD
     ConnectorIntegration<InvoiceRecordBack, InvoiceRecordBackRequest, InvoiceRecordBackResponse>
     for connectors::DummyConnector<T>
+=======
+    ConnectorIntegration<
+        RecoveryRecordBack,
+        RevenueRecoveryRecordBackRequest,
+        RevenueRecoveryRecordBackResponse,
+    > for connectors::DummyConnector<T>
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
 }
 
@@ -9687,6 +10927,7 @@ impl<const T: u8>
     for connectors::DummyConnector<T>
 {
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "dummy_connector")]
 impl<const T: u8> Subscriptions for connectors::DummyConnector<T> {}
@@ -9749,3 +10990,5 @@ impl<const T: u8>
     > for connectors::DummyConnector<T>
 {
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

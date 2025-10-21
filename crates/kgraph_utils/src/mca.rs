@@ -50,9 +50,13 @@ fn get_dir_value_payment_method(
 
         api_enums::PaymentMethodType::Becs => Ok(dirval!(BankDebitType = Becs)),
         api_enums::PaymentMethodType::Sepa => Ok(dirval!(BankDebitType = Sepa)),
+<<<<<<< HEAD
         api_enums::PaymentMethodType::SepaGuarenteedDebit => {
             Ok(dirval!(BankDebitType = SepaGuarenteedDebit))
         }
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_enums::PaymentMethodType::AliPay => Ok(dirval!(WalletType = AliPay)),
         api_enums::PaymentMethodType::AliPayHk => Ok(dirval!(WalletType = AliPayHk)),
         api_enums::PaymentMethodType::BancontactCard => {
@@ -166,7 +170,10 @@ fn get_dir_value_payment_method(
         api_enums::PaymentMethodType::Venmo => Ok(dirval!(WalletType = Venmo)),
         api_enums::PaymentMethodType::UpiIntent => Ok(dirval!(UpiType = UpiIntent)),
         api_enums::PaymentMethodType::UpiCollect => Ok(dirval!(UpiType = UpiCollect)),
+<<<<<<< HEAD
         api_enums::PaymentMethodType::UpiQr => Ok(dirval!(UpiType = UpiQr)),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_enums::PaymentMethodType::Mifinity => Ok(dirval!(WalletType = Mifinity)),
         api_enums::PaymentMethodType::Fps => Ok(dirval!(RealTimePaymentType = Fps)),
         api_enums::PaymentMethodType::DuitNow => Ok(dirval!(RealTimePaymentType = DuitNow)),

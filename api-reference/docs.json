@@ -45,14 +45,21 @@
                       "v1/payments/payments--cancel-post-capture",
                       "v1/payments/payments--capture",
                       "v1/payments/payments--incremental-authorization",
+<<<<<<< HEAD
                       "v1/payments/payments--extend-authorization",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                       "v1/payments/payments--session-token",
                       "v1/payments/payments-link--retrieve",
                       "v1/payments/payments--list",
                       "v1/payments/payments--external-3ds-authentication",
                       "v1/payments/payments--complete-authorize",
+<<<<<<< HEAD
                       "v1/payments/payments--update-metadata",
                       "v1/payments/payments--submit-eligibility-data"
+=======
+                      "v1/payments/payments--update-metadata"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     ]
                   },
                   {
@@ -152,7 +159,13 @@
                   },
                   {
                     "group": "Platform Account",
+<<<<<<< HEAD
                     "pages": ["v1/platform/platform--create"]
+=======
+                    "pages": [
+                      "v1/platform/platform--create"
+                    ]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                   },
                   {
                     "group": "API Key",
@@ -268,8 +281,12 @@
                       "v2/payments/payments--confirm-intent",
                       "v2/payments/payments--get",
                       "v2/payments/payments--create-and-confirm-intent",
+<<<<<<< HEAD
                       "v2/payments/payments--list",
                       "v2/payments/payments--gift-card-balance-check"
+=======
+                      "v2/payments/payments--list"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     ]
                   },
                   {
@@ -286,12 +303,15 @@
                     ]
                   },
                   {
+<<<<<<< HEAD
                     "group": "Network Tokenization",
                     "pages": [
                       "v2/payment-methods/check-network-token-status"
                     ]
                   },
                   {
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     "group": "Payment Method Session",
                     "pages": [
                       "v2/payment-method-session/payment-method-session--create",

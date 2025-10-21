@@ -43,10 +43,13 @@ generate_permissions! {
             scopes: [Read, Write],
             entities: [Profile, Merchant]
         },
+<<<<<<< HEAD
         Subscription: {
             scopes: [Read, Write],
             entities: [Profile, Merchant]
         },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ThreeDsDecisionManager: {
             scopes: [Read, Write],
             entities: [Merchant, Profile]
@@ -127,7 +130,10 @@ pub fn get_resource_name(resource: Resource, entity_type: EntityType) -> Option<
             Some("Payment Processors, Payout Processors, Fraud & Risk Managers")
         }
         (Resource::Routing, _) => Some("Routing"),
+<<<<<<< HEAD
         (Resource::Subscription, _) => Some("Subscription"),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         (Resource::RevenueRecovery, _) => Some("Revenue Recovery"),
         (Resource::ThreeDsDecisionManager, _) => Some("3DS Decision Manager"),
         (Resource::SurchargeDecisionManager, _) => Some("Surcharge Decision Manager"),
@@ -157,6 +163,7 @@ pub fn get_scope_name(scope: PermissionScope) -> &'static str {
         PermissionScope::Write => "View and Manage",
     }
 }
+<<<<<<< HEAD
 
 pub fn filter_resources_by_entity_type(
     resources: Vec<Resource>,
@@ -169,3 +176,5 @@ pub fn filter_resources_by_entity_type(
 
     (!filtered.is_empty()).then_some(filtered)
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

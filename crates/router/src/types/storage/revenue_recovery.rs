@@ -7,7 +7,11 @@ use external_services::grpc_client::{self as external_grpc_client, GrpcHeaders};
 use hyperswitch_domain_models::{
     business_profile, merchant_account, merchant_connector_account, merchant_key_store,
     payment_method_data::{Card, PaymentMethodData},
+<<<<<<< HEAD
     payments::{payment_attempt::PaymentAttempt, PaymentIntent, PaymentStatusData},
+=======
+    payments::{payment_attempt::PaymentAttempt, PaymentIntent},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use masking::PeekInterface;
 use router_env::logger;
@@ -32,7 +36,10 @@ pub struct RevenueRecoveryPaymentData {
     pub key_store: merchant_key_store::MerchantKeyStore,
     pub billing_mca: merchant_connector_account::MerchantConnectorAccount,
     pub retry_algorithm: enums::RevenueRecoveryAlgorithmType,
+<<<<<<< HEAD
     pub psync_data: Option<PaymentStatusData<types::api::PSync>>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 impl RevenueRecoveryPaymentData {
     pub async fn get_schedule_time_based_on_retry_type(
@@ -44,17 +51,23 @@ impl RevenueRecoveryPaymentData {
         payment_intent: &PaymentIntent,
         is_hard_decline: bool,
     ) -> Option<time::PrimitiveDateTime> {
+<<<<<<< HEAD
         if is_hard_decline {
             logger::info!("Hard Decline encountered");
             return None;
         }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         match self.retry_algorithm {
             enums::RevenueRecoveryAlgorithmType::Monitoring => {
                 logger::error!("Monitoring type found for Revenue Recovery retry payment");
                 None
             }
             enums::RevenueRecoveryAlgorithmType::Cascading => {
+<<<<<<< HEAD
                 logger::info!("Cascading type found for Revenue Recovery retry payment");
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 revenue_recovery::get_schedule_time_to_retry_mit_payments(
                     state.store.as_ref(),
                     merchant_id,
@@ -78,21 +91,29 @@ pub struct RevenueRecoverySettings {
 
 #[derive(Debug, serde::Deserialize, Clone)]
 pub struct RecoveryTimestamp {
+<<<<<<< HEAD
     pub initial_timestamp_in_seconds: i64,
     pub job_schedule_buffer_time_in_seconds: i64,
     pub reopen_workflow_buffer_time_in_seconds: i64,
     pub max_random_schedule_delay_in_seconds: i64,
     pub redis_ttl_buffer_in_seconds: i64,
+=======
+    pub initial_timestamp_in_hours: i64,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl Default for RecoveryTimestamp {
     fn default() -> Self {
         Self {
+<<<<<<< HEAD
             initial_timestamp_in_seconds: 1,
             job_schedule_buffer_time_in_seconds: 15,
             reopen_workflow_buffer_time_in_seconds: 60,
             max_random_schedule_delay_in_seconds: 300,
             redis_ttl_buffer_in_seconds: 300,
+=======
+            initial_timestamp_in_hours: 1,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

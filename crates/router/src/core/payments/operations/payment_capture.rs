@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 use std::{marker::PhantomData, ops::Deref};
+=======
+use std::marker::PhantomData;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use api_models::enums::FrmSuggestion;
 use async_trait::async_trait;
@@ -94,6 +98,7 @@ impl<F: Send + Clone + Sync> GetTracker<F, payments::PaymentData<F>, api::Paymen
 
         helpers::validate_status_with_capture_method(payment_intent.status, capture_method)?;
 
+<<<<<<< HEAD
         if !*payment_attempt
             .is_overcapture_enabled
             .unwrap_or_default()
@@ -106,6 +111,14 @@ impl<F: Send + Clone + Sync> GetTracker<F, payments::PaymentData<F>, api::Paymen
                     .map(|capture_amount| capture_amount.get_amount_as_i64()),
             )?;
         }
+=======
+        helpers::validate_amount_to_capture(
+            payment_attempt.amount_capturable.get_amount_as_i64(),
+            request
+                .amount_to_capture
+                .map(|capture_amount| capture_amount.get_amount_as_i64()),
+        )?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         helpers::validate_capture_method(capture_method)?;
 
@@ -270,8 +283,11 @@ impl<F: Send + Clone + Sync> GetTracker<F, payments::PaymentData<F>, api::Paymen
             vault_operation: None,
             threeds_method_comp_ind: None,
             whole_connector_response: None,
+<<<<<<< HEAD
             is_manual_retry_enabled: None,
             is_l2_l3_enabled: false,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let get_trackers_response = operations::GetTrackerResponse {

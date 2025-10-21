@@ -201,8 +201,13 @@ impl<F, T>
                 charges: None,
             })
         };
+<<<<<<< HEAD
         match (amount_captured_in_minor_units, status) {
             (Some(minor_amount), enums::AttemptStatus::Charged) => {
+=======
+        match amount_captured_in_minor_units {
+            Some(minor_amount) => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 let amount_captured = Some(minor_amount.get_amount_as_i64());
                 Ok(Self {
                     status,
@@ -212,7 +217,11 @@ impl<F, T>
                     ..item.data
                 })
             }
+<<<<<<< HEAD
             _ => Ok(Self {
+=======
+            None => Ok(Self {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 status,
                 response,
                 ..item.data

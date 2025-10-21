@@ -161,6 +161,19 @@ pub struct BillingAddress {
     pub country_code: common_enums::CountryAlpha2,
 }
 
+<<<<<<< HEAD
+=======
+#[derive(
+    Clone, Copy, Default, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize,
+)]
+#[serde(rename_all = "camelCase")]
+pub enum Channel {
+    #[default]
+    Ecom,
+    Moto,
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Customer {

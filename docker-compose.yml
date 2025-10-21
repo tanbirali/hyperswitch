@@ -9,7 +9,11 @@ networks:
 services:
   ### Dependencies
   prestart-hook:
+<<<<<<< HEAD
     image: docker.io/curlimages/curl-base:latest
+=======
+    image: curlimages/curl-base:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     container_name: prestart-hook
     environment:
       - ONE_CLICK_SETUP=${ONE_CLICK_SETUP:-false}
@@ -25,7 +29,11 @@ services:
       - router_net
 
   pg:
+<<<<<<< HEAD
     image: docker.io/postgres:latest
+=======
+    image: postgres:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ports:
       - "5432:5432"
     networks:
@@ -44,7 +52,11 @@ services:
       timeout: 5s
 
   redis-standalone:
+<<<<<<< HEAD
     image: docker.io/redis:7
+=======
+    image: redis:7
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     networks:
       - router_net
     ports:
@@ -57,6 +69,7 @@ services:
       timeout: 5s
 
   migration_runner:
+<<<<<<< HEAD
     image: docker.io/debian:trixie-slim
     pull_policy: always
     command: >
@@ -67,6 +80,13 @@ services:
         curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
       fi &&
       export PATH="$${PATH}:$${HOME}/.cargo/bin" &&
+=======
+    image: rust:latest
+    command: >
+      bash -c "
+      curl -fsSL https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash &&
+      cargo binstall diesel_cli just --no-confirm &&
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       just migrate"
     working_dir: /app
     networks:
@@ -76,9 +96,15 @@ services:
     environment:
       # format -> postgresql://DB_USER:DB_PASSWORD@HOST:PORT/DATABASE_NAME
       - DATABASE_URL=postgresql://db_user:db_pass@pg:5432/hyperswitch_db
+<<<<<<< HEAD
 
   mailhog:
     image: docker.io/mailhog/mailhog
+=======
+  
+  mailhog:
+    image: mailhog/mailhog
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     networks:
       - router_net
     profiles:
@@ -203,10 +229,15 @@ services:
       - "9000:9000"
     environment:
       - configPath=/tmp/dashboard-config.toml
+<<<<<<< HEAD
       - themeConfigPath=/tmp/dashboard-theme.json
     volumes:
       - ./config/dashboard.toml:/tmp/dashboard-config.toml
       - ./config/dashboard_theme.json:/tmp/dashboard-theme.json
+=======
+    volumes:
+      - ./config/dashboard.toml:/tmp/dashboard-config.toml
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     depends_on:
       hyperswitch-server:
         condition: service_healthy
@@ -216,16 +247,28 @@ services:
       logs: "promtail"
 
   create-default-user:
+<<<<<<< HEAD
     image: docker.io/curlimages/curl-base:latest
     container_name: create-default-user
     depends_on:
       hyperswitch-server:
         condition: service_healthy
+=======
+    image: curlimages/curl-base:latest
+    container_name: create-default-user
+    depends_on:
+      hyperswitch-server:
+        condition: service_healthy 
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       hyperswitch-control-center:
         condition: service_started
     environment:
       - HYPERSWITCH_SERVER_URL=http://hyperswitch-server:8080
+<<<<<<< HEAD
       - HYPERSWITCH_CONTROL_CENTER_URL=http://hyperswitch-control-center:9000
+=======
+      - HYPERSWITCH_CONTROL_CENTER_URL=http://hyperswitch-control-center:9000  
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     entrypoint:
       [
         "/bin/sh",
@@ -236,11 +279,21 @@ services:
       - ./scripts/create_default_user.sh:/create_default_user.sh
     networks:
       - router_net
+<<<<<<< HEAD
 
   poststart-hook:
     image: docker.io/curlimages/curl-base:latest
     container_name: poststart-hook
     depends_on:
+=======
+  
+  poststart-hook:
+    image: curlimages/curl-base:latest
+    container_name: poststart-hook
+    depends_on:
+      create-default-user:
+        condition: service_completed_successfully
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       hyperswitch-server:
         condition: service_healthy # Ensures it only starts when `hyperswitch-server` is healthy
     environment:
@@ -258,7 +311,11 @@ services:
 
   ### Clustered Redis setup
   redis-cluster:
+<<<<<<< HEAD
     image: docker.io/redis:7
+=======
+    image: redis:7
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     deploy:
       replicas: ${REDIS_CLUSTER_COUNT:-3}
     command: redis-server /usr/local/etc/redis/redis.conf
@@ -273,7 +330,11 @@ services:
       - "16379"
 
   redis-init:
+<<<<<<< HEAD
     image: docker.io/redis:7
+=======
+    image: redis:7
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     profiles:
       - clustered_redis
     depends_on:
@@ -299,7 +360,11 @@ services:
       '
   ### Monitoring
   grafana:
+<<<<<<< HEAD
     image: docker.io/grafana/grafana:latest
+=======
+    image: grafana/grafana:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ports:
       - "3000:3000"
     networks:
@@ -316,7 +381,11 @@ services:
       - ./config/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yml
 
   loki:
+<<<<<<< HEAD
     image: docker.io/grafana/loki:latest
+=======
+    image: grafana/loki:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ports:
       - "3100"
     command: -config.file=/etc/loki/loki.yaml
@@ -328,7 +397,11 @@ services:
       - ./config:/etc/loki
 
   otel-collector:
+<<<<<<< HEAD
     image: docker.io/otel/opentelemetry-collector-contrib:latest
+=======
+    image: otel/opentelemetry-collector-contrib:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     command: --config=/etc/otel-collector.yaml
     networks:
       - router_net
@@ -342,7 +415,11 @@ services:
       - "8889"
 
   prometheus:
+<<<<<<< HEAD
     image: docker.io/prom/prometheus:latest
+=======
+    image: prom/prometheus:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     networks:
       - router_net
     profiles:
@@ -354,7 +431,11 @@ services:
     restart: unless-stopped
 
   tempo:
+<<<<<<< HEAD
     image: docker.io/grafana/tempo:latest
+=======
+    image: grafana/tempo:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     command: -config.file=/etc/tempo.yaml
     volumes:
       - ./config/tempo.yaml:/etc/tempo.yaml
@@ -368,7 +449,11 @@ services:
     restart: unless-stopped
 
   redis-insight:
+<<<<<<< HEAD
     image: docker.io/redislabs/redisinsight:latest
+=======
+    image: redislabs/redisinsight:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     networks:
       - router_net
     profiles:
@@ -379,7 +464,11 @@ services:
       - redisinsight_store:/db
 
   kafka0:
+<<<<<<< HEAD
     image: docker.io/confluentinc/cp-kafka:7.0.5
+=======
+    image: confluentinc/cp-kafka:7.0.5
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     hostname: kafka0
     networks:
       - router_net
@@ -413,7 +502,11 @@ services:
 
   # Kafka UI for debugging kafka queues
   kafka-ui:
+<<<<<<< HEAD
     image: docker.io/provectuslabs/kafka-ui:latest
+=======
+    image: provectuslabs/kafka-ui:latest
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ports:
       - 8090:8080
     networks:
@@ -428,7 +521,11 @@ services:
       KAFKA_CLUSTERS_0_JMXPORT: 9997
 
   clickhouse-server:
+<<<<<<< HEAD
     image: docker.io/clickhouse/clickhouse-server:24.3
+=======
+    image: clickhouse/clickhouse-server:24.3
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     networks:
       - router_net
     ports:
@@ -446,7 +543,11 @@ services:
         hard: 262144
 
   opensearch:
+<<<<<<< HEAD
     image: docker.io/opensearchproject/opensearch:2
+=======
+    image: opensearchproject/opensearch:2
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     container_name: opensearch
     hostname: opensearch
     environment:
@@ -461,7 +562,11 @@ services:
       - router_net
 
   opensearch-dashboards:
+<<<<<<< HEAD
     image: docker.io/opensearchproject/opensearch-dashboards:2
+=======
+    image: opensearchproject/opensearch-dashboards:2
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ports:
       - 5601:5601
     profiles:
@@ -472,7 +577,11 @@ services:
       - router_net
 
   vector:
+<<<<<<< HEAD
     image: docker.io/timberio/vector:latest-debian
+=======
+    image: timberio/vector:latest-debian
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ports:
       - "8686"
       - "9598"
@@ -509,4 +618,8 @@ services:
       - HYPERSWITCH_CLIENT_URL=http://localhost:9050
       - HYPERSWITCH_SERVER_URL=http://localhost:8080
     labels:
+<<<<<<< HEAD
       logs: "promtail"
+=======
+      logs: "promtail"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

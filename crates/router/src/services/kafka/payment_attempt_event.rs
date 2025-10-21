@@ -155,7 +155,10 @@ pub struct KafkaPaymentAttemptEvent<'a> {
     pub payment_id: &'a id_type::GlobalPaymentId,
     pub merchant_id: &'a id_type::MerchantId,
     pub attempt_id: &'a id_type::GlobalAttemptId,
+<<<<<<< HEAD
     pub attempts_group_id: Option<&'a String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub status: storage_enums::AttemptStatus,
     pub amount: MinorUnit,
     pub connector: Option<&'a String>,
@@ -235,7 +238,10 @@ impl<'a> KafkaPaymentAttemptEvent<'a> {
         let PaymentAttempt {
             payment_id,
             merchant_id,
+<<<<<<< HEAD
             attempts_group_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             amount_details,
             status,
             connector,
@@ -283,7 +289,10 @@ impl<'a> KafkaPaymentAttemptEvent<'a> {
             created_by,
             connector_request_reference_id,
             network_transaction_id: _,
+<<<<<<< HEAD
             authorized_amount: _,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         } = attempt;
 
         let (connector_payment_id, connector_payment_data) = connector_payment_id
@@ -296,7 +305,10 @@ impl<'a> KafkaPaymentAttemptEvent<'a> {
             payment_id,
             merchant_id,
             attempt_id: id,
+<<<<<<< HEAD
             attempts_group_id: attempts_group_id.as_ref(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             status: *status,
             amount: amount_details.get_net_amount(),
             connector: connector.as_ref(),

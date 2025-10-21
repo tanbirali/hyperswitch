@@ -1,6 +1,10 @@
 pub mod transformers;
 
+<<<<<<< HEAD
 use std::{fmt::Debug, sync::LazyLock};
+=======
+use std::fmt::Debug;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use base64::Engine;
 use common_enums::enums;
@@ -46,6 +50,10 @@ use hyperswitch_interfaces::{
     },
     webhooks::{self, IncomingWebhookFlowError},
 };
+<<<<<<< HEAD
+=======
+use lazy_static::lazy_static;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::{ExposeInterface, Mask, PeekInterface};
 use ring::hmac;
 use router_env::logger;
@@ -825,8 +833,13 @@ impl webhooks::IncomingWebhook for Worldline {
     }
 }
 
+<<<<<<< HEAD
 static WORLDLINE_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
     LazyLock::new(|| {
+=======
+lazy_static! {
+    static ref WORLDLINE_SUPPORTED_PAYMENT_METHODS: SupportedPaymentMethods = {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let supported_capture_methods = vec![
             enums::CaptureMethod::Automatic,
             enums::CaptureMethod::Manual,
@@ -889,7 +902,11 @@ static WORLDLINE_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
             PaymentMethodDetails {
                 mandates: enums::FeatureStatus::NotSupported,
                 refunds: enums::FeatureStatus::Supported,
+<<<<<<< HEAD
                 supported_capture_methods,
+=======
+                supported_capture_methods: supported_capture_methods.clone(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 specific_features: Some(
                     api_models::feature_matrix::PaymentMethodSpecificFeatures::Card({
                         api_models::feature_matrix::CardSpecificFeatures {
@@ -903,6 +920,7 @@ static WORLDLINE_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
         );
 
         worldline_supported_payment_methods
+<<<<<<< HEAD
     });
 
 static WORLDLINE_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
@@ -917,6 +935,22 @@ static WORLDLINE_SUPPORTED_WEBHOOK_FLOWS: [enums::EventClass; 1] = [enums::Event
 impl ConnectorSpecifications for Worldline {
     fn get_connector_about(&self) -> Option<&'static ConnectorInfo> {
         Some(&WORLDLINE_CONNECTOR_INFO)
+=======
+    };
+    static ref WORLDLINE_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
+        display_name: "Worldline",
+        description: "Worldline, Europe's leading payment service provider",
+        connector_type: enums::HyperswitchConnectorCategory::PaymentGateway,
+        integration_status: enums::ConnectorIntegrationStatus::Sandbox,
+    };
+    static ref WORLDLINE_SUPPORTED_WEBHOOK_FLOWS: Vec<enums::EventClass> =
+        vec![enums::EventClass::Payments];
+}
+
+impl ConnectorSpecifications for Worldline {
+    fn get_connector_about(&self) -> Option<&'static ConnectorInfo> {
+        Some(&*WORLDLINE_CONNECTOR_INFO)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_supported_payment_methods(&self) -> Option<&'static SupportedPaymentMethods> {
@@ -924,6 +958,10 @@ impl ConnectorSpecifications for Worldline {
     }
 
     fn get_supported_webhook_flows(&self) -> Option<&'static [enums::EventClass]> {
+<<<<<<< HEAD
         Some(&WORLDLINE_SUPPORTED_WEBHOOK_FLOWS)
+=======
+        Some(&*WORLDLINE_SUPPORTED_WEBHOOK_FLOWS)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }

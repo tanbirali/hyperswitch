@@ -13,10 +13,14 @@ use crate::{
         payments::{self, operations::Operation},
         webhooks::recovery_incoming,
     },
+<<<<<<< HEAD
     db::{
         errors::{RouterResponse, StorageErrorExt},
         storage::revenue_recovery_redis_operation::RedisTokenManager,
     },
+=======
+    db::errors::{RouterResponse, StorageErrorExt},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     logger,
     routes::{app::ReqState, SessionState},
     services,
@@ -24,7 +28,10 @@ use crate::{
         api::payments as api_types,
         domain,
         storage::{self, revenue_recovery as revenue_recovery_types},
+<<<<<<< HEAD
         transformers::ForeignFrom,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 
@@ -32,6 +39,7 @@ pub async fn call_psync_api(
     state: &SessionState,
     global_payment_id: &id_type::GlobalPaymentId,
     revenue_recovery_data: &revenue_recovery_types::RevenueRecoveryPaymentData,
+<<<<<<< HEAD
     force_sync_bool: bool,
     expand_attempts_bool: bool,
 ) -> RouterResult<payments_domain::PaymentStatusData<api_types::PSync>> {
@@ -40,6 +48,14 @@ pub async fn call_psync_api(
         force_sync: force_sync_bool,
         param: None,
         expand_attempts: expand_attempts_bool,
+=======
+) -> RouterResult<payments_domain::PaymentStatusData<api_types::PSync>> {
+    let operation = payments::operations::PaymentGet;
+    let req = payments_api::PaymentsRetrieveRequest {
+        force_sync: false,
+        param: None,
+        expand_attempts: true,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return_raw_connector_response: None,
         merchant_connector_details: None,
     };
@@ -88,6 +104,7 @@ pub async fn call_proxy_api(
     payment_intent: &payments_domain::PaymentIntent,
     revenue_recovery_payment_data: &storage::revenue_recovery::RevenueRecoveryPaymentData,
     revenue_recovery: &payments_api::PaymentRevenueRecoveryMetadata,
+<<<<<<< HEAD
     payment_processor_token: &str,
 ) -> RouterResult<payments_domain::PaymentConfirmData<api_types::Authorize>> {
     let operation = payments::operations::proxy_payments_intent::PaymentProxyIntent;
@@ -99,6 +116,14 @@ pub async fn call_proxy_api(
         return_url: None,
         amount: payments_api::AmountDetails::new(payment_intent.amount_details.clone().into()),
         recurring_details,
+=======
+) -> RouterResult<payments_domain::PaymentConfirmData<api_types::Authorize>> {
+    let operation = payments::operations::proxy_payments_intent::PaymentProxyIntent;
+    let req = payments_api::ProxyPaymentsRequest {
+        return_url: None,
+        amount: payments_api::AmountDetails::new(payment_intent.amount_details.clone().into()),
+        recurring_details: revenue_recovery.get_payment_token_for_api_request(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         shipping: None,
         browser_info: None,
         connector: revenue_recovery.connector.to_string(),
@@ -187,16 +212,22 @@ pub async fn record_internal_attempt_api(
     payment_intent: &payments_domain::PaymentIntent,
     revenue_recovery_payment_data: &storage::revenue_recovery::RevenueRecoveryPaymentData,
     revenue_recovery_metadata: &payments_api::PaymentRevenueRecoveryMetadata,
+<<<<<<< HEAD
     card_info: payments_api::AdditionalCardInfo,
     payment_processor_token: &str,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<payments_api::PaymentAttemptRecordResponse> {
     let revenue_recovery_attempt_data =
         recovery_incoming::RevenueRecoveryAttempt::get_revenue_recovery_attempt(
             payment_intent,
             revenue_recovery_metadata,
             &revenue_recovery_payment_data.billing_mca,
+<<<<<<< HEAD
             card_info,
             payment_processor_token,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )
         .change_context(errors::ApiErrorResponse::GenericNotFoundError {
             message: "get_revenue_recovery_attempt was not constructed".to_string(),

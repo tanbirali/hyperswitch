@@ -41,8 +41,14 @@ fn get_group_description(group: PermissionGroup) -> Option<&'static str> {
         PermissionGroup::AnalyticsView => Some("View Analytics"),
         PermissionGroup::UsersView => Some("View Users"),
         PermissionGroup::UsersManage => Some("Manage and invite Users to the Team"),
+<<<<<<< HEAD
         PermissionGroup::AccountView => Some("View Merchant Details"),
         PermissionGroup::AccountManage => Some("Create, modify and delete Merchant Details like api keys, webhooks, etc"),
+=======
+        PermissionGroup::MerchantDetailsView | PermissionGroup::AccountView => Some("View Merchant Details"),
+        PermissionGroup::MerchantDetailsManage | PermissionGroup::AccountManage => Some("Create, modify and delete Merchant Details like api keys, webhooks, etc"),
+        PermissionGroup::OrganizationManage => Some("Manage organization level tasks like create new Merchant accounts, Organization level roles, etc"),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         PermissionGroup::ReconReportsView => Some("View reconciliation reports and analytics"),
         PermissionGroup::ReconReportsManage => Some("Manage reconciliation reports"),
         PermissionGroup::ReconOpsView => Some("View and access all reconciliation operations including reports and analytics"),

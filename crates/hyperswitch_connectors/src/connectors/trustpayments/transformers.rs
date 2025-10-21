@@ -1,13 +1,19 @@
+<<<<<<< HEAD
 use cards;
 use common_enums::enums;
 use common_utils::types::StringMinorUnit;
 use error_stack::ResultExt;
+=======
+use common_enums::enums;
+use common_utils::types::StringMinorUnit;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use hyperswitch_domain_models::{
     payment_method_data::PaymentMethodData,
     router_data::{ConnectorAuthType, RouterData},
     router_flow_types::refunds::{Execute, RSync},
     router_request_types::ResponseId,
     router_response_types::{PaymentsResponseData, RefundsResponseData},
+<<<<<<< HEAD
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         PaymentsSyncRouterData, RefundSyncRouterData, RefundsRouterData,
@@ -290,11 +296,28 @@ impl std::fmt::Display for TrustpaymentsErrorCode {
 
 pub struct TrustpaymentsRouterData<T> {
     pub amount: StringMinorUnit,
+=======
+    types::{PaymentsAuthorizeRouterData, RefundsRouterData},
+};
+use hyperswitch_interfaces::errors;
+use masking::Secret;
+use serde::{Deserialize, Serialize};
+
+use crate::types::{RefundsResponseRouterData, ResponseRouterData};
+
+//TODO: Fill the struct with respective fields
+pub struct TrustpaymentsRouterData<T> {
+    pub amount: StringMinorUnit, // The type of amount that a connector accepts, for example, String, i64, f64, etc.
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub router_data: T,
 }
 
 impl<T> From<(StringMinorUnit, T)> for TrustpaymentsRouterData<T> {
     fn from((amount, item): (StringMinorUnit, T)) -> Self {
+<<<<<<< HEAD
+=======
+        //Todo :  use utils to convert the amount to the type of amount that a connector accepts
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Self {
             amount,
             router_data: item,
@@ -302,6 +325,7 @@ impl<T> From<(StringMinorUnit, T)> for TrustpaymentsRouterData<T> {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, PartialEq)]
 pub struct TrustpaymentsPaymentsRequest {
     pub alias: String,
@@ -324,6 +348,22 @@ pub struct TrustpaymentsPaymentRequestData {
     pub sitereference: String,
     pub credentialsonfile: String,
     pub settlestatus: String,
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Serialize, PartialEq)]
+pub struct TrustpaymentsPaymentsRequest {
+    amount: StringMinorUnit,
+    card: TrustpaymentsCard,
+}
+
+#[derive(Default, Debug, Serialize, Eq, PartialEq)]
+pub struct TrustpaymentsCard {
+    number: cards::CardNumber,
+    expiry_month: Secret<String>,
+    expiry_year: Secret<String>,
+    cvc: Secret<String>,
+    complete: bool,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&TrustpaymentsRouterData<&PaymentsAuthorizeRouterData>>
@@ -333,6 +373,7 @@ impl TryFrom<&TrustpaymentsRouterData<&PaymentsAuthorizeRouterData>>
     fn try_from(
         item: &TrustpaymentsRouterData<&PaymentsAuthorizeRouterData>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let auth = TrustpaymentsAuthType::try_from(&item.router_data.connector_auth_type)?;
 
         if matches!(
@@ -410,10 +451,19 @@ impl TryFrom<&TrustpaymentsRouterData<&PaymentsAuthorizeRouterData>>
                 "Payment method not supported".to_string(),
             )
             .into()),
+=======
+        match item.router_data.request.payment_method_data.clone() {
+            PaymentMethodData::Card(_) => Err(errors::ConnectorError::NotImplemented(
+                "Card payment method not implemented".to_string(),
+            )
+            .into()),
+            _ => Err(errors::ConnectorError::NotImplemented("Payment method".to_string()).into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
 
+<<<<<<< HEAD
 pub struct TrustpaymentsAuthType {
     pub(super) username: Secret<String>,
     pub(super) password: Secret<String>,
@@ -431,12 +481,19 @@ impl TrustpaymentsAuthType {
         let encoded = base64::engine::general_purpose::STANDARD.encode(credentials.as_bytes());
         format!("Basic {encoded}")
     }
+=======
+//TODO: Fill the struct with respective fields
+// Auth Struct
+pub struct TrustpaymentsAuthType {
+    pub(super) api_key: Secret<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&ConnectorAuthType> for TrustpaymentsAuthType {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(auth_type: &ConnectorAuthType) -> Result<Self, Self::Error> {
         match auth_type {
+<<<<<<< HEAD
             ConnectorAuthType::SignatureKey {
                 api_key,
                 key1,
@@ -445,11 +502,16 @@ impl TryFrom<&ConnectorAuthType> for TrustpaymentsAuthType {
                 username: api_key.to_owned(),
                 password: key1.to_owned(),
                 site_reference: api_secret.to_owned(),
+=======
+            ConnectorAuthType::HeaderKey { api_key } => Ok(Self {
+                api_key: api_key.to_owned(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             _ => Err(errors::ConnectorError::FailedToObtainAuthType.into()),
         }
     }
 }
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct TrustpaymentsPaymentsResponse {
     #[serde(alias = "response")]
@@ -611,11 +673,56 @@ impl
             status,
             response: Ok(PaymentsResponseData::TransactionResponse {
                 resource_id: ResponseId::ConnectorTransactionId(transaction_id.clone()),
+=======
+// PaymentsResponse
+//TODO: Append the remaining status flags
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum TrustpaymentsPaymentStatus {
+    Succeeded,
+    Failed,
+    #[default]
+    Processing,
+}
+
+impl From<TrustpaymentsPaymentStatus> for common_enums::AttemptStatus {
+    fn from(item: TrustpaymentsPaymentStatus) -> Self {
+        match item {
+            TrustpaymentsPaymentStatus::Succeeded => Self::Charged,
+            TrustpaymentsPaymentStatus::Failed => Self::Failure,
+            TrustpaymentsPaymentStatus::Processing => Self::Authorizing,
+        }
+    }
+}
+
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct TrustpaymentsPaymentsResponse {
+    status: TrustpaymentsPaymentStatus,
+    id: String,
+}
+
+impl<F, T> TryFrom<ResponseRouterData<F, TrustpaymentsPaymentsResponse, T, PaymentsResponseData>>
+    for RouterData<F, T, PaymentsResponseData>
+{
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(
+        item: ResponseRouterData<F, TrustpaymentsPaymentsResponse, T, PaymentsResponseData>,
+    ) -> Result<Self, Self::Error> {
+        Ok(Self {
+            status: common_enums::AttemptStatus::from(item.response.status),
+            response: Ok(PaymentsResponseData::TransactionResponse {
+                resource_id: ResponseId::ConnectorTransactionId(item.response.id),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 redirection_data: Box::new(None),
                 mandate_reference: Box::new(None),
                 connector_metadata: None,
                 network_txn_id: None,
+<<<<<<< HEAD
                 connector_response_reference_id: Some(transaction_id),
+=======
+                connector_response_reference_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 incremental_authorization_allowed: None,
                 charges: None,
             }),
@@ -624,6 +731,7 @@ impl
     }
 }
 
+<<<<<<< HEAD
 impl
     TryFrom<
         ResponseRouterData<
@@ -953,6 +1061,14 @@ pub struct TrustpaymentsRefundRequestData {
     pub parenttransactionreference: String,
     pub baseamount: StringMinorUnit,
     pub currencyiso3a: String,
+=======
+//TODO: Fill the struct with respective fields
+// REFUND :
+// Type definition for RefundRequest
+#[derive(Default, Debug, Serialize)]
+pub struct TrustpaymentsRefundRequest {
+    pub amount: StringMinorUnit,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<F> TryFrom<&TrustpaymentsRouterData<&RefundsRouterData<F>>> for TrustpaymentsRefundRequest {
@@ -960,6 +1076,7 @@ impl<F> TryFrom<&TrustpaymentsRouterData<&RefundsRouterData<F>>> for Trustpaymen
     fn try_from(
         item: &TrustpaymentsRouterData<&RefundsRouterData<F>>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let auth = TrustpaymentsAuthType::try_from(&item.router_data.connector_auth_type)?;
 
         let parent_transaction_reference =
@@ -975,10 +1092,15 @@ impl<F> TryFrom<&TrustpaymentsRouterData<&RefundsRouterData<F>>> for Trustpaymen
                 baseamount: item.amount.clone(),
                 currencyiso3a: item.router_data.request.currency.to_string(),
             }],
+=======
+        Ok(Self {
+            amount: item.amount.to_owned(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, PartialEq)]
 pub struct TrustpaymentsSyncRequest {
     pub alias: String,
@@ -1064,11 +1186,43 @@ impl TryFrom<&RefundSyncRouterData> for TrustpaymentsRefundSyncRequest {
 
 pub type RefundResponse = TrustpaymentsPaymentsResponse;
 
+=======
+// Type definition for Refund Response
+
+#[allow(dead_code)]
+#[derive(Debug, Copy, Serialize, Default, Deserialize, Clone)]
+pub enum RefundStatus {
+    Succeeded,
+    Failed,
+    #[default]
+    Processing,
+}
+
+impl From<RefundStatus> for enums::RefundStatus {
+    fn from(item: RefundStatus) -> Self {
+        match item {
+            RefundStatus::Succeeded => Self::Success,
+            RefundStatus::Failed => Self::Failure,
+            RefundStatus::Processing => Self::Pending,
+            //TODO: Review mapping
+        }
+    }
+}
+
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Clone, Serialize, Deserialize)]
+pub struct RefundResponse {
+    id: String,
+    status: RefundStatus,
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<RefundsResponseRouterData<Execute, RefundResponse>> for RefundsRouterData<Execute> {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: RefundsResponseRouterData<Execute, RefundResponse>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let response_data = item
             .response
             .responses
@@ -1086,6 +1240,12 @@ impl TryFrom<RefundsResponseRouterData<Execute, RefundResponse>> for RefundsRout
             response: Ok(RefundsResponseData {
                 connector_refund_id: refund_id,
                 refund_status,
+=======
+        Ok(Self {
+            response: Ok(RefundsResponseData {
+                connector_refund_id: item.response.id.to_string(),
+                refund_status: enums::RefundStatus::from(item.response.status),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -1097,6 +1257,7 @@ impl TryFrom<RefundsResponseRouterData<RSync, RefundResponse>> for RefundsRouter
     fn try_from(
         item: RefundsResponseRouterData<RSync, RefundResponse>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let response_data = item
             .response
             .responses
@@ -1114,12 +1275,19 @@ impl TryFrom<RefundsResponseRouterData<RSync, RefundResponse>> for RefundsRouter
             response: Ok(RefundsResponseData {
                 connector_refund_id: refund_id,
                 refund_status,
+=======
+        Ok(Self {
+            response: Ok(RefundsResponseData {
+                connector_refund_id: item.response.id.to_string(),
+                refund_status: enums::RefundStatus::from(item.response.status),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, PartialEq)]
 pub struct TrustpaymentsTokenizationRequest {
     pub alias: String,
@@ -1227,6 +1395,9 @@ impl
     }
 }
 
+=======
+//TODO: Fill the struct with respective fields
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Default, Debug, Serialize, Deserialize, PartialEq)]
 pub struct TrustpaymentsErrorResponse {
     pub status_code: u16,
@@ -1237,6 +1408,7 @@ pub struct TrustpaymentsErrorResponse {
     pub network_decline_code: Option<String>,
     pub network_error_message: Option<String>,
 }
+<<<<<<< HEAD
 
 impl TrustpaymentsErrorResponse {
     pub fn get_connector_error_type(&self) -> errors::ConnectorError {
@@ -1346,3 +1518,5 @@ impl TrustpaymentsPaymentResponseData {
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

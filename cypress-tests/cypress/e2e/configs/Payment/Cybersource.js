@@ -288,6 +288,7 @@ export const connectorDetails = {
         },
       },
     },
+<<<<<<< HEAD
     No3DSFailPayment: {
       Request: {
         payment_method: "card",
@@ -443,6 +444,8 @@ export const connectorDetails = {
         },
       },
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Capture: {
       Configs: {
         CONNECTOR_CREDENTIAL: {

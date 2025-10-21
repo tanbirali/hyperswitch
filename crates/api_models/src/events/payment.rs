@@ -31,12 +31,11 @@ use crate::{
         PaymentListResponseV2, PaymentsApproveRequest, PaymentsCancelPostCaptureRequest,
         PaymentsCancelRequest, PaymentsCaptureRequest, PaymentsCompleteAuthorizeRequest,
         PaymentsDynamicTaxCalculationRequest, PaymentsDynamicTaxCalculationResponse,
-        PaymentsExtendAuthorizationRequest, PaymentsExternalAuthenticationRequest,
-        PaymentsExternalAuthenticationResponse, PaymentsIncrementalAuthorizationRequest,
-        PaymentsManualUpdateRequest, PaymentsManualUpdateResponse,
-        PaymentsPostSessionTokensRequest, PaymentsPostSessionTokensResponse, PaymentsRejectRequest,
-        PaymentsRetrieveRequest, PaymentsStartRequest, PaymentsUpdateMetadataRequest,
-        PaymentsUpdateMetadataResponse,
+        PaymentsExternalAuthenticationRequest, PaymentsExternalAuthenticationResponse,
+        PaymentsIncrementalAuthorizationRequest, PaymentsManualUpdateRequest,
+        PaymentsManualUpdateResponse, PaymentsPostSessionTokensRequest,
+        PaymentsPostSessionTokensResponse, PaymentsRejectRequest, PaymentsRetrieveRequest,
+        PaymentsStartRequest, PaymentsUpdateMetadataRequest, PaymentsUpdateMetadataResponse,
     },
 };
 
@@ -144,14 +143,6 @@ impl ApiEventMetric for PaymentsCancelPostCaptureRequest {
         })
     }
 }
-#[cfg(feature = "v1")]
-impl ApiEventMetric for PaymentsExtendAuthorizationRequest {
-    fn get_api_event_type(&self) -> Option<ApiEventsType> {
-        Some(ApiEventsType::Payment {
-            payment_id: self.payment_id.clone(),
-        })
-    }
-}
 
 #[cfg(feature = "v1")]
 impl ApiEventMetric for PaymentsApproveRequest {
@@ -183,33 +174,8 @@ impl ApiEventMetric for payments::PaymentsRequest {
     }
 }
 
-#[cfg(feature = "v1")]
-impl ApiEventMetric for payments::PaymentsEligibilityRequest {
-    fn get_api_event_type(&self) -> Option<ApiEventsType> {
-        Some(ApiEventsType::Payment {
-            payment_id: self.payment_id.clone(),
-        })
-    }
-}
-
-#[cfg(feature = "v1")]
-impl ApiEventMetric for payments::PaymentsEligibilityResponse {
-    fn get_api_event_type(&self) -> Option<ApiEventsType> {
-        Some(ApiEventsType::Payment {
-            payment_id: self.payment_id.clone(),
-        })
-    }
-}
-
 #[cfg(feature = "v2")]
 impl ApiEventMetric for PaymentsCreateIntentRequest {
-    fn get_api_event_type(&self) -> Option<ApiEventsType> {
-        None
-    }
-}
-
-#[cfg(feature = "v2")]
-impl ApiEventMetric for payments::GiftCardBalanceCheckResponse {
     fn get_api_event_type(&self) -> Option<ApiEventsType> {
         None
     }
@@ -258,22 +224,6 @@ impl ApiEventMetric for PaymentsIntentResponse {
 
 #[cfg(feature = "v2")]
 impl ApiEventMetric for payments::PaymentsResponse {
-    fn get_api_event_type(&self) -> Option<ApiEventsType> {
-        Some(ApiEventsType::Payment {
-            payment_id: self.id.clone(),
-        })
-    }
-}
-
-#[cfg(feature = "v2")]
-impl ApiEventMetric for payments::PaymentsCancelRequest {
-    fn get_api_event_type(&self) -> Option<ApiEventsType> {
-        None
-    }
-}
-
-#[cfg(feature = "v2")]
-impl ApiEventMetric for payments::PaymentsCancelResponse {
     fn get_api_event_type(&self) -> Option<ApiEventsType> {
         Some(ApiEventsType::Payment {
             payment_id: self.id.clone(),

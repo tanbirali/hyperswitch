@@ -16,9 +16,13 @@ use hyperswitch_domain_models::{
         refunds::{Execute, RSync},
     },
     router_request_types::{PaymentsCancelData, ResponseId},
+<<<<<<< HEAD
     router_response_types::{
         ConnectorCustomerResponseData, PaymentsResponseData, RefundsResponseData,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types,
 };
 use hyperswitch_interfaces::{
@@ -374,11 +378,17 @@ impl<F, T> TryFrom<ResponseRouterData<F, FacilitapayCustomerResponse, T, Payment
         item: ResponseRouterData<F, FacilitapayCustomerResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
         Ok(Self {
+<<<<<<< HEAD
             response: Ok(PaymentsResponseData::ConnectorCustomerResponse(
                 ConnectorCustomerResponseData::new_with_customer_id(
                     item.response.data.customer_id.expose(),
                 ),
             )),
+=======
+            response: Ok(PaymentsResponseData::ConnectorCustomerResponse {
+                connector_customer_id: item.response.data.customer_id.expose(),
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }

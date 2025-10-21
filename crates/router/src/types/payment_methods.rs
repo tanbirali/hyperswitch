@@ -51,6 +51,7 @@ pub struct AddVaultRequest<D> {
     pub ttl: i64,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct AddVaultResponse {
     #[cfg(feature = "v2")]
@@ -61,6 +62,13 @@ pub struct AddVaultResponse {
     pub vault_id: domain::VaultId,
     #[cfg(feature = "v1")]
     pub vault_id: String,
+=======
+#[cfg(feature = "v2")]
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
+pub struct AddVaultResponse {
+    pub entity_id: Option<id_type::GlobalCustomerId>,
+    pub vault_id: domain::VaultId,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fingerprint_id: Option<String>,
 }
 
@@ -344,16 +352,25 @@ pub struct CheckTokenStatus {
     pub customer_id: id_type::GlobalCustomerId,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum TokenStatus {
     Active,
     Suspended,
     Deactivated,
+=======
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "UPPERCASE")]
+pub enum TokenStatus {
+    Active,
+    Inactive,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
+<<<<<<< HEAD
 pub struct CheckTokenStatusResponse {
     pub token_status: TokenStatus,
     pub token_expiry_month: Secret<String>,
@@ -361,6 +378,17 @@ pub struct CheckTokenStatusResponse {
     pub card_last_4: String,
     pub card_expiry: String,
     pub token_last_4: String,
+=======
+pub struct CheckTokenStatusResponsePayload {
+    pub token_expiry_month: Secret<String>,
+    pub token_expiry_year: Secret<String>,
+    pub token_status: TokenStatus,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct CheckTokenStatusResponse {
+    pub payload: CheckTokenStatusResponsePayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]

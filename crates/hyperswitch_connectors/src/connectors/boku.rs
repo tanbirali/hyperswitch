@@ -1,5 +1,4 @@
 pub mod transformers;
-use std::sync::LazyLock;
 
 use api_models::webhooks::{IncomingWebhookEvent, ObjectReferenceId};
 use common_enums::enums;
@@ -22,10 +21,7 @@ use hyperswitch_domain_models::{
         PaymentsCancelData, PaymentsCaptureData, PaymentsSessionData, PaymentsSyncData,
         RefundsData, SetupMandateRequestData,
     },
-    router_response_types::{
-        ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
-        SupportedPaymentMethods, SupportedPaymentMethodsExt,
-    },
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
     types::{
         PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, PaymentsSyncRouterData,
         RefundSyncRouterData, RefundsRouterData,
@@ -53,7 +49,7 @@ use crate::{
     constants::{headers, UNSUPPORTED_ERROR_MESSAGE},
     metrics,
     types::ResponseRouterData,
-    utils::convert_amount,
+    utils::{construct_not_supported_error_report, convert_amount},
 };
 
 #[derive(Clone)]
@@ -178,7 +174,24 @@ impl ConnectorCommon for Boku {
     }
 }
 
-impl ConnectorValidation for Boku {}
+impl ConnectorValidation for Boku {
+    fn validate_connector_against_payment_request(
+        &self,
+        capture_method: Option<enums::CaptureMethod>,
+        _payment_method: enums::PaymentMethod,
+        _pmt: Option<enums::PaymentMethodType>,
+    ) -> CustomResult<(), errors::ConnectorError> {
+        let capture_method = capture_method.unwrap_or_default();
+        match capture_method {
+            enums::CaptureMethod::Automatic
+            | enums::CaptureMethod::Manual
+            | enums::CaptureMethod::SequentialAutomatic => Ok(()),
+            enums::CaptureMethod::ManualMultiple | enums::CaptureMethod::Scheduled => Err(
+                construct_not_supported_error_report(capture_method, self.id()),
+            ),
+        }
+    }
+}
 
 impl ConnectorIntegration<Session, PaymentsSessionData, PaymentsResponseData> for Boku {
     //TODO: implement sessions flow
@@ -705,92 +718,4 @@ fn get_xml_deserialized(
     }
 }
 
-static BOKU_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
-    let supported_capture_methods = vec![
-        enums::CaptureMethod::Automatic,
-        enums::CaptureMethod::Manual,
-        enums::CaptureMethod::SequentialAutomatic,
-    ];
-
-    let mut boku_supported_payment_methods = SupportedPaymentMethods::new();
-
-    boku_supported_payment_methods.add(
-        enums::PaymentMethod::Wallet,
-        enums::PaymentMethodType::Dana,
-        PaymentMethodDetails {
-            mandates: enums::FeatureStatus::NotSupported,
-            refunds: enums::FeatureStatus::Supported,
-            supported_capture_methods: supported_capture_methods.clone(),
-            specific_features: None,
-        },
-    );
-
-    boku_supported_payment_methods.add(
-        enums::PaymentMethod::Wallet,
-        enums::PaymentMethodType::Gcash,
-        PaymentMethodDetails {
-            mandates: enums::FeatureStatus::NotSupported,
-            refunds: enums::FeatureStatus::Supported,
-            supported_capture_methods: supported_capture_methods.clone(),
-            specific_features: None,
-        },
-    );
-
-    boku_supported_payment_methods.add(
-        enums::PaymentMethod::Wallet,
-        enums::PaymentMethodType::GoPay,
-        PaymentMethodDetails {
-            mandates: enums::FeatureStatus::NotSupported,
-            refunds: enums::FeatureStatus::Supported,
-            supported_capture_methods: supported_capture_methods.clone(),
-            specific_features: None,
-        },
-    );
-
-    boku_supported_payment_methods.add(
-        enums::PaymentMethod::Wallet,
-        enums::PaymentMethodType::KakaoPay,
-        PaymentMethodDetails {
-            mandates: enums::FeatureStatus::NotSupported,
-            refunds: enums::FeatureStatus::Supported,
-            supported_capture_methods: supported_capture_methods.clone(),
-            specific_features: None,
-        },
-    );
-
-    boku_supported_payment_methods.add(
-        enums::PaymentMethod::Wallet,
-        enums::PaymentMethodType::Momo,
-        PaymentMethodDetails {
-            mandates: enums::FeatureStatus::NotSupported,
-            refunds: enums::FeatureStatus::Supported,
-            supported_capture_methods,
-            specific_features: None,
-        },
-    );
-
-    boku_supported_payment_methods
-});
-
-static BOKU_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
-    display_name: "Boku",
-    description: "Boku, Inc. is a mobile payments company that allows businesses to collect online payments through both carrier billing and mobile wallets.",
-    connector_type: enums::HyperswitchConnectorCategory::AlternativePaymentMethod,
-    integration_status: enums::ConnectorIntegrationStatus::Alpha,
-};
-
-static BOKU_SUPPORTED_WEBHOOK_FLOWS: [enums::EventClass; 0] = [];
-
-impl ConnectorSpecifications for Boku {
-    fn get_connector_about(&self) -> Option<&'static ConnectorInfo> {
-        Some(&BOKU_CONNECTOR_INFO)
-    }
-
-    fn get_supported_payment_methods(&self) -> Option<&'static SupportedPaymentMethods> {
-        Some(&*BOKU_SUPPORTED_PAYMENT_METHODS)
-    }
-
-    fn get_supported_webhook_flows(&self) -> Option<&'static [enums::EventClass]> {
-        Some(&BOKU_SUPPORTED_WEBHOOK_FLOWS)
-    }
-}
+impl ConnectorSpecifications for Boku {}

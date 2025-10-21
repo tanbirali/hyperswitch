@@ -400,9 +400,12 @@ pub enum StripeNextAction {
     InvokeHiddenIframe {
         iframe_data: payments::IframeData,
     },
+<<<<<<< HEAD
     SdkUpiIntentInformation {
         sdk_uri: url::Url,
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub(crate) fn into_stripe_next_action(
@@ -480,9 +483,12 @@ pub(crate) fn into_stripe_next_action(
         payments::NextActionData::InvokeHiddenIframe { iframe_data } => {
             StripeNextAction::InvokeHiddenIframe { iframe_data }
         }
+<<<<<<< HEAD
         payments::NextActionData::SdkUpiIntentInformation { sdk_uri } => {
             StripeNextAction::SdkUpiIntentInformation { sdk_uri }
         }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     })
 }
 

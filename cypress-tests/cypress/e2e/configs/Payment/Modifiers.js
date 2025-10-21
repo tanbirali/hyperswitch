@@ -11,7 +11,10 @@ const connectorName = normalize(globalState.get("connectorId"));
 
 function normalize(input) {
   const exceptions = {
+<<<<<<< HEAD
     adyen: "Adyen",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     archipel: "Archipel",
     bankofamerica: "Bank of America",
     cybersource: "Cybersource",

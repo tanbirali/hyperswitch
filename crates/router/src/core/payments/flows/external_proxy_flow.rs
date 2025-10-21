@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use std::str::FromStr;
 
 use async_trait::async_trait;
@@ -10,6 +11,14 @@ use hyperswitch_domain_models::payments::PaymentConfirmData;
 use hyperswitch_domain_models::{
     errors::api_error_response::ApiErrorResponse, payments as domain_payments,
 };
+=======
+use async_trait::async_trait;
+use common_enums as enums;
+use error_stack::ResultExt;
+use hyperswitch_domain_models::errors::api_error_response::ApiErrorResponse;
+#[cfg(feature = "v2")]
+use hyperswitch_domain_models::payments::PaymentConfirmData;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::ExposeInterface;
 use unified_connector_service_client::payments as payments_grpc;
 
@@ -21,7 +30,11 @@ use crate::{
         payments::{
             self, access_token, customers, helpers, tokenization, transformers, PaymentData,
         },
+<<<<<<< HEAD
         unified_connector_service::{self, ucs_logging_wrapper},
+=======
+        unified_connector_service,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     logger,
     routes::{metrics, SessionState},
@@ -50,7 +63,11 @@ impl
         customer: &Option<domain::Customer>,
         merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<
         types::RouterData<
             api::ExternalVaultProxy,
@@ -85,7 +102,11 @@ impl Feature<api::ExternalVaultProxy, types::ExternalVaultProxyPaymentsData>
         call_connector_action: payments::CallConnectorAction,
         connector_request: Option<services::Request>,
         business_profile: &domain::Profile,
+<<<<<<< HEAD
         header_payload: domain_payments::HeaderPayload,
+=======
+        header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return_raw_connector_response: Option<bool>,
     ) -> RouterResult<Self> {
         let connector_integration: services::BoxedPaymentConnectorIntegrationInterface<
@@ -365,6 +386,7 @@ impl Feature<api::ExternalVaultProxy, types::ExternalVaultProxyPaymentsData>
         }
     }
 
+<<<<<<< HEAD
     #[cfg(feature = "v2")]
     async fn call_unified_connector_service_with_external_vault_proxy<'a>(
         &mut self,
@@ -375,6 +397,15 @@ impl Feature<api::ExternalVaultProxy, types::ExternalVaultProxyPaymentsData>
         external_vault_merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
         merchant_context: &domain::MerchantContext,
         unified_connector_service_execution_mode: enums::ExecutionMode,
+=======
+    async fn call_unified_connector_service<'a>(
+        &mut self,
+        state: &SessionState,
+        #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
+        #[cfg(feature = "v2")]
+        merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
+        merchant_context: &domain::MerchantContext,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<()> {
         let client = state
             .grpc_client
@@ -396,6 +427,7 @@ impl Feature<api::ExternalVaultProxy, types::ExternalVaultProxyPaymentsData>
             .change_context(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to construct request metadata")?;
 
+<<<<<<< HEAD
         let external_vault_proxy_metadata =
             unified_connector_service::build_unified_connector_service_external_vault_proxy_metadata(
                 external_vault_merchant_connector_account
@@ -458,6 +490,34 @@ impl Feature<api::ExternalVaultProxy, types::ExternalVaultProxyPaymentsData>
 
         // Copy back the updated data
         *self = updated_router_data;
+=======
+        let response = client
+            .payment_authorize(
+                payment_authorize_request,
+                connector_auth_metadata,
+                state.get_grpc_headers(),
+            )
+            .await
+            .change_context(ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed to authorize payment")?;
+
+        let payment_authorize_response = response.into_inner();
+
+        let (status, router_data_response, status_code) =
+            unified_connector_service::handle_unified_connector_service_response_for_payment_authorize(
+                payment_authorize_response.clone(),
+            )
+            .change_context(ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed to deserialize UCS response")?;
+
+        self.status = status;
+        self.response = router_data_response;
+        self.raw_connector_response = payment_authorize_response
+            .raw_connector_response
+            .map(masking::Secret::new);
+        self.connector_http_status_code = Some(status_code);
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(())
     }
 }

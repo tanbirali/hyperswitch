@@ -167,7 +167,10 @@ pub fn construct_router_data<F: Clone, Req, Res>(
         attempt_id: IRRELEVANT_ATTEMPT_ID_IN_AUTHENTICATION_FLOW.to_owned(),
         status: common_enums::AttemptStatus::default(),
         payment_method,
+<<<<<<< HEAD
         payment_method_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: None,
         address,
@@ -211,7 +214,10 @@ pub fn construct_router_data<F: Clone, Req, Res>(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     })
 }
 

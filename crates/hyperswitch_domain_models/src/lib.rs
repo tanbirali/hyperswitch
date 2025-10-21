@@ -8,7 +8,10 @@ pub mod callback_mapper;
 pub mod card_testing_guard_data;
 pub mod cards_info;
 pub mod chat;
+<<<<<<< HEAD
 pub mod configs;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod connector_endpoints;
 pub mod consts;
 pub mod customer;
@@ -16,9 +19,13 @@ pub mod disputes;
 pub mod errors;
 pub mod ext_traits;
 pub mod gsm;
+<<<<<<< HEAD
 pub mod invoice;
 pub mod mandates;
 pub mod master_key;
+=======
+pub mod mandates;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod merchant_account;
 pub mod merchant_connector_account;
 pub mod merchant_context;
@@ -40,7 +47,10 @@ pub mod router_flow_types;
 pub mod router_request_types;
 pub mod router_response_types;
 pub mod routing;
+<<<<<<< HEAD
 pub mod subscription;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "tokenization_v2")]
 pub mod tokenization;
 pub mod transformers;

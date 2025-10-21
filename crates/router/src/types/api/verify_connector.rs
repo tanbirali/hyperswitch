@@ -68,9 +68,12 @@ impl VerifyConnectorData {
             locale: None,
             payment_channel: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             enable_overcapture: None,
             is_stored_credential: None,
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -99,7 +102,10 @@ impl VerifyConnectorData {
             access_token,
             session_token: None,
             payment_method: storage_enums::PaymentMethod::Card,
+<<<<<<< HEAD
             payment_method_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             amount_captured: None,
             minor_amount_captured: None,
             preprocessing_id: None,
@@ -138,7 +144,10 @@ impl VerifyConnectorData {
             is_payment_id_from_merchant: None,
             l2_l3_data: None,
             minor_amount_capturable: None,
+<<<<<<< HEAD
             authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

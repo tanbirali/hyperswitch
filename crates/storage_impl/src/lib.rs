@@ -1,6 +1,9 @@
 use std::{fmt::Debug, sync::Arc};
 
+<<<<<<< HEAD
 use common_utils::types::TenantConfig;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use diesel_models as store;
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
@@ -10,15 +13,22 @@ use hyperswitch_domain_models::{
 use masking::StrongSecret;
 use redis::{kv_store::RedisConnInterface, pub_sub::PubSubInterface, RedisStore};
 mod address;
+<<<<<<< HEAD
 pub mod business_profile;
 pub mod callback_mapper;
 pub mod cards_info;
 pub mod config;
 pub mod configs;
+=======
+pub mod callback_mapper;
+pub mod cards_info;
+pub mod config;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod connection;
 pub mod customers;
 pub mod database;
 pub mod errors;
+<<<<<<< HEAD
 pub mod invoice;
 pub mod kv_router_store;
 pub mod lookup;
@@ -26,6 +36,11 @@ pub mod mandate;
 pub mod merchant_account;
 pub mod merchant_connector_account;
 pub mod merchant_key_store;
+=======
+pub mod kv_router_store;
+pub mod lookup;
+pub mod mandate;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod metrics;
 pub mod mock_db;
 pub mod payment_method;
@@ -35,7 +50,10 @@ pub mod payouts;
 pub mod redis;
 pub mod refund;
 mod reverse_lookup;
+<<<<<<< HEAD
 pub mod subscription;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod utils;
 
 use common_utils::{errors::CustomResult, types::keymanager::KeyManagerState};
@@ -72,7 +90,11 @@ where
     );
     async fn new(
         config: Self::Config,
+<<<<<<< HEAD
         tenant_config: &dyn TenantConfig,
+=======
+        tenant_config: &dyn config::TenantConfig,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         test_transaction: bool,
     ) -> error_stack::Result<Self, StorageError> {
         let (db_conf, cache_conf, encryption_key, cache_error_signal, inmemory_cache_stream) =
@@ -118,7 +140,11 @@ impl<T: DatabaseStore> RedisConnInterface for RouterStore<T> {
 impl<T: DatabaseStore> RouterStore<T> {
     pub async fn from_config(
         db_conf: T::Config,
+<<<<<<< HEAD
         tenant_config: &dyn TenantConfig,
+=======
+        tenant_config: &dyn config::TenantConfig,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         encryption_key: StrongSecret<Vec<u8>>,
         cache_store: Arc<RedisStore>,
         inmemory_cache_stream: &str,
@@ -262,7 +288,11 @@ impl<T: DatabaseStore> RouterStore<T> {
     /// Will panic if `CONNECTOR_AUTH_FILE_PATH` is not set
     pub async fn test_store(
         db_conf: T::Config,
+<<<<<<< HEAD
         tenant_config: &dyn TenantConfig,
+=======
+        tenant_config: &dyn config::TenantConfig,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         cache_conf: &redis_interface::RedisSettings,
         encryption_key: StrongSecret<Vec<u8>>,
     ) -> error_stack::Result<Self, StorageError> {

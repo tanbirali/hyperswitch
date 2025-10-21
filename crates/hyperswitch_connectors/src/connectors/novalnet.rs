@@ -910,7 +910,13 @@ impl webhooks::IncomingWebhook for Novalnet {
             .change_context(errors::ConnectorError::WebhookEventTypeNotFound)?;
 
         let optional_transaction_status = match notif.transaction {
+<<<<<<< HEAD
             novalnet::NovalnetWebhookTransactionData::CaptureTransactionData(data) => data.status,
+=======
+            novalnet::NovalnetWebhookTransactionData::CaptureTransactionData(data) => {
+                Some(data.status)
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             novalnet::NovalnetWebhookTransactionData::CancelTransactionData(data) => data.status,
             novalnet::NovalnetWebhookTransactionData::RefundsTransactionData(data) => {
                 Some(data.status)
@@ -1080,6 +1086,7 @@ static NOVALNET_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
             },
         );
 
+<<<<<<< HEAD
         novalnet_supported_payment_methods.add(
             enums::PaymentMethod::BankDebit,
             enums::PaymentMethodType::Sepa,
@@ -1102,6 +1109,8 @@ static NOVALNET_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
             },
         );
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         novalnet_supported_payment_methods
     });
 

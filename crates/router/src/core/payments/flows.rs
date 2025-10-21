@@ -4,7 +4,10 @@ pub mod cancel_flow;
 pub mod cancel_post_capture_flow;
 pub mod capture_flow;
 pub mod complete_authorize_flow;
+<<<<<<< HEAD
 pub mod extend_authorization_flow;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 pub mod external_proxy_flow;
 pub mod incremental_authorization_flow;
@@ -17,6 +20,7 @@ pub mod setup_mandate_flow;
 pub mod update_metadata_flow;
 
 use async_trait::async_trait;
+<<<<<<< HEAD
 use common_enums::{self, ExecutionMode};
 use common_types::payments::CustomerAcceptance;
 use external_services::grpc_client;
@@ -27,6 +31,14 @@ use hyperswitch_domain_models::router_flow_types::{
 use hyperswitch_domain_models::{
     payments as domain_payments, router_request_types::PaymentsCaptureData,
 };
+=======
+use common_types::payments::CustomerAcceptance;
+#[cfg(all(feature = "v2", feature = "revenue_recovery"))]
+use hyperswitch_domain_models::router_flow_types::{
+    BillingConnectorInvoiceSync, BillingConnectorPaymentsSync, RecoveryRecordBack,
+};
+use hyperswitch_domain_models::router_request_types::PaymentsCaptureData;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use crate::{
     core::{
@@ -51,9 +63,13 @@ pub trait ConstructFlowSpecificData<F, Req, Res> {
         customer: &Option<domain::Customer>,
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
         payment_method: Option<common_enums::PaymentMethod>,
         payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::RouterData<F, Req, Res>>;
 
     #[cfg(feature = "v2")]
@@ -65,7 +81,11 @@ pub trait ConstructFlowSpecificData<F, Req, Res> {
         _customer: &Option<domain::Customer>,
         _merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
         _merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         _header_payload: Option<domain_payments::HeaderPayload>,
+=======
+        _header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::RouterData<F, Req, Res>>;
 
     async fn get_merchant_recipient_data<'a>(
@@ -89,7 +109,11 @@ pub trait Feature<F, T> {
         call_connector_action: payments::CallConnectorAction,
         connector_request: Option<services::Request>,
         business_profile: &domain::Profile,
+<<<<<<< HEAD
         header_payload: domain_payments::HeaderPayload,
+=======
+        header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return_raw_connector_response: Option<bool>,
     ) -> RouterResult<Self>
     where
@@ -213,12 +237,16 @@ pub trait Feature<F, T> {
     async fn call_unified_connector_service<'a>(
         &mut self,
         _state: &SessionState,
+<<<<<<< HEAD
         _header_payload: &domain_payments::HeaderPayload,
         _lineage_ids: grpc_client::LineageIds,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         #[cfg(feature = "v1")] _merchant_connector_account: helpers::MerchantConnectorAccountType,
         #[cfg(feature = "v2")]
         _merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
         _merchant_context: &domain::MerchantContext,
+<<<<<<< HEAD
         _unified_connector_service_execution_mode: ExecutionMode,
     ) -> RouterResult<()>
     where
@@ -239,6 +267,8 @@ pub trait Feature<F, T> {
         _external_vault_merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
         _merchant_context: &domain::MerchantContext,
         _unified_connector_service_execution_mode: ExecutionMode,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<()>
     where
         F: Clone,
@@ -291,7 +321,11 @@ pub async fn call_capture_request(
     connector: &api::ConnectorData,
     call_connector_action: payments::CallConnectorAction,
     business_profile: &domain::Profile,
+<<<<<<< HEAD
     header_payload: domain_payments::HeaderPayload,
+=======
+    header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<types::RouterData<api::Capture, PaymentsCaptureData, types::PaymentsResponseData>>
 {
     // Build capture-specific connector request

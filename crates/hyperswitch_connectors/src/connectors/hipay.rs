@@ -51,9 +51,13 @@ use transformers as hipay;
 
 use crate::{constants::headers, types::ResponseRouterData, utils};
 
+<<<<<<< HEAD
 pub fn build_form_from_struct<T: Serialize + Send + 'static>(
     data: T,
 ) -> Result<RequestContent, common_errors::ParsingError> {
+=======
+pub fn build_form_from_struct<T: Serialize>(data: T) -> Result<Form, common_errors::ParsingError> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let mut form = Form::new();
     let serialized = serde_json::to_value(&data).map_err(|e| {
         router_env::logger::error!("Error serializing data to JSON value: {:?}", e);
@@ -76,7 +80,11 @@ pub fn build_form_from_struct<T: Serialize + Send + 'static>(
         };
         form = form.text(key.clone(), value.clone());
     }
+<<<<<<< HEAD
     Ok(RequestContent::FormData((form, Box::new(data))))
+=======
+    Ok(form)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 #[derive(Clone)]
 pub struct Hipay {
@@ -133,7 +141,13 @@ impl ConnectorIntegration<PaymentMethodToken, PaymentMethodTokenizationData, Pay
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
         let connector_req = transformers::HiPayTokenRequest::try_from(req)?;
         router_env::logger::info!(raw_connector_request=?connector_req);
+<<<<<<< HEAD
         build_form_from_struct(connector_req).change_context(errors::ConnectorError::ParsingFailed)
+=======
+        let connector_req = build_form_from_struct(connector_req)
+            .change_context(errors::ConnectorError::ParsingFailed)?;
+        Ok(RequestContent::FormData(connector_req))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -296,7 +310,13 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
         let connector_router_data = hipay::HipayRouterData::from((amount, req));
         let connector_req = hipay::HipayPaymentsRequest::try_from(&connector_router_data)?;
         router_env::logger::info!(raw_connector_request=?connector_req);
+<<<<<<< HEAD
         build_form_from_struct(connector_req).change_context(errors::ConnectorError::ParsingFailed)
+=======
+        let connector_req = build_form_from_struct(connector_req)
+            .change_context(errors::ConnectorError::ParsingFailed)?;
+        Ok(RequestContent::FormData(connector_req))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -452,7 +472,13 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
         let connector_router_data = hipay::HipayRouterData::from((capture_amount, req));
         let connector_req = hipay::HipayMaintenanceRequest::try_from(&connector_router_data)?;
         router_env::logger::info!(raw_connector_request=?connector_req);
+<<<<<<< HEAD
         build_form_from_struct(connector_req).change_context(errors::ConnectorError::ParsingFailed)
+=======
+        let connector_req = build_form_from_struct(connector_req)
+            .change_context(errors::ConnectorError::ParsingFailed)?;
+        Ok(RequestContent::FormData(connector_req))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -545,7 +571,13 @@ impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Hi
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
         let connector_req = hipay::HipayMaintenanceRequest::try_from(req)?;
         router_env::logger::info!(raw_connector_request=?connector_req);
+<<<<<<< HEAD
         build_form_from_struct(connector_req).change_context(errors::ConnectorError::ParsingFailed)
+=======
+        let connector_req = build_form_from_struct(connector_req)
+            .change_context(errors::ConnectorError::ParsingFailed)?;
+        Ok(RequestContent::FormData(connector_req))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn handle_response(
@@ -603,7 +635,13 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Hipay {
         let connector_router_data = hipay::HipayRouterData::from((refund_amount, req));
         let connector_req = hipay::HipayMaintenanceRequest::try_from(&connector_router_data)?;
         router_env::logger::info!(raw_connector_request=?connector_req);
+<<<<<<< HEAD
         build_form_from_struct(connector_req).change_context(errors::ConnectorError::ParsingFailed)
+=======
+        let connector_req = build_form_from_struct(connector_req)
+            .change_context(errors::ConnectorError::ParsingFailed)?;
+        Ok(RequestContent::FormData(connector_req))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(

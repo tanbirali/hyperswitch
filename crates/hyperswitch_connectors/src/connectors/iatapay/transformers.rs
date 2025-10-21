@@ -150,7 +150,11 @@ impl
                     }),
                     None,
                 ),
+<<<<<<< HEAD
                 UpiData::UpiIntent(_) | UpiData::UpiQr(_) => (
+=======
+                UpiData::UpiIntent(_) => (
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     common_enums::CountryAlpha2::IN,
                     None,
                     Some(PreferredCheckoutMethod::Qr),

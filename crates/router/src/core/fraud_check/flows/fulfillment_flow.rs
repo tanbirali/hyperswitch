@@ -64,9 +64,16 @@ pub async fn construct_fulfillment_router_data<'a>(
         .get_connector_account_details()
         .parse_value("ConnectorAuthType")
         .change_context(errors::ApiErrorResponse::InternalServerError)?;
+<<<<<<< HEAD
     let payment_method =
         utils::OptionExt::get_required_value(payment_attempt.payment_method, "payment_method")?;
 
+=======
+    let payment_method = utils::OptionExt::get_required_value(
+        payment_attempt.payment_method,
+        "payment_method_type",
+    )?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let router_data = RouterData {
         flow: std::marker::PhantomData,
         merchant_id: merchant_context.get_merchant_account().get_id().clone(),
@@ -76,7 +83,10 @@ pub async fn construct_fulfillment_router_data<'a>(
         attempt_id: payment_attempt.attempt_id.clone(),
         status: payment_attempt.status,
         payment_method,
+<<<<<<< HEAD
         payment_method_type: payment_attempt.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: None,
         address: PaymentAddress::default(),
@@ -136,7 +146,10 @@ pub async fn construct_fulfillment_router_data<'a>(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     Ok(router_data)
 }

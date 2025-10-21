@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use api_models::{
     payments as payment_types,
     payments::{ApplePaySessionResponse, SessionToken},
@@ -12,6 +13,17 @@ use common_utils::{
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
     payment_method_data::{PaymentMethodData, WalletData},
+=======
+use api_models::webhooks::IncomingWebhookEvent;
+use common_enums::enums;
+use common_utils::{
+    pii,
+    types::{MinorUnit, StringMajorUnit},
+};
+use error_stack::ResultExt;
+use hyperswitch_domain_models::{
+    payment_method_data::PaymentMethodData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     router_data::{ConnectorAuthType, PaymentMethodToken, RouterData},
     router_flow_types::refunds::{Execute, RSync},
     router_request_types::{
@@ -29,6 +41,7 @@ use hyperswitch_interfaces::{
 };
 use masking::{ExposeInterface, Secret};
 use serde::{Deserialize, Serialize};
+<<<<<<< HEAD
 use strum::Display;
 use time::PrimitiveDateTime;
 
@@ -44,6 +57,18 @@ use crate::{
     },
 };
 
+=======
+use time::PrimitiveDateTime;
+
+use crate::{
+    types::{PaymentsCaptureResponseRouterData, RefundsResponseRouterData, ResponseRouterData},
+    unimplemented_payment_method,
+    utils::{
+        self, PaymentsAuthorizeRequestData, PaymentsCompleteAuthorizeRequestData,
+        RefundsRequestData, RouterData as _,
+    },
+};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub const CHANNEL_CODE: &str = "HyperSwitchBT_Ecom";
 pub const CLIENT_TOKEN_MUTATION: &str = "mutation createClientToken($input: CreateClientTokenInput!) { createClientToken(input: $input) { clientToken}}";
 pub const TOKENIZE_CREDIT_CARD: &str = "mutation  tokenizeCreditCard($input: TokenizeCreditCardInput!) { tokenizeCreditCard(input: $input) { clientMutationId paymentMethod { id } } }";
@@ -57,12 +82,15 @@ pub const CHARGE_AND_VAULT_TRANSACTION_MUTATION: &str ="mutation ChargeCreditCar
 pub const DELETE_PAYMENT_METHOD_FROM_VAULT_MUTATION: &str = "mutation deletePaymentMethodFromVault($input: DeletePaymentMethodFromVaultInput!) { deletePaymentMethodFromVault(input: $input) { clientMutationId } }";
 pub const TRANSACTION_QUERY: &str = "query($input: TransactionSearchInput!) { search { transactions(input: $input) { edges { node { id status } } } } }";
 pub const REFUND_QUERY: &str = "query($input: RefundSearchInput!) { search { refunds(input: $input, first: 1) { edges { node { id status createdAt amount { value currencyCode } orderId } } } } }";
+<<<<<<< HEAD
 pub const CHARGE_GOOGLE_PAY_MUTATION: &str = "mutation ChargeGPay($input: ChargePaymentMethodInput!) { chargePaymentMethod(input: $input) { transaction { id status amount { value currencyCode } } } }";
 pub const AUTHORIZE_GOOGLE_PAY_MUTATION: &str = "mutation authorizeGPay($input: AuthorizePaymentMethodInput!) { authorizePaymentMethod(input: $input) { transaction { id legacyId amount { value currencyCode } status } } }";
 pub const CHARGE_APPLE_PAY_MUTATION: &str = "mutation ChargeApplepay($input: ChargePaymentMethodInput!) { chargePaymentMethod(input: $input) { transaction { id status amount { value currencyCode } } } }";
 pub const AUTHORIZE_APPLE_PAY_MUTATION: &str = "mutation authorizeApplepay($input: AuthorizePaymentMethodInput!) { authorizePaymentMethod(input: $input) { transaction { id legacyId amount { value currencyCode } status } } }";
 pub const CHARGE_PAYPAL_MUTATION: &str = "mutation ChargePaypal($input: ChargePaymentMethodInput!) { chargePaymentMethod(input: $input) { transaction { id status amount { value currencyCode } } } }";
 pub const AUTHORIZE_PAYPAL_MUTATION: &str = "mutation authorizePaypal($input: AuthorizePaymentMethodInput!) { authorizePaymentMethod(input: $input) { transaction { id legacyId amount { value currencyCode } status } } }";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 pub type CardPaymentRequest = GenericBraintreeRequest<VariablePaymentInput>;
 pub type MandatePaymentRequest = GenericBraintreeRequest<VariablePaymentInput>;
@@ -85,6 +113,7 @@ pub type BraintreeRefundVariables = GenericVariableInput<BraintreeRefundInput>;
 pub type PSyncInput = GenericVariableInput<TransactionSearchInput>;
 pub type RSyncInput = GenericVariableInput<RefundSearchInput>;
 
+<<<<<<< HEAD
 pub type BraintreeWalletRequest = GenericBraintreeRequest<GenericVariableInput<WalletPaymentInput>>;
 
 #[derive(Debug, Serialize)]
@@ -102,6 +131,8 @@ pub struct WalletPaymentInput {
     transaction: WalletTransactionBody,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Serialize)]
 pub struct GenericBraintreeRequest<T> {
     query: String,
@@ -221,8 +252,11 @@ pub enum BraintreePaymentsRequest {
     Card(CardPaymentRequest),
     CardThreeDs(BraintreeClientTokenRequest),
     Mandate(MandatePaymentRequest),
+<<<<<<< HEAD
     Wallet(BraintreeWalletRequest),
     Session(BraintreeClientTokenRequest),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Deserialize)]
@@ -377,6 +411,7 @@ impl TryFrom<&BraintreeRouterData<&types::PaymentsAuthorizeRouterData>>
                     metadata,
                 ))?))
             }
+<<<<<<< HEAD
             PaymentMethodData::Wallet(ref wallet_data) => match wallet_data {
                 WalletData::GooglePayThirdPartySdk(ref req_wallet) => {
                     let payment_method_id = &req_wallet.token;
@@ -465,6 +500,10 @@ impl TryFrom<&BraintreeRouterData<&types::PaymentsAuthorizeRouterData>>
                 .into()),
             },
             PaymentMethodData::CardRedirect(_)
+=======
+            PaymentMethodData::CardRedirect(_)
+            | PaymentMethodData::Wallet(_)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | PaymentMethodData::PayLater(_)
             | PaymentMethodData::BankRedirect(_)
             | PaymentMethodData::BankDebit(_)
@@ -536,7 +575,10 @@ pub enum BraintreeAuthResponse {
     AuthResponse(Box<AuthResponse>),
     ClientTokenResponse(Box<ClientTokenResponse>),
     ErrorResponse(Box<ErrorResponse>),
+<<<<<<< HEAD
     WalletAuthResponse(Box<WalletAuthResponse>),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -595,9 +637,15 @@ impl<F>
                 let status = enums::AttemptStatus::from(transaction_data.status.clone());
                 let response = if utils::is_payment_failure(status) {
                     Err(hyperswitch_domain_models::router_data::ErrorResponse {
+<<<<<<< HEAD
                         code: transaction_data.status.to_string(),
                         message: transaction_data.status.to_string(),
                         reason: Some(transaction_data.status.to_string()),
+=======
+                        code: transaction_data.status.to_string().clone(),
+                        message: transaction_data.status.to_string().clone(),
+                        reason: Some(transaction_data.status.to_string().clone()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         attempt_status: None,
                         connector_transaction_id: Some(transaction_data.id),
                         status_code: item.http_code,
@@ -650,6 +698,7 @@ impl<F>
                 }),
                 ..item.data
             }),
+<<<<<<< HEAD
             BraintreeAuthResponse::WalletAuthResponse(wallet_response) => {
                 let txn = &wallet_response.data.authorize_payment_method.transaction;
                 let status = enums::AttemptStatus::from(txn.status.clone());
@@ -686,6 +735,8 @@ impl<F>
                     ..item.data
                 })
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -874,6 +925,7 @@ impl<F>
                 }),
                 ..item.data
             }),
+<<<<<<< HEAD
             BraintreePaymentsResponse::WalletPaymentsResponse(google_pay_payments_response) => {
                 let txn = &google_pay_payments_response
                     .data
@@ -913,6 +965,8 @@ impl<F>
                     ..item.data
                 })
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1063,6 +1117,7 @@ pub struct PaymentsResponse {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+<<<<<<< HEAD
 pub struct WalletPaymentsResponse {
     pub data: WalletDataResponse,
 }
@@ -1111,6 +1166,11 @@ pub struct WalletAuthDataResponse {
 pub enum BraintreePaymentsResponse {
     PaymentsResponse(Box<PaymentsResponse>),
     WalletPaymentsResponse(Box<WalletPaymentsResponse>),
+=======
+#[serde(untagged)]
+pub enum BraintreePaymentsResponse {
+    PaymentsResponse(Box<PaymentsResponse>),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ClientTokenResponse(Box<ClientTokenResponse>),
     ErrorResponse(Box<ErrorResponse>),
 }
@@ -1223,6 +1283,10 @@ pub struct BraintreeRefundTransactionBody {
     pub id: String,
     pub status: BraintreeRefundStatus,
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct BraintreeRefundTransaction {
     pub refund: BraintreeRefundTransactionBody,
@@ -1501,6 +1565,7 @@ pub struct ClientTokenData {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+<<<<<<< HEAD
 #[serde(rename_all = "camelCase")]
 pub struct ClientTokenExtensions {
     request_id: String,
@@ -1510,6 +1575,10 @@ pub struct ClientTokenExtensions {
 pub struct ClientTokenResponse {
     data: ClientTokenData,
     extensions: ClientTokenExtensions,
+=======
+pub struct ClientTokenResponse {
+    data: ClientTokenData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -1529,6 +1598,7 @@ pub enum BraintreeTokenResponse {
     ErrorResponse(Box<ErrorResponse>),
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum BraintreeSessionResponse {
@@ -1536,6 +1606,8 @@ pub enum BraintreeSessionResponse {
     ErrorResponse(Box<ErrorResponse>),
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<F, T> TryFrom<ResponseRouterData<F, BraintreeTokenResponse, T, PaymentsResponseData>>
     for RouterData<F, T, PaymentsResponseData>
 {
@@ -1567,6 +1639,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, BraintreeTokenResponse, T, PaymentsResp
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Display, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum GooglePayPriceStatus {
@@ -1807,6 +1880,8 @@ impl
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CaptureTransactionBody {
@@ -2129,6 +2204,7 @@ impl TryFrom<&types::PaymentsSyncRouterData> for BraintreePSyncRequest {
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&types::PaymentsSessionRouterData> for BraintreePaymentsRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: &types::PaymentsSessionRouterData) -> Result<Self, Self::Error> {
@@ -2149,6 +2225,8 @@ impl TryFrom<&types::PaymentsSessionRouterData> for BraintreePaymentsRequest {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct NodeData {
     id: String,

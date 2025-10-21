@@ -45,7 +45,11 @@ where
     fn to_get_tracker(&self) -> RouterResult<&(dyn GetTracker<PaymentToFrmData> + Send + Sync)> {
         Ok(*self)
     }
+<<<<<<< HEAD
     fn to_domain(&self) -> RouterResult<&dyn Domain<F, D>> {
+=======
+    fn to_domain(&self) -> RouterResult<&(dyn Domain<F, D>)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(*self)
     }
     fn to_update_tracker(&self) -> RouterResult<&(dyn UpdateTracker<FrmData, F, D> + Send + Sync)> {
@@ -61,7 +65,11 @@ where
     fn to_get_tracker(&self) -> RouterResult<&(dyn GetTracker<PaymentToFrmData> + Send + Sync)> {
         Ok(self)
     }
+<<<<<<< HEAD
     fn to_domain(&self) -> RouterResult<&dyn Domain<F, D>> {
+=======
+    fn to_domain(&self) -> RouterResult<&(dyn Domain<F, D>)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(self)
     }
     fn to_update_tracker(&self) -> RouterResult<&(dyn UpdateTracker<FrmData, F, D> + Send + Sync)> {

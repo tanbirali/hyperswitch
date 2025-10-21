@@ -1,12 +1,24 @@
 use common_enums::enums::{self, AuthenticationType};
+<<<<<<< HEAD
 use common_utils::{pii::IpAddress, types::FloatMajorUnit};
+=======
+use common_utils::pii::IpAddress;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use hyperswitch_domain_models::{
     payment_method_data::{Card, PaymentMethodData},
     router_data::{ConnectorAuthType, ErrorResponse, RouterData},
     router_flow_types::refunds::Execute,
+<<<<<<< HEAD
     router_request_types::{BrowserInformation, PaymentsCancelData, ResponseId},
     router_response_types::{PaymentsResponseData, RefundsResponseData},
     types::{PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, RefundsRouterData},
+=======
+    router_request_types::{
+        BrowserInformation, PaymentsCancelData, PaymentsCaptureData, ResponseId,
+    },
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+    types::{PaymentsAuthorizeRouterData, RefundsRouterData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use hyperswitch_interfaces::{consts, errors};
 use masking::{ExposeInterface, Secret};
@@ -20,6 +32,7 @@ use crate::{
 
 const ISO_SUCCESS_CODES: [&str; 7] = ["00", "3D0", "3D1", "HP0", "TK0", "SP4", "FC0"];
 
+<<<<<<< HEAD
 pub struct PowertranzRouterData<T> {
     pub amount: FloatMajorUnit,
     pub router_data: T,
@@ -35,11 +48,17 @@ impl<T> TryFrom<(FloatMajorUnit, T)> for PowertranzRouterData<T> {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct PowertranzPaymentsRequest {
     transaction_identifier: String,
+<<<<<<< HEAD
     total_amount: FloatMajorUnit,
+=======
+    total_amount: f64,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     currency_code: String,
     three_d_secure: bool,
     source: Source,
@@ -116,6 +135,7 @@ pub struct RedirectResponsePayload {
     pub spi_token: Secret<String>,
 }
 
+<<<<<<< HEAD
 impl TryFrom<&PowertranzRouterData<&PaymentsAuthorizeRouterData>> for PowertranzPaymentsRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
@@ -124,6 +144,14 @@ impl TryFrom<&PowertranzRouterData<&PaymentsAuthorizeRouterData>> for Powertranz
         let source = match item.router_data.request.payment_method_data.clone() {
             PaymentMethodData::Card(card) => {
                 let card_holder_name = item.router_data.get_optional_billing_full_name();
+=======
+impl TryFrom<&PaymentsAuthorizeRouterData> for PowertranzPaymentsRequest {
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(item: &PaymentsAuthorizeRouterData) -> Result<Self, Self::Error> {
+        let source = match item.request.payment_method_data.clone() {
+            PaymentMethodData::Card(card) => {
+                let card_holder_name = item.get_optional_billing_full_name();
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 Source::try_from((&card, card_holder_name))
             }
             PaymentMethodData::Wallet(_)
@@ -151,19 +179,37 @@ impl TryFrom<&PowertranzRouterData<&PaymentsAuthorizeRouterData>> for Powertranz
                 .into())
             }
         }?;
+<<<<<<< HEAD
         // let billing_address = get_address_details(&item.router_data.address.billing, &item.router_data.request.email);
         // let shipping_address = get_address_details(&item.router_data.address.shipping, &item.router_data.request.email);
         let (three_d_secure, extended_data) = match item.router_data.auth_type {
             AuthenticationType::ThreeDs => (true, Some(ExtendedData::try_from(item.router_data)?)),
+=======
+        // let billing_address = get_address_details(&item.address.billing, &item.request.email);
+        // let shipping_address = get_address_details(&item.address.shipping, &item.request.email);
+        let (three_d_secure, extended_data) = match item.auth_type {
+            AuthenticationType::ThreeDs => (true, Some(ExtendedData::try_from(item)?)),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             AuthenticationType::NoThreeDs => (false, None),
         };
         Ok(Self {
             transaction_identifier: Uuid::new_v4().to_string(),
+<<<<<<< HEAD
             total_amount: item.amount,
             currency_code: item.router_data.request.currency.iso_4217().to_string(),
             three_d_secure,
             source,
             order_identifier: item.router_data.connector_request_reference_id.clone(),
+=======
+            total_amount: utils::to_currency_base_unit_asf64(
+                item.request.amount,
+                item.request.currency,
+            )?,
+            currency_code: item.request.currency.iso_4217().to_string(),
+            three_d_secure,
+            source,
+            order_identifier: item.connector_request_reference_id.clone(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // billing_address,
             // shipping_address,
             extended_data,
@@ -380,7 +426,11 @@ fn is_3ds_payment(response_code: String) -> bool {
 #[serde(rename_all = "PascalCase")]
 pub struct PowertranzBaseRequest {
     transaction_identifier: String,
+<<<<<<< HEAD
     total_amount: Option<FloatMajorUnit>,
+=======
+    total_amount: Option<f64>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     refund: Option<bool>,
 }
 
@@ -395,6 +445,7 @@ impl TryFrom<&PaymentsCancelData> for PowertranzBaseRequest {
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&PowertranzRouterData<&PaymentsCaptureRouterData>> for PowertranzBaseRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
@@ -403,17 +454,42 @@ impl TryFrom<&PowertranzRouterData<&PaymentsCaptureRouterData>> for PowertranzBa
         Ok(Self {
             transaction_identifier: item.router_data.request.connector_transaction_id.clone(),
             total_amount: Some(item.amount),
+=======
+impl TryFrom<&PaymentsCaptureData> for PowertranzBaseRequest {
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(item: &PaymentsCaptureData) -> Result<Self, Self::Error> {
+        let total_amount = Some(utils::to_currency_base_unit_asf64(
+            item.amount_to_capture,
+            item.currency,
+        )?);
+        Ok(Self {
+            transaction_identifier: item.connector_transaction_id.clone(),
+            total_amount,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             refund: None,
         })
     }
 }
 
+<<<<<<< HEAD
 impl<F> TryFrom<&PowertranzRouterData<&RefundsRouterData<F>>> for PowertranzBaseRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: &PowertranzRouterData<&RefundsRouterData<F>>) -> Result<Self, Self::Error> {
         Ok(Self {
             transaction_identifier: item.router_data.request.connector_transaction_id.clone(),
             total_amount: Some(item.amount),
+=======
+impl<F> TryFrom<&RefundsRouterData<F>> for PowertranzBaseRequest {
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(item: &RefundsRouterData<F>) -> Result<Self, Self::Error> {
+        let total_amount = Some(utils::to_currency_base_unit_asf64(
+            item.request.refund_amount,
+            item.request.currency,
+        )?);
+        Ok(Self {
+            transaction_identifier: item.request.connector_transaction_id.clone(),
+            total_amount,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             refund: Some(true),
         })
     }

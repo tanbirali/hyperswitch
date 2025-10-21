@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 pub mod chat;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "olap")]
 pub mod connector_onboarding;
 pub mod currency;
@@ -41,8 +44,11 @@ use masking::{ExposeInterface, SwitchStrategy};
 use nanoid::nanoid;
 use serde::de::DeserializeOwned;
 use serde_json::Value;
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 use subscriptions::subscription_handler::SubscriptionHandler;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use tracing_futures::Instrument;
 
 pub use self::ext_traits::{OptionExt, ValidateCall};
@@ -461,6 +467,10 @@ pub async fn get_mca_from_payment_intent(
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "payouts")]
 pub async fn get_mca_from_payout_attempt(
     state: &SessionState,
@@ -640,6 +650,7 @@ pub async fn get_mca_from_object_reference_id(
                 )
                 .await
             }
+<<<<<<< HEAD
             webhooks::ObjectReferenceId::SubscriptionId(subscription_id_type) => {
                 #[cfg(feature = "v1")]
                 {
@@ -658,6 +669,8 @@ pub async fn get_mca_from_object_reference_id(
                     todo!()
                 }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             #[cfg(feature = "payouts")]
             webhooks::ObjectReferenceId::PayoutId(payout_id_type) => {
                 get_mca_from_payout_attempt(state, merchant_context, payout_id_type, connector_name)

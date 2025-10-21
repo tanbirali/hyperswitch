@@ -130,8 +130,11 @@ pub enum Flow {
     GetPaymentMethodTokenData,
     /// List Customers for a merchant
     CustomersList,
+<<<<<<< HEAD
     ///List Customers for a merchant with constraints.
     CustomersListWithConstraints,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Retrieve countries and currencies for connector and payment method
     ListCountriesCurrencies,
     /// Payment method create collect link flow.
@@ -142,8 +145,11 @@ pub enum Flow {
     PaymentMethodsUpdate,
     /// Payment methods delete flow.
     PaymentMethodsDelete,
+<<<<<<< HEAD
     /// Network token status check flow.
     NetworkTokenStatusCheck,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Default Payment method flow.
     DefaultPaymentMethodsSet,
     /// Payments create flow.
@@ -267,6 +273,7 @@ pub enum Flow {
     RoutingUpdateDefaultConfig,
     /// Routing delete config
     RoutingDeleteConfig,
+<<<<<<< HEAD
     /// Subscription create flow,
     CreateSubscription,
     /// Subscription get plans flow,
@@ -281,6 +288,8 @@ pub enum Flow {
     UpdateSubscription,
     /// Get Subscription estimate flow
     GetSubscriptionEstimate,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Create dynamic routing
     CreateDynamicRoutingConfig,
     /// Toggle dynamic routing
@@ -375,8 +384,11 @@ pub enum Flow {
     GsmRuleDelete,
     /// Get data from embedded flow
     GetDataFromHyperswitchAiFlow,
+<<<<<<< HEAD
     // List all chat interactions
     ListAllChatInteractions,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// User Sign Up
     UserSignUp,
     /// User Sign Up
@@ -437,8 +449,11 @@ pub enum Flow {
     GetRoleFromToken,
     /// Get resources and groups for role from token
     GetRoleFromTokenV2,
+<<<<<<< HEAD
     /// Get parent groups info for role from token
     GetParentGroupsInfoForRoleFromToken,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Update user role
     UpdateUserRole,
     /// Create merchant account for user in a org
@@ -475,8 +490,11 @@ pub enum Flow {
     DeleteUserRole,
     /// Incremental Authorization flow
     PaymentsIncrementalAuthorization,
+<<<<<<< HEAD
     /// Extend Authorization flow
     PaymentsExtendAuthorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Get action URL for connector onboarding
     GetActionUrl,
     /// Sync connector onboarding status
@@ -640,8 +658,11 @@ pub enum Flow {
     TotalPaymentMethodCount,
     /// Process Tracker Revenue Recovery Workflow Retrieve
     RevenueRecoveryRetrieve,
+<<<<<<< HEAD
     /// Process Tracker Revenue Recovery Workflow Resume
     RevenueRecoveryResume,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Tokenization flow
     TokenizationCreate,
     /// Tokenization retrieve flow
@@ -676,6 +697,7 @@ pub enum Flow {
     RecoveryPaymentsCreate,
     /// Tokenization delete flow
     TokenizationDelete,
+<<<<<<< HEAD
     /// Payment method data backfill flow
     RecoveryDataBackfill,
     /// Revenue recovery Redis operations flow
@@ -684,6 +706,8 @@ pub enum Flow {
     GiftCardBalanceCheck,
     /// Payments Submit Eligibility flow
     PaymentsSubmitEligibility,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 /// Trait for providing generic behaviour to flow metric

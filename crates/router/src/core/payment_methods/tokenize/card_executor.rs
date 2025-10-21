@@ -596,7 +596,10 @@ impl CardNetworkTokenizeExecutor<'_, domain::TokenizeCardRequest> {
             network_token_details.1.clone(),
             Some(stored_locker_resp.store_token_resp.card_reference.clone()),
             Some(enc_token_data),
+<<<<<<< HEAD
             Default::default(), // this method is used only for card bulk tokenization, and currently external vault is not supported for this hence passing Default i.e. InternalVault
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )
         .await
     }

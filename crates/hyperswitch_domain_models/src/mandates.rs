@@ -14,8 +14,11 @@ use common_utils::{
 use error_stack::ResultExt;
 use time::PrimitiveDateTime;
 
+<<<<<<< HEAD
 use crate::router_data::RecurringMandatePaymentData;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
 pub struct MandateDetails {
@@ -56,7 +59,11 @@ pub struct MandateAmountData {
 
 // The fields on this struct are optional, as we want to allow the merchant to provide partial
 // information about creating mandates
+<<<<<<< HEAD
 #[derive(Default, Eq, PartialEq, Debug, Clone, serde::Serialize)]
+=======
+#[derive(Default, Eq, PartialEq, Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct MandateData {
     /// A way to update the mandate's payment method details
     pub update_mandate_id: Option<String>,
@@ -176,6 +183,7 @@ pub struct PaymentsMandateReferenceRecord {
     pub connector_mandate_request_reference_id: Option<String>,
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 impl From<&PaymentsMandateReferenceRecord> for RecurringMandatePaymentData {
     fn from(mandate_reference_record: &PaymentsMandateReferenceRecord) -> Self {
@@ -190,6 +198,8 @@ impl From<&PaymentsMandateReferenceRecord> for RecurringMandatePaymentData {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct ConnectorTokenReferenceRecord {

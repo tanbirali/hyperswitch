@@ -1,7 +1,11 @@
 use api_models::enums::PayoutConnectors;
 use common_enums as storage_enums;
 use common_utils::{
+<<<<<<< HEAD
     id_type, payout_method_utils, pii,
+=======
+    id_type, payout_method_utils,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{UnifiedCode, UnifiedMessage},
 };
 use serde::{Deserialize, Serialize};
@@ -92,7 +96,10 @@ pub struct PayoutAttempt {
     pub unified_message: Option<UnifiedMessage>,
     pub additional_payout_method_data: Option<payout_method_utils::AdditionalPayoutMethodData>,
     pub merchant_order_reference_id: Option<String>,
+<<<<<<< HEAD
     pub payout_connector_metadata: Option<pii::SecretSerdeValue>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -120,7 +127,10 @@ pub struct PayoutAttemptNew {
     pub unified_message: Option<UnifiedMessage>,
     pub additional_payout_method_data: Option<payout_method_utils::AdditionalPayoutMethodData>,
     pub merchant_order_reference_id: Option<String>,
+<<<<<<< HEAD
     pub payout_connector_metadata: Option<pii::SecretSerdeValue>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone)]
@@ -134,7 +144,10 @@ pub enum PayoutAttemptUpdate {
 
         unified_code: Option<UnifiedCode>,
         unified_message: Option<UnifiedMessage>,
+<<<<<<< HEAD
         payout_connector_metadata: Option<pii::SecretSerdeValue>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     PayoutTokenUpdate {
         payout_token: String,
@@ -173,7 +186,10 @@ pub struct PayoutAttemptUpdateInternal {
     pub unified_code: Option<UnifiedCode>,
     pub unified_message: Option<UnifiedMessage>,
     pub additional_payout_method_data: Option<payout_method_utils::AdditionalPayoutMethodData>,
+<<<<<<< HEAD
     pub payout_connector_metadata: Option<pii::SecretSerdeValue>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<PayoutAttemptUpdate> for PayoutAttemptUpdateInternal {
@@ -191,7 +207,10 @@ impl From<PayoutAttemptUpdate> for PayoutAttemptUpdateInternal {
                 is_eligible,
                 unified_code,
                 unified_message,
+<<<<<<< HEAD
                 payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             } => Self {
                 connector_payout_id,
                 status: Some(status),
@@ -200,7 +219,10 @@ impl From<PayoutAttemptUpdate> for PayoutAttemptUpdateInternal {
                 is_eligible,
                 unified_code,
                 unified_message,
+<<<<<<< HEAD
                 payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 ..Default::default()
             },
             PayoutAttemptUpdate::BusinessUpdate {

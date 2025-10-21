@@ -350,7 +350,10 @@ pub enum RealTimePaymentType {
 pub enum UpiType {
     UpiCollect,
     UpiIntent,
+<<<<<<< HEAD
     UpiQr,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(
@@ -371,7 +374,10 @@ pub enum UpiType {
 pub enum BankDebitType {
     Ach,
     Sepa,
+<<<<<<< HEAD
     SepaGuarenteedDebit,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Bacs,
     Becs,
 }

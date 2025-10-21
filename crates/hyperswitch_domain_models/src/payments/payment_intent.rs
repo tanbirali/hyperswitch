@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 use common_types::primitive_wrappers;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v1")]
 use common_utils::consts::PAYMENTS_LIST_MAX_LIMIT_V2;
 #[cfg(feature = "v2")]
@@ -209,7 +212,10 @@ pub struct PaymentIntentUpdateFields {
     pub updated_by: String,
     pub force_3ds_challenge: Option<bool>,
     pub is_iframe_redirection_enabled: Option<bool>,
+<<<<<<< HEAD
     pub enable_partial_authorization: Option<primitive_wrappers::EnablePartialAuthorizationBool>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -252,8 +258,12 @@ pub struct PaymentIntentUpdateFields {
     pub is_confirm_operation: bool,
     pub payment_channel: Option<common_enums::PaymentChannel>,
     pub feature_metadata: Option<Secret<serde_json::Value>>,
+<<<<<<< HEAD
     pub enable_partial_authorization: Option<primitive_wrappers::EnablePartialAuthorizationBool>,
     pub enable_overcapture: Option<primitive_wrappers::EnableOvercaptureBool>,
+=======
+    pub enable_partial_authorization: Option<bool>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -389,11 +399,14 @@ pub enum PaymentIntentUpdate {
     },
     /// UpdateIntent
     UpdateIntent(Box<PaymentIntentUpdateFields>),
+<<<<<<< HEAD
     /// VoidUpdate for payment cancellation
     VoidUpdate {
         status: common_enums::IntentStatus,
         updated_by: String,
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v2")]
@@ -454,8 +467,12 @@ pub struct PaymentIntentUpdateInternal {
     pub order_date: Option<PrimitiveDateTime>,
     pub shipping_amount_tax: Option<MinorUnit>,
     pub duty_amount: Option<MinorUnit>,
+<<<<<<< HEAD
     pub enable_partial_authorization: Option<primitive_wrappers::EnablePartialAuthorizationBool>,
     pub enable_overcapture: Option<primitive_wrappers::EnableOvercaptureBool>,
+=======
+    pub enable_partial_authorization: Option<bool>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 // This conversion is used in the `update_payment_intent` function
@@ -506,7 +523,10 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 updated_by,
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
+<<<<<<< HEAD
                 enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
 
             PaymentIntentUpdate::ConfirmIntentPostUpdate {
@@ -552,7 +572,10 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 updated_by,
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
+<<<<<<< HEAD
                 enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             PaymentIntentUpdate::SyncUpdate {
                 status,
@@ -596,7 +619,10 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 updated_by,
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
+<<<<<<< HEAD
                 enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             PaymentIntentUpdate::CaptureUpdate {
                 status,
@@ -640,7 +666,10 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 updated_by,
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
+<<<<<<< HEAD
                 enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             PaymentIntentUpdate::SessionIntentUpdate {
                 prerouting_algorithm,
@@ -687,7 +716,10 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 updated_by,
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
+<<<<<<< HEAD
                 enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             PaymentIntentUpdate::UpdateIntent(boxed_intent) => {
                 let PaymentIntentUpdateFields {
@@ -724,7 +756,10 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                     updated_by,
                     force_3ds_challenge,
                     is_iframe_redirection_enabled,
+<<<<<<< HEAD
                     enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 } = *boxed_intent;
                 Ok(Self {
                     status: None,
@@ -767,10 +802,17 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                     frm_metadata,
                     request_external_three_ds_authentication:
                         request_external_three_ds_authentication.map(|val| val.as_bool()),
+<<<<<<< HEAD
                     updated_by,
                     force_3ds_challenge,
                     is_iframe_redirection_enabled,
                     enable_partial_authorization,
+=======
+
+                    updated_by,
+                    force_3ds_challenge,
+                    is_iframe_redirection_enabled,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 })
             }
             PaymentIntentUpdate::RecordUpdate {
@@ -816,6 +858,7 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 updated_by,
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
+<<<<<<< HEAD
                 enable_partial_authorization: None,
             }),
             PaymentIntentUpdate::VoidUpdate { status, updated_by } => Ok(Self {
@@ -857,6 +900,8 @@ impl TryFrom<PaymentIntentUpdate> for diesel_models::PaymentIntentUpdateInternal
                 force_3ds_challenge: None,
                 is_iframe_redirection_enabled: None,
                 enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
         }
     }
@@ -1154,7 +1199,10 @@ impl From<PaymentIntentUpdate> for DieselPaymentIntentUpdate {
                     shipping_amount_tax: value.shipping_amount_tax,
                     duty_amount: value.duty_amount,
                     enable_partial_authorization: value.enable_partial_authorization,
+<<<<<<< HEAD
                     enable_overcapture: value.enable_overcapture,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 }))
             }
             PaymentIntentUpdate::PaymentCreateUpdate {
@@ -1323,7 +1371,10 @@ impl From<PaymentIntentUpdateInternal> for diesel_models::PaymentIntentUpdateInt
             shipping_amount_tax,
             duty_amount,
             enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         } = value;
         Self {
             amount,
@@ -1373,7 +1424,10 @@ impl From<PaymentIntentUpdateInternal> for diesel_models::PaymentIntentUpdateInt
             shipping_amount_tax,
             duty_amount,
             enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1714,8 +1768,11 @@ impl behaviour::Conversion for PaymentIntent {
             last_synced,
             setup_future_usage,
             active_attempt_id,
+<<<<<<< HEAD
             active_attempt_id_type,
             active_attempts_group_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             order_details,
             allowed_payment_method_types,
             connector_metadata,
@@ -1726,7 +1783,10 @@ impl behaviour::Conversion for PaymentIntent {
             frm_merchant_decision,
             updated_by,
             request_incremental_authorization,
+<<<<<<< HEAD
             split_txns_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             authorization_count,
             session_expiry,
             request_external_three_ds_authentication,
@@ -1752,7 +1812,10 @@ impl behaviour::Conversion for PaymentIntent {
             created_by,
             is_iframe_redirection_enabled,
             is_payment_id_from_merchant,
+<<<<<<< HEAD
             enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         } = self;
         Ok(DieselPaymentIntent {
             skip_external_tax_calculation: Some(amount_details.get_external_tax_action_as_bool()),
@@ -1772,8 +1835,11 @@ impl behaviour::Conversion for PaymentIntent {
             last_synced,
             setup_future_usage: Some(setup_future_usage),
             active_attempt_id,
+<<<<<<< HEAD
             active_attempt_id_type: Some(active_attempt_id_type),
             active_attempts_group_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             order_details: order_details.map(|order_details| {
                 order_details
                     .into_iter()
@@ -1790,6 +1856,7 @@ impl behaviour::Conversion for PaymentIntent {
                 })
                 .transpose()?
                 .map(Secret::new),
+<<<<<<< HEAD
             connector_metadata: connector_metadata
                 .map(|cm| {
                     cm.encode_to_value()
@@ -1799,6 +1866,9 @@ impl behaviour::Conversion for PaymentIntent {
                 })
                 .transpose()?
                 .map(Secret::new),
+=======
+            connector_metadata,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             feature_metadata,
             attempt_count,
             profile_id,
@@ -1807,7 +1877,10 @@ impl behaviour::Conversion for PaymentIntent {
             updated_by,
 
             request_incremental_authorization: Some(request_incremental_authorization),
+<<<<<<< HEAD
             split_txns_enabled: Some(split_txns_enabled),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             authorization_count,
             session_expiry,
             request_external_three_ds_authentication: Some(
@@ -1856,9 +1929,13 @@ impl behaviour::Conversion for PaymentIntent {
             shipping_amount_tax: None,
             duty_amount: None,
             order_date: None,
+<<<<<<< HEAD
             enable_partial_authorization,
             enable_overcapture: None,
             mit_category: None,
+=======
+            enable_partial_authorization: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
     async fn convert_back(
@@ -1946,8 +2023,11 @@ impl behaviour::Conversion for PaymentIntent {
                 last_synced: storage_model.last_synced,
                 setup_future_usage: storage_model.setup_future_usage.unwrap_or_default(),
                 active_attempt_id: storage_model.active_attempt_id,
+<<<<<<< HEAD
                 active_attempt_id_type: storage_model.active_attempt_id_type.unwrap_or_default(),
                 active_attempts_group_id: storage_model.active_attempts_group_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 order_details: storage_model.order_details.map(|order_details| {
                     order_details
                         .into_iter()
@@ -1955,12 +2035,16 @@ impl behaviour::Conversion for PaymentIntent {
                         .collect::<Vec<_>>()
                 }),
                 allowed_payment_method_types,
+<<<<<<< HEAD
                 connector_metadata: storage_model
                     .connector_metadata
                     .map(|cm| cm.parse_value("ConnectorMetadata"))
                     .transpose()
                     .change_context(common_utils::errors::CryptoError::DecodingFailed)
                     .attach_printable("Failed to deserialize connector_metadata")?,
+=======
+                connector_metadata: storage_model.connector_metadata,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 feature_metadata: storage_model.feature_metadata,
                 attempt_count: storage_model.attempt_count,
                 profile_id: storage_model.profile_id,
@@ -1970,7 +2054,10 @@ impl behaviour::Conversion for PaymentIntent {
                 request_incremental_authorization: storage_model
                     .request_incremental_authorization
                     .unwrap_or_default(),
+<<<<<<< HEAD
                 split_txns_enabled: storage_model.split_txns_enabled.unwrap_or_default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 authorization_count: storage_model.authorization_count,
                 session_expiry: storage_model.session_expiry,
                 request_external_three_ds_authentication: storage_model
@@ -2009,7 +2096,10 @@ impl behaviour::Conversion for PaymentIntent {
                     .and_then(|created_by| created_by.parse::<CreatedBy>().ok()),
                 is_iframe_redirection_enabled: storage_model.is_iframe_redirection_enabled,
                 is_payment_id_from_merchant: storage_model.is_payment_id_from_merchant,
+<<<<<<< HEAD
                 enable_partial_authorization: storage_model.enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
         }
         .await
@@ -2051,6 +2141,7 @@ impl behaviour::Conversion for PaymentIntent {
                 })
                 .transpose()?
                 .map(Secret::new),
+<<<<<<< HEAD
             connector_metadata: self
                 .connector_metadata
                 .map(|cm| {
@@ -2061,6 +2152,9 @@ impl behaviour::Conversion for PaymentIntent {
                 })
                 .transpose()?
                 .map(Secret::new),
+=======
+            connector_metadata: self.connector_metadata,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             feature_metadata: self.feature_metadata,
             attempt_count: self.attempt_count,
             profile_id: self.profile_id,
@@ -2069,7 +2163,10 @@ impl behaviour::Conversion for PaymentIntent {
             updated_by: self.updated_by,
 
             request_incremental_authorization: Some(self.request_incremental_authorization),
+<<<<<<< HEAD
             split_txns_enabled: Some(self.split_txns_enabled),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             authorization_count: self.authorization_count,
             session_expiry: self.session_expiry,
             request_external_three_ds_authentication: Some(
@@ -2111,11 +2208,18 @@ impl behaviour::Conversion for PaymentIntent {
             payment_channel: None,
             tax_status: None,
             discount_amount: None,
+<<<<<<< HEAD
             mit_category: None,
             shipping_amount_tax: None,
             duty_amount: None,
             order_date: None,
             enable_partial_authorization: self.enable_partial_authorization,
+=======
+            shipping_amount_tax: None,
+            duty_amount: None,
+            order_date: None,
+            enable_partial_authorization: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -2198,8 +2302,11 @@ impl behaviour::Conversion for PaymentIntent {
             shipping_amount_tax: self.shipping_amount_tax,
             duty_amount: self.duty_amount,
             enable_partial_authorization: self.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: self.enable_overcapture,
             mit_category: self.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -2308,8 +2415,11 @@ impl behaviour::Conversion for PaymentIntent {
                 duty_amount: storage_model.duty_amount,
                 order_date: storage_model.order_date,
                 enable_partial_authorization: storage_model.enable_partial_authorization,
+<<<<<<< HEAD
                 enable_overcapture: storage_model.enable_overcapture,
                 mit_category: storage_model.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
         }
         .await
@@ -2390,8 +2500,11 @@ impl behaviour::Conversion for PaymentIntent {
             shipping_amount_tax: self.shipping_amount_tax,
             duty_amount: self.duty_amount,
             enable_partial_authorization: self.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: self.enable_overcapture,
             mit_category: self.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }

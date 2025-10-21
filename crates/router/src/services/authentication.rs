@@ -38,7 +38,10 @@ use crate::core::errors::UserResult;
 #[cfg(all(feature = "partial-auth", feature = "v1"))]
 use crate::core::metrics;
 use crate::{
+<<<<<<< HEAD
     configs::settings,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     core::{
         api_keys,
         errors::{self, utils::StorageErrorExt, RouterResult},
@@ -156,10 +159,13 @@ pub enum AuthenticationType {
     WebhookAuth {
         merchant_id: id_type::MerchantId,
     },
+<<<<<<< HEAD
     InternalMerchantIdProfileId {
         merchant_id: id_type::MerchantId,
         profile_id: Option<id_type::ProfileId>,
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     NoAuth,
 }
 
@@ -189,8 +195,12 @@ impl AuthenticationType {
                 user_id: _,
             }
             | Self::MerchantJwtWithProfileId { merchant_id, .. }
+<<<<<<< HEAD
             | Self::WebhookAuth { merchant_id }
             | Self::InternalMerchantIdProfileId { merchant_id, .. } => Some(merchant_id),
+=======
+            | Self::WebhookAuth { merchant_id } => Some(merchant_id),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self::AdminApiKey
             | Self::OrganizationJwt { .. }
             | Self::UserJwt { .. }
@@ -1964,10 +1974,13 @@ impl<'a> HeaderMapStruct<'a> {
             })
     }
 
+<<<<<<< HEAD
     pub fn get_header_value_by_key(&self, key: &str) -> Option<&str> {
         self.headers.get(key).and_then(|value| value.to_str().ok())
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fn get_auth_string_from_header(&self) -> RouterResult<&str> {
         self.headers
             .get(headers::AUTHORIZATION)
@@ -2319,6 +2332,7 @@ where
     }
 }
 
+<<<<<<< HEAD
 /// InternalMerchantIdProfileIdAuth authentication which first tries to authenticate using `X-Internal-API-Key`,
 /// `X-Merchant-Id` and `X-Profile-Id` headers. If any of these headers are missing,
 /// it falls back to the provided authentication mechanism.
@@ -2409,6 +2423,8 @@ where
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug)]
 #[cfg(feature = "v2")]
 pub struct MerchantIdAndProfileIdAuth {
@@ -4262,6 +4278,7 @@ impl ClientSecretFetch for payments::PaymentsRequest {
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 impl ClientSecretFetch for payments::PaymentsEligibilityRequest {
     fn get_client_secret(&self) -> Option<&String> {
         self.client_secret
@@ -4278,6 +4295,8 @@ impl ClientSecretFetch for api_models::blocklist::ListBlocklistQuery {
 }
 
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl ClientSecretFetch for payments::PaymentsRetrieveRequest {
     fn get_client_secret(&self) -> Option<&String> {
         self.client_secret.as_ref()
@@ -4336,6 +4355,7 @@ impl ClientSecretFetch for api_models::payment_methods::PaymentMethodUpdate {
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 impl ClientSecretFetch for api_models::subscription::ConfirmSubscriptionRequest {
     fn get_client_secret(&self) -> Option<&String> {
         self.client_secret.as_ref().map(|s| s.as_string())
@@ -4350,6 +4370,8 @@ impl ClientSecretFetch for api_models::subscription::GetPlansQuery {
 }
 
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl ClientSecretFetch for api_models::authentication::AuthenticationEligibilityRequest {
     fn get_client_secret(&self) -> Option<&String> {
         self.client_secret
@@ -4485,6 +4507,7 @@ pub fn is_jwt_auth(headers: &HeaderMap) -> bool {
     }
 }
 
+<<<<<<< HEAD
 pub fn is_internal_api_key_merchant_id_profile_id_auth(
     headers: &HeaderMap,
     internal_api_key_auth: settings::InternalMerchantIdProfileIdAuthSettings,
@@ -4545,6 +4568,8 @@ where
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub async fn decode_jwt<T>(token: &str, state: &impl SessionStateInfo) -> RouterResult<T>
 where
     T: serde::de::DeserializeOwned,

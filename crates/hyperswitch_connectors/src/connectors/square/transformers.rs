@@ -29,12 +29,18 @@ impl TryFrom<(&types::TokenizationRouterData, BankDebitData)> for SquareTokenReq
             BankDebitData::AchBankDebit { .. }
             | BankDebitData::SepaBankDebit { .. }
             | BankDebitData::BecsBankDebit { .. }
+<<<<<<< HEAD
             | BankDebitData::BacsBankDebit { .. }
             | BankDebitData::SepaGuarenteedBankDebit { .. } => {
                 Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("Square"),
                 ))?
             }
+=======
+            | BankDebitData::BacsBankDebit { .. } => Err(errors::ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Square"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -108,8 +114,12 @@ impl TryFrom<(&types::TokenizationRouterData, WalletData)> for SquareTokenReques
     fn try_from(value: (&types::TokenizationRouterData, WalletData)) -> Result<Self, Self::Error> {
         let (_item, wallet_data) = value;
         match wallet_data {
+<<<<<<< HEAD
             WalletData::AmazonPay(_)
             | WalletData::ApplePay(_)
+=======
+            WalletData::ApplePay(_)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | WalletData::GooglePay(_)
             | WalletData::BluecodeRedirect {}
             | WalletData::AliPayQr(_)

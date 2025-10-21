@@ -239,6 +239,7 @@ pub async fn customers_list(
     .await
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 #[instrument(skip_all, fields(flow = ?Flow::CustomersListWithConstraints))]
 pub async fn customers_list_with_count(
@@ -316,6 +317,8 @@ pub async fn customers_list_with_count(
     .await
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v1")]
 #[instrument(skip_all, fields(flow = ?Flow::CustomersUpdate))]
 pub async fn customers_update(

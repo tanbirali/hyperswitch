@@ -2,7 +2,11 @@ use std::{fmt::Debug, str::FromStr};
 
 pub use common_enums::enums::CallConnectorAction;
 use common_utils::id_type;
+<<<<<<< HEAD
 use error_stack::{report, ResultExt};
+=======
+use error_stack::ResultExt;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub use hyperswitch_domain_models::{
     mandates::MandateData,
     payment_address::PaymentAddress,
@@ -165,9 +169,15 @@ where
 
             let (should_call_connector, existing_connector_customer_id) =
                 customers::should_call_connector_create_customer(
+<<<<<<< HEAD
                     &connector,
                     customer,
                     payment_data.get_payment_attempt(),
+=======
+                    state,
+                    &connector,
+                    customer,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     merchant_connector_account_type,
                 );
 
@@ -349,6 +359,7 @@ where
         api::GetToken::Connector,
         merchant_connector_account_type.get_mca_id(),
     )?;
+<<<<<<< HEAD
     let merchant_connector_account = match &merchant_connector_account_type {
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorAccount(mca) => {
             Ok(mca.as_ref())
@@ -363,6 +374,13 @@ where
         state,
         merchant_context.get_merchant_account().get_id(),
         merchant_connector_account,
+=======
+
+    let mut router_data = core_utils::construct_vault_router_data(
+        state,
+        merchant_context.get_merchant_account(),
+        merchant_connector_account_type,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         None,
         None,
         connector_customer_id,

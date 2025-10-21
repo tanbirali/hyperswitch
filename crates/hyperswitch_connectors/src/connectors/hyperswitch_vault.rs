@@ -489,6 +489,7 @@ impl webhooks::IncomingWebhook for HyperswitchVault {
     }
 }
 
+<<<<<<< HEAD
 impl ConnectorSpecifications for HyperswitchVault {
     fn should_call_connector_customer(
         &self,
@@ -497,3 +498,6 @@ impl ConnectorSpecifications for HyperswitchVault {
         true
     }
 }
+=======
+impl ConnectorSpecifications for HyperswitchVault {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

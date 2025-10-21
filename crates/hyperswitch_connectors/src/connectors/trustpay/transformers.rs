@@ -529,7 +529,10 @@ impl TryFrom<&TrustpayRouterData<&PaymentsAuthorizeRouterData>> for TrustpayPaym
             os_version: None,
             device_model: None,
             accept_language: Some(browser_info.accept_language.unwrap_or("en".to_string())),
+<<<<<<< HEAD
             referer: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let params = get_mandatory_fields(item.router_data)?;
         let amount = item.amount.to_owned();
@@ -1535,7 +1538,11 @@ impl From<SdkSecretInfo> for api_models::payments::SecretInfoToInitiateSdk {
     fn from(value: SdkSecretInfo) -> Self {
         Self {
             display: value.display,
+<<<<<<< HEAD
             payment: Some(value.payment),
+=======
+            payment: value.payment,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

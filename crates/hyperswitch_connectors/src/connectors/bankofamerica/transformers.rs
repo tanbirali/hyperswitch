@@ -314,7 +314,10 @@ impl TryFrom<&SetupMandateRouterData> for BankOfAmericaPaymentsRequest {
                 | WalletData::PaypalSdk(_)
                 | WalletData::Paze(_)
                 | WalletData::SamsungPay(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::TwintRedirect {}
                 | WalletData::VippsRedirect {}
                 | WalletData::TouchNGoRedirect(_)
@@ -1101,7 +1104,10 @@ impl TryFrom<&BankOfAmericaRouterData<&PaymentsAuthorizeRouterData>>
                         | WalletData::PaypalRedirect(_)
                         | WalletData::PaypalSdk(_)
                         | WalletData::Paze(_)
+<<<<<<< HEAD
                         | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         | WalletData::TwintRedirect {}
                         | WalletData::VippsRedirect {}
                         | WalletData::TouchNGoRedirect(_)

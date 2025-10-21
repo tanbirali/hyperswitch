@@ -65,8 +65,11 @@ pub struct MockDb {
     pub user_authentication_methods:
         Arc<Mutex<Vec<store::user_authentication_method::UserAuthenticationMethod>>>,
     pub themes: Arc<Mutex<Vec<store::user::theme::Theme>>>,
+<<<<<<< HEAD
     pub hyperswitch_ai_interactions:
         Arc<Mutex<Vec<store::hyperswitch_ai_interaction::HyperswitchAiInteraction>>>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl MockDb {
@@ -115,7 +118,10 @@ impl MockDb {
             user_key_store: Default::default(),
             user_authentication_methods: Default::default(),
             themes: Default::default(),
+<<<<<<< HEAD
             hyperswitch_ai_interactions: Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -231,6 +237,7 @@ impl MockDb {
             Err(StorageError::ValueNotFound(error_message).into())
         }
     }
+<<<<<<< HEAD
 
     pub fn master_key(&self) -> &[u8] {
         &[
@@ -238,6 +245,8 @@ impl MockDb {
             25, 26, 27, 28, 29, 30, 31, 32,
         ]
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(not(feature = "payouts"))]

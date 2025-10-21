@@ -1,6 +1,9 @@
 use std::{
     collections::{HashMap, HashSet},
+<<<<<<< HEAD
     ops::Deref,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     str::FromStr,
     sync::LazyLock,
 };
@@ -116,7 +119,10 @@ pub trait RouterData {
     fn get_optional_shipping(&self) -> Option<&hyperswitch_domain_models::address::Address>;
     fn get_optional_shipping_line1(&self) -> Option<Secret<String>>;
     fn get_optional_shipping_line2(&self) -> Option<Secret<String>>;
+<<<<<<< HEAD
     fn get_optional_shipping_line3(&self) -> Option<Secret<String>>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_optional_shipping_city(&self) -> Option<String>;
     fn get_optional_shipping_country(&self) -> Option<enums::CountryAlpha2>;
     fn get_optional_shipping_zip(&self) -> Option<Secret<String>>;
@@ -180,6 +186,7 @@ where
                     payment_data,
                 );
                 let total_capturable_amount = payment_data.payment_attempt.get_total_amount();
+<<<<<<< HEAD
 
                 if Some(total_capturable_amount) == captured_amount.map(MinorUnit::new)
                     || (captured_amount.is_some_and(|captured_amount| {
@@ -190,6 +197,11 @@ where
                 } else if captured_amount.is_some_and(|captured_amount| {
                     MinorUnit::new(captured_amount) < total_capturable_amount
                 }) {
+=======
+                if Some(total_capturable_amount) == captured_amount.map(MinorUnit::new) {
+                    Ok(enums::AttemptStatus::Charged)
+                } else if captured_amount.is_some() {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     Ok(enums::AttemptStatus::PartialCharged)
                 } else {
                     Ok(self.status)
@@ -202,6 +214,7 @@ where
                     amount_capturable,
                     payment_data.payment_attempt.status,
                 );
+<<<<<<< HEAD
                 let total_capturable_amount = payment_data.payment_attempt.get_total_amount();
                 let is_overcapture_enabled = *payment_data
                     .payment_attempt
@@ -229,6 +242,24 @@ where
                     .payment_intent
                     .enable_partial_authorization
                     .is_some_and(|val| val.is_true())
+=======
+                if Some(payment_data.payment_attempt.get_total_amount())
+                    == capturable_amount.map(MinorUnit::new)
+                {
+                    Ok(enums::AttemptStatus::Authorized)
+                } else if capturable_amount.is_some()
+                    && payment_data
+                        .payment_intent
+                        .enable_partial_authorization
+                        .is_some_and(|val| val)
+                {
+                    Ok(enums::AttemptStatus::PartiallyAuthorized)
+                } else if capturable_amount.is_some()
+                    && !payment_data
+                        .payment_intent
+                        .enable_partial_authorization
+                        .is_some_and(|val| val)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 {
                     Err(ApiErrorResponse::IntegrityCheckFailed {
                         reason: "capturable_amount is less than the total attempt amount"
@@ -239,6 +270,7 @@ where
                             .connector_transaction_id
                             .clone(),
                     })?
+<<<<<<< HEAD
                 } else if capturable_amount.is_some_and(|capturable_amount| {
                     MinorUnit::new(capturable_amount) > total_capturable_amount
                 }) && !is_overcapture_enabled
@@ -252,6 +284,8 @@ where
                             .connector_transaction_id
                             .clone(),
                     })?
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 } else {
                     Ok(self.status)
                 }
@@ -397,6 +431,7 @@ impl<Flow, Request, Response> RouterData for types::RouterData<Flow, Request, Re
         })
     }
 
+<<<<<<< HEAD
     fn get_optional_shipping_line3(&self) -> Option<Secret<String>> {
         self.address.get_shipping().and_then(|shipping_address| {
             shipping_address
@@ -406,6 +441,8 @@ impl<Flow, Request, Response> RouterData for types::RouterData<Flow, Request, Re
         })
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_optional_shipping_city(&self) -> Option<String> {
         self.address.get_shipping().and_then(|shipping_address| {
             shipping_address
@@ -2534,7 +2571,10 @@ pub enum PaymentMethodDataType {
     AliPayQr,
     AliPayRedirect,
     AliPayHkRedirect,
+<<<<<<< HEAD
     AmazonPay,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     AmazonPayRedirect,
     Paysera,
     Skrill,
@@ -2595,7 +2635,10 @@ pub enum PaymentMethodDataType {
     OnlineBankingThailand,
     AchBankDebit,
     SepaBankDebit,
+<<<<<<< HEAD
     SepaGuarenteedDebit,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     BecsBankDebit,
     BacsBankDebit,
     AchBankTransfer,
@@ -2666,7 +2709,10 @@ impl From<domain::payments::PaymentMethodData> for PaymentMethodDataType {
                 domain::payments::WalletData::AliPayQr(_) => Self::AliPayQr,
                 domain::payments::WalletData::AliPayRedirect(_) => Self::AliPayRedirect,
                 domain::payments::WalletData::AliPayHkRedirect(_) => Self::AliPayHkRedirect,
+<<<<<<< HEAD
                 domain::payments::WalletData::AmazonPay(_) => Self::AmazonPay,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 domain::payments::WalletData::AmazonPayRedirect(_) => Self::AmazonPayRedirect,
                 domain::payments::WalletData::Paysera(_) => Self::Paysera,
                 domain::payments::WalletData::Skrill(_) => Self::Skrill,
@@ -2759,7 +2805,10 @@ impl From<domain::payments::PaymentMethodData> for PaymentMethodDataType {
                 match bank_debit_data {
                     domain::payments::BankDebitData::AchBankDebit { .. } => Self::AchBankDebit,
                     domain::payments::BankDebitData::SepaBankDebit { .. } => Self::SepaBankDebit,
+<<<<<<< HEAD
                     domain::payments::BankDebitData::SepaGuarenteedBankDebit { .. } => Self::SepaGuarenteedDebit,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     domain::payments::BankDebitData::BecsBankDebit { .. } => Self::BecsBankDebit,
                     domain::payments::BankDebitData::BacsBankDebit { .. } => Self::BacsBankDebit,
                 }

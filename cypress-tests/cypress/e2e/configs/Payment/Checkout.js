@@ -7,11 +7,19 @@ const successfulNo3DSCardDetails = {
 };
 
 const successfulThreeDSTestCardDetails = {
+<<<<<<< HEAD
   card_number: "4111111111111111",
   card_exp_month: "12",
   card_exp_year: "30",
   card_holder_name: "joseph Doe",
   card_cvc: "100",
+=======
+  card_number: "4242424242424242",
+  card_exp_month: "01",
+  card_exp_year: "50",
+  card_holder_name: "joseph Doe",
+  card_cvc: "123",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 const customerAcceptance = {
@@ -23,6 +31,7 @@ const customerAcceptance = {
   },
 };
 
+<<<<<<< HEAD
 const singleUseMandateData = {
   customer_acceptance: customerAcceptance,
   mandate_type: {
@@ -43,6 +52,8 @@ const multiUseMandateData = {
   },
 };
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 export const connectorDetails = {
   card_pm: {
     PaymentIntent: {
@@ -72,6 +83,7 @@ export const connectorDetails = {
         },
       },
     },
+<<<<<<< HEAD
     PaymentIntentOffSession: {
       Request: {
         amount: 6000,
@@ -130,6 +142,8 @@ export const connectorDetails = {
         },
       },
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     PaymentConfirmWithShippingCost: {
       Request: {
         payment_method: "card",
@@ -142,7 +156,11 @@ export const connectorDetails = {
       Response: {
         status: 200,
         body: {
+<<<<<<< HEAD
           status: "succeeded",
+=======
+          status: "processing",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           shipping_cost: 50,
           amount: 6000,
         },
@@ -208,7 +226,11 @@ export const connectorDetails = {
       Response: {
         status: 200,
         body: {
+<<<<<<< HEAD
           status: "succeeded",
+=======
+          status: "processing",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
       },
     },
@@ -303,9 +325,19 @@ export const connectorDetails = {
     },
     ZeroAuthMandate: {
       Response: {
+<<<<<<< HEAD
         status: 200,
         body: {
           status: "succeeded",
+=======
+        status: 501,
+        body: {
+          error: {
+            type: "invalid_request",
+            message: "Setup Mandate flow for Checkout is not implemented",
+            code: "IR_00",
+          },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
       },
     },
@@ -333,9 +365,19 @@ export const connectorDetails = {
         },
       },
       Response: {
+<<<<<<< HEAD
         status: 200,
         body: {
           status: "succeeded",
+=======
+        status: 501,
+        body: {
+          error: {
+            type: "invalid_request",
+            message: "Setup Mandate flow for Checkout is not implemented",
+            code: "IR_00",
+          },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
       },
     },
@@ -351,7 +393,11 @@ export const connectorDetails = {
       Response: {
         status: 200,
         body: {
+<<<<<<< HEAD
           status: "succeeded",
+=======
+          status: "processing",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
       },
     },
@@ -371,6 +417,7 @@ export const connectorDetails = {
         },
       },
     },
+<<<<<<< HEAD
     PaymentMethodIdMandate3DSAutoCapture: {
       Request: {
         payment_method: "card",
@@ -583,5 +630,7 @@ export const connectorDetails = {
         },
       },
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   },
 };

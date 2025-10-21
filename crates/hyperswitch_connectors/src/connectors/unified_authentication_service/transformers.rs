@@ -66,7 +66,11 @@ pub struct UnifiedAuthenticationServiceAuthenticateConfirmationRequest {
     pub checkout_event_status: Option<String>,
     pub confirmation_status: Option<String>,
     pub confirmation_reason: Option<String>,
+<<<<<<< HEAD
     pub confirmation_timestamp: Option<String>,
+=======
+    pub confirmation_timestamp: Option<PrimitiveDateTime>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub network_authorization_code: Option<String>,
     pub network_transaction_identifier: Option<String>,
     pub correlation_id: Option<String>,
@@ -108,7 +112,11 @@ impl<F, T>
 pub struct PaymentDetails {
     pub pan: cards::CardNumber,
     pub digital_card_id: Option<String>,
+<<<<<<< HEAD
     pub payment_data_type: Option<common_enums::PaymentMethodType>,
+=======
+    pub payment_data_type: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub encrypted_src_card_details: Option<String>,
     pub card_expiry_month: Secret<String>,
     pub card_expiry_year: Secret<String>,
@@ -526,7 +534,11 @@ impl TryFrom<&UnifiedAuthenticationServiceRouterData<&UasAuthenticationConfirmat
             checkout_event_status: item.router_data.request.checkout_event_status.clone(),
             confirmation_status: item.router_data.request.confirmation_status.clone(),
             confirmation_reason: item.router_data.request.confirmation_reason.clone(),
+<<<<<<< HEAD
             confirmation_timestamp: item.router_data.request.confirmation_timestamp.clone(),
+=======
+            confirmation_timestamp: item.router_data.request.confirmation_timestamp,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             network_authorization_code: item.router_data.request.network_authorization_code.clone(),
             network_transaction_identifier: item
                 .router_data
@@ -655,11 +667,14 @@ pub enum UnifiedAuthenticationServiceAuthType {
         certificate: Secret<String>,
         private_key: Secret<String>,
     },
+<<<<<<< HEAD
     SignatureKey {
         api_key: Secret<String>,
         key1: Secret<String>,
         api_secret: Secret<String>,
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     NoKey,
 }
 
@@ -670,6 +685,7 @@ impl TryFrom<&ConnectorAuthType> for UnifiedAuthenticationServiceAuthType {
             ConnectorAuthType::HeaderKey { api_key } => Ok(Self::HeaderKey {
                 api_key: api_key.clone(),
             }),
+<<<<<<< HEAD
             ConnectorAuthType::SignatureKey {
                 api_key,
                 key1,
@@ -679,6 +695,8 @@ impl TryFrom<&ConnectorAuthType> for UnifiedAuthenticationServiceAuthType {
                 key1: key1.clone(),
                 api_secret: api_secret.clone(),
             }),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ConnectorAuthType::CertificateAuth {
                 certificate,
                 private_key,
@@ -826,16 +844,27 @@ pub struct ThreeDsAuthDetails {
     pub acs_trans_id: String,
     pub acs_reference_number: String,
     pub acs_operator_id: Option<String>,
+<<<<<<< HEAD
     pub ds_reference_number: Option<String>,
+=======
+    pub ds_reference_number: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub ds_trans_id: String,
     pub sdk_trans_id: Option<String>,
     pub trans_status: common_enums::TransactionStatus,
     pub acs_challenge_mandated: Option<ACSChallengeMandatedEnum>,
+<<<<<<< HEAD
     pub message_type: Option<String>,
     pub message_version: Option<String>,
     pub acs_url: Option<url::Url>,
     pub challenge_request: Option<String>,
     pub challenge_request_key: Option<String>,
+=======
+    pub message_type: String,
+    pub message_version: String,
+    pub acs_url: Option<url::Url>,
+    pub challenge_request: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub acs_signed_content: Option<String>,
     pub authentication_value: Option<Secret<String>>,
     pub eci: Option<String>,
@@ -977,16 +1006,27 @@ impl<F, T>
     ) -> Result<Self, Self::Error> {
         let response = match item.response {
             UnifiedAuthenticationServiceAuthenticateResponse::Success(auth_response) => {
+<<<<<<< HEAD
                 let authn_flow_type = match auth_response.three_ds_auth_response.trans_status {
                     common_enums::TransactionStatus::ChallengeRequired => {
+=======
+                let authn_flow_type = match auth_response
+                    .three_ds_auth_response
+                    .acs_challenge_mandated
+                {
+                    Some(ACSChallengeMandatedEnum::Y) => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         AuthNFlowType::Challenge(Box::new(ChallengeParams {
                             acs_url: auth_response.three_ds_auth_response.acs_url.clone(),
                             challenge_request: auth_response
                                 .three_ds_auth_response
                                 .challenge_request,
+<<<<<<< HEAD
                             challenge_request_key: auth_response
                                 .three_ds_auth_response
                                 .challenge_request_key,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             acs_reference_number: Some(
                                 auth_response.three_ds_auth_response.acs_reference_number,
                             ),
@@ -1001,7 +1041,11 @@ impl<F, T>
                                 .acs_signed_content,
                         }))
                     }
+<<<<<<< HEAD
                     _ => AuthNFlowType::Frictionless,
+=======
+                    Some(ACSChallengeMandatedEnum::N) | None => AuthNFlowType::Frictionless,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 };
                 Ok(UasAuthenticationResponseData::Authentication {
                     authentication_details: hyperswitch_domain_models::router_request_types::unified_authentication_service::AuthenticationDetails {

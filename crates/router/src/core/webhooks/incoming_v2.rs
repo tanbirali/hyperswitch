@@ -221,6 +221,7 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
     };
     logger::info!(event_type=?event_type);
 
+<<<<<<< HEAD
     // if it is a setup webhook event, return ok status
     if event_type == webhooks::IncomingWebhookEvent::SetupWebhook {
         return Ok((
@@ -230,6 +231,8 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
         ));
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let is_webhook_event_supported = !matches!(
         event_type,
         webhooks::IncomingWebhookEvent::EventNotSupported
@@ -369,7 +372,10 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
 
                     api::WebhookFlow::ExternalAuthentication => todo!(),
                     api::WebhookFlow::FraudCheck => todo!(),
+<<<<<<< HEAD
                     api::WebhookFlow::Setup => WebhookResponseTracker::NoEffect,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
                     #[cfg(feature = "payouts")]
                     api::WebhookFlow::Payout => todo!(),

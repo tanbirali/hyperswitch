@@ -121,14 +121,68 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+<<<<<<< HEAD
+=======
+      # - name: Install sccache
+      #   uses: taiki-e/install-action@v2
+      #   with:
+      #     tool: sccache
+      #     checksum: true
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       - name: Install rust cache
         uses: Swatinem/rust-cache@v2.7.7
         with:
           save-if: false
 
+<<<<<<< HEAD
       - name: Run cargo check
         shell: bash
         run: cargo check --features "release"
+=======
+      - name: Install cargo-hack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-hack
+          checksum: true
+
+      - name: Install just
+        uses: taiki-e/install-action@v2
+        with:
+          tool: just
+          checksum: true
+
+      - name: Install jq
+        shell: bash
+        run: .github/scripts/install-jq.sh
+
+      - name: Cargo hack
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: just ci_hack
+
+  # cargo-deny:
+  #   name: Run cargo-deny
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       checks:
+  #         - advisories
+  #         - bans licenses sources
+
+  #   # Prevent sudden announcement of a new advisory from failing CI
+  #   continue-on-error: ${{ matrix.checks == 'advisories' }}
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Run cargo-deny
+  #       uses: EmbarkStudios/cargo-deny-action@v1.3.2
+  #       with:
+  #         command: check ${{ matrix.checks }}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
   test:
     name: Run tests on stable toolchain
@@ -184,17 +238,48 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
+<<<<<<< HEAD
+=======
+      # - name: Install sccache
+      #   uses: taiki-e/install-action@v2
+      #   with:
+      #     tool: sccache
+      #     checksum: true
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       - name: Install rust cache
         uses: Swatinem/rust-cache@v2.7.7
         with:
           save-if: false
 
+<<<<<<< HEAD
+=======
+      - name: Install cargo-hack
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-hack
+          checksum: true
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       - name: Install just
         uses: taiki-e/install-action@v2
         with:
           tool: just
           checksum: true
 
+<<<<<<< HEAD
+=======
+      - name: Install jq
+        shell: bash
+        run: .github/scripts/install-jq.sh
+
+      # - name: Install cargo-nextest
+      #   uses: taiki-e/install-action@v2
+      #   with:
+      #     tool: cargo-nextest
+      #     checksum: true
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       - name: Run clippy
         shell: bash
         run: just clippy
@@ -212,8 +297,21 @@ jobs:
           fi
 
       - name: Run cargo check
+<<<<<<< HEAD
         shell: bash
         run: cargo check --features "release"
+=======
+        if: ${{ ! startsWith(github.event.pull_request.base.ref, 'hotfix-') }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: just ci_hack
+
+      - name: Cargo build release
+        if: ${{ startsWith(github.event.pull_request.base.ref, 'hotfix-') }}
+        shell: bash
+        run: cargo check --features release
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
   typos:
     name: Spell check

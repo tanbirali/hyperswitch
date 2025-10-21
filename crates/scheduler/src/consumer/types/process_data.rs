@@ -30,6 +30,7 @@ impl Default for ConnectorPTMapping {
 }
 
 #[derive(Serialize, Deserialize)]
+<<<<<<< HEAD
 pub struct SubscriptionInvoiceSyncPTMapping {
     pub default_mapping: RetryMapping,
     pub custom_merchant_mapping: HashMap<common_utils::id_type::MerchantId, RetryMapping>,
@@ -50,6 +51,8 @@ impl Default for SubscriptionInvoiceSyncPTMapping {
 }
 
 #[derive(Serialize, Deserialize)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct PaymentMethodsPTMapping {
     pub default_mapping: RetryMapping,
     pub custom_pm_mapping: HashMap<enums::PaymentMethod, RetryMapping>,

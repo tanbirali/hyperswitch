@@ -1,6 +1,10 @@
 use crate::address::Address;
 
+<<<<<<< HEAD
 #[derive(Clone, Default, Debug, serde::Serialize)]
+=======
+#[derive(Clone, Default, Debug)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct PaymentAddress {
     shipping: Option<Address>,
     billing: Option<Address>,

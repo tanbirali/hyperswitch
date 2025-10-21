@@ -413,11 +413,17 @@ impl<F> TryFrom<&WiseRouterData<&PayoutsRouterData<F>>> for WiseRecipientCreateR
         }?;
         let payout_type = request.get_payout_type()?;
         match payout_type {
+<<<<<<< HEAD
             PayoutType::Card | PayoutType::Wallet | PayoutType::BankRedirect => {
                 Err(ConnectorError::NotImplemented(
                     get_unimplemented_payment_method_error_message("Wise"),
                 ))?
             }
+=======
+            PayoutType::Card | PayoutType::Wallet => Err(ConnectorError::NotImplemented(
+                get_unimplemented_payment_method_error_message("Wise"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             PayoutType::Bank => {
                 let account_holder_name = customer_details
                     .ok_or(ConnectorError::MissingRequiredField {
@@ -458,7 +464,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, WiseRecipientCreateResponse>>
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -481,11 +490,17 @@ impl<F> TryFrom<&WiseRouterData<&PayoutsRouterData<F>>> for WisePayoutQuoteReque
                 target_currency: request.destination_currency.to_string(),
                 pay_out: WisePayOutOption::default(),
             }),
+<<<<<<< HEAD
             PayoutType::Card | PayoutType::Wallet | PayoutType::BankRedirect => {
                 Err(ConnectorError::NotImplemented(
                     get_unimplemented_payment_method_error_message("Wise"),
                 ))?
             }
+=======
+            PayoutType::Card | PayoutType::Wallet => Err(ConnectorError::NotImplemented(
+                get_unimplemented_payment_method_error_message("Wise"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -507,7 +522,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, WisePayoutQuoteResponse>> for Payou
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -542,11 +560,17 @@ impl<F> TryFrom<&PayoutsRouterData<F>> for WisePayoutCreateRequest {
                     details: wise_transfer_details,
                 })
             }
+<<<<<<< HEAD
             PayoutType::Card | PayoutType::Wallet | PayoutType::BankRedirect => {
                 Err(ConnectorError::NotImplemented(
                     get_unimplemented_payment_method_error_message("Wise"),
                 ))?
             }
+=======
+            PayoutType::Card | PayoutType::Wallet => Err(ConnectorError::NotImplemented(
+                get_unimplemented_payment_method_error_message("Wise"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -572,7 +596,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, WisePayoutResponse>> for PayoutsRou
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -589,11 +616,17 @@ impl<F> TryFrom<&PayoutsRouterData<F>> for WisePayoutFulfillRequest {
             PayoutType::Bank => Ok(Self {
                 fund_type: FundType::default(),
             }),
+<<<<<<< HEAD
             PayoutType::Card | PayoutType::Wallet | PayoutType::BankRedirect => {
                 Err(ConnectorError::NotImplemented(
                     get_unimplemented_payment_method_error_message("Wise"),
                 ))?
             }
+=======
+            PayoutType::Card | PayoutType::Wallet => Err(ConnectorError::NotImplemented(
+                get_unimplemented_payment_method_error_message("Wise"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -621,7 +654,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, WiseFulfillResponse>> for PayoutsRo
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -710,7 +746,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, WisePayoutSyncResponse>> for Payout
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })

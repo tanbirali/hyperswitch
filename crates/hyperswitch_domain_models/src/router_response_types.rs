@@ -1,16 +1,24 @@
 pub mod disputes;
 pub mod fraud_check;
 pub mod revenue_recovery;
+<<<<<<< HEAD
 pub mod subscriptions;
 use std::collections::HashMap;
 
 use api_models::payments::AddressDetails;
+=======
+use std::collections::HashMap;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{pii, request::Method, types::MinorUnit};
 pub use disputes::{
     AcceptDisputeResponse, DefendDisputeResponse, DisputeSyncResponse, FetchDisputesResponse,
     SubmitEvidenceResponse,
 };
+<<<<<<< HEAD
 use serde::Serialize;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use crate::{
     errors::api_error_response::ApiErrorResponse,
@@ -25,6 +33,7 @@ pub struct RefundsResponseData {
     // pub amount_received: Option<i32>, // Calculation for amount received not in place yet
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize)]
 pub struct ConnectorCustomerResponseData {
     pub connector_customer_id: String,
@@ -53,6 +62,9 @@ impl ConnectorCustomerResponseData {
 }
 
 #[derive(Debug, Clone, Serialize)]
+=======
+#[derive(Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum PaymentsResponseData {
     TransactionResponse {
         resource_id: ResponseId,
@@ -84,7 +96,13 @@ pub enum PaymentsResponseData {
         token: String,
     },
 
+<<<<<<< HEAD
     ConnectorCustomerResponse(ConnectorCustomerResponseData),
+=======
+    ConnectorCustomerResponse {
+        connector_customer_id: String,
+    },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     ThreeDSEnrollmentResponse {
         enrolled_v2: bool,
@@ -114,17 +132,24 @@ pub enum PaymentsResponseData {
 }
 
 #[derive(Debug, Clone)]
+<<<<<<< HEAD
 pub struct GiftCardBalanceCheckResponseData {
     pub balance: MinorUnit,
     pub currency: common_enums::Currency,
 }
 
 #[derive(Debug, Clone)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct TaxCalculationResponseData {
     pub order_tax_amount: MinorUnit,
 }
 
+<<<<<<< HEAD
 #[derive(Serialize, Debug, Clone)]
+=======
+#[derive(serde::Serialize, Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct MandateReference {
     pub connector_mandate_id: Option<String>,
     pub payment_method_id: Option<String>,
@@ -132,7 +157,11 @@ pub struct MandateReference {
     pub connector_mandate_request_reference_id: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize)]
+=======
+#[derive(Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum CaptureSyncResponse {
     Success {
         resource_id: ResponseId,
@@ -283,13 +312,21 @@ impl PaymentsResponseData {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize)]
+=======
+#[derive(Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum PreprocessingResponseId {
     PreProcessingId(String),
     ConnectorTransactionId(String),
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Eq, PartialEq, Clone, Serialize, serde::Deserialize)]
+=======
+#[derive(Debug, Eq, PartialEq, Clone, serde::Serialize, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum RedirectForm {
     Form {
         endpoint: String,
@@ -584,7 +621,10 @@ pub struct PayoutsResponseData {
     pub should_add_next_step_to_process_tracker: bool,
     pub error_code: Option<String>,
     pub error_message: Option<String>,
+<<<<<<< HEAD
     pub payout_connector_metadata: Option<pii::SecretSerdeValue>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone)]

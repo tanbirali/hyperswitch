@@ -1,5 +1,8 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::sync::LazyLock;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use api_models::enums::AuthenticationType;
 use common_enums::enums;
@@ -28,10 +31,14 @@ use hyperswitch_domain_models::{
         PaymentsAuthorizeData, PaymentsCancelData, PaymentsCaptureData, PaymentsPreProcessingData,
         PaymentsSessionData, PaymentsSyncData, RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
         SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         PaymentsCompleteAuthorizeRouterData, PaymentsPreProcessingRouterData, RefundsRouterData,
@@ -1267,6 +1274,7 @@ impl webhooks::IncomingWebhook for Payme {
     }
 }
 
+<<<<<<< HEAD
 static PAYME_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -1363,3 +1371,6 @@ impl ConnectorSpecifications for Payme {
         Some(&PAYME_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Payme {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

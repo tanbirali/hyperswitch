@@ -11,6 +11,7 @@ pub const ACCEPT_HEADER: &str = "text/html,application/json";
 
 /// User agent for request send from backend server
 pub const USER_AGENT: &str = "Hyperswitch-Backend-Server";
+<<<<<<< HEAD
 
 /// Request timeout error code
 pub const REQUEST_TIMEOUT_ERROR_CODE: &str = "TIMEOUT";
@@ -29,3 +30,5 @@ pub const UCS_AUTH_HEADER_KEY: &str = "header-key";
 
 /// Header value indicating that currency-auth-key-based authentication is used.
 pub const UCS_AUTH_CURRENCY_AUTH_KEY: &str = "currency-auth-key";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

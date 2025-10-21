@@ -155,7 +155,10 @@ impl
                             acs_trans_id: response.authentication_response.acs_trans_id,
                             three_dsserver_trans_id: Some(response.three_ds_server_trans_id),
                             acs_signed_content: response.authentication_response.acs_signed_content,
+<<<<<<< HEAD
                             challenge_request_key: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         }))
                     }
                     Some(ACSChallengeMandatedIndicator::N) | None => AuthNFlowType::Frictionless,
@@ -171,9 +174,15 @@ impl
                     });
 
                 let message_extension = response
+<<<<<<< HEAD
                     .authentication_response
                     .message_extension
                     .as_ref()
+=======
+                    .authentication_request
+                    .as_ref()
+                    .and_then(|req| req.message_extension.as_ref())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     .and_then(|v| match serde_json::to_value(v) {
                         Ok(val) => Some(Secret::new(val)),
                         Err(e) => {
@@ -687,6 +696,10 @@ pub struct NetceteraAuthenticationFailureResponse {
 pub struct AuthenticationRequest {
     #[serde(rename = "threeDSRequestorChallengeInd")]
     pub three_ds_requestor_challenge_ind: Option<ThreedsRequestorChallengeInd>,
+<<<<<<< HEAD
+=======
+    pub message_extension: Option<serde_json::Value>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -708,7 +721,10 @@ pub struct AuthenticationResponse {
     pub ds_trans_id: Option<String>,
     pub acs_signed_content: Option<String>,
     pub trans_status_reason: Option<String>,
+<<<<<<< HEAD
     pub message_extension: Option<serde_json::Value>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]

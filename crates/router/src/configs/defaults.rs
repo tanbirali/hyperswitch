@@ -1,5 +1,10 @@
 use std::collections::HashSet;
 
+<<<<<<< HEAD
+=======
+use common_utils::id_type;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "payouts")]
 pub mod payout_required_fields;
 
@@ -122,6 +127,20 @@ impl Default for super::settings::KvConfig {
     }
 }
 
+<<<<<<< HEAD
+=======
+impl Default for super::settings::GlobalTenant {
+    fn default() -> Self {
+        Self {
+            tenant_id: id_type::TenantId::get_default_global_tenant_id(),
+            schema: String::from("global"),
+            redis_key_prefix: String::from("global"),
+            clickhouse_database: String::from("global"),
+        }
+    }
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[allow(clippy::derivable_impls)]
 impl Default for super::settings::ApiKeys {
     fn default() -> Self {

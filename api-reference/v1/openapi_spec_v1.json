@@ -1144,6 +1144,7 @@
         ]
       }
     },
+<<<<<<< HEAD
     "/payments/{payment_id}/extend_authorization": {
       "post": {
         "tags": [
@@ -1185,6 +1186,8 @@
         ]
       }
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     "/payments/list": {
       "get": {
         "tags": [
@@ -1657,6 +1660,7 @@
         ]
       }
     },
+<<<<<<< HEAD
     "/payments/{payment_id}/eligibility": {
       "post": {
         "tags": [
@@ -1714,6 +1718,8 @@
         ]
       }
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     "/relay": {
       "post": {
         "tags": [
@@ -6866,6 +6872,7 @@
           }
         ]
       }
+<<<<<<< HEAD
     },
     "/subscriptions": {
       "post": {
@@ -7367,6 +7374,8 @@
           }
         ]
       }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
   },
   "components": {
@@ -7820,6 +7829,7 @@
                 "$ref": "#/components/schemas/WalletAdditionalData"
               }
             }
+<<<<<<< HEAD
           },
           {
             "type": "object",
@@ -7831,6 +7841,8 @@
                 "$ref": "#/components/schemas/BankRedirectAdditionalData"
               }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ],
         "description": "Masked payout method details for storing in db"
@@ -8074,6 +8086,7 @@
       "AliPayRedirection": {
         "type": "object"
       },
+<<<<<<< HEAD
       "AmazonPayDeliveryOptions": {
         "type": "object",
         "required": [
@@ -8230,6 +8243,11 @@
           }
         }
       },
+=======
+      "AmazonPayRedirectData": {
+        "type": "object"
+      },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "AmountFilter": {
         "type": "object",
         "properties": {
@@ -8318,6 +8336,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "ApplePayDecrypt": {
         "type": "object",
         "required": [
@@ -8373,6 +8392,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "ApplePayPaymentData": {
         "oneOf": [
           {
@@ -8650,6 +8671,7 @@
         }
       },
       "ApplePayThirdPartySdkData": {
+<<<<<<< HEAD
         "type": "object",
         "properties": {
           "token": {
@@ -8657,6 +8679,9 @@
             "nullable": true
           }
         }
+=======
+        "type": "object"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       "ApplePayWalletData": {
         "type": "object",
@@ -8840,8 +8865,12 @@
           "ctp_mastercard",
           "unified_authentication_service",
           "juspaythreedsserver",
+<<<<<<< HEAD
           "ctp_visa",
           "cardinal"
+=======
+          "ctp_visa"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ]
       },
       "AuthenticationCreateRequest": {
@@ -8931,6 +8960,7 @@
           "payment_method": {
             "$ref": "#/components/schemas/PaymentMethod"
           },
+<<<<<<< HEAD
           "payment_method_type": {
             "allOf": [
               {
@@ -8939,6 +8969,8 @@
             ],
             "nullable": true
           },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "client_secret": {
             "type": "string",
             "description": "Optional secret value used to identify and authorize the client making the request.\nThis can help ensure that the payment session is secure and valid.",
@@ -9707,6 +9739,7 @@
                 "$ref": "#/components/schemas/SepaBankDebitAdditionalData"
               }
             }
+<<<<<<< HEAD
           },
           {
             "type": "object",
@@ -9718,6 +9751,8 @@
                 "$ref": "#/components/schemas/SepaBankDebitAdditionalData"
               }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ]
       },
@@ -9847,6 +9882,7 @@
           {
             "type": "object",
             "required": [
+<<<<<<< HEAD
               "sepa_guarenteed_bank_debit"
             ],
             "properties": {
@@ -9882,6 +9918,8 @@
           {
             "type": "object",
             "required": [
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
               "becs_bank_debit"
             ],
             "properties": {
@@ -10151,6 +10189,7 @@
           "nationale_nederlanden"
         ]
       },
+<<<<<<< HEAD
       "BankRedirect": {
         "oneOf": [
           {
@@ -10174,6 +10213,8 @@
         ],
         "description": "Masked payout method details for wallet payout method"
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "BankRedirectBilling": {
         "type": "object",
         "required": [
@@ -11541,6 +11582,7 @@
         "properties": {
           "social_security_number": {
             "type": "string",
+<<<<<<< HEAD
             "description": "The shopper's social security number (CPF or CNPJ)",
             "nullable": true
           },
@@ -11590,6 +11632,9 @@
             "type": "string",
             "format": "date",
             "example": "2025-08-22",
+=======
+            "description": "The shopper's social security number",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         }
@@ -11687,6 +11732,7 @@
             "type": "string",
             "description": "The device model of the client",
             "nullable": true
+<<<<<<< HEAD
           },
           "accept_language": {
             "type": "string",
@@ -11697,6 +11743,8 @@
             "type": "string",
             "description": "Identifier of the source that initiated the request.",
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -12737,10 +12785,13 @@
           }
         }
       },
+<<<<<<< HEAD
       "ClientSecret": {
         "type": "string",
         "description": "For Client based calls, SDK will use the client_secret\\nin order to call /payment_methods\\nClient secret will be generated whenever a new\\npayment method is created"
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Comparison": {
         "type": "object",
         "description": "Represents a single comparison condition.",
@@ -12780,6 +12831,7 @@
           "greater_than_equal"
         ]
       },
+<<<<<<< HEAD
       "ConfirmSubscriptionPaymentDetails": {
         "type": "object",
         "required": [
@@ -12851,6 +12903,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Connector": {
         "type": "string",
         "enum": [
@@ -12868,7 +12922,10 @@
           "adyen",
           "affirm",
           "airwallex",
+<<<<<<< HEAD
           "amazonpay",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "archipel",
           "authorizedotnet",
           "bambora",
@@ -12879,11 +12936,18 @@
           "bitpay",
           "bluesnap",
           "blackhawknetwork",
+<<<<<<< HEAD
           "calida",
           "boku",
           "braintree",
           "breadpay",
           "cardinal",
+=======
+          "bluecode",
+          "boku",
+          "braintree",
+          "breadpay",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "cashtocode",
           "celero",
           "chargebee",
@@ -12904,14 +12968,20 @@
           "ebanx",
           "elavon",
           "facilitapay",
+<<<<<<< HEAD
           "finix",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "fiserv",
           "fiservemea",
           "fiuu",
           "flexiti",
           "forte",
           "getnet",
+<<<<<<< HEAD
           "gigadat",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "globalpay",
           "globepay",
           "gocardless",
@@ -12925,7 +12995,10 @@
           "jpmorgan",
           "juspaythreedsserver",
           "klarna",
+<<<<<<< HEAD
           "loonio",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "mifinity",
           "mollie",
           "moneris",
@@ -12945,11 +13018,17 @@
           "payme",
           "payone",
           "paypal",
+<<<<<<< HEAD
           "paysafe",
           "paystack",
           "paytm",
           "payu",
           "peachpayments",
+=======
+          "paystack",
+          "paytm",
+          "payu",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "phonepe",
           "placetopay",
           "powertranz",
@@ -12967,11 +13046,16 @@
           "stripebilling",
           "taxjar",
           "threedsecureio",
+<<<<<<< HEAD
           "tesouro",
           "tokenex",
           "tokenio",
           "trustpay",
           "trustpayments",
+=======
+          "tokenio",
+          "trustpay",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "tsys",
           "vgs",
           "volt",
@@ -13234,11 +13318,14 @@
             "description": "This field is for our legacy Apple Pay flow that contains the Apple Pay certificates and credentials for only iOS Apple Pay flow",
             "nullable": true
           },
+<<<<<<< HEAD
           "amazon_pay": {
             "type": "object",
             "description": "This field contains the Amazon Pay certificates and credentials",
             "nullable": true
           },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "samsung_pay": {
             "type": "object",
             "description": "This field contains the Samsung Pay certificates and credentials",
@@ -14067,6 +14154,7 @@
           "ZWE"
         ]
       },
+<<<<<<< HEAD
       "CreateAndConfirmSubscriptionRequest": {
         "type": "object",
         "required": [
@@ -14118,6 +14206,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "CreateApiKeyRequest": {
         "type": "object",
         "description": "The request body for creating an API Key.",
@@ -14198,6 +14288,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "CreateSubscriptionPaymentDetails": {
         "type": "object",
         "required": [
@@ -14294,6 +14385,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "CryptoData": {
         "type": "object",
         "properties": {
@@ -14802,10 +14895,13 @@
           "gaming_console"
         ]
       },
+<<<<<<< HEAD
       "CustomerId": {
         "type": "string",
         "description": "A type for customer_id that can be used for customer ids"
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "CustomerPaymentMethod": {
         "type": "object",
         "required": [
@@ -15618,6 +15714,7 @@
           "dispute_lost"
         ]
       },
+<<<<<<< HEAD
       "DocumentKind": {
         "type": "string",
         "enum": [
@@ -15625,6 +15722,8 @@
           "CPF"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "DokuBankTransferInstructions": {
         "type": "object",
         "required": [
@@ -15883,6 +15982,7 @@
           "soft_decline"
         ]
       },
+<<<<<<< HEAD
       "EstimateSubscriptionQuery": {
         "type": "object",
         "required": [
@@ -15950,6 +16050,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "EventClass": {
         "type": "string",
         "enum": [
@@ -16294,6 +16396,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "ExternalVaultConnectorDetails": {
         "type": "object",
         "properties": {
@@ -16319,6 +16422,8 @@
           "skip"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "FeatureMatrixListResponse": {
         "type": "object",
         "required": [
@@ -17044,6 +17149,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "GetPlansQuery": {
         "type": "object",
         "properties": {
@@ -17092,6 +17198,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "GiftCardAdditionalData": {
         "oneOf": [
           {
@@ -17254,6 +17362,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "GooglePayCardFundingSource": {
         "type": "string",
         "enum": [
@@ -17263,6 +17372,8 @@
           "UNKNOWN"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "GooglePayPaymentMethodInfo": {
         "type": "object",
         "required": [
@@ -17285,6 +17396,7 @@
               }
             ],
             "nullable": true
+<<<<<<< HEAD
           },
           "card_funding_source": {
             "allOf": [
@@ -17293,6 +17405,8 @@
               }
             ],
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -17380,6 +17494,7 @@
         }
       },
       "GooglePayThirdPartySdkData": {
+<<<<<<< HEAD
         "type": "object",
         "properties": {
           "token": {
@@ -17387,6 +17502,9 @@
             "nullable": true
           }
         }
+=======
+        "type": "object"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       "GooglePayWalletData": {
         "type": "object",
@@ -18044,8 +18162,12 @@
           "payout_processor",
           "authentication_provider",
           "fraud_and_risk_management_provider",
+<<<<<<< HEAD
           "tax_calculation_provider",
           "revenue_growth_management_platform"
+=======
+          "tax_calculation_provider"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ]
       },
       "IfStatement": {
@@ -18197,6 +18319,7 @@
           "expired"
         ]
       },
+<<<<<<< HEAD
       "Interac": {
         "type": "object",
         "required": [
@@ -18297,6 +18420,8 @@
           "voided"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "IssuerData": {
         "type": "object",
         "description": "Represents data about the issuer used in the 3DS decision rule.",
@@ -18430,10 +18555,13 @@
             "type": "integer",
             "format": "int32",
             "minimum": 0
+<<<<<<< HEAD
           },
           "client_secret": {
             "type": "string",
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -19479,10 +19607,13 @@
           "5661"
         ]
       },
+<<<<<<< HEAD
       "MerchantConnectorAccountId": {
         "type": "string",
         "description": "A type for merchant_connector_id that can be used for merchant_connector_account ids"
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "MerchantConnectorCreate": {
         "type": "object",
         "description": "Create a new Merchant Connector for the merchant account. The connector could be a payment processor / facilitator / acquirer or specialized services like Fraud / Accounting etc.\"",
@@ -20262,19 +20393,25 @@
               }
             ],
             "nullable": true
+<<<<<<< HEAD
           },
           "merchant_tax_registration_id": {
             "type": "string",
             "example": "123456789",
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         },
         "additionalProperties": false
       },
+<<<<<<< HEAD
       "MerchantId": {
         "type": "string",
         "description": "A type for merchant_id that can be used for merchant ids"
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "MerchantProductType": {
         "type": "string",
         "enum": [
@@ -20413,6 +20550,7 @@
         "format": "int64",
         "description": "This Unit struct represents MinorUnit in which core amount works"
       },
+<<<<<<< HEAD
       "MitCategory": {
         "type": "string",
         "enum": [
@@ -20422,6 +20560,8 @@
           "resubmission"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "MobilePayRedirection": {
         "type": "object"
       },
@@ -20520,6 +20660,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "NetworkDetails": {
         "type": "object",
         "properties": {
@@ -20529,6 +20670,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "NetworkTransactionIdAndCardDetails": {
         "type": "object",
         "required": [
@@ -20617,6 +20760,7 @@
         }
       },
       "NextActionCall": {
+<<<<<<< HEAD
         "oneOf": [
           {
             "type": "string",
@@ -20673,6 +20817,14 @@
               }
             }
           }
+=======
+        "type": "string",
+        "enum": [
+          "post_session_tokens",
+          "confirm",
+          "sync",
+          "complete_authorize"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ]
       },
       "NextActionData": {
@@ -20819,6 +20971,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "description": "Contains the SDK UPI intent URI for payment processing",
             "required": [
               "sdk_uri",
@@ -20838,6 +20991,8 @@
           },
           {
             "type": "object",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "description": "Contains the download url and the reference number for transaction",
             "required": [
               "voucher_details",
@@ -22048,6 +22203,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "PaymentDetails": {
         "type": "object",
         "properties": {
@@ -22122,6 +22278,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "PaymentExperience": {
         "type": "string",
         "description": "To indicate the type of payment experience that the customer would go through",
@@ -23765,7 +23923,10 @@
           "samsung_pay",
           "sepa",
           "sepa_bank_transfer",
+<<<<<<< HEAD
           "sepa_guarenteed_debit",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "skrill",
           "sofort",
           "swish",
@@ -23774,7 +23935,10 @@
           "twint",
           "upi_collect",
           "upi_intent",
+<<<<<<< HEAD
           "upi_qr",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "vipps",
           "viet_qr",
           "venmo",
@@ -23900,6 +24064,7 @@
           "propertyName": "payment_processing_details_at"
         }
       },
+<<<<<<< HEAD
       "PaymentResponseData": {
         "type": "object",
         "required": [
@@ -24007,6 +24172,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "PaymentRetrieveBody": {
         "type": "object",
         "properties": {
@@ -24608,6 +24775,7 @@
           "enable_partial_authorization": {
             "type": "boolean",
             "description": "Allow partial authorization for this payment",
+<<<<<<< HEAD
             "default": false,
             "nullable": true
           },
@@ -24623,6 +24791,8 @@
                 "$ref": "#/components/schemas/MitCategory"
               }
             ],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         }
@@ -25096,6 +25266,7 @@
           "enable_partial_authorization": {
             "type": "boolean",
             "description": "Allow partial authorization for this payment",
+<<<<<<< HEAD
             "default": false,
             "nullable": true
           },
@@ -25117,6 +25288,8 @@
                 "$ref": "#/components/schemas/MitCategory"
               }
             ],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         }
@@ -25656,12 +25829,15 @@
             "description": "flag that indicates if extended authorization is applied on this payment or not",
             "nullable": true
           },
+<<<<<<< HEAD
           "request_extended_authorization": {
             "type": "boolean",
             "description": "Optional boolean value to extent authorization period of this payment\n\ncapture method must be manual or manual_multiple",
             "default": false,
             "nullable": true
           },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "capture_before": {
             "type": "string",
             "format": "date-time",
@@ -25729,6 +25905,7 @@
           "enable_partial_authorization": {
             "type": "boolean",
             "description": "Allow partial authorization for this payment",
+<<<<<<< HEAD
             "default": false,
             "nullable": true
           },
@@ -25762,6 +25939,8 @@
                 "$ref": "#/components/schemas/MitCategory"
               }
             ],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         }
@@ -25827,6 +26006,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "PaymentsEligibilityRequest": {
         "type": "object",
         "required": [
@@ -25880,6 +26060,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "PaymentsExternalAuthenticationRequest": {
         "type": "object",
         "required": [
@@ -25928,11 +26110,14 @@
             "description": "Challenge request which should be sent to acs_url",
             "nullable": true
           },
+<<<<<<< HEAD
           "challenge_request_key": {
             "type": "string",
             "description": "Challenge request key which should be set as form field name for creq",
             "nullable": true
           },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "acs_reference_number": {
             "type": "string",
             "description": "Unique identifier assigned by the EMVCo(Europay, Mastercard and Visa)",
@@ -26583,6 +26768,7 @@
           "enable_partial_authorization": {
             "type": "boolean",
             "description": "Allow partial authorization for this payment",
+<<<<<<< HEAD
             "default": false,
             "nullable": true
           },
@@ -26604,6 +26790,8 @@
                 "$ref": "#/components/schemas/MitCategory"
               }
             ],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         },
@@ -27169,12 +27357,15 @@
             "description": "flag that indicates if extended authorization is applied on this payment or not",
             "nullable": true
           },
+<<<<<<< HEAD
           "request_extended_authorization": {
             "type": "boolean",
             "description": "Optional boolean value to extent authorization period of this payment\n\ncapture method must be manual or manual_multiple",
             "default": false,
             "nullable": true
           },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "capture_before": {
             "type": "string",
             "format": "date-time",
@@ -27242,6 +27433,7 @@
           "enable_partial_authorization": {
             "type": "boolean",
             "description": "Allow partial authorization for this payment",
+<<<<<<< HEAD
             "default": false,
             "nullable": true
           },
@@ -27275,6 +27467,8 @@
                 "$ref": "#/components/schemas/MitCategory"
               }
             ],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         }
@@ -27881,6 +28075,7 @@
           "enable_partial_authorization": {
             "type": "boolean",
             "description": "Allow partial authorization for this payment",
+<<<<<<< HEAD
             "default": false,
             "nullable": true
           },
@@ -27902,6 +28097,8 @@
                 "$ref": "#/components/schemas/MitCategory"
               }
             ],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "nullable": true
           }
         }
@@ -28231,6 +28428,7 @@
             "type": "string",
             "description": "Identifier for payout method",
             "nullable": true
+<<<<<<< HEAD
           },
           "browser_info": {
             "allOf": [
@@ -28239,6 +28437,8 @@
               }
             ],
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -28249,6 +28449,7 @@
           "adyenplatform",
           "cybersource",
           "ebanx",
+<<<<<<< HEAD
           "gigadat",
           "loonio",
           "nomupay",
@@ -28258,6 +28459,13 @@
           "stripe",
           "wise",
           "worldpay"
+=======
+          "nomupay",
+          "payone",
+          "paypal",
+          "stripe",
+          "wise"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ]
       },
       "PayoutCreatePayoutLinkConfig": {
@@ -28868,6 +29076,7 @@
                 "$ref": "#/components/schemas/Wallet"
               }
             }
+<<<<<<< HEAD
           },
           {
             "type": "object",
@@ -28879,6 +29088,8 @@
                 "$ref": "#/components/schemas/BankRedirect"
               }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ],
         "description": "The payout method information required for carrying out a payout"
@@ -28917,6 +29128,7 @@
                 "$ref": "#/components/schemas/WalletAdditionalData"
               }
             }
+<<<<<<< HEAD
           },
           {
             "type": "object",
@@ -28928,6 +29140,8 @@
                 "$ref": "#/components/schemas/BankRedirectAdditionalData"
               }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ],
         "description": "The payout method information for response"
@@ -29008,8 +29222,12 @@
         "enum": [
           "card",
           "bank",
+<<<<<<< HEAD
           "wallet",
           "bank_redirect"
+=======
+          "wallet"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ]
       },
       "PayoutUpdateRequest": {
@@ -29242,6 +29460,7 @@
             "type": "string",
             "description": "Identifier for payout method",
             "nullable": true
+<<<<<<< HEAD
           },
           "browser_info": {
             "allOf": [
@@ -29250,6 +29469,8 @@
               }
             ],
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -29474,6 +29695,7 @@
             "type": "string",
             "description": "Identifier for payout method",
             "nullable": true
+<<<<<<< HEAD
           },
           "browser_info": {
             "allOf": [
@@ -29482,6 +29704,8 @@
               }
             ],
             "nullable": true
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -29534,12 +29758,15 @@
           }
         }
       },
+<<<<<<< HEAD
       "PaypalFlow": {
         "type": "string",
         "enum": [
           "checkout"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "PaypalRedirection": {
         "type": "object",
         "properties": {
@@ -29570,6 +29797,7 @@
           },
           "sdk_next_action": {
             "$ref": "#/components/schemas/SdkNextAction"
+<<<<<<< HEAD
           },
           "client_token": {
             "type": "string",
@@ -29604,6 +29832,8 @@
             "type": "string",
             "description": "Total price",
             "example": "38.02"
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -29660,6 +29890,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "PeriodUnit": {
         "type": "string",
         "enum": [
@@ -29669,6 +29900,8 @@
           "Year"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "PhoneDetails": {
         "type": "object",
         "properties": {
@@ -30383,6 +30616,7 @@
           "dispute_polling_interval": {
             "type": "integer",
             "format": "int32",
+<<<<<<< HEAD
             "description": "Time interval (in hours) for polling the connector to check  for new disputes",
             "example": 2,
             "nullable": true
@@ -30422,6 +30656,11 @@
             "type": "boolean",
             "description": "Flag to enable Level 2 and Level 3 processing data for card transactions",
             "nullable": true
+=======
+            "description": "Time interval (in hours) for polling the connector to check dispute statuses",
+            "example": 2,
+            "nullable": true
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         },
         "additionalProperties": false
@@ -30744,6 +30983,7 @@
           "dispute_polling_interval": {
             "type": "integer",
             "format": "int32",
+<<<<<<< HEAD
             "description": "Time interval (in hours) for polling the connector to check dispute statuses",
             "example": 2,
             "nullable": true,
@@ -30784,6 +31024,11 @@
             "type": "boolean",
             "description": "Flag to enable Level 2 and Level 3 processing data for card transactions",
             "nullable": true
+=======
+            "example": 2,
+            "nullable": true,
+            "minimum": 0
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         }
       },
@@ -31988,7 +32233,10 @@
           "adyen",
           "affirm",
           "airwallex",
+<<<<<<< HEAD
           "amazonpay",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "archipel",
           "authorizedotnet",
           "bankofamerica",
@@ -31999,7 +32247,11 @@
           "blackhawknetwork",
           "bamboraapac",
           "bluesnap",
+<<<<<<< HEAD
           "calida",
+=======
+          "bluecode",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "boku",
           "braintree",
           "breadpay",
@@ -32021,14 +32273,20 @@
           "ebanx",
           "elavon",
           "facilitapay",
+<<<<<<< HEAD
           "finix",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "fiserv",
           "fiservemea",
           "fiuu",
           "flexiti",
           "forte",
           "getnet",
+<<<<<<< HEAD
           "gigadat",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "globalpay",
           "globepay",
           "gocardless",
@@ -32039,7 +32297,10 @@
           "itaubank",
           "jpmorgan",
           "klarna",
+<<<<<<< HEAD
           "loonio",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "mifinity",
           "mollie",
           "moneris",
@@ -32058,11 +32319,17 @@
           "payload",
           "payone",
           "paypal",
+<<<<<<< HEAD
           "paysafe",
           "paystack",
           "paytm",
           "payu",
           "peachpayments",
+=======
+          "paystack",
+          "paytm",
+          "payu",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "phonepe",
           "placetopay",
           "powertranz",
@@ -32080,9 +32347,13 @@
           "stax",
           "stripe",
           "stripebilling",
+<<<<<<< HEAD
           "tesouro",
           "trustpay",
           "trustpayments",
+=======
+          "trustpay",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           "tokenio",
           "tsys",
           "volt",
@@ -33021,6 +33292,7 @@
             ]
           },
           {
+<<<<<<< HEAD
             "allOf": [
               {
                 "$ref": "#/components/schemas/AmazonPaySessionTokenResponse"
@@ -33042,6 +33314,8 @@
             ]
           },
           {
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "type": "object",
             "required": [
               "wallet_name"
@@ -33453,6 +33727,7 @@
         },
         "additionalProperties": false
       },
+<<<<<<< HEAD
       "SubscriptionId": {
         "type": "string",
         "description": "A type for subscription_id that can be used for subscription ids"
@@ -33623,6 +33898,8 @@
           "failed"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "SuccessBasedRoutingConfig": {
         "type": "object",
         "required": [
@@ -34022,7 +34299,11 @@
             "type": "object",
             "required": [
               "three_ds_method_data_submission",
+<<<<<<< HEAD
               "consume_post_message_for_three_ds_method_completion"
+=======
+              "three_ds_method_key"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ],
             "properties": {
               "three_ds_method_data_submission": {
@@ -34040,6 +34321,7 @@
                 "nullable": true
               },
               "three_ds_method_key": {
+<<<<<<< HEAD
                 "allOf": [
                   {
                     "$ref": "#/components/schemas/ThreeDsMethodKey"
@@ -34061,6 +34343,19 @@
           "threeDSMethodData",
           "JWT"
         ]
+=======
+                "type": "string",
+                "enum": [
+                  "threeDSMethodData"
+                ]
+              }
+            }
+          }
+        ],
+        "discriminator": {
+          "propertyName": "three_ds_method_key"
+        }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       "TimeRange": {
         "type": "object",
@@ -34442,6 +34737,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "UpdateSubscriptionRequest": {
         "type": "object",
         "required": [
@@ -34459,6 +34755,8 @@
           }
         }
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "UpiAdditionalData": {
         "oneOf": [
           {
@@ -34482,6 +34780,7 @@
                 "$ref": "#/components/schemas/UpiIntentData"
               }
             }
+<<<<<<< HEAD
           },
           {
             "type": "object",
@@ -34493,6 +34792,8 @@
                 "$ref": "#/components/schemas/UpiQrData"
               }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ]
       },
@@ -34540,6 +34841,7 @@
                 "$ref": "#/components/schemas/UpiIntentData"
               }
             }
+<<<<<<< HEAD
           },
           {
             "type": "object",
@@ -34551,15 +34853,20 @@
                 "$ref": "#/components/schemas/UpiQrData"
               }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ]
       },
       "UpiIntentData": {
         "type": "object"
       },
+<<<<<<< HEAD
       "UpiQrData": {
         "type": "object"
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "UpiResponse": {
         "allOf": [
           {
@@ -34747,6 +35054,7 @@
           "propertyName": "type"
         }
       },
+<<<<<<< HEAD
       "VaultSdk": {
         "type": "string",
         "enum": [
@@ -34754,6 +35062,8 @@
           "hyperswitch_sdk"
         ]
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       "Venmo": {
         "type": "object",
         "required": [
@@ -34932,6 +35242,7 @@
           {
             "type": "object",
             "required": [
+<<<<<<< HEAD
               "apple_pay_decrypt"
             ],
             "properties": {
@@ -34943,6 +35254,8 @@
           {
             "type": "object",
             "required": [
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
               "paypal"
             ],
             "properties": {
@@ -34971,9 +35284,12 @@
           },
           {
             "$ref": "#/components/schemas/VenmoAdditionalData"
+<<<<<<< HEAD
           },
           {
             "$ref": "#/components/schemas/ApplePayDecryptAdditionalData"
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           }
         ],
         "description": "Masked payout method details for wallet payout method"
@@ -35004,6 +35320,7 @@
         "oneOf": [
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "AliPayHkRedirect",
             "required": [
               "ali_pay_hk_redirect"
@@ -35017,6 +35334,8 @@
           {
             "type": "object",
             "title": "AliPayQr",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "ali_pay_qr"
             ],
@@ -35028,7 +35347,10 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "AliPayRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "ali_pay_redirect"
             ],
@@ -35040,6 +35362,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "AmazonPay",
             "required": [
               "amazon_pay"
@@ -35047,12 +35370,23 @@
             "properties": {
               "amazon_pay": {
                 "$ref": "#/components/schemas/AmazonPayWalletData"
+=======
+            "required": [
+              "ali_pay_hk_redirect"
+            ],
+            "properties": {
+              "ali_pay_hk_redirect": {
+                "$ref": "#/components/schemas/AliPayHkRedirection"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
               }
             }
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "AmazonPayRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "amazon_pay_redirect"
             ],
@@ -35064,6 +35398,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "ApplePay",
             "required": [
               "apple_pay"
@@ -35101,6 +35436,8 @@
           {
             "type": "object",
             "title": "BluecodeRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "bluecode_redirect"
             ],
@@ -35113,6 +35450,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "CashappQr",
             "required": [
               "cashapp_qr"
@@ -35120,12 +35458,111 @@
             "properties": {
               "cashapp_qr": {
                 "$ref": "#/components/schemas/CashappQr"
+=======
+            "required": [
+              "skrill"
+            ],
+            "properties": {
+              "skrill": {
+                "$ref": "#/components/schemas/SkrillData"
               }
             }
           },
           {
             "type": "object",
+            "required": [
+              "paysera"
+            ],
+            "properties": {
+              "paysera": {
+                "$ref": "#/components/schemas/PayseraData"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "momo_redirect"
+            ],
+            "properties": {
+              "momo_redirect": {
+                "$ref": "#/components/schemas/MomoRedirection"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "kakao_pay_redirect"
+            ],
+            "properties": {
+              "kakao_pay_redirect": {
+                "$ref": "#/components/schemas/KakaoPayRedirection"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "go_pay_redirect"
+            ],
+            "properties": {
+              "go_pay_redirect": {
+                "$ref": "#/components/schemas/GoPayRedirection"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "gcash_redirect"
+            ],
+            "properties": {
+              "gcash_redirect": {
+                "$ref": "#/components/schemas/GcashRedirection"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "apple_pay"
+            ],
+            "properties": {
+              "apple_pay": {
+                "$ref": "#/components/schemas/ApplePayWalletData"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "apple_pay_redirect"
+            ],
+            "properties": {
+              "apple_pay_redirect": {
+                "$ref": "#/components/schemas/ApplePayRedirectData"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "apple_pay_third_party_sdk"
+            ],
+            "properties": {
+              "apple_pay_third_party_sdk": {
+                "$ref": "#/components/schemas/ApplePayThirdPartySdkData"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
+              }
+            }
+          },
+          {
+            "type": "object",
+<<<<<<< HEAD
             "title": "DanaRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "dana_redirect"
             ],
@@ -35138,6 +35575,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "GcashRedirect",
             "required": [
               "gcash_redirect"
@@ -35163,6 +35601,8 @@
           {
             "type": "object",
             "title": "GooglePay",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "google_pay"
             ],
@@ -35174,7 +35614,10 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "GooglePayRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "google_pay_redirect"
             ],
@@ -35186,7 +35629,10 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "GooglePayThirdPartySdk",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "google_pay_third_party_sdk"
             ],
@@ -35198,6 +35644,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "KakaoPayRedirect",
             "required": [
               "kakao_pay_redirect"
@@ -35211,6 +35658,8 @@
           {
             "type": "object",
             "title": "MbWayRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "mb_way_redirect"
             ],
@@ -35222,6 +35671,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "Mifinity",
             "required": [
               "mifinity"
@@ -35235,6 +35685,8 @@
           {
             "type": "object",
             "title": "MobilePayRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "mobile_pay_redirect"
             ],
@@ -35246,6 +35698,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "MomoRedirect",
             "required": [
               "momo_redirect"
@@ -35259,6 +35712,8 @@
           {
             "type": "object",
             "title": "PaypalRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "paypal_redirect"
             ],
@@ -35270,7 +35725,10 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "PaypalSdk",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "paypal_sdk"
             ],
@@ -35282,6 +35740,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "Paysera",
             "required": [
               "paysera"
@@ -35295,6 +35754,8 @@
           {
             "type": "object",
             "title": "Paze",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "paze"
             ],
@@ -35306,6 +35767,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "RevolutPay",
             "required": [
               "revolut_pay"
@@ -35319,6 +35781,8 @@
           {
             "type": "object",
             "title": "SamsungPay",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "samsung_pay"
             ],
@@ -35330,6 +35794,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "Skrill",
             "required": [
               "skrill"
@@ -35367,6 +35832,8 @@
           {
             "type": "object",
             "title": "TwintRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "twint_redirect"
             ],
@@ -35379,7 +35846,10 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "VippsRedirect",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "vipps_redirect"
             ],
@@ -35392,7 +35862,32 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "WeChatPayQr",
+=======
+            "required": [
+              "touch_n_go_redirect"
+            ],
+            "properties": {
+              "touch_n_go_redirect": {
+                "$ref": "#/components/schemas/TouchNGoRedirection"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "we_chat_pay_redirect"
+            ],
+            "properties": {
+              "we_chat_pay_redirect": {
+                "$ref": "#/components/schemas/WeChatPayRedirection"
+              }
+            }
+          },
+          {
+            "type": "object",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "required": [
               "we_chat_pay_qr"
             ],
@@ -35404,6 +35899,7 @@
           },
           {
             "type": "object",
+<<<<<<< HEAD
             "title": "WeChatPayRedirect",
             "required": [
               "we_chat_pay_redirect"
@@ -35411,6 +35907,47 @@
             "properties": {
               "we_chat_pay_redirect": {
                 "$ref": "#/components/schemas/WeChatPayRedirection"
+=======
+            "required": [
+              "cashapp_qr"
+            ],
+            "properties": {
+              "cashapp_qr": {
+                "$ref": "#/components/schemas/CashappQr"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "swish_qr"
+            ],
+            "properties": {
+              "swish_qr": {
+                "$ref": "#/components/schemas/SwishQrData"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "mifinity"
+            ],
+            "properties": {
+              "mifinity": {
+                "$ref": "#/components/schemas/MifinityData"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "revolut_pay"
+            ],
+            "properties": {
+              "revolut_pay": {
+                "$ref": "#/components/schemas/RevolutPayData"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
               }
             }
           }
@@ -35844,10 +36381,13 @@
     {
       "name": "Authentication",
       "description": "Create and manage authentication"
+<<<<<<< HEAD
     },
     {
       "name": "Subscriptions",
       "description": "Subscription management and billing endpoints"
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
   ]
 }

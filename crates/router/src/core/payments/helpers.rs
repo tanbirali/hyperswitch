@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 use std::{borrow::Cow, collections::HashSet, net::IpAddr, ops::Deref, str::FromStr};
+=======
+use std::{borrow::Cow, collections::HashSet, net::IpAddr, str::FromStr};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 pub use ::payment_methods::helpers::{
     populate_bin_details_for_payment_method_create,
@@ -11,8 +15,11 @@ use api_models::{
     payments::{additional_info as payment_additional_types, RequestSurchargeDetails},
 };
 use base64::Engine;
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 use common_enums::enums::{CallConnectorAction, ExecutionMode, GatewaySystem};
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_enums::ConnectorType;
 #[cfg(feature = "v2")]
 use common_utils::id_type::GenerateId;
@@ -31,8 +38,11 @@ use common_utils::{
 use diesel_models::enums;
 // TODO : Evaluate all the helper functions ()
 use error_stack::{report, ResultExt};
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 use external_services::grpc_client;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use futures::future::Either;
 #[cfg(feature = "v1")]
 use hyperswitch_domain_models::payments::payment_intent::CustomerData;
@@ -45,11 +55,15 @@ use hyperswitch_domain_models::{
     },
     router_data::KlarnaSdkResponse,
 };
+<<<<<<< HEAD
 pub use hyperswitch_interfaces::{
     api::ConnectorSpecifications,
     configs::MerchantConnectorAccountType,
     integrity::{CheckIntegrity, FlowIntegrity, GetIntegrityObject},
 };
+=======
+use hyperswitch_interfaces::integrity::{CheckIntegrity, FlowIntegrity, GetIntegrityObject};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use josekit::jwe;
 use masking::{ExposeInterface, PeekInterface, SwitchStrategy};
 use num_traits::{FromPrimitive, ToPrimitive};
@@ -71,6 +85,7 @@ use super::{
     operations::{BoxedOperation, Operation, PaymentResponse},
     CustomerDetails, PaymentData,
 };
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 use crate::core::{
     payments::{
@@ -86,6 +101,8 @@ use crate::core::{
 };
 #[cfg(feature = "v1")]
 use crate::routes;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::{
     configs::settings::{ConnectorRequestReferenceIdConfig, TempLockerEnableConfig},
     connector,
@@ -1148,6 +1165,7 @@ pub fn validate_recurring_details_and_token(
     Ok(())
 }
 
+<<<<<<< HEAD
 pub fn validate_overcapture_request(
     enable_overcapture: &Option<common_types::primitive_wrappers::EnableOvercaptureBool>,
     capture_method: &Option<common_enums::CaptureMethod>,
@@ -1168,6 +1186,8 @@ pub fn validate_overcapture_request(
     Ok(())
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 fn validate_new_mandate_request(
     req: api::MandateValidationFields,
     is_confirm_operation: bool,
@@ -2219,7 +2239,11 @@ pub async fn retrieve_payment_method_data_with_permanent_token(
     _payment_method_id: &str,
     payment_intent: &PaymentIntent,
     card_token_data: Option<&domain::CardToken>,
+<<<<<<< HEAD
     merchant_key_store: &domain::MerchantKeyStore,
+=======
+    _merchant_key_store: &domain::MerchantKeyStore,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     _storage_scheme: enums::MerchantStorageScheme,
     mandate_id: Option<api_models::payments::MandateIds>,
     payment_method_info: domain::PaymentMethod,
@@ -2273,16 +2297,24 @@ pub async fn retrieve_payment_method_data_with_permanent_token(
                 .and_then(|vault_data| vault_data.get_card_vault_data())
                 .map(Ok)
                 .async_unwrap_or_else(|| async {
+<<<<<<< HEAD
                     Box::pin(fetch_card_details_from_locker(
+=======
+                    fetch_card_details_from_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         state,
                         customer_id,
                         &payment_intent.merchant_id,
                         locker_id,
                         card_token_data,
                         co_badged_card_data,
+<<<<<<< HEAD
                         payment_method_info,
                         merchant_key_store,
                     ))
+=======
+                    )
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     .await
                 })
                 .await?;
@@ -2326,16 +2358,24 @@ pub async fn retrieve_payment_method_data_with_permanent_token(
                             .and_then(|vault_data| vault_data.get_card_vault_data())
                             .map(Ok)
                             .async_unwrap_or_else(|| async {
+<<<<<<< HEAD
                                 Box::pin(fetch_card_details_from_locker(
+=======
+                                fetch_card_details_from_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                     state,
                                     customer_id,
                                     &payment_intent.merchant_id,
                                     locker_id,
                                     card_token_data,
                                     co_badged_card_data,
+<<<<<<< HEAD
                                     payment_method_info,
                                     merchant_key_store,
                                 ))
+=======
+                                )
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                 .await
                             })
                             .await?,
@@ -2390,7 +2430,11 @@ pub async fn retrieve_card_with_permanent_token_for_external_authentication(
             message: "no customer id provided for the payment".to_string(),
         })?;
     Ok(domain::PaymentMethodData::Card(
+<<<<<<< HEAD
         fetch_card_details_from_internal_locker(
+=======
+        fetch_card_details_from_locker(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             state,
             customer_id,
             &payment_intent.merchant_id,
@@ -2405,7 +2449,10 @@ pub async fn retrieve_card_with_permanent_token_for_external_authentication(
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 #[allow(clippy::too_many_arguments)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub async fn fetch_card_details_from_locker(
     state: &SessionState,
     customer_id: &id_type::CustomerId,
@@ -2413,6 +2460,7 @@ pub async fn fetch_card_details_from_locker(
     locker_id: &str,
     card_token_data: Option<&domain::CardToken>,
     co_badged_card_data: Option<api_models::payment_methods::CoBadgedCardData>,
+<<<<<<< HEAD
     payment_method_info: domain::PaymentMethod,
     merchant_key_store: &domain::MerchantKeyStore,
 ) -> RouterResult<domain::Card> {
@@ -2453,6 +2501,8 @@ pub async fn fetch_card_details_from_internal_locker(
     locker_id: &str,
     card_token_data: Option<&domain::CardToken>,
     co_badged_card_data: Option<api_models::payment_methods::CoBadgedCardData>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<domain::Card> {
     logger::debug!("Fetching card details from locker");
     let card = cards::get_card_from_locker(state, customer_id, merchant_id, locker_id)
@@ -2503,6 +2553,7 @@ pub async fn fetch_card_details_from_internal_locker(
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 pub async fn fetch_card_details_from_external_vault(
     state: &SessionState,
     merchant_id: &id_type::MerchantId,
@@ -2562,6 +2613,8 @@ pub async fn fetch_card_details_from_external_vault(
     }
 }
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub async fn fetch_network_token_details_from_locker(
     state: &SessionState,
     customer_id: &id_type::CustomerId,
@@ -3093,6 +3146,7 @@ pub(crate) fn validate_amount_to_capture(
     amount: i64,
     amount_to_capture: Option<i64>,
 ) -> RouterResult<()> {
+<<<<<<< HEAD
     utils::when(amount_to_capture.is_some_and(|value| value <= 0), || {
         Err(report!(errors::ApiErrorResponse::InvalidDataFormat {
             field_name: "amount".to_string(),
@@ -3100,6 +3154,8 @@ pub(crate) fn validate_amount_to_capture(
         }))
     })?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     utils::when(
         amount_to_capture.is_some() && (Some(amount) < amount_to_capture),
         || {
@@ -3992,7 +4048,10 @@ mod tests {
             connector_id: None,
             shipping_address_id: None,
             billing_address_id: None,
+<<<<<<< HEAD
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             statement_descriptor_name: None,
             statement_descriptor_suffix: None,
             created_at: common_utils::date_time::now(),
@@ -4054,7 +4113,10 @@ mod tests {
             shipping_amount_tax: None,
             duty_amount: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             enable_overcapture: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let req_cs = Some("1".to_string());
         assert!(authenticate_client_secret(req_cs.as_ref(), &payment_intent).is_ok());
@@ -4078,7 +4140,10 @@ mod tests {
             metadata: None,
             connector_id: None,
             shipping_address_id: None,
+<<<<<<< HEAD
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             billing_address_id: None,
             statement_descriptor_name: None,
             statement_descriptor_suffix: None,
@@ -4140,7 +4205,10 @@ mod tests {
             shipping_amount_tax: None,
             duty_amount: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             enable_overcapture: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let req_cs = Some("1".to_string());
         assert!(authenticate_client_secret(req_cs.as_ref(), &payment_intent,).is_err())
@@ -4160,7 +4228,10 @@ mod tests {
             return_url: None,
             metadata: None,
             connector_id: None,
+<<<<<<< HEAD
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             shipping_address_id: None,
             billing_address_id: None,
             statement_descriptor_name: None,
@@ -4224,7 +4295,10 @@ mod tests {
             shipping_amount_tax: None,
             duty_amount: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             enable_overcapture: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let req_cs = Some("1".to_string());
         assert!(authenticate_client_secret(req_cs.as_ref(), &payment_intent).is_err())
@@ -4267,6 +4341,101 @@ pub async fn insert_merchant_connector_creds_to_config(
     }
 }
 
+<<<<<<< HEAD
+=======
+#[derive(Clone)]
+pub enum MerchantConnectorAccountType {
+    DbVal(Box<domain::MerchantConnectorAccount>),
+    CacheVal(api_models::admin::MerchantConnectorDetails),
+}
+
+impl MerchantConnectorAccountType {
+    pub fn get_metadata(&self) -> Option<masking::Secret<serde_json::Value>> {
+        match self {
+            Self::DbVal(val) => val.metadata.to_owned(),
+            Self::CacheVal(val) => val.metadata.to_owned(),
+        }
+    }
+
+    pub fn get_connector_account_details(&self) -> serde_json::Value {
+        match self {
+            Self::DbVal(val) => val.connector_account_details.peek().to_owned(),
+            Self::CacheVal(val) => val.connector_account_details.peek().to_owned(),
+        }
+    }
+
+    pub fn get_connector_wallets_details(&self) -> Option<masking::Secret<serde_json::Value>> {
+        match self {
+            Self::DbVal(val) => val.connector_wallets_details.as_deref().cloned(),
+            Self::CacheVal(_) => None,
+        }
+    }
+
+    pub fn is_disabled(&self) -> bool {
+        match self {
+            Self::DbVal(ref inner) => inner.disabled.unwrap_or(false),
+            // Cached merchant connector account, only contains the account details,
+            // the merchant connector account must only be cached if it's not disabled
+            Self::CacheVal(_) => false,
+        }
+    }
+
+    #[cfg(feature = "v1")]
+    pub fn is_test_mode_on(&self) -> Option<bool> {
+        match self {
+            Self::DbVal(val) => val.test_mode,
+            Self::CacheVal(_) => None,
+        }
+    }
+
+    #[cfg(feature = "v2")]
+    pub fn is_test_mode_on(&self) -> Option<bool> {
+        None
+    }
+
+    pub fn get_mca_id(&self) -> Option<id_type::MerchantConnectorAccountId> {
+        match self {
+            Self::DbVal(db_val) => Some(db_val.get_id()),
+            Self::CacheVal(_) => None,
+        }
+    }
+
+    #[cfg(feature = "v1")]
+    pub fn get_connector_name(&self) -> Option<String> {
+        match self {
+            Self::DbVal(db_val) => Some(db_val.connector_name.to_string()),
+            Self::CacheVal(_) => None,
+        }
+    }
+
+    #[cfg(feature = "v2")]
+    pub fn get_connector_name(&self) -> Option<api_enums::Connector> {
+        match self {
+            Self::DbVal(db_val) => Some(db_val.connector_name),
+            Self::CacheVal(_) => None,
+        }
+    }
+
+    pub fn get_additional_merchant_data(
+        &self,
+    ) -> Option<Encryptable<masking::Secret<serde_json::Value>>> {
+        match self {
+            Self::DbVal(db_val) => db_val.additional_merchant_data.clone(),
+            Self::CacheVal(_) => None,
+        }
+    }
+
+    pub fn get_webhook_details(
+        &self,
+    ) -> CustomResult<Option<&masking::Secret<serde_json::Value>>, errors::ApiErrorResponse> {
+        match self {
+            Self::DbVal(db_val) => Ok(db_val.connector_webhook_details.as_ref()),
+            Self::CacheVal(_) => Ok(None),
+        }
+    }
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Query for merchant connector account either by business label or profile id
 /// If profile_id is passed use it, or use connector_label to query merchant connector account
 #[instrument(skip_all)]
@@ -4442,7 +4611,10 @@ pub fn router_data_type_conversion<F1, F2, Req1, Req2, Res1, Res2>(
         description: router_data.description,
         payment_id: router_data.payment_id,
         payment_method: router_data.payment_method,
+<<<<<<< HEAD
         payment_method_type: router_data.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         status: router_data.status,
         attempt_id: router_data.attempt_id,
         access_token: router_data.access_token,
@@ -4480,7 +4652,10 @@ pub fn router_data_type_conversion<F1, F2, Req1, Req2, Res1, Res2>(
         is_payment_id_from_merchant: router_data.is_payment_id_from_merchant,
         l2_l3_data: router_data.l2_l3_data,
         minor_amount_capturable: router_data.minor_amount_capturable,
+<<<<<<< HEAD
         authorized_amount: router_data.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -4489,11 +4664,16 @@ pub fn router_data_type_conversion<F1, F2, Req1, Req2, Res1, Res2>(
 pub fn get_attempt_type(
     payment_intent: &PaymentIntent,
     payment_attempt: &PaymentAttempt,
+<<<<<<< HEAD
     is_manual_retry_enabled: Option<bool>,
+=======
+    request: &api_models::payments::PaymentsRequest,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     action: &str,
 ) -> RouterResult<AttemptType> {
     match payment_intent.status {
         enums::IntentStatus::Failed => {
+<<<<<<< HEAD
             if matches!(is_manual_retry_enabled, Some(true)) {
                 // if it is false, don't go ahead with manual retry
                 fp_utils::when(
@@ -4510,6 +4690,12 @@ pub fn get_attempt_type(
                     },
                 )?;
 
+=======
+            if matches!(
+                request.retry_action,
+                Some(api_models::enums::RetryAction::ManualRetry)
+            ) {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 metrics::MANUAL_RETRY_REQUEST_COUNT.add(
                     1,
                     router_env::metric_attributes!((
@@ -4584,7 +4770,11 @@ pub fn get_attempt_type(
             } else {
                 Err(report!(errors::ApiErrorResponse::PreconditionFailed {
                         message:
+<<<<<<< HEAD
                             format!("You cannot {action} this payment because it has status {}, you can enable `manual_retry` in profile to try this payment again", payment_intent.status)
+=======
+                            format!("You cannot {action} this payment because it has status {}, you can pass `retry_action` as `manual_retry` in request to try this payment again", payment_intent.status)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         }
                     ))
             }
@@ -4614,6 +4804,7 @@ pub fn get_attempt_type(
     }
 }
 
+<<<<<<< HEAD
 fn validate_manual_retry_cutoff(
     created_at: time::PrimitiveDateTime,
     session_expiry: Option<time::PrimitiveDateTime>,
@@ -4635,6 +4826,8 @@ fn validate_manual_retry_cutoff(
     time_difference_from_creation.whole_seconds() <= cutoff_limit
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Eq, PartialEq, Clone)]
 pub enum AttemptType {
     New,
@@ -4739,9 +4932,12 @@ impl AttemptType {
             routing_approach: old_payment_attempt.routing_approach,
             connector_request_reference_id: None,
             network_transaction_id: None,
+<<<<<<< HEAD
             network_details: None,
             is_stored_credential: old_payment_attempt.is_stored_credential,
             authorized_amount: old_payment_attempt.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -5510,9 +5706,12 @@ async fn get_and_merge_apple_pay_metadata(
                     apple_pay: connector_wallets_details_optional
                         .as_ref()
                         .and_then(|d| d.apple_pay.clone()),
+<<<<<<< HEAD
                     amazon_pay: connector_wallets_details_optional
                         .as_ref()
                         .and_then(|d| d.amazon_pay.clone()),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     samsung_pay: connector_wallets_details_optional
                         .as_ref()
                         .and_then(|d| d.samsung_pay.clone()),
@@ -5534,9 +5733,12 @@ async fn get_and_merge_apple_pay_metadata(
                     apple_pay_combined: connector_wallets_details_optional
                         .as_ref()
                         .and_then(|d| d.apple_pay_combined.clone()),
+<<<<<<< HEAD
                     amazon_pay: connector_wallets_details_optional
                         .as_ref()
                         .and_then(|d| d.amazon_pay.clone()),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     samsung_pay: connector_wallets_details_optional
                         .as_ref()
                         .and_then(|d| d.samsung_pay.clone()),
@@ -5646,7 +5848,11 @@ pub async fn get_apple_pay_retryable_connectors<F, D>(
 ) -> CustomResult<Option<Vec<api::ConnectorRoutingData>>, errors::ApiErrorResponse>
 where
     F: Send + Clone,
+<<<<<<< HEAD
     D: OperationSessionGetters<F> + Send,
+=======
+    D: payments::OperationSessionGetters<F> + Send,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
     let profile_id = business_profile.get_id();
 
@@ -6802,6 +7008,7 @@ pub fn get_recipient_id_for_open_banking(
         },
     }
 }
+<<<<<<< HEAD
 
 pub fn get_connector_data_with_token(
     state: &SessionState,
@@ -6858,6 +7065,8 @@ pub fn decide_session_token_flow(
         _ => api::GetToken::Connector,
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 // This function validates the intent fulfillment time expiry set by the merchant in the request
 pub fn validate_intent_fulfillment_expiry(
     intent_fulfillment_time: u32,
@@ -7104,6 +7313,10 @@ pub enum UnifiedAuthenticationServiceFlow {
     ExternalAuthenticationPostAuthenticate {
         authentication_id: id_type::AuthenticationId,
     },
+<<<<<<< HEAD
+=======
+    ClickToPayConfirmation,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -7114,6 +7327,10 @@ pub async fn decide_action_for_unified_authentication_service<F: Clone>(
     payment_data: &mut PaymentData<F>,
     connector_call_type: &api::ConnectorCallType,
     mandate_type: Option<api_models::payments::MandateTransactionType>,
+<<<<<<< HEAD
+=======
+    do_authorisation_confirmation: &bool,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<Option<UnifiedAuthenticationServiceFlow>> {
     let external_authentication_flow = get_payment_external_authentication_flow_during_confirm(
         state,
@@ -7149,7 +7366,21 @@ pub async fn decide_action_for_unified_authentication_service<F: Clone>(
                     && business_profile.is_click_to_pay_enabled
                     && payment_data.service_details.is_some()
                 {
+<<<<<<< HEAD
                     Some(UnifiedAuthenticationServiceFlow::ClickToPayInitiate)
+=======
+                    let should_do_uas_confirmation_call = payment_data
+                        .service_details
+                        .as_ref()
+                        .map(|details| details.is_network_confirmation_call_required())
+                        .unwrap_or(true);
+
+                    if *do_authorisation_confirmation && should_do_uas_confirmation_call {
+                        Some(UnifiedAuthenticationServiceFlow::ClickToPayConfirmation)
+                    } else {
+                        Some(UnifiedAuthenticationServiceFlow::ClickToPayInitiate)
+                    }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 } else {
                     None
                 }
@@ -7346,7 +7577,11 @@ pub async fn override_setup_future_usage_to_on_session<F, D>(
 ) -> CustomResult<(), errors::ApiErrorResponse>
 where
     F: Clone,
+<<<<<<< HEAD
     D: OperationSessionGetters<F> + OperationSessionSetters<F> + Send,
+=======
+    D: payments::OperationSessionGetters<F> + payments::OperationSessionSetters<F> + Send,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
     if payment_data.get_payment_intent().setup_future_usage == Some(enums::FutureUsage::OffSession)
     {
@@ -7837,6 +8072,7 @@ pub async fn get_merchant_connector_account_v2(
         .attach_printable("merchant_connector_id is not provided"),
     }
 }
+<<<<<<< HEAD
 
 pub fn is_stored_credential(
     recurring_details: &Option<RecurringDetails>,
@@ -8211,3 +8447,5 @@ where
         });
     Ok(())
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

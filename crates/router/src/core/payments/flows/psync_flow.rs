@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use std::{collections::HashMap, str::FromStr};
 
 use async_trait::async_trait;
@@ -7,6 +8,12 @@ use error_stack::ResultExt;
 use external_services::grpc_client;
 use hyperswitch_domain_models::payments as domain_payments;
 use hyperswitch_interfaces::unified_connector_service::handle_unified_connector_service_response_for_payment_get;
+=======
+use std::collections::HashMap;
+
+use async_trait::async_trait;
+use error_stack::ResultExt;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::Secret;
 use unified_connector_service_client::payments as payments_grpc;
 
@@ -17,7 +24,12 @@ use crate::{
         errors::{ApiErrorResponse, ConnectorErrorExt, RouterResult},
         payments::{self, access_token, helpers, transformers, PaymentData},
         unified_connector_service::{
+<<<<<<< HEAD
             build_unified_connector_service_auth_metadata, ucs_logging_wrapper,
+=======
+            build_unified_connector_service_auth_metadata,
+            handle_unified_connector_service_response_for_payment_get,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
     },
     routes::SessionState,
@@ -38,9 +50,13 @@ impl ConstructFlowSpecificData<api::PSync, types::PaymentsSyncData, types::Payme
         customer: &Option<domain::Customer>,
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
         _payment_method: Option<common_enums::PaymentMethod>,
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<
         types::RouterData<api::PSync, types::PaymentsSyncData, types::PaymentsResponseData>,
     > {
@@ -56,8 +72,11 @@ impl ConstructFlowSpecificData<api::PSync, types::PaymentsSyncData, types::Payme
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+<<<<<<< HEAD
             None,
             None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ))
         .await
     }
@@ -76,7 +95,11 @@ impl ConstructFlowSpecificData<api::PSync, types::PaymentsSyncData, types::Payme
         customer: &Option<domain::Customer>,
         merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<
         types::RouterData<api::PSync, types::PaymentsSyncData, types::PaymentsResponseData>,
     > {
@@ -105,7 +128,11 @@ impl Feature<api::PSync, types::PaymentsSyncData>
         call_connector_action: payments::CallConnectorAction,
         connector_request: Option<services::Request>,
         _business_profile: &domain::Profile,
+<<<<<<< HEAD
         _header_payload: domain_payments::HeaderPayload,
+=======
+        _header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return_raw_connector_response: Option<bool>,
     ) -> RouterResult<Self> {
         let connector_integration: services::BoxedPaymentConnectorIntegrationInterface<
@@ -229,12 +256,16 @@ impl Feature<api::PSync, types::PaymentsSyncData>
     async fn call_unified_connector_service<'a>(
         &mut self,
         state: &SessionState,
+<<<<<<< HEAD
         header_payload: &domain_payments::HeaderPayload,
         lineage_ids: grpc_client::LineageIds,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
         #[cfg(feature = "v2")]
         merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
         merchant_context: &domain::MerchantContext,
+<<<<<<< HEAD
         unified_connector_service_execution_mode: enums::ExecutionMode,
     ) -> RouterResult<()> {
         let connector_name = self.connector.clone();
@@ -260,6 +291,9 @@ impl Feature<api::PSync, types::PaymentsSyncData>
             return Ok(());
         }
 
+=======
+    ) -> RouterResult<()> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let client = state
             .grpc_client
             .unified_connector_service_client
@@ -267,7 +301,11 @@ impl Feature<api::PSync, types::PaymentsSyncData>
             .ok_or(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to fetch Unified Connector Service client")?;
 
+<<<<<<< HEAD
         let payment_get_request = payments_grpc::PaymentServiceGetRequest::foreign_try_from(&*self)
+=======
+        let payment_get_request = payments_grpc::PaymentServiceGetRequest::foreign_try_from(self)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .change_context(ApiErrorResponse::InternalServerError)
             .attach_printable("Failed to construct Payment Get Request")?;
 
@@ -277,6 +315,7 @@ impl Feature<api::PSync, types::PaymentsSyncData>
         )
         .change_context(ApiErrorResponse::InternalServerError)
         .attach_printable("Failed to construct request metadata")?;
+<<<<<<< HEAD
         let merchant_reference_id = header_payload
             .x_reference_id
             .clone()
@@ -330,6 +369,31 @@ impl Feature<api::PSync, types::PaymentsSyncData>
 
         // Copy back the updated data
         *self = updated_router_data;
+=======
+
+        let response = client
+            .payment_get(
+                payment_get_request,
+                connector_auth_metadata,
+                state.get_grpc_headers(),
+            )
+            .await
+            .change_context(ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed to get payment")?;
+
+        let payment_get_response = response.into_inner();
+
+        let (status, router_data_response, status_code) =
+            handle_unified_connector_service_response_for_payment_get(payment_get_response.clone())
+                .change_context(ApiErrorResponse::InternalServerError)
+                .attach_printable("Failed to deserialize UCS response")?;
+
+        self.status = status;
+        self.response = router_data_response;
+        self.raw_connector_response = payment_get_response.raw_connector_response.map(Secret::new);
+        self.connector_http_status_code = Some(status_code);
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(())
     }
 }

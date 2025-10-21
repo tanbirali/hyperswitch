@@ -33,7 +33,11 @@ const successfulNo3DSCardDetails = {
 
 const successfulThreeDSTestCardDetails = {
   ...successfulNo3DSCardDetails,
+<<<<<<< HEAD
   card_number: "4012001800000016", // Using standard test card with authentication_type: "three_ds"
+=======
+  card_number: "4000000000003063", // Using standard test card with authentication_type: "three_ds"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 const failedNo3DSCardDetails = {
@@ -43,11 +47,19 @@ const failedNo3DSCardDetails = {
 
 const payment_method_data_3ds = {
   card: {
+<<<<<<< HEAD
     last4: "0016",
     card_type: "DEBIT",
     card_network: "Visa",
     card_issuer: "VISA PRODUCTION SUPPORT CLIENT BID 1",
     card_issuing_country: "UNITEDSTATES",
+=======
+    last4: "3063",
+    card_type: "DEBIT",
+    card_network: "Visa",
+    card_issuer: "STRIPE PAYMENTS UK LIMITED",
+    card_issuing_country: "UNITEDKINGDOM",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     card_isin: "401200",
     card_extended_bin: null,
     card_exp_month: "10",
@@ -267,9 +279,12 @@ export const connectorDetails = {
       },
     },
     PartialCapture: {
+<<<<<<< HEAD
       Configs: {
         TRIGGER_SKIP: true, // Partial Capture is not supported in Shift4
       },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       Request: {
         amount_to_capture: 2000,
       },

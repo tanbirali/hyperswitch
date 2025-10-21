@@ -525,10 +525,17 @@ impl RequiredField {
                 },
             ),
             Self::OpenBankingPolandIssuer => (
+<<<<<<< HEAD
                 "payment_method_data.bank_redirect.online_banking_poland.issuer".to_string(),
                 RequiredFieldInfo {
                     required_field:
                         "payment_method_data.bank_redirect.online_banking_poland.issuer".to_string(),
+=======
+                "payment_method_data.bank_redirect.open_banking_poland.issuer".to_string(),
+                RequiredFieldInfo {
+                    required_field: "payment_method_data.bank_redirect.open_banking_poland.issuer"
+                        .to_string(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     display_name: "issuer".to_string(),
                     field_type: FieldType::UserBank,
                     value: None,
@@ -925,6 +932,7 @@ fn billing_name() -> Vec<RequiredField> {
 }
 
 #[cfg_attr(feature = "v2", allow(dead_code))] // This function is not used in v2
+<<<<<<< HEAD
 fn billing_email_billing_name() -> Vec<RequiredField> {
     vec![
         RequiredField::BillingEmail,
@@ -945,6 +953,8 @@ fn billing_email_billing_name_phone() -> Vec<RequiredField> {
 }
 
 #[cfg_attr(feature = "v2", allow(dead_code))] // This function is not used in v2
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 fn email() -> Vec<RequiredField> {
     [RequiredField::Email].to_vec()
 }
@@ -969,6 +979,20 @@ fn billing_email_name() -> Vec<RequiredField> {
 }
 
 #[cfg_attr(feature = "v2", allow(dead_code))] // This function is not used in v2
+<<<<<<< HEAD
+=======
+fn billing_email_name_phone() -> Vec<RequiredField> {
+    vec![
+        RequiredField::BillingUserFirstName,
+        RequiredField::BillingUserLastName,
+        RequiredField::BillingEmail,
+        RequiredField::BillingPhone,
+        RequiredField::BillingPhoneCountryCode,
+    ]
+}
+
+#[cfg_attr(feature = "v2", allow(dead_code))] // This function is not used in v2
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 fn billing_address() -> Vec<RequiredField> {
     vec![
         RequiredField::BillingAddressCity,
@@ -1239,6 +1263,7 @@ impl RequiredFields {
                     ),
                     (
                         enums::PaymentMethodType::MomoAtm,
+<<<<<<< HEAD
                         connectors(vec![(
                             Connector::Adyen,
                             fields(
@@ -1251,6 +1276,9 @@ impl RequiredFields {
                                 vec![],
                             ),
                         )]),
+=======
+                        connectors(vec![(Connector::Adyen, fields(vec![], vec![], vec![]))]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     ),
                 ])),
             ),
@@ -1514,6 +1542,7 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
                 .concat(),
             ),
         ),
+<<<<<<< HEAD
         (
             Connector::Nuvei,
             fields(
@@ -1531,6 +1560,9 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
                 .concat(),
             ),
         ),
+=======
+        (Connector::Nuvei, fields(vec![], vec![], card_basic())),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         (
             Connector::Paybox,
             fields(
@@ -1550,6 +1582,7 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
             ),
         ),
         (
+<<<<<<< HEAD
             Connector::Paysafe,
             fields(
                 vec![
@@ -1563,6 +1596,8 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
             ),
         ),
         (
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Connector::Payload,
             fields(
                 vec![],
@@ -1588,10 +1623,13 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
         (Connector::Paypal, fields(vec![], card_basic(), vec![])),
         (Connector::Payu, fields(vec![], card_basic(), vec![])),
         (
+<<<<<<< HEAD
             Connector::Peachpayments,
             fields(vec![], vec![], card_with_name()),
         ),
         (
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Connector::Powertranz,
             fields(vec![], card_with_name(), vec![]),
         ),
@@ -1619,6 +1657,7 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
                 vec![],
             ),
         ),
+<<<<<<< HEAD
         (
             Connector::Trustpayments,
             fields(vec![], vec![], card_basic()),
@@ -1636,6 +1675,8 @@ fn get_cards_required_fields() -> HashMap<Connector, RequiredFieldFinal> {
                 ],
             ),
         ),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         (Connector::Tsys, fields(vec![], card_basic(), vec![])),
         (
             Connector::Wellsfargo,
@@ -1735,11 +1776,15 @@ fn get_bank_redirect_required_fields(
                         non_mandate: HashMap::from([
                             RequiredField::BillingUserFirstName.to_tuple(),
                             RequiredField::BillingUserLastName.to_tuple(),
+<<<<<<< HEAD
                             RequiredField::BillingAddressCountries(vec![
                                 "DE", "DK", "EE", "ES", "FI", "GB", "LV", "LT", "NL", "PL", "PT",
                                 "SE", "SK",
                             ])
                             .to_tuple(),
+=======
+                            RequiredField::BillingAddressCountries(vec!["ALL"]).to_tuple(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         ]),
                         common: HashMap::new(),
                     },
@@ -1973,7 +2018,10 @@ fn get_bank_redirect_required_fields(
                 (Connector::Globalpay, fields(vec![], vec![], vec![])),
                 (Connector::Mollie, fields(vec![], vec![], vec![])),
                 (Connector::Nexinets, fields(vec![], vec![], vec![])),
+<<<<<<< HEAD
                 (Connector::Airwallex, fields(vec![], vec![], vec![])),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 (
                     Connector::Nuvei,
                     RequiredFieldFinal {
@@ -2334,6 +2382,7 @@ fn get_bank_redirect_required_fields(
                 ),
             ]),
         ),
+<<<<<<< HEAD
         (
             enums::PaymentMethodType::Interac,
             connectors(vec![
@@ -2368,6 +2417,8 @@ fn get_bank_redirect_required_fields(
                 ),
             ]),
         ),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ])
 }
 
@@ -2380,6 +2431,7 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                 (Connector::Stripe, fields(vec![], vec![], vec![])),
                 (Connector::Adyen, fields(vec![], vec![], vec![])),
                 (
+<<<<<<< HEAD
                     Connector::Nuvei,
                     fields(
                         vec![],
@@ -2393,6 +2445,8 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                     ),
                 ),
                 (
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     Connector::Bankofamerica,
                     RequiredFieldFinal {
                         mandate: HashMap::new(),
@@ -2447,6 +2501,7 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                     fields(vec![], vec![], vec![RequiredField::BillingEmail]),
                 ),
                 (
+<<<<<<< HEAD
                     Connector::Paysafe,
                     RequiredFieldFinal {
                         mandate: HashMap::new(),
@@ -2458,6 +2513,8 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                     },
                 ),
                 (
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     Connector::Wellsfargo,
                     RequiredFieldFinal {
                         mandate: HashMap::new(),
@@ -2558,6 +2615,7 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                     Connector::Novalnet,
                     fields(vec![], vec![], vec![RequiredField::BillingEmail]),
                 ),
+<<<<<<< HEAD
                 (
                     Connector::Nuvei,
                     fields(
@@ -2571,6 +2629,9 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                         ],
                     ),
                 ),
+=======
+                (Connector::Nuvei, fields(vec![], vec![], vec![])),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 (Connector::Airwallex, fields(vec![], vec![], vec![])),
                 (Connector::Authorizedotnet, fields(vec![], vec![], vec![])),
                 (Connector::Checkout, fields(vec![], vec![], vec![])),
@@ -2683,6 +2744,7 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
         ),
         (
             enums::PaymentMethodType::AmazonPay,
+<<<<<<< HEAD
             connectors(vec![
                 (Connector::Stripe, fields(vec![], vec![], vec![])),
                 (
@@ -2702,6 +2764,9 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                     },
                 ),
             ]),
+=======
+            connectors(vec![(Connector::Stripe, fields(vec![], vec![], vec![]))]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ),
         (
             enums::PaymentMethodType::Cashapp,
@@ -2846,6 +2911,7 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
         ),
         (
             enums::PaymentMethodType::Skrill,
+<<<<<<< HEAD
             connectors(vec![
                 (
                     Connector::Airwallex,
@@ -2872,6 +2938,21 @@ fn get_wallet_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorFi
                     },
                 ),
             ]),
+=======
+            connectors(vec![(
+                Connector::Airwallex,
+                RequiredFieldFinal {
+                    mandate: HashMap::new(),
+                    non_mandate: HashMap::from([
+                        RequiredField::BillingUserFirstName.to_tuple(),
+                        RequiredField::BillingUserLastName.to_tuple(),
+                        RequiredField::BillingAddressCountries(vec!["ALL"]).to_tuple(),
+                        RequiredField::BillingEmail.to_tuple(),
+                    ]),
+                    common: HashMap::new(),
+                },
+            )]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ),
     ])
 }
@@ -3021,8 +3102,12 @@ fn get_pay_later_required_fields() -> HashMap<enums::PaymentMethodType, Connecto
                     RequiredFieldFinal {
                         mandate: HashMap::new(),
                         non_mandate: HashMap::from([RequiredField::BillingAddressCountries(vec![
+<<<<<<< HEAD
                             "AT", "BE", "FI", "FR", "DE", "GR", "IE", "IT", "NL", "PT", "ES", "DK",
                             "NO", "PL", "SE", "CH", "GB", "CZ", "US",
+=======
+                            "ALL",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         ])
                         .to_tuple()]),
                         common: HashMap::new(),
@@ -3112,6 +3197,7 @@ fn get_pay_later_required_fields() -> HashMap<enums::PaymentMethodType, Connecto
                 RequiredFieldFinal {
                     mandate: HashMap::new(),
                     non_mandate: HashMap::from([
+<<<<<<< HEAD
                         RequiredField::BillingFirstName(
                             "billing_first_name",
                             FieldType::UserBillingName,
@@ -3122,6 +3208,10 @@ fn get_pay_later_required_fields() -> HashMap<enums::PaymentMethodType, Connecto
                             FieldType::UserBillingName,
                         )
                         .to_tuple(),
+=======
+                        RequiredField::BillingUserFirstName.to_tuple(),
+                        RequiredField::BillingUserLastName.to_tuple(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         RequiredField::BillingAddressCity.to_tuple(),
                         RequiredField::BillingAddressState.to_tuple(),
                         RequiredField::BillingAddressZip.to_tuple(),
@@ -3206,14 +3296,22 @@ fn get_voucher_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorF
             enums::PaymentMethodType::Alfamart,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::Indomaret,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
@@ -3224,42 +3322,66 @@ fn get_voucher_required_fields() -> HashMap<enums::PaymentMethodType, ConnectorF
             enums::PaymentMethodType::SevenEleven,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name_phone(), vec![]),
+=======
+                fields(vec![], billing_email_name_phone(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::Lawson,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name_phone(), vec![]),
+=======
+                fields(vec![], billing_email_name_phone(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::MiniStop,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name_phone(), vec![]),
+=======
+                fields(vec![], billing_email_name_phone(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::FamilyMart,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name_phone(), vec![]),
+=======
+                fields(vec![], billing_email_name_phone(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::Seicomart,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name_phone(), vec![]),
+=======
+                fields(vec![], billing_email_name_phone(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::PayEasy,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name_phone(), vec![]),
+=======
+                fields(vec![], billing_email_name_phone(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
     ])
@@ -3589,7 +3711,11 @@ fn get_bank_transfer_required_fields() -> HashMap<enums::PaymentMethodType, Conn
                     },
                 ),
                 (
+<<<<<<< HEAD
                     Connector::Calida,
+=======
+                    Connector::Bluecode,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     RequiredFieldFinal {
                         mandate: HashMap::new(),
                         non_mandate: HashMap::new(),
@@ -3628,49 +3754,77 @@ fn get_bank_transfer_required_fields() -> HashMap<enums::PaymentMethodType, Conn
             enums::PaymentMethodType::PermataBankTransfer,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::BcaBankTransfer,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::BniVa,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::BriVa,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::CimbVa,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::DanamonVa,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (
             enums::PaymentMethodType::MandiriVa,
             connectors(vec![(
                 Connector::Adyen,
+<<<<<<< HEAD
                 fields(vec![], billing_email_billing_name(), vec![]),
+=======
+                fields(vec![], billing_email_name(), vec![]),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )]),
         ),
         (

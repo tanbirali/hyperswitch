@@ -4,7 +4,11 @@ use common_utils::{
     crypto::Encryptable,
     encryption::Encryption,
     errors::CustomResult,
+<<<<<<< HEAD
     ext_traits::{AsyncExt, StringExt, ValueExt},
+=======
+    ext_traits::{AsyncExt, StringExt},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fp_utils, id_type, payout_method_utils as payout_additional, pii, type_name,
     types::{
         keymanager::{Identifier, KeyManagerState},
@@ -38,7 +42,10 @@ use crate::{
     routes::{metrics, SessionState},
     services,
     types::{
+<<<<<<< HEAD
         self as router_types,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api::{self, enums as api_enums},
         domain::{self, types::AsyncLift},
         storage,
@@ -378,8 +385,12 @@ pub async fn save_payout_data_to_locker(
                         Some(wallet.to_owned()),
                         api_enums::PaymentMethodType::foreign_from(wallet),
                     ),
+<<<<<<< HEAD
                     payouts::PayoutMethodData::Card(_)
                     | payouts::PayoutMethodData::BankRedirect(_) => {
+=======
+                    payouts::PayoutMethodData::Card(_) => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         Err(errors::ApiErrorResponse::InternalServerError)?
                     }
                 }
@@ -607,6 +618,7 @@ pub async fn save_payout_data_to_locker(
             )
         };
 
+<<<<<<< HEAD
     let payment_method_billing_address = payout_data
         .billing_address
         .clone()
@@ -623,6 +635,8 @@ pub async fn save_payout_data_to_locker(
         .change_context(errors::ApiErrorResponse::InternalServerError)
         .attach_printable("Unable to encrypt billing address")?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // Insert new entry in payment_methods table
     if should_insert_in_pm_table {
         let payment_method_id = common_utils::generate_id(consts::ID_LENGTH, "pm");
@@ -643,12 +657,19 @@ pub async fn save_payout_data_to_locker(
                 connector_mandate_details,
                 None,
                 None,
+<<<<<<< HEAD
                 payment_method_billing_address,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 None,
                 None,
                 None,
                 None,
+<<<<<<< HEAD
                 Default::default(),
+=======
+                None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
             .await?,
         );
@@ -1287,6 +1308,7 @@ pub async fn update_payouts_and_payout_attempt(
         payout_data.payouts.customer_id.clone()
     };
 
+<<<<<<< HEAD
     let (billing_address, address_id) = resolve_billing_address_for_payout(
         state,
         req.billing.as_ref(),
@@ -1300,6 +1322,39 @@ pub async fn update_payouts_and_payout_attempt(
 
     // Update payout state with resolved billing address
     payout_data.billing_address = billing_address;
+=======
+    // We have to do this because the function that is being used to create / get address is from payments
+    // which expects a payment_id
+    let payout_id_as_payment_id_type = id_type::PaymentId::try_from(std::borrow::Cow::Owned(
+        payout_id.get_string_repr().to_string(),
+    ))
+    .change_context(errors::ApiErrorResponse::InvalidRequestData {
+        message: "payout_id contains invalid data for PaymentId conversion".to_string(),
+    })
+    .attach_printable("Error converting payout_id to PaymentId type")?;
+
+    // Fetch address details from request and create new or else use existing address that was attached
+    let billing_address = payment_helpers::create_or_find_address_for_payment_by_request(
+        state,
+        req.billing.as_ref(),
+        None,
+        merchant_context.get_merchant_account().get_id(),
+        customer_id.as_ref(),
+        merchant_context.get_merchant_key_store(),
+        &payout_id_as_payment_id_type,
+        merchant_context.get_merchant_account().storage_scheme,
+    )
+    .await?;
+    let address_id = if billing_address.is_some() {
+        payout_data.billing_address = billing_address;
+        payout_data
+            .billing_address
+            .as_ref()
+            .map(|address| address.address_id.clone())
+    } else {
+        payout_data.payouts.address_id.clone()
+    };
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     // Update DB with new data
     let payouts = payout_data.payouts.to_owned();
@@ -1535,6 +1590,7 @@ pub async fn get_additional_payout_data(
                 Box::new(wallet_data.to_owned().into()),
             ))
         }
+<<<<<<< HEAD
         api::PayoutMethodData::BankRedirect(bank_redirect_data) => {
             Some(payout_additional::AdditionalPayoutMethodData::BankRedirect(
                 Box::new(bank_redirect_data.to_owned().into()),
@@ -1650,3 +1706,7 @@ pub fn should_continue_payout<F: Clone + 'static>(
 ) -> bool {
     router_data.response.is_ok()
 }
+=======
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

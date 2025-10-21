@@ -1,6 +1,9 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::sync::LazyLock;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use api_models::webhooks::IncomingWebhookEvent;
 use common_enums::{enums, CallConnectorAction, PaymentAction};
 use common_utils::{
@@ -23,10 +26,14 @@ use hyperswitch_domain_models::{
         PaymentsAuthorizeData, PaymentsCancelData, PaymentsCaptureData, PaymentsPreProcessingData,
         PaymentsSessionData, PaymentsSyncData, RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
         SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         PaymentsCompleteAuthorizeRouterData, PaymentsPreProcessingRouterData,
@@ -54,7 +61,11 @@ use transformers as nmi;
 
 use crate::{
     types::ResponseRouterData,
+<<<<<<< HEAD
     utils::{self, convert_amount, get_header_key_value},
+=======
+    utils::{self, construct_not_supported_error_report, convert_amount, get_header_key_value},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 #[derive(Clone)]
@@ -141,6 +152,26 @@ impl ConnectorCommon for Nmi {
 }
 
 impl ConnectorValidation for Nmi {
+<<<<<<< HEAD
+=======
+    fn validate_connector_against_payment_request(
+        &self,
+        capture_method: Option<enums::CaptureMethod>,
+        _payment_method: enums::PaymentMethod,
+        _pmt: Option<enums::PaymentMethodType>,
+    ) -> CustomResult<(), ConnectorError> {
+        let capture_method = capture_method.unwrap_or_default();
+        match capture_method {
+            enums::CaptureMethod::Automatic
+            | enums::CaptureMethod::Manual
+            | enums::CaptureMethod::SequentialAutomatic => Ok(()),
+            enums::CaptureMethod::ManualMultiple | enums::CaptureMethod::Scheduled => Err(
+                construct_not_supported_error_report(capture_method, self.id()),
+            ),
+        }
+    }
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn validate_psync_reference_id(
         &self,
         _data: &PaymentsSyncData,
@@ -1002,6 +1033,7 @@ impl ConnectorRedirectResponse for Nmi {
     }
 }
 
+<<<<<<< HEAD
 static NMI_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -1110,3 +1142,6 @@ impl ConnectorSpecifications for Nmi {
         Some(&NMI_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Nmi {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

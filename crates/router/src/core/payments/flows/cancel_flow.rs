@@ -10,11 +10,33 @@ use crate::{
     services,
     types::{self, api, domain},
 };
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[async_trait]
 impl ConstructFlowSpecificData<api::Void, types::PaymentsCancelData, types::PaymentsResponseData>
     for PaymentData<api::Void>
 {
+<<<<<<< HEAD
+=======
+    #[cfg(feature = "v2")]
+    async fn construct_router_data<'a>(
+        &self,
+        _state: &SessionState,
+        _connector_id: &str,
+        _merchant_context: &domain::MerchantContext,
+        _customer: &Option<domain::Customer>,
+        _merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
+        _merchant_recipient_data: Option<types::MerchantRecipientData>,
+        _header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+    ) -> RouterResult<types::PaymentsCancelRouterData> {
+        todo!()
+    }
+
+    #[cfg(feature = "v1")]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn construct_router_data<'a>(
         &self,
         state: &SessionState,
@@ -24,8 +46,11 @@ impl ConstructFlowSpecificData<api::Void, types::PaymentsCancelData, types::Paym
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
         header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+<<<<<<< HEAD
         _payment_method: Option<common_enums::PaymentMethod>,
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::PaymentsCancelRouterData> {
         Box::pin(transformers::construct_payment_router_data::<
             api::Void,
@@ -39,6 +64,7 @@ impl ConstructFlowSpecificData<api::Void, types::PaymentsCancelData, types::Paym
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+<<<<<<< HEAD
             None,
             None,
         ))
@@ -69,6 +95,8 @@ impl ConstructFlowSpecificData<api::Void, types::PaymentsCancelData, types::Paym
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ))
         .await
     }

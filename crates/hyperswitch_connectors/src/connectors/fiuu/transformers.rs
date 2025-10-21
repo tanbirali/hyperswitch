@@ -576,7 +576,10 @@ impl TryFrom<&FiuuRouterData<&PaymentsAuthorizeRouterData>> for FiuuPaymentReque
                     | WalletData::MbWayRedirect(_)
                     | WalletData::MobilePayRedirect(_)
                     | WalletData::PaypalRedirect(_)
+<<<<<<< HEAD
                     | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     | WalletData::PaypalSdk(_)
                     | WalletData::Paze(_)
                     | WalletData::SamsungPay(_)

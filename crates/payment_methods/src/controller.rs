@@ -9,8 +9,11 @@ use common_enums::enums as common_enums;
 use common_utils::encryption;
 use common_utils::{crypto, ext_traits, id_type, type_name, types::keymanager};
 use error_stack::ResultExt;
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 use hyperswitch_domain_models::payment_methods::PaymentMethodVaultSourceDetails;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use hyperswitch_domain_models::{merchant_key_store, payment_methods, type_encryption};
 use masking::{PeekInterface, Secret};
 #[cfg(feature = "v1")]
@@ -56,7 +59,10 @@ pub trait PaymentMethodsController {
         network_token_requestor_reference_id: Option<String>,
         network_token_locker_id: Option<String>,
         network_token_payment_method_data: crypto::OptionalEncryptableValue,
+<<<<<<< HEAD
         vault_source_details: Option<PaymentMethodVaultSourceDetails>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> errors::PmResult<payment_methods::PaymentMethod>;
 
     #[cfg(feature = "v1")]
@@ -77,7 +83,10 @@ pub trait PaymentMethodsController {
         network_token_requestor_reference_id: Option<String>,
         network_token_locker_id: Option<String>,
         network_token_payment_method_data: crypto::OptionalEncryptableValue,
+<<<<<<< HEAD
         vault_source_details: Option<PaymentMethodVaultSourceDetails>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> errors::PmResult<payment_methods::PaymentMethod>;
 
     #[cfg(feature = "v2")]

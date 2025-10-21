@@ -299,6 +299,7 @@ impl SecretsHandler for settings::UserAuthMethodSettings {
 }
 
 #[async_trait::async_trait]
+<<<<<<< HEAD
 impl SecretsHandler for settings::ChatSettings {
     async fn convert_to_raw_secret(
         value: SecretStateContainer<Self, SecuredSecret>,
@@ -322,6 +323,8 @@ impl SecretsHandler for settings::ChatSettings {
 }
 
 #[async_trait::async_trait]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl SecretsHandler for settings::NetworkTokenizationService {
     async fn convert_to_raw_secret(
         value: SecretStateContainer<Self, SecuredSecret>,
@@ -473,6 +476,7 @@ pub(crate) async fn fetch_raw_secrets(
         })
         .await;
 
+<<<<<<< HEAD
     #[allow(clippy::expect_used)]
     let chat = settings::ChatSettings::convert_to_raw_secret(conf.chat, secret_management_client)
         .await
@@ -490,6 +494,11 @@ pub(crate) async fn fetch_raw_secrets(
     Settings {
         server: conf.server,
         chat,
+=======
+    Settings {
+        server: conf.server,
+        chat: conf.chat,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         master_database,
         redis: conf.redis,
         log: conf.log,
@@ -585,6 +594,7 @@ pub(crate) async fn fetch_raw_secrets(
         debit_routing_config: conf.debit_routing_config,
         clone_connector_allowlist: conf.clone_connector_allowlist,
         merchant_id_auth: conf.merchant_id_auth,
+<<<<<<< HEAD
         internal_merchant_id_profile_id_auth: conf.internal_merchant_id_profile_id_auth,
         infra_values: conf.infra_values,
         enhancement: conf.enhancement,
@@ -592,5 +602,10 @@ pub(crate) async fn fetch_raw_secrets(
         internal_services: conf.internal_services,
         superposition,
         comparison_service: conf.comparison_service,
+=======
+        infra_values: conf.infra_values,
+        enhancement: conf.enhancement,
+        proxy_status_mapping: conf.proxy_status_mapping,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }

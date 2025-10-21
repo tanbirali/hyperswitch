@@ -22,8 +22,16 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
                 PermissionGroup::AccountManage,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+                PermissionGroup::AccountManage,
+                PermissionGroup::OrganizationManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconOpsManage,
                 PermissionGroup::ReconReportsView,
@@ -48,6 +56,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::WorkflowsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconReportsView,
@@ -71,6 +83,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::WorkflowsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconReportsView,
@@ -101,8 +117,16 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
                 PermissionGroup::AccountManage,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+                PermissionGroup::AccountManage,
+                PermissionGroup::OrganizationManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconOpsManage,
                 PermissionGroup::ReconReportsView,
@@ -133,8 +157,16 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
                 PermissionGroup::AccountManage,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+                PermissionGroup::AccountManage,
+                PermissionGroup::OrganizationManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconOpsManage,
                 PermissionGroup::ReconReportsView,
@@ -167,7 +199,13 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountManage,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconOpsManage,
@@ -193,6 +231,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::WorkflowsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconReportsView,
@@ -215,6 +257,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
             ],
             role_id: consts::user_role::ROLE_ID_MERCHANT_IAM_ADMIN.to_string(),
@@ -235,7 +281,13 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::ConnectorsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountManage,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconReportsView,
@@ -260,6 +312,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::WorkflowsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconOpsManage,
@@ -282,6 +338,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::OperationsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
                 PermissionGroup::ReconOpsView,
                 PermissionGroup::ReconReportsView,
@@ -311,7 +371,13 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountManage,
             ],
             role_id: consts::user_role::ROLE_ID_PROFILE_ADMIN.to_string(),
@@ -333,6 +399,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::WorkflowsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
             ],
             role_id: consts::user_role::ROLE_ID_PROFILE_VIEW_ONLY.to_string(),
@@ -353,6 +423,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
                 PermissionGroup::UsersManage,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
             ],
             role_id: consts::user_role::ROLE_ID_PROFILE_IAM_ADMIN.to_string(),
@@ -373,7 +447,13 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::ConnectorsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
                 PermissionGroup::AccountView,
+=======
+                PermissionGroup::MerchantDetailsView,
+                PermissionGroup::AccountView,
+                PermissionGroup::MerchantDetailsManage,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountManage,
             ],
             role_id: consts::user_role::ROLE_ID_PROFILE_DEVELOPER.to_string(),
@@ -396,6 +476,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::WorkflowsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
             ],
             role_id: consts::user_role::ROLE_ID_PROFILE_OPERATOR.to_string(),
@@ -415,6 +499,10 @@ pub static PREDEFINED_ROLES: LazyLock<HashMap<&'static str, RoleInfo>> = LazyLoc
                 PermissionGroup::OperationsView,
                 PermissionGroup::AnalyticsView,
                 PermissionGroup::UsersView,
+<<<<<<< HEAD
+=======
+                PermissionGroup::MerchantDetailsView,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PermissionGroup::AccountView,
             ],
             role_id: consts::user_role::ROLE_ID_PROFILE_CUSTOMER_SUPPORT.to_string(),

@@ -11,10 +11,15 @@ use hyperswitch_domain_models::{
         flow_common_types::{
             AccessTokenFlowData, AuthenticationTokenFlowData, BillingConnectorInvoiceSyncFlowData,
             BillingConnectorPaymentsSyncFlowData, DisputesFlowData, ExternalAuthenticationFlowData,
+<<<<<<< HEAD
             ExternalVaultProxyFlowData, FilesFlowData, GetSubscriptionEstimateData,
             GetSubscriptionPlanPricesData, GetSubscriptionPlansData, GiftCardBalanceCheckFlowData,
             InvoiceRecordBackData, MandateRevokeFlowData, PaymentFlowData, RefundFlowData,
             SubscriptionCreateData, SubscriptionCustomerData, UasFlowData, VaultConnectorFlowData,
+=======
+            ExternalVaultProxyFlowData, FilesFlowData, MandateRevokeFlowData, PaymentFlowData,
+            RefundFlowData, RevenueRecoveryRecordBackData, UasFlowData, VaultConnectorFlowData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             WebhookSourceVerifyData,
         },
         RouterDataV2,
@@ -88,10 +93,15 @@ fn get_default_router_data<F, Req, Resp>(
         psd2_sca_exemption_type: None,
         raw_connector_response: None,
         is_payment_id_from_merchant: None,
+<<<<<<< HEAD
         payment_method_type: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
         authorized_amount: None,
+=======
+        l2_l3_data: None,
+        minor_amount_capturable: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -171,6 +181,7 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for AccessTo
     }
 }
 
+<<<<<<< HEAD
 impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp>
     for GiftCardBalanceCheckFlowData
 {
@@ -210,6 +221,8 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp>
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for PaymentFlowData {
     fn from_old_router_data(
         old_router_data: &RouterData<T, Req, Resp>,
@@ -221,7 +234,10 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for PaymentF
             merchant_id: old_router_data.merchant_id.clone(),
             customer_id: old_router_data.customer_id.clone(),
             connector_customer: old_router_data.connector_customer.clone(),
+<<<<<<< HEAD
             connector: old_router_data.connector.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_id: old_router_data.payment_id.clone(),
             attempt_id: old_router_data.attempt_id.clone(),
             status: old_router_data.status,
@@ -268,7 +284,10 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for PaymentF
             merchant_id,
             customer_id,
             connector_customer,
+<<<<<<< HEAD
             connector,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_id,
             attempt_id,
             status,
@@ -304,7 +323,10 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for PaymentF
         router_data.merchant_id = merchant_id;
         router_data.customer_id = customer_id;
         router_data.connector_customer = connector_customer;
+<<<<<<< HEAD
         router_data.connector = connector;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         router_data.payment_id = payment_id;
         router_data.attempt_id = attempt_id;
         router_data.status = status;
@@ -330,7 +352,10 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for PaymentF
         router_data.apple_pay_flow = apple_pay_flow;
         router_data.connector_response = connector_response;
         router_data.payment_method_status = payment_method_status;
+<<<<<<< HEAD
         router_data.connector_auth_type = new_router_data.connector_auth_type;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(router_data)
     }
 }
@@ -806,16 +831,26 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp>
     }
 }
 
+<<<<<<< HEAD
 impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for InvoiceRecordBackData {
+=======
+impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp>
+    for RevenueRecoveryRecordBackData
+{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn from_old_router_data(
         old_router_data: &RouterData<T, Req, Resp>,
     ) -> CustomResult<RouterDataV2<T, Self, Req, Resp>, ConnectorError>
     where
         Self: Sized,
     {
+<<<<<<< HEAD
         let resource_common_data = Self {
             connector_meta_data: old_router_data.connector_meta_data.clone(),
         };
+=======
+        let resource_common_data = Self {};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(RouterDataV2 {
             flow: std::marker::PhantomData,
             tenant_id: old_router_data.tenant_id.clone(),
@@ -832,15 +867,20 @@ impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for InvoiceR
     where
         Self: Sized,
     {
+<<<<<<< HEAD
         let Self {
             connector_meta_data,
         } = new_router_data.resource_common_data;
         let mut router_data = get_default_router_data(
+=======
+        let router_data = get_default_router_data(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             new_router_data.tenant_id.clone(),
             "recovery_record_back",
             new_router_data.request,
             new_router_data.response,
         );
+<<<<<<< HEAD
         router_data.connector_meta_data = connector_meta_data;
         router_data.connector_auth_type = new_router_data.connector_auth_type.clone();
         Ok(router_data)
@@ -898,6 +938,15 @@ default_router_data_conversion!(SubscriptionCreateData);
 default_router_data_conversion!(SubscriptionCustomerData);
 default_router_data_conversion!(GetSubscriptionEstimateData);
 
+=======
+        Ok(RouterData {
+            connector_auth_type: new_router_data.connector_auth_type.clone(),
+            ..router_data
+        })
+    }
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<T, Req: Clone, Resp: Clone> RouterDataConversion<T, Req, Resp> for UasFlowData {
     fn from_old_router_data(
         old_router_data: &RouterData<T, Req, Resp>,

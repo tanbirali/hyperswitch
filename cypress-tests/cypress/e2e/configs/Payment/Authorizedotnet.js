@@ -11,17 +11,27 @@ const successfulNo3DSCardDetails = {
   card_exp_year: "2029",
   card_holder_name: "John Doe",
   card_cvc: "123",
+<<<<<<< HEAD
   card_network: "Visa",
 };
 
 const successfulThreeDSTestCardDetails = {
   // Visa test card (approved in Authorize.Net sandbox)
   card_number: "4111111111111111",
+=======
+};
+
+const successfulThreeDSTestCardDetails = {
+  card_number: "4000000000000002",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   card_exp_month: "12",
   card_exp_year: "2029",
   card_holder_name: "John Doe",
   card_cvc: "123",
+<<<<<<< HEAD
   card_network: "Visa",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 const failedNo3DSCardDetails = {

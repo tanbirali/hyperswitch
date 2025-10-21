@@ -26,9 +26,12 @@ counter_metric!(SUCCESSFUL_REFUND, GLOBAL_METER);
 counter_metric!(PAYMENT_CANCEL_COUNT, GLOBAL_METER);
 counter_metric!(SUCCESSFUL_CANCEL, GLOBAL_METER);
 
+<<<<<<< HEAD
 counter_metric!(PAYMENT_EXTEND_AUTHORIZATION_COUNT, GLOBAL_METER);
 counter_metric!(SUCCESSFUL_EXTEND_AUTHORIZATION_COUNT, GLOBAL_METER);
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 counter_metric!(MANDATE_COUNT, GLOBAL_METER);
 counter_metric!(SUBSEQUENT_MANDATE_PAYMENT, GLOBAL_METER);
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use std::collections::HashMap;
 
 use base64::Engine;
@@ -54,6 +55,33 @@ pub struct PaysafeRouterData<T> {
 
 impl<T> From<(MinorUnit, T)> for PaysafeRouterData<T> {
     fn from((amount, item): (MinorUnit, T)) -> Self {
+=======
+use common_enums::enums;
+use common_utils::types::StringMinorUnit;
+use hyperswitch_domain_models::{
+    payment_method_data::PaymentMethodData,
+    router_data::{ConnectorAuthType, RouterData},
+    router_flow_types::refunds::{Execute, RSync},
+    router_request_types::ResponseId,
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+    types::{PaymentsAuthorizeRouterData, RefundsRouterData},
+};
+use hyperswitch_interfaces::errors;
+use masking::Secret;
+use serde::{Deserialize, Serialize};
+
+use crate::types::{RefundsResponseRouterData, ResponseRouterData};
+
+//TODO: Fill the struct with respective fields
+pub struct PaysafeRouterData<T> {
+    pub amount: StringMinorUnit, // The type of amount that a connector accepts, for example, String, i64, f64, etc.
+    pub router_data: T,
+}
+
+impl<T> From<(StringMinorUnit, T)> for PaysafeRouterData<T> {
+    fn from((amount, item): (StringMinorUnit, T)) -> Self {
+        //Todo :  use utils to convert the amount to the type of amount that a connector accepts
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Self {
             amount,
             router_data: item,
@@ -61,6 +89,7 @@ impl<T> From<(MinorUnit, T)> for PaysafeRouterData<T> {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub struct PaysafeConnectorMetadataObject {
     pub account_id: PaysafePaymentMethodDetails,
@@ -1154,6 +1183,22 @@ impl TryFrom<&PaymentsAuthorizeRouterData> for PaysafeMandateData {
             }),
         }
     }
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Serialize, PartialEq)]
+pub struct PaysafePaymentsRequest {
+    amount: StringMinorUnit,
+    card: PaysafeCard,
+}
+
+#[derive(Default, Debug, Serialize, Eq, PartialEq)]
+pub struct PaysafeCard {
+    number: cards::CardNumber,
+    expiry_month: Secret<String>,
+    expiry_year: Secret<String>,
+    cvc: Secret<String>,
+    complete: bool,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&PaysafeRouterData<&PaymentsAuthorizeRouterData>> for PaysafePaymentsRequest {
@@ -1161,6 +1206,7 @@ impl TryFrom<&PaysafeRouterData<&PaymentsAuthorizeRouterData>> for PaysafePaymen
     fn try_from(
         item: &PaysafeRouterData<&PaymentsAuthorizeRouterData>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let amount = item.amount;
         let customer_ip = Some(
             item.router_data
@@ -1438,6 +1484,72 @@ impl<F>
                 item.response.status,
                 item.data.request.capture_method,
             ),
+=======
+        match item.router_data.request.payment_method_data.clone() {
+            PaymentMethodData::Card(_) => Err(errors::ConnectorError::NotImplemented(
+                "Card payment method not implemented".to_string(),
+            )
+            .into()),
+            _ => Err(errors::ConnectorError::NotImplemented("Payment method".to_string()).into()),
+        }
+    }
+}
+
+//TODO: Fill the struct with respective fields
+// Auth Struct
+pub struct PaysafeAuthType {
+    pub(super) api_key: Secret<String>,
+}
+
+impl TryFrom<&ConnectorAuthType> for PaysafeAuthType {
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(auth_type: &ConnectorAuthType) -> Result<Self, Self::Error> {
+        match auth_type {
+            ConnectorAuthType::HeaderKey { api_key } => Ok(Self {
+                api_key: api_key.to_owned(),
+            }),
+            _ => Err(errors::ConnectorError::FailedToObtainAuthType.into()),
+        }
+    }
+}
+// PaymentsResponse
+//TODO: Append the remaining status flags
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum PaysafePaymentStatus {
+    Succeeded,
+    Failed,
+    #[default]
+    Processing,
+}
+
+impl From<PaysafePaymentStatus> for common_enums::AttemptStatus {
+    fn from(item: PaysafePaymentStatus) -> Self {
+        match item {
+            PaysafePaymentStatus::Succeeded => Self::Charged,
+            PaysafePaymentStatus::Failed => Self::Failure,
+            PaysafePaymentStatus::Processing => Self::Authorizing,
+        }
+    }
+}
+
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct PaysafePaymentsResponse {
+    status: PaysafePaymentStatus,
+    id: String,
+}
+
+impl<F, T> TryFrom<ResponseRouterData<F, PaysafePaymentsResponse, T, PaymentsResponseData>>
+    for RouterData<F, T, PaymentsResponseData>
+{
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(
+        item: ResponseRouterData<F, PaysafePaymentsResponse, T, PaymentsResponseData>,
+    ) -> Result<Self, Self::Error> {
+        Ok(Self {
+            status: common_enums::AttemptStatus::from(item.response.status),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             response: Ok(PaymentsResponseData::TransactionResponse {
                 resource_id: ResponseId::ConnectorTransactionId(item.response.id),
                 redirection_data: Box::new(None),
@@ -1453,6 +1565,7 @@ impl<F>
     }
 }
 
+<<<<<<< HEAD
 pub struct PaysafeAuthType {
     pub(super) username: Secret<String>,
     pub(super) password: Secret<String>,
@@ -1834,22 +1947,36 @@ impl<F, T> TryFrom<ResponseRouterData<F, VoidResponse, T, PaymentsResponseData>>
 pub struct PaysafeRefundRequest {
     pub merchant_ref_num: String,
     pub amount: MinorUnit,
+=======
+//TODO: Fill the struct with respective fields
+// REFUND :
+// Type definition for RefundRequest
+#[derive(Default, Debug, Serialize)]
+pub struct PaysafeRefundRequest {
+    pub amount: StringMinorUnit,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<F> TryFrom<&PaysafeRouterData<&RefundsRouterData<F>>> for PaysafeRefundRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: &PaysafeRouterData<&RefundsRouterData<F>>) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let amount = item.amount;
 
         Ok(Self {
             merchant_ref_num: item.router_data.request.refund_id.clone(),
             amount,
+=======
+        Ok(Self {
+            amount: item.amount.to_owned(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
 
 // Type definition for Refund Response
 
+<<<<<<< HEAD
 #[derive(Debug, Copy, Serialize, Default, Deserialize, Clone)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum RefundStatus {
@@ -1861,18 +1988,38 @@ pub enum RefundStatus {
     #[default]
     Pending,
     Cancelled,
+=======
+#[allow(dead_code)]
+#[derive(Debug, Copy, Serialize, Default, Deserialize, Clone)]
+pub enum RefundStatus {
+    Succeeded,
+    Failed,
+    #[default]
+    Processing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<RefundStatus> for enums::RefundStatus {
     fn from(item: RefundStatus) -> Self {
         match item {
+<<<<<<< HEAD
             RefundStatus::Received | RefundStatus::Completed => Self::Success,
             RefundStatus::Failed | RefundStatus::Cancelled | RefundStatus::Expired => Self::Failure,
             RefundStatus::Pending | RefundStatus::Initiated => Self::Pending,
+=======
+            RefundStatus::Succeeded => Self::Success,
+            RefundStatus::Failed => Self::Failure,
+            RefundStatus::Processing => Self::Pending,
+            //TODO: Review mapping
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
 
+<<<<<<< HEAD
+=======
+//TODO: Fill the struct with respective fields
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Default, Debug, Clone, Serialize, Deserialize)]
 pub struct RefundResponse {
     id: String,
@@ -1909,6 +2056,7 @@ impl TryFrom<RefundsResponseRouterData<RSync, RefundResponse>> for RefundsRouter
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PaysafeErrorResponse {
     pub error: Error,
@@ -1927,4 +2075,16 @@ pub struct Error {
 pub struct FieldError {
     pub field: Option<String>,
     pub error: String,
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Serialize, Deserialize, PartialEq)]
+pub struct PaysafeErrorResponse {
+    pub status_code: u16,
+    pub code: String,
+    pub message: String,
+    pub reason: Option<String>,
+    pub network_advice_code: Option<String>,
+    pub network_decline_code: Option<String>,
+    pub network_error_message: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

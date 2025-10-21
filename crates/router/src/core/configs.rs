@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 use common_utils::errors::CustomResult;
 use error_stack::ResultExt;
 use external_services::superposition::ConfigContext;
+=======
+use error_stack::ResultExt;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use crate::{
     core::errors::{self, utils::StorageErrorExt, RouterResponse},
@@ -52,6 +56,7 @@ pub async fn config_delete(state: SessionState, key: String) -> RouterResponse<a
         .to_not_found_response(errors::ApiErrorResponse::ConfigNotFound)?;
     Ok(ApplicationResponse::Json(config.foreign_into()))
 }
+<<<<<<< HEAD
 
 /// Get a boolean configuration value with superposition and database fallback
 pub async fn get_config_bool(
@@ -284,3 +289,5 @@ where
 
     result
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -33,7 +33,11 @@ use hyperswitch_domain_models::{
     },
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
+<<<<<<< HEAD
         PaymentsSyncRouterData, RefundSyncRouterData, RefundsRouterData, SetupMandateRouterData,
+=======
+        PaymentsSyncRouterData, RefundSyncRouterData, RefundsRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 use hyperswitch_interfaces::{
@@ -44,7 +48,11 @@ use hyperswitch_interfaces::{
     configs::Connectors,
     errors,
     events::connector_api_logs::ConnectorEvent,
+<<<<<<< HEAD
     types::{self, PaymentsVoidType, Response, SetupMandateType},
+=======
+    types::{self, PaymentsVoidType, Response},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     webhooks,
 };
 use masking::{ExposeInterface, Mask, Secret};
@@ -190,6 +198,7 @@ impl ConnectorIntegration<Session, PaymentsSessionData, PaymentsResponseData> fo
 impl ConnectorIntegration<AccessTokenAuth, AccessTokenRequestData, AccessToken> for Payload {}
 
 impl ConnectorIntegration<SetupMandate, SetupMandateRequestData, PaymentsResponseData> for Payload {
+<<<<<<< HEAD
     fn get_headers(
         &self,
         req: &SetupMandateRouterData,
@@ -261,6 +270,17 @@ impl ConnectorIntegration<SetupMandate, SetupMandateRequestData, PaymentsRespons
         event_builder: Option<&mut ConnectorEvent>,
     ) -> CustomResult<ErrorResponse, errors::ConnectorError> {
         self.build_error_response(res, event_builder)
+=======
+    fn build_request(
+        &self,
+        _req: &RouterData<SetupMandate, SetupMandateRequestData, PaymentsResponseData>,
+        _connectors: &Connectors,
+    ) -> CustomResult<Option<Request>, errors::ConnectorError> {
+        Err(
+            errors::ConnectorError::NotImplemented("Setup Mandate flow for Payload".to_string())
+                .into(),
+        )
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 

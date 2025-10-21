@@ -43,7 +43,10 @@ pub trait UnifiedAuthenticationService {
         _billing_address: Option<&hyperswitch_domain_models::address::Address>,
         _acquirer_bin: Option<String>,
         _acquirer_merchant_id: Option<String>,
+<<<<<<< HEAD
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<UasPreAuthenticationRequestData> {
         Err(errors::ApiErrorResponse::NotImplemented {
             message: NotImplementedMessage::Reason(
@@ -59,7 +62,10 @@ pub trait UnifiedAuthenticationService {
         _merchant_id: &common_utils::id_type::MerchantId,
         _payment_id: Option<&common_utils::id_type::PaymentId>,
         _payment_method_data: Option<&domain::PaymentMethodData>,
+<<<<<<< HEAD
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         _merchant_connector_account: &MerchantConnectorAccountType,
         _connector_name: &str,
         _authentication_id: &common_utils::id_type::AuthenticationId,
@@ -156,6 +162,11 @@ pub trait UnifiedAuthenticationService {
     #[allow(clippy::too_many_arguments)]
     async fn confirmation(
         _state: &SessionState,
+<<<<<<< HEAD
+=======
+        _key_store: &domain::MerchantKeyStore,
+        _business_profile: &domain::Profile,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         _authentication_id: Option<&common_utils::id_type::AuthenticationId>,
         _currency: Option<common_enums::Currency>,
         _status: common_enums::AttemptStatus,

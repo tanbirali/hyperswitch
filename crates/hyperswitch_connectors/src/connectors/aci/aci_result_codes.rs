@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 pub(super) const FAILURE_CODES: [&str; 502] = [
+=======
+pub(super) const FAILURE_CODES: [&str; 501] = [
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     "100.370.100",
     "100.370.110",
     "100.370.111",
@@ -500,7 +504,10 @@ pub(super) const FAILURE_CODES: [&str; 502] = [
     "800.800.102",
     "800.800.202",
     "800.800.302",
+<<<<<<< HEAD
     "100.390.100",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ];
 
 pub(super) const SUCCESSFUL_CODES: [&str; 16] = [

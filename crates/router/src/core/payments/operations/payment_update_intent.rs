@@ -190,7 +190,10 @@ impl<F: Send + Clone> GetTracker<F, payments::PaymentIntentData<F>, PaymentsUpda
             frm_metadata,
             request_external_three_ds_authentication,
             set_active_attempt_id,
+<<<<<<< HEAD
             enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         } = request.clone();
 
         let batch_encrypted_data = domain_types::crypto_operation(
@@ -297,8 +300,11 @@ impl<F: Send + Clone> GetTracker<F, payments::PaymentIntentData<F>, PaymentsUpda
             allowed_payment_method_types: allowed_payment_method_types
                 .or(payment_intent.allowed_payment_method_types),
             active_attempt_id,
+<<<<<<< HEAD
             enable_partial_authorization: enable_partial_authorization
                 .or(payment_intent.enable_partial_authorization),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..payment_intent
         };
 
@@ -370,6 +376,7 @@ impl<F: Clone> UpdateTracker<F, payments::PaymentIntentData<F>, PaymentsUpdateIn
                 order_details: intent.order_details,
                 allowed_payment_method_types: intent.allowed_payment_method_types,
                 metadata: intent.metadata,
+<<<<<<< HEAD
                 connector_metadata: intent
                     .connector_metadata
                     .map(|cm| cm.encode_to_value())
@@ -377,6 +384,9 @@ impl<F: Clone> UpdateTracker<F, payments::PaymentIntentData<F>, PaymentsUpdateIn
                     .change_context(errors::ApiErrorResponse::InternalServerError)
                     .attach_printable("Failed to serialize connector_metadata")?
                     .map(masking::Secret::new),
+=======
+                connector_metadata: intent.connector_metadata,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 feature_metadata: intent.feature_metadata,
                 payment_link_config: intent.payment_link_config,
                 request_incremental_authorization: Some(intent.request_incremental_authorization),
@@ -390,7 +400,10 @@ impl<F: Clone> UpdateTracker<F, payments::PaymentIntentData<F>, PaymentsUpdateIn
                 active_attempt_id: Some(intent.active_attempt_id),
                 force_3ds_challenge: intent.force_3ds_challenge,
                 is_iframe_redirection_enabled: intent.is_iframe_redirection_enabled,
+<<<<<<< HEAD
                 enable_partial_authorization: intent.enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }));
 
         let new_payment_intent = db

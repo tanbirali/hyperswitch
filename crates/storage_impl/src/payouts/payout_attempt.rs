@@ -91,7 +91,10 @@ impl<T: DatabaseStore> PayoutAttemptInterface for KVRouterStore<T> {
                     merchant_order_reference_id: new_payout_attempt
                         .merchant_order_reference_id
                         .clone(),
+<<<<<<< HEAD
                     payout_connector_metadata: new_payout_attempt.payout_connector_metadata.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 };
 
                 let redis_entry = kv::TypedSql {
@@ -575,7 +578,10 @@ impl DataModelExt for PayoutAttempt {
             unified_message: self.unified_message,
             additional_payout_method_data: self.additional_payout_method_data,
             merchant_order_reference_id: self.merchant_order_reference_id,
+<<<<<<< HEAD
             payout_connector_metadata: self.payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -604,7 +610,10 @@ impl DataModelExt for PayoutAttempt {
             unified_message: storage_model.unified_message,
             additional_payout_method_data: storage_model.additional_payout_method_data,
             merchant_order_reference_id: storage_model.merchant_order_reference_id,
+<<<<<<< HEAD
             payout_connector_metadata: storage_model.payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -636,7 +645,10 @@ impl DataModelExt for PayoutAttemptNew {
             unified_message: self.unified_message,
             additional_payout_method_data: self.additional_payout_method_data,
             merchant_order_reference_id: self.merchant_order_reference_id,
+<<<<<<< HEAD
             payout_connector_metadata: self.payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -665,7 +677,10 @@ impl DataModelExt for PayoutAttemptNew {
             unified_message: storage_model.unified_message,
             additional_payout_method_data: storage_model.additional_payout_method_data,
             merchant_order_reference_id: storage_model.merchant_order_reference_id,
+<<<<<<< HEAD
             payout_connector_metadata: storage_model.payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -681,7 +696,10 @@ impl DataModelExt for PayoutAttemptUpdate {
                 is_eligible,
                 unified_code,
                 unified_message,
+<<<<<<< HEAD
                 payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             } => DieselPayoutAttemptUpdate::StatusUpdate {
                 connector_payout_id,
                 status,
@@ -690,7 +708,10 @@ impl DataModelExt for PayoutAttemptUpdate {
                 is_eligible,
                 unified_code,
                 unified_message,
+<<<<<<< HEAD
                 payout_connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             Self::PayoutTokenUpdate { payout_token } => {
                 DieselPayoutAttemptUpdate::PayoutTokenUpdate { payout_token }

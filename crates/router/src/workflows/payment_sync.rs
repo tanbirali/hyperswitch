@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use common_utils::ext_traits::AsyncExt;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::ext_traits::{OptionExt, StringExt, ValueExt};
 use diesel_models::process_tracker::business_status;
 use error_stack::ResultExt;
@@ -9,8 +12,11 @@ use scheduler::{
     errors as sch_errors, utils as scheduler_utils,
 };
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use crate::workflows::revenue_recovery::update_token_expiry_based_on_schedule_time;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::{
     consts,
     core::{
@@ -162,7 +168,10 @@ impl ProcessTrackerWorkflow<SessionState> for PaymentsSyncWorkflow {
                             authentication_type: None,
                             issuer_error_code: None,
                             issuer_error_message: None,
+<<<<<<< HEAD
                             network_details:None
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         };
 
                     payment_data.payment_attempt = db
@@ -308,6 +317,7 @@ pub async fn retry_sync_task(
     }
 }
 
+<<<<<<< HEAD
 /// Schedule the task for retry and update redis token expiry time
 ///
 /// Returns bool which indicates whether this was the last retry or not
@@ -353,6 +363,8 @@ pub async fn recovery_retry_sync_task(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(test)]
 mod tests {
     #![allow(clippy::expect_used, clippy::unwrap_used)]

@@ -2,10 +2,17 @@ pub mod opensearch;
 #[cfg(feature = "olap")]
 pub mod user;
 pub mod user_role;
+<<<<<<< HEAD
 use std::{collections::HashSet, str::FromStr, sync};
 
 use api_models::enums::Country;
 use common_utils::{consts, id_type};
+=======
+use std::collections::HashSet;
+
+use api_models::enums::Country;
+use common_utils::consts;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub use hyperswitch_domain_models::consts::{
     CONNECTOR_MANDATE_REQUEST_REFERENCE_ID_LENGTH, ROUTING_ENABLED_PAYMENT_METHODS,
     ROUTING_ENABLED_PAYMENT_METHOD_TYPES,
@@ -274,12 +281,15 @@ pub const IRRELEVANT_PAYMENT_INTENT_ID: &str = "irrelevant_payment_intent_id";
 /// Default payment attempt id
 pub const IRRELEVANT_PAYMENT_ATTEMPT_ID: &str = "irrelevant_payment_attempt_id";
 
+<<<<<<< HEAD
 pub static PROFILE_ID_UNAVAILABLE: sync::LazyLock<id_type::ProfileId> = sync::LazyLock::new(|| {
     #[allow(clippy::expect_used)]
     id_type::ProfileId::from_str("PROFILE_ID_UNAVAIABLE")
         .expect("Failed to parse PROFILE_ID_UNAVAIABLE")
 });
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Default payment attempt id
 pub const IRRELEVANT_CONNECTOR_REQUEST_REFERENCE_ID: &str =
     "irrelevant_connector_request_reference_id";
@@ -335,6 +345,7 @@ pub const UCS_AUTH_HEADER_KEY: &str = "header-key";
 
 /// Header value indicating that currency-auth-key-based authentication is used.
 pub const UCS_AUTH_CURRENCY_AUTH_KEY: &str = "currency-auth-key";
+<<<<<<< HEAD
 
 /// Form field name for challenge request during creq submission
 pub const CREQ_CHALLENGE_REQUEST_KEY: &str = "creq";
@@ -356,3 +367,5 @@ mod tests {
         // If we get here without panicking, the test passes
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

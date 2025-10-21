@@ -172,8 +172,11 @@ impl ForeignTryFrom<domain::Profile> for ProfileResponse {
         let card_testing_guard_config = item
             .card_testing_guard_config
             .or(Some(CardTestingGuardConfig::default()));
+<<<<<<< HEAD
         let (is_external_vault_enabled, external_vault_connector_details) =
             item.external_vault_details.into();
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(Self {
             merchant_id: item.merchant_id,
@@ -235,6 +238,7 @@ impl ForeignTryFrom<domain::Profile> for ProfileResponse {
             merchant_category_code: item.merchant_category_code,
             merchant_country_code: item.merchant_country_code,
             dispute_polling_interval: item.dispute_polling_interval,
+<<<<<<< HEAD
             is_manual_retry_enabled: item.is_manual_retry_enabled,
             always_enable_overcapture: item.always_enable_overcapture,
             is_external_vault_enabled,
@@ -242,6 +246,8 @@ impl ForeignTryFrom<domain::Profile> for ProfileResponse {
                 .map(ForeignFrom::foreign_from),
             billing_processor_id: item.billing_processor_id,
             is_l2_l3_enabled: Some(item.is_l2_l3_enabled),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -323,15 +329,21 @@ impl ForeignTryFrom<domain::Profile> for ProfileResponse {
             merchant_business_country: item.merchant_business_country,
             is_iframe_redirection_enabled: item.is_iframe_redirection_enabled,
             is_external_vault_enabled: item.is_external_vault_enabled,
+<<<<<<< HEAD
             is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             external_vault_connector_details: item
                 .external_vault_connector_details
                 .map(ForeignInto::foreign_into),
             merchant_category_code: item.merchant_category_code,
             merchant_country_code: item.merchant_country_code,
+<<<<<<< HEAD
             split_txns_enabled: item.split_txns_enabled,
             revenue_recovery_retry_algorithm_type: item.revenue_recovery_retry_algorithm_type,
             billing_processor_id: item.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -502,6 +514,7 @@ pub async fn create_profile_from_merchant_account(
         merchant_category_code: request.merchant_category_code,
         merchant_country_code: request.merchant_country_code,
         dispute_polling_interval: request.dispute_polling_interval,
+<<<<<<< HEAD
         is_manual_retry_enabled: request.is_manual_retry_enabled,
         always_enable_overcapture: request.always_enable_overcapture,
         external_vault_details: domain::ExternalVaultDetails::try_from((
@@ -514,5 +527,7 @@ pub async fn create_profile_from_merchant_account(
         .attach_printable("error while generating external_vault_details")?,
         billing_processor_id: request.billing_processor_id,
         is_l2_l3_enabled: request.is_l2_l3_enabled.unwrap_or(false),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }))
 }

@@ -3,7 +3,6 @@ use std::collections::{HashMap, HashSet};
 use common_enums::connector_enums::Connector;
 use common_utils::{consts as common_utils_consts, errors::CustomResult, types::Url};
 use error_stack::ResultExt;
-pub use hyperswitch_interfaces::unified_connector_service::transformers::UnifiedConnectorServiceError;
 use masking::{PeekInterface, Secret};
 use router_env::logger;
 use tokio::time::{timeout, Duration};
@@ -19,9 +18,94 @@ use unified_connector_service_client::payments::{
 
 use crate::{
     consts,
-    grpc_client::{GrpcClientSettings, GrpcHeadersUcs},
+    grpc_client::{GrpcClientSettings, GrpcHeaders},
     utils::deserialize_hashset,
 };
+
+/// Unified Connector Service error variants
+#[derive(Debug, Clone, thiserror::Error)]
+pub enum UnifiedConnectorServiceError {
+    /// Error occurred while communicating with the gRPC server.
+    #[error("Error from gRPC Server : {0}")]
+    ConnectionError(String),
+
+    /// Failed to encode the request to the unified connector service.
+    #[error("Failed to encode unified connector service request")]
+    RequestEncodingFailed,
+
+    /// Request encoding failed due to a specific reason.
+    #[error("Request encoding failed : {0}")]
+    RequestEncodingFailedWithReason(String),
+
+    /// Failed to deserialize the response from the connector.
+    #[error("Failed to deserialize connector response")]
+    ResponseDeserializationFailed,
+
+    /// The connector name provided is invalid or unrecognized.
+    #[error("An invalid connector name was provided")]
+    InvalidConnectorName,
+
+    /// Connector name is missing
+    #[error("Connector name is missing")]
+    MissingConnectorName,
+
+    /// A required field was missing in the request.
+    #[error("Missing required field: {field_name}")]
+    MissingRequiredField {
+        /// Missing Field
+        field_name: &'static str,
+    },
+
+    /// Multiple required fields were missing in the request.
+    #[error("Missing required fields: {field_names:?}")]
+    MissingRequiredFields {
+        /// Missing Fields
+        field_names: Vec<&'static str>,
+    },
+
+    /// The requested step or feature is not yet implemented.
+    #[error("This step has not been implemented for: {0}")]
+    NotImplemented(String),
+
+    /// Parsing of some value or input failed.
+    #[error("Parsing failed")]
+    ParsingFailed,
+
+    /// Data format provided is invalid
+    #[error("Invalid Data format")]
+    InvalidDataFormat {
+        /// Field Name for which data is invalid
+        field_name: &'static str,
+    },
+
+    /// Failed to obtain authentication type
+    #[error("Failed to obtain authentication type")]
+    FailedToObtainAuthType,
+
+    /// Failed to inject metadata into request headers
+    #[error("Failed to inject metadata into request headers: {0}")]
+    HeaderInjectionFailed(String),
+
+    /// Failed to perform Payment Authorize from gRPC Server
+    #[error("Failed to perform Payment Authorize from gRPC Server")]
+    PaymentAuthorizeFailure,
+
+    /// Failed to perform Payment Get from gRPC Server
+    #[error("Failed to perform Payment Get from gRPC Server")]
+    PaymentGetFailure,
+
+    /// Failed to perform Payment Setup Mandate from gRPC Server
+    #[error("Failed to perform Setup Mandate from gRPC Server")]
+    PaymentRegisterFailure,
+
+    /// Failed to perform Payment Repeat Payment from gRPC Server
+    #[error("Failed to perform Repeat Payment from gRPC Server")]
+    PaymentRepeatEverythingFailure,
+
+    /// Failed to transform incoming webhook from gRPC Server
+    #[error("Failed to transform incoming webhook from gRPC Server")]
+    WebhookTransformFailure,
+}
 
 /// Result type for Dynamic Routing
 pub type UnifiedConnectorServiceResult<T> = CustomResult<T, UnifiedConnectorServiceError>;
@@ -44,10 +128,6 @@ pub struct UnifiedConnectorServiceClientConfig {
     /// Set of external services/connectors available for the unified connector service
     #[serde(default, deserialize_with = "deserialize_hashset")]
     pub ucs_only_connectors: HashSet<Connector>,
-
-    /// Set of connectors for which psync is disabled in unified connector service
-    #[serde(default, deserialize_with = "deserialize_hashset")]
-    pub ucs_psync_disabled_connectors: HashSet<Connector>,
 }
 
 /// Contains the Connector Auth Type and related authentication data.
@@ -74,23 +154,6 @@ pub struct ConnectorAuthMetadata {
 
     /// Id of the merchant.
     pub merchant_id: Secret<String>,
-}
-
-/// External Vault Proxy Related Metadata
-#[derive(Debug, Clone, serde::Deserialize, serde::Serialize)]
-#[serde(untagged)]
-pub enum ExternalVaultProxyMetadata {
-    /// VGS proxy data variant
-    VgsMetadata(VgsMetadata),
-}
-
-/// VGS proxy data
-#[derive(Debug, Clone, serde::Deserialize, serde::Serialize)]
-pub struct VgsMetadata {
-    /// External vault url
-    pub proxy_url: Url,
-    /// CA certificates to verify the vault server
-    pub certificate: Secret<String>,
 }
 
 impl UnifiedConnectorServiceClient {
@@ -143,14 +206,13 @@ impl UnifiedConnectorServiceClient {
         &self,
         payment_authorize_request: payments_grpc::PaymentServiceAuthorizeRequest,
         connector_auth_metadata: ConnectorAuthMetadata,
-        grpc_headers: GrpcHeadersUcs,
+        grpc_headers: GrpcHeaders,
     ) -> UnifiedConnectorServiceResult<tonic::Response<PaymentServiceAuthorizeResponse>> {
         let mut request = tonic::Request::new(payment_authorize_request);
 
         let connector_name = connector_auth_metadata.connector_name.clone();
         let metadata =
             build_unified_connector_service_grpc_headers(connector_auth_metadata, grpc_headers)?;
-
         *request.metadata_mut() = metadata;
 
         self.client
@@ -173,7 +235,7 @@ impl UnifiedConnectorServiceClient {
         &self,
         payment_get_request: payments_grpc::PaymentServiceGetRequest,
         connector_auth_metadata: ConnectorAuthMetadata,
-        grpc_headers: GrpcHeadersUcs,
+        grpc_headers: GrpcHeaders,
     ) -> UnifiedConnectorServiceResult<tonic::Response<payments_grpc::PaymentServiceGetResponse>>
     {
         let mut request = tonic::Request::new(payment_get_request);
@@ -203,7 +265,7 @@ impl UnifiedConnectorServiceClient {
         &self,
         payment_register_request: payments_grpc::PaymentServiceRegisterRequest,
         connector_auth_metadata: ConnectorAuthMetadata,
-        grpc_headers: GrpcHeadersUcs,
+        grpc_headers: GrpcHeaders,
     ) -> UnifiedConnectorServiceResult<tonic::Response<payments_grpc::PaymentServiceRegisterResponse>>
     {
         let mut request = tonic::Request::new(payment_register_request);
@@ -233,7 +295,7 @@ impl UnifiedConnectorServiceClient {
         &self,
         payment_repeat_request: payments_grpc::PaymentServiceRepeatEverythingRequest,
         connector_auth_metadata: ConnectorAuthMetadata,
-        grpc_headers: GrpcHeadersUcs,
+        grpc_headers: GrpcHeaders,
     ) -> UnifiedConnectorServiceResult<
         tonic::Response<payments_grpc::PaymentServiceRepeatEverythingResponse>,
     > {
@@ -264,7 +326,7 @@ impl UnifiedConnectorServiceClient {
         &self,
         webhook_transform_request: PaymentServiceTransformRequest,
         connector_auth_metadata: ConnectorAuthMetadata,
-        grpc_headers: GrpcHeadersUcs,
+        grpc_headers: GrpcHeaders,
     ) -> UnifiedConnectorServiceResult<tonic::Response<PaymentServiceTransformResponse>> {
         let mut request = tonic::Request::new(webhook_transform_request);
 
@@ -292,7 +354,7 @@ impl UnifiedConnectorServiceClient {
 /// Build the gRPC Headers for Unified Connector Service Request
 pub fn build_unified_connector_service_grpc_headers(
     meta: ConnectorAuthMetadata,
-    grpc_headers: GrpcHeadersUcs,
+    grpc_headers: GrpcHeaders,
 ) -> Result<MetadataMap, UnifiedConnectorServiceError> {
     let mut metadata = MetadataMap::new();
     let parse =
@@ -342,52 +404,6 @@ pub fn build_unified_connector_service_grpc_headers(
         common_utils_consts::X_MERCHANT_ID,
         parse(common_utils_consts::X_MERCHANT_ID, meta.merchant_id.peek())?,
     );
-
-    if let Some(external_vault_proxy_metadata) = grpc_headers.external_vault_proxy_metadata {
-        metadata.append(
-            consts::UCS_HEADER_EXTERNAL_VAULT_METADATA,
-            parse("external_vault_metadata", &external_vault_proxy_metadata)?,
-        );
-    };
-
-    let lineage_ids_str = grpc_headers
-        .lineage_ids
-        .get_url_encoded_string()
-        .map_err(|err| {
-            logger::error!(?err);
-            UnifiedConnectorServiceError::HeaderInjectionFailed(consts::UCS_LINEAGE_IDS.to_string())
-        })?;
-    metadata.append(
-        consts::UCS_LINEAGE_IDS,
-        parse(consts::UCS_LINEAGE_IDS, &lineage_ids_str)?,
-    );
-
-    if let Some(reference_id) = grpc_headers.merchant_reference_id {
-        metadata.append(
-            consts::UCS_HEADER_REFERENCE_ID,
-            parse(
-                consts::UCS_HEADER_REFERENCE_ID,
-                reference_id.get_string_repr(),
-            )?,
-        );
-    };
-
-    if let Some(request_id) = grpc_headers.request_id {
-        metadata.append(
-            common_utils_consts::X_REQUEST_ID,
-            parse(common_utils_consts::X_REQUEST_ID, &request_id)?,
-        );
-    };
-
-    if let Some(shadow_mode) = grpc_headers.shadow_mode {
-        metadata.append(
-            common_utils_consts::X_UNIFIED_CONNECTOR_SERVICE_MODE,
-            parse(
-                common_utils_consts::X_UNIFIED_CONNECTOR_SERVICE_MODE,
-                &shadow_mode.to_string(),
-            )?,
-        );
-    }
 
     if let Err(err) = grpc_headers
         .tenant_id

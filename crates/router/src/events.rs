@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+<<<<<<< HEAD
 use common_utils::types::TenantConfig;
 use error_stack::ResultExt;
 use events::{EventsError, Message, MessagingInterface};
@@ -8,6 +9,17 @@ use masking::ErasedMaskSerialize;
 use router_env::logger;
 use serde::{Deserialize, Serialize};
 use storage_impl::errors::{ApplicationError, StorageError, StorageResult};
+=======
+use error_stack::ResultExt;
+use events::{EventsError, Message, MessagingInterface};
+use masking::ErasedMaskSerialize;
+use router_env::logger;
+use serde::{Deserialize, Serialize};
+use storage_impl::{
+    config::TenantConfig,
+    errors::{ApplicationError, StorageError, StorageResult},
+};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use time::PrimitiveDateTime;
 
 use crate::{
@@ -65,12 +77,15 @@ impl Default for EventsHandler {
     }
 }
 
+<<<<<<< HEAD
 impl events_interfaces::EventHandlerInterface for EventsHandler {
     fn log_connector_event(&self, event: &events_interfaces::connector_api_logs::ConnectorEvent) {
         self.log_event(event);
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl EventsConfig {
     pub async fn get_event_handler(&self) -> StorageResult<EventsHandler> {
         Ok(match self {

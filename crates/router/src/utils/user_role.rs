@@ -27,7 +27,11 @@ use crate::{
     services::authorization::{
         self as authz,
         permission_groups::{ParentGroupExt, PermissionGroupExt},
+<<<<<<< HEAD
         permissions, roles,
+=======
+        roles,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     types::domain,
 };
@@ -40,7 +44,13 @@ pub fn validate_role_groups(groups: &[PermissionGroup]) -> UserResult<()> {
 
     let unique_groups: HashSet<_> = groups.iter().copied().collect();
 
+<<<<<<< HEAD
     if unique_groups.contains(&PermissionGroup::InternalManage) {
+=======
+    if unique_groups.contains(&PermissionGroup::OrganizationManage)
+        || unique_groups.contains(&PermissionGroup::InternalManage)
+    {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return Err(report!(UserErrors::InvalidRoleOperation))
             .attach_printable("Invalid groups present in the custom role");
     }
@@ -493,7 +503,11 @@ pub async fn fetch_user_roles_by_payload(
         .filter_map(|user_role| {
             let (_entity_id, entity_type) = user_role.get_entity_id_and_type()?;
             request_entity_type
+<<<<<<< HEAD
                 .is_none_or(|req_entity_type| entity_type == req_entity_type)
+=======
+                .map_or(true, |req_entity_type| entity_type == req_entity_type)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .then_some(user_role)
         })
         .collect::<HashSet<_>>())
@@ -568,17 +582,28 @@ pub fn permission_groups_to_parent_group_info(
                 .into_iter()
                 .collect();
 
+<<<<<<< HEAD
             let filtered_resources =
                 permissions::filter_resources_by_entity_type(name.resources(), entity_type)?;
 
             Some(role_api::ParentGroupInfo {
                 name,
                 resources: filtered_resources,
+=======
+            let description =
+                ParentGroup::get_descriptions_for_groups(entity_type, permission_groups.to_vec())
+                    .and_then(|descriptions| descriptions.get(&name).cloned())?;
+
+            Some(role_api::ParentGroupInfo {
+                name,
+                description,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 scopes: unique_scopes,
             })
         })
         .collect()
 }
+<<<<<<< HEAD
 
 pub fn resources_to_description(
     resources: Vec<common_enums::Resource>,
@@ -598,3 +623,5 @@ pub fn resources_to_description(
 
     Some(description)
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

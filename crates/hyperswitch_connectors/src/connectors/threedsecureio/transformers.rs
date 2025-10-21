@@ -177,7 +177,10 @@ impl
                             acs_trans_id: Some(response.acs_trans_id.clone()),
                             three_dsserver_trans_id: Some(response.three_dsserver_trans_id),
                             acs_signed_content: response.acs_signed_content,
+<<<<<<< HEAD
                             challenge_request_key: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         }))
                     } else {
                         AuthNFlowType::Frictionless

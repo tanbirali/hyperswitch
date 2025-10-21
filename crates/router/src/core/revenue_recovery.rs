@@ -1,6 +1,7 @@
 pub mod api;
 pub mod transformers;
 pub mod types;
+<<<<<<< HEAD
 use std::marker::PhantomData;
 
 use api_models::{
@@ -21,10 +22,25 @@ use hyperswitch_domain_models::{
     merchant_context,
     payments::{PaymentIntent, PaymentIntentData, PaymentStatusData},
     revenue_recovery as domain_revenue_recovery, ApiModelToDieselModelConvertor,
+=======
+use api_models::{enums, process_tracker::revenue_recovery, webhooks};
+use common_utils::{
+    self,
+    errors::CustomResult,
+    ext_traits::{OptionExt, ValueExt},
+    id_type,
+};
+use diesel_models::{enums as diesel_enum, process_tracker::business_status};
+use error_stack::{self, ResultExt};
+use hyperswitch_domain_models::{
+    payments::PaymentIntent, revenue_recovery as domain_revenue_recovery,
+    ApiModelToDieselModelConvertor,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use scheduler::errors as sch_errors;
 
 use crate::{
+<<<<<<< HEAD
     core::{
         errors::{self, RouterResponse, RouterResult, StorageErrorExt},
         payments::{
@@ -34,11 +50,15 @@ use crate::{
         },
         revenue_recovery::types::RevenueRecoveryOutgoingWebhook,
     },
+=======
+    core::errors::{self, RouterResponse, RouterResult, StorageErrorExt},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     db::StorageInterface,
     logger,
     routes::{app::ReqState, metrics, SessionState},
     services::ApplicationResponse,
     types::{
+<<<<<<< HEAD
         api as router_api_types, domain,
         storage::{self, revenue_recovery as pcr},
         transformers::{ForeignFrom, ForeignInto},
@@ -48,6 +68,18 @@ use crate::{
 pub const CALCULATE_WORKFLOW: &str = "CALCULATE_WORKFLOW";
 pub const PSYNC_WORKFLOW: &str = "PSYNC_WORKFLOW";
 pub const EXECUTE_WORKFLOW: &str = "EXECUTE_WORKFLOW";
+=======
+        domain,
+        storage::{self, revenue_recovery as pcr},
+        transformers::ForeignInto,
+    },
+    workflows,
+};
+
+pub const EXECUTE_WORKFLOW: &str = "EXECUTE_WORKFLOW";
+pub const PSYNC_WORKFLOW: &str = "PSYNC_WORKFLOW";
+pub const CALCULATE_WORKFLOW: &str = "CALCULATE_WORKFLOW";
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[allow(clippy::too_many_arguments)]
 pub async fn upsert_calculate_pcr_task(
@@ -71,9 +103,14 @@ pub async fn upsert_calculate_pcr_task(
     // Create process tracker ID in the format: CALCULATE_WORKFLOW_{payment_intent_id}
     let process_tracker_id = format!("{runner}_{task}_{}", payment_id.get_string_repr());
 
+<<<<<<< HEAD
     // Scheduled time is now because this will be the first entry in
     // process tracker and we dont want to wait
     let schedule_time = common_utils::date_time::now();
+=======
+    // Set scheduled time to 1 hour from now
+    let schedule_time = common_utils::date_time::now() + time::Duration::hours(1);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let payment_attempt_id = payment_attempt_id
         .ok_or(error_stack::report!(
@@ -193,6 +230,7 @@ pub async fn perform_execute_payment(
     // TODO decide if its a global failure or is it requeueable error
     match decision {
         types::Decision::Execute => {
+<<<<<<< HEAD
             let connector_customer_id = revenue_recovery_metadata.get_connector_customer_id();
 
             let last_token_used = payment_intent
@@ -221,21 +259,30 @@ pub async fn perform_execute_payment(
             logger::info!("Token fetched from redis success");
             let card_info =
                 api_models::payments::AdditionalCardInfo::foreign_from(&processor_token);
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // record attempt call
             let record_attempt = api::record_internal_attempt_api(
                 state,
                 payment_intent,
                 revenue_recovery_payment_data,
                 &revenue_recovery_metadata,
+<<<<<<< HEAD
                 card_info,
                 &processor_token
                     .payment_processor_token_details
                     .payment_processor_token,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
             .await;
 
             match record_attempt {
+<<<<<<< HEAD
                 Ok(record_attempt_response) => {
+=======
+                Ok(_) => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     let action = Box::pin(types::Action::execute_payment(
                         state,
                         revenue_recovery_payment_data.merchant_account.get_id(),
@@ -245,7 +292,10 @@ pub async fn perform_execute_payment(
                         merchant_context,
                         revenue_recovery_payment_data,
                         &revenue_recovery_metadata,
+<<<<<<< HEAD
                         &record_attempt_response.id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     ))
                     .await?;
                     Box::pin(action.execute_payment_task_response_handler(
@@ -430,12 +480,19 @@ pub async fn perform_payments_sync(
         state,
         &tracking_data.global_payment_id,
         revenue_recovery_payment_data,
+<<<<<<< HEAD
         true,
         true,
     )
     .await?;
 
     let payment_attempt = psync_data.payment_attempt.clone();
+=======
+    )
+    .await?;
+
+    let payment_attempt = psync_data.payment_attempt;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let mut revenue_recovery_metadata = payment_intent
         .feature_metadata
         .as_ref()
@@ -444,12 +501,15 @@ pub async fn perform_payments_sync(
         .convert_back();
     let pcr_status: types::RevenueRecoveryPaymentsAttemptStatus =
         payment_attempt.status.foreign_into();
+<<<<<<< HEAD
 
     let new_revenue_recovery_payment_data = &pcr::RevenueRecoveryPaymentData {
         psync_data: Some(psync_data),
         ..revenue_recovery_payment_data.clone()
     };
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Box::pin(
         pcr_status.update_pt_status_based_on_attempt_status_for_payments_sync(
             state,
@@ -457,7 +517,11 @@ pub async fn perform_payments_sync(
             process.clone(),
             profile,
             merchant_context,
+<<<<<<< HEAD
             new_revenue_recovery_payment_data,
+=======
+            revenue_recovery_payment_data,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_attempt,
             &mut revenue_recovery_metadata,
         ),
@@ -481,8 +545,11 @@ pub async fn perform_calculate_workflow(
     let profile_id = revenue_recovery_payment_data.profile.get_id();
     let billing_mca_id = revenue_recovery_payment_data.billing_mca.get_id();
 
+<<<<<<< HEAD
     let mut event_type: Option<common_enums::EventType> = None;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     logger::info!(
         process_id = %process.id,
         payment_id = %tracking_data.global_payment_id.get_string_repr(),
@@ -514,6 +581,7 @@ pub async fn perform_calculate_workflow(
         }
     };
 
+<<<<<<< HEAD
     // External Payments which enter the calculate workflow for the first time will have active attempt id as None
     // Then we dont need to send an webhook to the merchant as its not a failure from our side.
     // Thus we dont need to a payment get call for such payments.
@@ -549,6 +617,28 @@ pub async fn perform_calculate_workflow(
                 None
             }
         };
+=======
+    // 2. Get best available token
+    let best_time_to_schedule = match workflows::revenue_recovery::get_token_with_schedule_time_based_on_retry_alogrithm_type(
+        state,
+        &connector_customer_id,
+        payment_intent,
+        retry_algorithm_type,
+        process.retry_count,
+    )
+    .await
+    {
+        Ok(token_opt) => token_opt,
+        Err(e) => {
+            logger::error!(
+                error = ?e,
+                connector_customer_id = %connector_customer_id,
+                "Failed to get best PSP token"
+            );
+            None
+        }
+    };
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     match best_time_to_schedule {
         Some(scheduled_time) => {
@@ -558,6 +648,7 @@ pub async fn perform_calculate_workflow(
                 "Found best available token, creating EXECUTE_WORKFLOW task"
             );
 
+<<<<<<< HEAD
             // reset active attmept id and payment connector transmission before going to execute workflow
             let  _ = Box::pin(reset_connector_transmission_and_active_attempt_id_before_pushing_to_execute_workflow(
                 state,
@@ -566,6 +657,8 @@ pub async fn perform_calculate_workflow(
                 active_payment_attempt_id
             )).await?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // 3. If token found: create EXECUTE_WORKFLOW task and finish CALCULATE_WORKFLOW
             insert_execute_pcr_task_to_pt(
                 &tracking_data.billing_mca_id,
@@ -575,7 +668,11 @@ pub async fn perform_calculate_workflow(
                 &tracking_data.profile_id,
                 &tracking_data.payment_attempt_id,
                 storage::ProcessTrackerRunner::PassiveRecoveryWorkflow,
+<<<<<<< HEAD
                 retry_algorithm_type,
+=======
+                tracking_data.revenue_recovery_retry,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 scheduled_time,
             )
             .await?;
@@ -630,6 +727,7 @@ pub async fn perform_calculate_workflow(
                     update_calculate_job_schedule_time(
                         db,
                         process,
+<<<<<<< HEAD
                         time::Duration::seconds(
                             state
                                 .conf
@@ -637,6 +735,9 @@ pub async fn perform_calculate_workflow(
                                 .recovery_timestamp
                                 .job_schedule_buffer_time_in_seconds,
                         ),
+=======
+                        time::Duration::minutes(15),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         scheduled_token.scheduled_at,
                         &connector_customer_id,
                     )
@@ -663,6 +764,7 @@ pub async fn perform_calculate_workflow(
                             update_calculate_job_schedule_time(
                                 db,
                                 process,
+<<<<<<< HEAD
                                 time::Duration::seconds(
                                     state
                                         .conf
@@ -670,6 +772,9 @@ pub async fn perform_calculate_workflow(
                                         .recovery_timestamp
                                         .job_schedule_buffer_time_in_seconds,
                                 ),
+=======
+                                time::Duration::minutes(15),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                 Some(common_utils::date_time::now()),
                                 &connector_customer_id,
                             )
@@ -698,8 +803,11 @@ pub async fn perform_calculate_workflow(
                                     sch_errors::ProcessTrackerError::ProcessUpdateFailed
                                 })?;
 
+<<<<<<< HEAD
                             event_type = Some(common_enums::EventType::PaymentFailed);
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             logger::info!(
                                 process_id = %process.id,
                                 connector_customer_id = %connector_customer_id,
@@ -711,6 +819,7 @@ pub async fn perform_calculate_workflow(
             }
         }
     }
+<<<<<<< HEAD
 
     let _outgoing_webhook = event_type.and_then(|event_kind| {
         payments_response.map(|resp| Some((event_kind, resp)))
@@ -739,6 +848,8 @@ pub async fn perform_calculate_workflow(
     }
     ).await;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Ok(())
 }
 
@@ -750,6 +861,7 @@ async fn update_calculate_job_schedule_time(
     base_time: Option<time::PrimitiveDateTime>,
     connector_customer_id: &str,
 ) -> Result<(), sch_errors::ProcessTrackerError> {
+<<<<<<< HEAD
     let now = common_utils::date_time::now();
 
     let new_schedule_time = base_time.filter(|&t| t > now).unwrap_or(now) + additional_time;
@@ -759,6 +871,11 @@ async fn update_calculate_job_schedule_time(
         connector_customer_id = %connector_customer_id,
         "Rescheduling Calculate Job at "
     );
+=======
+    let new_schedule_time =
+        base_time.unwrap_or_else(common_utils::date_time::now) + additional_time;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let pt_update = storage::ProcessTrackerUpdate::Update {
         name: Some("CALCULATE_WORKFLOW".to_string()),
         retry_count: Some(process.clone().retry_count),
@@ -840,6 +957,7 @@ async fn insert_execute_pcr_task_to_pt(
                 "Found existing EXECUTE_WORKFLOW task with COMPLETE status, updating to PENDING with incremented retry count"
             );
 
+<<<<<<< HEAD
             let mut tracking_data: pcr::RevenueRecoveryWorkflowTrackingData =
                 serde_json::from_value(existing_process.tracking_data.clone())
                     .change_context(errors::RecoveryError::ValueNotFound)
@@ -853,11 +971,17 @@ async fn insert_execute_pcr_task_to_pt(
                 .change_context(errors::RecoveryError::ValueNotFound)
                 .attach_printable("Failed to serialize the tracking data to json")?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let pt_update = storage::ProcessTrackerUpdate::Update {
                 name: Some(task.to_string()),
                 retry_count: Some(existing_process.clone().retry_count + 1),
                 schedule_time: Some(schedule_time),
+<<<<<<< HEAD
                 tracking_data: Some(tracking_data_json),
+=======
+                tracking_data: Some(existing_process.clone().tracking_data),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 business_status: Some(String::from(business_status::PENDING)),
                 status: Some(enums::ProcessTrackerStatus::Pending),
                 updated_at: Some(common_utils::date_time::now()),
@@ -1016,6 +1140,7 @@ pub async fn retrieve_revenue_recovery_process_tracker(
     };
     Ok(ApplicationResponse::Json(response))
 }
+<<<<<<< HEAD
 
 pub async fn resume_revenue_recovery_process_tracker(
     state: SessionState,
@@ -1211,3 +1336,5 @@ pub async fn reset_connector_transmission_and_active_attempt_id_before_pushing_t
         None => Ok(None),
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

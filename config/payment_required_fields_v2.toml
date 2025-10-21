@@ -2331,12 +2331,21 @@ non_mandate = []
 
 # Payment method type: Givex
 [required_fields.gift_card.givex.fields.Adyen]
+<<<<<<< HEAD
 common = [   
     { required_field = "payment_method_data.gift_card.givex.number", display_name = "gift_card_number", field_type = "user_card_number" },
     { required_field = "payment_method_data.gift_card.givex.cvc", display_name = "gift_card_cvc", field_type = "user_card_cvc" }
 ]
 mandate = []
 non_mandate = []
+=======
+common = []
+mandate = []
+non_mandate = [
+    { required_field = "payment_method_data.gift_card.givex.number", display_name = "gift_card_number", field_type = "user_card_number" },
+    { required_field = "payment_method_data.gift_card.givex.cvc", display_name = "gift_card_cvc", field_type = "user_card_cvc" }
+]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 # CardRedirect (Assuming this section might be missing or problematic, so placing MobilePayment after GiftCard)
 # If CardRedirect exists and is correct, MobilePayment should come after it.

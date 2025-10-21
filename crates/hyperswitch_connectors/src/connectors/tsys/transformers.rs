@@ -52,12 +52,19 @@ pub struct TsysPaymentAuthSaleRequest {
     card_number: cards::CardNumber,
     expiration_date: Secret<String>,
     cvv2: Secret<String>,
+<<<<<<< HEAD
     order_number: String,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     terminal_capability: String,
     terminal_operating_environment: String,
     cardholder_authentication_method: String,
     #[serde(rename = "developerID")]
     developer_id: Secret<String>,
+<<<<<<< HEAD
+=======
+    order_number: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&TsysRouterData<&types::PaymentsAuthorizeRouterData>> for TsysPaymentsRequest {
@@ -80,11 +87,18 @@ impl TryFrom<&TsysRouterData<&types::PaymentsAuthorizeRouterData>> for TsysPayme
                     expiration_date: ccard
                         .get_card_expiry_month_year_2_digit_with_delimiter("/".to_owned())?,
                     cvv2: ccard.card_cvc,
+<<<<<<< HEAD
                     order_number: item.connector_request_reference_id.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     terminal_capability: "ICC_CHIP_READ_ONLY".to_string(),
                     terminal_operating_environment: "ON_MERCHANT_PREMISES_ATTENDED".to_string(),
                     cardholder_authentication_method: "NOT_AUTHENTICATED".to_string(),
                     developer_id: connector_auth.developer_id,
+<<<<<<< HEAD
+=======
+                    order_number: item.connector_request_reference_id.clone(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 };
                 if item.request.is_auto_capture()? {
                     Ok(Self::Sale(auth_data))

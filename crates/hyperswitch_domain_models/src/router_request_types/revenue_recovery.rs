@@ -11,7 +11,11 @@ pub struct BillingConnectorPaymentsSyncRequest {
 }
 
 #[derive(Debug, Clone)]
+<<<<<<< HEAD
 pub struct InvoiceRecordBackRequest {
+=======
+pub struct RevenueRecoveryRecordBackRequest {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub merchant_reference_id: common_utils::id_type::PaymentReferenceId,
     pub amount: common_utils::types::MinorUnit,
     pub currency: enums::Currency,

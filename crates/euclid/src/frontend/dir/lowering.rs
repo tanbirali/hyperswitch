@@ -77,7 +77,10 @@ impl From<enums::BankDebitType> for global_enums::PaymentMethodType {
         match value {
             enums::BankDebitType::Ach => Self::Ach,
             enums::BankDebitType::Sepa => Self::Sepa,
+<<<<<<< HEAD
             enums::BankDebitType::SepaGuarenteedDebit => Self::SepaGuarenteedDebit,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             enums::BankDebitType::Bacs => Self::Bacs,
             enums::BankDebitType::Becs => Self::Becs,
         }
@@ -88,7 +91,10 @@ impl From<enums::UpiType> for global_enums::PaymentMethodType {
         match value {
             enums::UpiType::UpiCollect => Self::UpiCollect,
             enums::UpiType::UpiIntent => Self::UpiIntent,
+<<<<<<< HEAD
             enums::UpiType::UpiQr => Self::UpiQr,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

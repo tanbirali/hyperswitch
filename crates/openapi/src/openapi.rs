@@ -66,8 +66,12 @@ Never share your secret api keys. Keep them guarded and secure.
         (name = "payment link", description = "Create payment link"),
         (name = "Routing", description = "Create and manage routing configurations"),
         (name = "Event", description = "Manage events"),
+<<<<<<< HEAD
         (name = "Authentication", description = "Create and manage authentication"),
         (name = "Subscriptions", description = "Subscription management and billing endpoints")
+=======
+        (name = "Authentication", description = "Create and manage authentication")
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ),
     // The paths will be displayed in the same order as they are registered here
     paths(
@@ -80,7 +84,10 @@ Never share your secret api keys. Keep them guarded and secure.
         routes::payments::payments_connector_session,
         routes::payments::payments_cancel,
         routes::payments::payments_cancel_post_capture,
+<<<<<<< HEAD
         routes::payments::payments_extend_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         routes::payments::payments_list,
         routes::payments::payments_incremental_authorization,
         routes::payment_link::payment_link_retrieve,
@@ -88,7 +95,10 @@ Never share your secret api keys. Keep them guarded and secure.
         routes::payments::payments_complete_authorize,
         routes::payments::payments_post_session_tokens,
         routes::payments::payments_update_metadata,
+<<<<<<< HEAD
         routes::payments::payments_submit_eligibility,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         // Routes for relay
         routes::relay::relay,
@@ -223,6 +233,7 @@ Never share your secret api keys. Keep them guarded and secure.
 
         // Routes for platform account
         routes::platform::create_platform_account,
+<<<<<<< HEAD
 
         //Routes for subscriptions
         routes::subscriptions::create_and_confirm_subscription,
@@ -232,6 +243,8 @@ Never share your secret api keys. Keep them guarded and secure.
         routes::subscriptions::update_subscription,
         routes::subscriptions::get_subscription_plans,
         routes::subscriptions::get_estimate,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ),
     components(schemas(
         common_utils::types::MinorUnit,
@@ -243,15 +256,22 @@ Never share your secret api keys. Keep them guarded and secure.
         common_utils::payout_method_utils::CardAdditionalData,
         common_utils::payout_method_utils::BankAdditionalData,
         common_utils::payout_method_utils::WalletAdditionalData,
+<<<<<<< HEAD
         common_utils::payout_method_utils::BankRedirectAdditionalData,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         common_utils::payout_method_utils::AchBankTransferAdditionalData,
         common_utils::payout_method_utils::BacsBankTransferAdditionalData,
         common_utils::payout_method_utils::SepaBankTransferAdditionalData,
         common_utils::payout_method_utils::PixBankTransferAdditionalData,
         common_utils::payout_method_utils::PaypalAdditionalData,
+<<<<<<< HEAD
         common_utils::payout_method_utils::InteracAdditionalData,
         common_utils::payout_method_utils::VenmoAdditionalData,
         common_utils::payout_method_utils::ApplePayDecryptAdditionalData,
+=======
+        common_utils::payout_method_utils::VenmoAdditionalData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         common_types::payments::SplitPaymentsRequest,
         common_types::payments::GpayTokenizationData,
         common_types::payments::GPayPredecryptData,
@@ -340,7 +360,10 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::admin::AcceptedCurrencies,
         api_models::enums::AdyenSplitType,
         api_models::enums::PaymentType,
+<<<<<<< HEAD
         api_models::enums::MitCategory,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::enums::ScaExemptionType,
         api_models::enums::PaymentMethod,
         api_models::enums::TriggeredBy,
@@ -350,7 +373,10 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::enums::PayoutConnectors,
         api_models::enums::AuthenticationConnectors,
         api_models::enums::Currency,
+<<<<<<< HEAD
         api_models::enums::DocumentKind,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::enums::IntentStatus,
         api_models::enums::CaptureMethod,
         api_models::enums::FutureUsage,
@@ -397,10 +423,13 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::enums::PaymentLinkSdkLabelType,
         api_models::enums::OrganizationType,
         api_models::enums::PaymentLinkShowSdkTerms,
+<<<<<<< HEAD
         api_models::enums::ExternalVaultEnabled,
         api_models::enums::GooglePayCardFundingSource,
         api_models::enums::VaultSdk,
         api_models::admin::ExternalVaultConnectorDetails,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::admin::MerchantConnectorCreate,
         api_models::admin::AdditionalMerchantData,
         api_models::admin::ConnectorWalletDetails,
@@ -455,7 +484,10 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payments::UpiData,
         api_models::payments::UpiCollectData,
         api_models::payments::UpiIntentData,
+<<<<<<< HEAD
         api_models::payments::UpiQrData,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payments::VoucherData,
         api_models::payments::BoletoVoucherData,
         api_models::payments::AlfamartVoucherData,
@@ -506,9 +538,12 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payments::PaymentsConfirmRequest,
         api_models::payments::PaymentsResponse,
         api_models::payments::PaymentsCreateResponseOpenApi,
+<<<<<<< HEAD
         api_models::payments::PaymentsEligibilityRequest,
         api_models::payments::PaymentsEligibilityResponse,
         api_models::payments::PaymentsCreateResponseOpenApi,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::errors::types::GenericErrorResponseOpenApi,
         api_models::payments::PaymentRetrieveBody,
         api_models::payments::PaymentsRetrieveRequest,
@@ -550,8 +585,11 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payments::GooglePayThirdPartySdkData,
         api_models::payments::KlarnaSessionTokenResponse,
         api_models::payments::PaypalSessionTokenResponse,
+<<<<<<< HEAD
         api_models::payments::PaypalFlow,
         api_models::payments::PaypalTransactionInfo,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payments::ApplepaySessionTokenResponse,
         api_models::payments::SdkNextAction,
         api_models::payments::NextActionCall,
@@ -602,7 +640,10 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payments::GpayShippingAddressParameters,
         api_models::payments::GpayBillingAddressParameters,
         api_models::payments::GpayBillingAddressFormat,
+<<<<<<< HEAD
         api_models::payments::NetworkDetails,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payments::SepaBankTransferInstructions,
         api_models::payments::BacsBankTransferInstructions,
         api_models::payments::RedirectResponse,
@@ -623,11 +664,15 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payments::PaymentCreatePaymentLinkConfig,
         api_models::payments::ThreeDsData,
         api_models::payments::ThreeDsMethodData,
+<<<<<<< HEAD
         api_models::payments::ThreeDsMethodKey,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payments::PollConfigResponse,
         api_models::payments::PollConfig,
         api_models::payments::ExternalAuthenticationDetailsResponse,
         api_models::payments::ExtendedCardInfo,
+<<<<<<< HEAD
         api_models::payments::AmazonPaySessionTokenData,
         api_models::payments::AmazonPayMerchantCredentials,
         api_models::payments::AmazonPayWalletData,
@@ -636,6 +681,8 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payments::AmazonPayDeliveryOptions,
         api_models::payments::AmazonPayDeliveryPrice,
         api_models::payments::AmazonPayShippingMethod,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payment_methods::RequiredFieldInfo,
         api_models::payment_methods::DefaultPaymentMethod,
         api_models::payment_methods::MaskedBankDetails,
@@ -678,8 +725,11 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payouts::CardPayout,
         api_models::payouts::Wallet,
         api_models::payouts::Paypal,
+<<<<<<< HEAD
         api_models::payouts::BankRedirect,
         api_models::payouts::Interac,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payouts::Venmo,
         api_models::payouts::AchBankTransfer,
         api_models::payouts::BacsBankTransfer,
@@ -702,7 +752,10 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::payouts::PayoutMethodDataResponse,
         api_models::payouts::PayoutLinkResponse,
         api_models::payouts::Bank,
+<<<<<<< HEAD
         api_models::payouts::ApplePayDecrypt,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api_models::payouts::PayoutCreatePayoutLinkConfig,
         api_models::enums::PayoutEntityType,
         api_models::enums::PayoutSendPriority,
@@ -886,6 +939,7 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::open_router::PriorityLogicData,
         api_models::user::PlatformAccountCreateRequest,
         api_models::user::PlatformAccountCreateResponse,
+<<<<<<< HEAD
         common_utils::id_type::CustomerId,
         common_utils::id_type::SubscriptionId,
         common_utils::id_type::MerchantId,
@@ -911,6 +965,8 @@ Never share your secret api keys. Keep them guarded and secure.
         api_models::subscription::Invoice,
         api_models::subscription::SubscriptionStatus,
         api_models::subscription::PeriodUnit,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     )),
     modifiers(&SecurityAddon)
 )]

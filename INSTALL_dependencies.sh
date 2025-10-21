@@ -9,7 +9,11 @@ if [[ "${TRACE-0}" == "1" ]]; then
     set -o xtrace
 fi
 
+<<<<<<< HEAD
 RUST_MSRV="1.85.0"
+=======
+RUST_MSRV="1.80.0"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 _DB_NAME="hyperswitch_db"
 _DB_USER="db_user"
 _DB_PASS="db_password"

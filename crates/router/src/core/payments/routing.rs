@@ -175,8 +175,12 @@ pub fn make_dsl_input_for_payouts(
         billing_country: payout_data
             .billing_address
             .as_ref()
+<<<<<<< HEAD
             .and_then(|ba| ba.address.as_ref())
             .and_then(|addr| addr.country)
+=======
+            .and_then(|bic| bic.country)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .map(api_enums::Country::from_alpha2),
         business_label: payout_data.payout_attempt.business_label.clone(),
         setup_future_usage: None,
@@ -960,7 +964,11 @@ pub async fn perform_cgraph_filtering(
             .change_context(errors::RoutingError::KgraphAnalysisError)?;
 
         let filter_eligible =
+<<<<<<< HEAD
             eligible_connectors.is_none_or(|list| list.contains(&routable_connector));
+=======
+            eligible_connectors.map_or(true, |list| list.contains(&routable_connector));
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         if cgraph_eligible && filter_eligible {
             final_selection.push(choice);

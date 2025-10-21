@@ -301,6 +301,7 @@ pub trait IncomingWebhook: ConnectorCommon + Sync {
         )
         .into())
     }
+<<<<<<< HEAD
 
     /// get subscription MIT payment data from webhook
     fn get_subscription_mit_payment_data(
@@ -315,4 +316,6 @@ pub trait IncomingWebhook: ConnectorCommon + Sync {
         )
         .into())
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

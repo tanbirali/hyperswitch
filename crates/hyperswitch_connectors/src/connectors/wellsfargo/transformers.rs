@@ -228,7 +228,10 @@ impl TryFrom<&SetupMandateRouterData> for WellsfargoZeroMandateRequest {
                 | WalletData::PaypalSdk(_)
                 | WalletData::Paze(_)
                 | WalletData::SamsungPay(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::TwintRedirect {}
                 | WalletData::VippsRedirect {}
                 | WalletData::TouchNGoRedirect(_)
@@ -1170,12 +1173,18 @@ impl
             ))),
             BankDebitData::SepaBankDebit { .. }
             | BankDebitData::BacsBankDebit { .. }
+<<<<<<< HEAD
             | BankDebitData::BecsBankDebit { .. }
             | BankDebitData::SepaGuarenteedBankDebit { .. } => {
                 Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("Wellsfargo"),
                 ))
             }
+=======
+            | BankDebitData::BecsBankDebit { .. } => Err(errors::ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Wellsfargo"),
+            )),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }?;
         let processing_information =
             ProcessingInformation::try_from((item, Some(PaymentSolution::GooglePay), None))?;
@@ -1320,7 +1329,10 @@ impl TryFrom<&WellsfargoRouterData<&PaymentsAuthorizeRouterData>> for Wellsfargo
                         | WalletData::PaypalSdk(_)
                         | WalletData::Paze(_)
                         | WalletData::SamsungPay(_)
+<<<<<<< HEAD
                         | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         | WalletData::TwintRedirect {}
                         | WalletData::VippsRedirect {}
                         | WalletData::TouchNGoRedirect(_)

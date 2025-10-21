@@ -219,7 +219,10 @@ async fn payments_create_core() {
         extended_authorization_applied: None,
         order_tax_amount: None,
         connector_mandate_id: None,
+<<<<<<< HEAD
         mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         shipping_cost: None,
         card_discovery: None,
         force_3ds_challenge: None,
@@ -231,11 +234,14 @@ async fn payments_create_core() {
         payment_channel: None,
         network_transaction_id: None,
         enable_partial_authorization: None,
+<<<<<<< HEAD
         is_overcapture_enabled: None,
         enable_overcapture: None,
         network_details: None,
         is_stored_credential: None,
         request_extended_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     let expected_response =
@@ -513,7 +519,10 @@ async fn payments_create_core_adyen_no_redirect() {
             capture_before: None,
             extended_authorization_applied: None,
             order_tax_amount: None,
+<<<<<<< HEAD
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_mandate_id: None,
             shipping_cost: None,
             card_discovery: None,
@@ -526,11 +535,14 @@ async fn payments_create_core_adyen_no_redirect() {
             payment_channel: None,
             network_transaction_id: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             is_overcapture_enabled: None,
             enable_overcapture: None,
             network_details: None,
             is_stored_credential: None,
             request_extended_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
         vec![],
     ));

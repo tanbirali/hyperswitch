@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 use std::str::FromStr;
 
 use masking::Secret;
 use router::types::{self, api, domain, storage::enums};
+=======
+use hyperswitch_domain_models::payment_method_data::{Card, PaymentMethodData};
+use masking::Secret;
+use router::types::{self, api, storage::enums};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use test_utils::connector_auth;
 
 use crate::utils::{self, ConnectorActions};
@@ -14,7 +20,11 @@ impl utils::Connector for TrustpaymentsTest {
         use router::connector::Trustpayments;
         utils::construct_connector_data_old(
             Box::new(Trustpayments::new()),
+<<<<<<< HEAD
             types::Connector::Trustpayments,
+=======
+            types::Connector::Plaid,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api::GetToken::Connector,
             None,
         )
@@ -37,6 +47,7 @@ impl utils::Connector for TrustpaymentsTest {
 static CONNECTOR: TrustpaymentsTest = TrustpaymentsTest {};
 
 fn get_default_payment_info() -> Option<utils::PaymentInfo> {
+<<<<<<< HEAD
     Some(utils::PaymentInfo {
         address: Some(types::PaymentAddress::new(
             None,
@@ -89,6 +100,13 @@ fn payment_method_details() -> Option<types::PaymentsAuthorizeData> {
         capture_method: Some(enums::CaptureMethod::Manual),
         ..utils::PaymentAuthorizeType::default().0
     })
+=======
+    None
+}
+
+fn payment_method_details() -> Option<types::PaymentsAuthorizeData> {
+    None
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 // Cards Positive Tests
@@ -351,7 +369,11 @@ async fn should_fail_payment_for_incorrect_cvc() {
     let response = CONNECTOR
         .make_payment(
             Some(types::PaymentsAuthorizeData {
+<<<<<<< HEAD
                 payment_method_data: domain::PaymentMethodData::Card(domain::Card {
+=======
+                payment_method_data: PaymentMethodData::Card(Card {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     card_cvc: Secret::new("12345".to_string()),
                     ..utils::CCardType::default().0
                 }),
@@ -373,7 +395,11 @@ async fn should_fail_payment_for_invalid_exp_month() {
     let response = CONNECTOR
         .make_payment(
             Some(types::PaymentsAuthorizeData {
+<<<<<<< HEAD
                 payment_method_data: domain::PaymentMethodData::Card(domain::Card {
+=======
+                payment_method_data: PaymentMethodData::Card(Card {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     card_exp_month: Secret::new("20".to_string()),
                     ..utils::CCardType::default().0
                 }),
@@ -395,7 +421,11 @@ async fn should_fail_payment_for_incorrect_expiry_year() {
     let response = CONNECTOR
         .make_payment(
             Some(types::PaymentsAuthorizeData {
+<<<<<<< HEAD
                 payment_method_data: domain::PaymentMethodData::Card(domain::Card {
+=======
+                payment_method_data: PaymentMethodData::Card(Card {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     card_exp_year: Secret::new("2000".to_string()),
                     ..utils::CCardType::default().0
                 }),

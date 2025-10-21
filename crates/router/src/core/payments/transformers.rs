@@ -1,5 +1,6 @@
 use std::{fmt::Debug, marker::PhantomData, str::FromStr};
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use api_models::enums as api_enums;
 use api_models::payments::{
@@ -8,6 +9,13 @@ use api_models::payments::{
 };
 use common_enums::{Currency, RequestIncrementalAuthorization};
 #[cfg(feature = "v1")]
+=======
+use api_models::payments::{
+    Address, ConnectorMandateReferenceId, CustomerDetails, CustomerDetailsResponse, FrmMessage,
+    MandateIds, RequestSurchargeDetails,
+};
+use common_enums::{Currency, RequestIncrementalAuthorization};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{
     consts::X_HS_LATENCY,
     fp_utils, pii,
@@ -16,6 +24,7 @@ use common_utils::{
         StringMajorUnitForConnector,
     },
 };
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use common_utils::{
     ext_traits::Encode,
@@ -39,13 +48,29 @@ use hyperswitch_domain_models::{
     router_data_v2::{flow_common_types, RouterDataV2},
     ApiModelToDieselModelConvertor,
 };
+=======
+use diesel_models::{
+    ephemeral_key,
+    payment_attempt::ConnectorMandateReferenceId as DieselConnectorMandateReferenceId,
+};
+use error_stack::{report, ResultExt};
+#[cfg(feature = "v2")]
+use hyperswitch_domain_models::ApiModelToDieselModelConvertor;
+use hyperswitch_domain_models::{payments::payment_intent::CustomerData, router_request_types};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 use hyperswitch_interfaces::api::ConnectorSpecifications;
 #[cfg(feature = "v2")]
 use hyperswitch_interfaces::connector_integration_interface::RouterDataConversion;
+<<<<<<< HEAD
 use masking::{ExposeInterface, Maskable, Secret};
 #[cfg(feature = "v2")]
 use masking::{ExposeOptionInterface, PeekInterface};
+=======
+#[cfg(feature = "v2")]
+use masking::PeekInterface;
+use masking::{ExposeInterface, Maskable, Secret};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use router_env::{instrument, tracing};
 
 use super::{flows::Feature, types::AuthenticationData, OperationSessionGetters, PaymentData};
@@ -145,7 +170,10 @@ where
         attempt_id: payment_data.payment_attempt.get_id().to_owned(),
         status: payment_data.payment_attempt.status,
         payment_method: diesel_models::enums::PaymentMethod::default(),
+<<<<<<< HEAD
         payment_method_type: payment_data.payment_attempt.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: None,
         address: payment_data.address.clone(),
@@ -198,7 +226,10 @@ where
         is_payment_id_from_merchant: payment_data.payment_intent.is_payment_id_from_merchant,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     Ok(router_data)
 }
@@ -217,7 +248,11 @@ pub async fn construct_external_vault_proxy_router_data_v2<'a>(
     customer_id: Option<common_utils::id_type::CustomerId>,
     header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
 ) -> RouterResult<
+<<<<<<< HEAD
     RouterDataV2<
+=======
+    hyperswitch_domain_models::router_data_v2::RouterDataV2<
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         api::ExternalVaultProxy,
         hyperswitch_domain_models::router_data_v2::ExternalVaultProxyFlowData,
         types::ExternalVaultProxyPaymentsData,
@@ -344,9 +379,14 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
             &attempt.merchant_id,
             merchant_connector_account.get_id().get_string_repr(),
         )),
+<<<<<<< HEAD
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => {
             payment_data.webhook_url
         }
+=======
+        // TODO: Implement for connectors that require a webhook URL to be included in the request payload.
+        domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     let router_return_url = payment_data
@@ -379,6 +419,7 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
         .browser_info
         .clone()
         .map(types::BrowserInformation::from);
+<<<<<<< HEAD
     let additional_payment_method_data: Option<api_models::payments::AdditionalPaymentData> =
             payment_data.payment_attempt
                 .payment_method_data
@@ -394,6 +435,8 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
             .as_ref()
             .and_then(|noon| noon.order_category.clone())
     });
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     // TODO: few fields are repeated in both routerdata and request
     let request = types::PaymentsAuthorizeData {
@@ -421,7 +464,11 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
         customer_name: None,
         payment_experience: None,
         order_details: None,
+<<<<<<< HEAD
         order_category,
+=======
+        order_category: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         session_token: None,
         enrolled_for_3ds: true,
         related_transaction_id: None,
@@ -448,17 +495,26 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
             .map(|reference_id| reference_id.get_string_repr().to_owned()),
         integrity_object: None,
         shipping_cost: payment_data.payment_intent.amount_details.shipping_cost,
+<<<<<<< HEAD
         additional_payment_method_data,
+=======
+        additional_payment_method_data: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         merchant_account_id: None,
         merchant_config_currency: None,
         connector_testing_data: None,
         order_id: None,
         locale: None,
+<<<<<<< HEAD
         mit_category: None,
         payment_channel: None,
         enable_partial_authorization: payment_data.payment_intent.enable_partial_authorization,
         enable_overcapture: None,
         is_stored_credential: None,
+=======
+        payment_channel: None,
+        enable_partial_authorization: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     let connector_mandate_request_reference_id = payment_data
         .payment_attempt
@@ -488,7 +544,10 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
             .to_owned(),
         status: payment_data.payment_attempt.status,
         payment_method,
+<<<<<<< HEAD
         payment_method_type: Some(payment_data.payment_attempt.payment_method_subtype),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_data
             .payment_intent
@@ -503,11 +562,16 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
         connector_wallets_details: None,
         request,
         response: Err(hyperswitch_domain_models::router_data::ErrorResponse::default()),
+<<<<<<< HEAD
         amount_captured: payment_data
             .payment_intent
             .amount_captured
             .map(|amt| amt.get_amount_as_i64()),
         minor_amount_captured: payment_data.payment_intent.amount_captured,
+=======
+        amount_captured: None,
+        minor_amount_captured: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         access_token: None,
         session_token: None,
         reference_id: None,
@@ -544,7 +608,10 @@ pub async fn construct_payment_router_data_for_authorize<'a>(
         is_payment_id_from_merchant: payment_data.payment_intent.is_payment_id_from_merchant,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -606,9 +673,14 @@ pub async fn construct_external_vault_proxy_payment_router_data<'a>(
             &attempt.merchant_id,
             merchant_connector_account.get_id().get_string_repr(),
         )),
+<<<<<<< HEAD
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => {
             payment_data.webhook_url.clone()
         }
+=======
+        // TODO: Implement for connectors that require a webhook URL to be included in the request payload.
+        domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     let router_return_url = payment_data
@@ -689,7 +761,11 @@ pub async fn construct_external_vault_proxy_payment_router_data<'a>(
         authentication_data: None,
         customer_acceptance: None,
         split_payments: None,
+<<<<<<< HEAD
         merchant_order_reference_id: payment_data.payment_intent.merchant_reference_id.clone(),
+=======
+        merchant_order_reference_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         integrity_object: None,
         shipping_cost: payment_data.payment_intent.amount_details.shipping_cost,
         additional_payment_method_data: None,
@@ -719,12 +795,20 @@ pub async fn construct_external_vault_proxy_payment_router_data<'a>(
     .await?;
 
     // Convert RouterDataV2 to old RouterData (v1) using the existing RouterDataConversion trait
+<<<<<<< HEAD
     let router_data =
         flow_common_types::ExternalVaultProxyFlowData::to_old_router_data(router_data_v2)
             .change_context(errors::ApiErrorResponse::InternalServerError)
             .attach_printable(
                 "Cannot construct router data for making the unified connector service call",
             )?;
+=======
+    let router_data = hyperswitch_domain_models::router_data_v2::flow_common_types::ExternalVaultProxyFlowData::to_old_router_data(router_data_v2)
+    .change_context(errors::ApiErrorResponse::InternalServerError)
+        .attach_printable(
+            "Cannot construct router data for making the unified connector service call",
+        )?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     Ok(router_data)
 }
@@ -838,7 +922,10 @@ pub async fn construct_payment_router_data_for_capture<'a>(
             .to_owned(),
         status: payment_data.payment_attempt.status,
         payment_method,
+<<<<<<< HEAD
         payment_method_type: Some(payment_data.payment_attempt.payment_method_subtype),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_data
             .payment_intent
@@ -891,7 +978,10 @@ pub async fn construct_payment_router_data_for_capture<'a>(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -955,7 +1045,10 @@ pub async fn construct_router_data_for_psync<'a>(
         split_payments: None,
         payment_experience: None,
         connector_reference_id: attempt.connector_response_reference_id.clone(),
+<<<<<<< HEAD
         setup_future_usage: Some(payment_intent.setup_future_usage),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     // TODO: evaluate the fields in router data, if they are required or not
@@ -972,7 +1065,10 @@ pub async fn construct_router_data_for_psync<'a>(
         attempt_id: attempt.get_id().get_string_repr().to_owned(),
         status: attempt.status,
         payment_method: attempt.payment_method_type,
+<<<<<<< HEAD
         payment_method_type: Some(attempt.payment_method_subtype),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_intent
             .description
@@ -1024,7 +1120,10 @@ pub async fn construct_router_data_for_psync<'a>(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -1033,6 +1132,7 @@ pub async fn construct_router_data_for_psync<'a>(
 #[cfg(feature = "v2")]
 #[instrument(skip_all)]
 #[allow(clippy::too_many_arguments)]
+<<<<<<< HEAD
 pub async fn construct_cancel_router_data_v2<'a>(
     state: &'a SessionState,
     merchant_account: &domain::MerchantAccount,
@@ -1193,6 +1293,8 @@ pub async fn construct_router_data_for_cancel<'a>(
 #[cfg(feature = "v2")]
 #[instrument(skip_all)]
 #[allow(clippy::too_many_arguments)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub async fn construct_payment_router_data_for_sdk_session<'a>(
     state: &'a SessionState,
     payment_data: hyperswitch_domain_models::payments::PaymentIntentData<api::Session>,
@@ -1269,12 +1371,16 @@ pub async fn construct_payment_router_data_for_sdk_session<'a>(
     let apple_pay_recurring_details = payment_data
         .payment_intent
         .feature_metadata
+<<<<<<< HEAD
         .clone()
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         .and_then(|feature_metadata| feature_metadata.apple_pay_recurring_details)
         .map(|apple_pay_recurring_details| {
             ForeignInto::foreign_into((apple_pay_recurring_details, apple_pay_amount))
         });
 
+<<<<<<< HEAD
     let order_tax_amount = payment_data
         .payment_intent
         .amount_details
@@ -1286,6 +1392,8 @@ pub async fn construct_payment_router_data_for_sdk_session<'a>(
     let payment_method = Some(payment_attempt.payment_method_type);
     let payment_method_type = Some(payment_attempt.payment_method_subtype);
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // TODO: few fields are repeated in both routerdata and request
     let request = types::PaymentsSessionData {
         amount: payment_data
@@ -1311,11 +1419,14 @@ pub async fn construct_payment_router_data_for_sdk_session<'a>(
         minor_amount: payment_data.payment_intent.amount_details.order_amount,
         apple_pay_recurring_details,
         customer_name,
+<<<<<<< HEAD
         metadata: payment_data.payment_intent.metadata,
         order_tax_amount,
         shipping_cost: payment_data.payment_intent.amount_details.shipping_cost,
         payment_method,
         payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     // TODO: evaluate the fields in router data, if they are required or not
@@ -1332,7 +1443,10 @@ pub async fn construct_payment_router_data_for_sdk_session<'a>(
         attempt_id: "".to_string(),
         status: enums::AttemptStatus::Started,
         payment_method: enums::PaymentMethod::Wallet,
+<<<<<<< HEAD
         payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_data
             .payment_intent
@@ -1388,7 +1502,10 @@ pub async fn construct_payment_router_data_for_sdk_session<'a>(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -1452,8 +1569,14 @@ pub async fn construct_payment_router_data_for_setup_mandate<'a>(
             &attempt.merchant_id,
             merchant_connector_account.get_id().get_string_repr(),
         )),
+<<<<<<< HEAD
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => {
             payment_data.webhook_url
+=======
+        // TODO: Implement for connectors that require a webhook URL to be included in the request payload.
+        domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => {
+            todo!("Add webhook URL to request for this connector")
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     };
 
@@ -1532,7 +1655,10 @@ pub async fn construct_payment_router_data_for_setup_mandate<'a>(
         payment_channel: None,
         enrolled_for_3ds: true,
         related_transaction_id: None,
+<<<<<<< HEAD
         is_stored_credential: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     let connector_mandate_request_reference_id = payment_data
         .payment_attempt
@@ -1562,7 +1688,10 @@ pub async fn construct_payment_router_data_for_setup_mandate<'a>(
             .to_owned(),
         status: payment_data.payment_attempt.status,
         payment_method,
+<<<<<<< HEAD
         payment_method_type: Some(payment_data.payment_attempt.payment_method_subtype),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_data
             .payment_intent
@@ -1615,7 +1744,10 @@ pub async fn construct_payment_router_data_for_setup_mandate<'a>(
         is_payment_id_from_merchant: None,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -1633,8 +1765,11 @@ pub async fn construct_payment_router_data<'a, F, T>(
     merchant_connector_account: &helpers::MerchantConnectorAccountType,
     merchant_recipient_data: Option<types::MerchantRecipientData>,
     header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+<<<<<<< HEAD
     payment_method: Option<common_enums::PaymentMethod>,
     payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> RouterResult<types::RouterData<F, T, types::PaymentsResponseData>>
 where
     T: TryFrom<PaymentAdditionalData<'a, F>>,
@@ -1643,6 +1778,11 @@ where
     error_stack::Report<errors::ApiErrorResponse>:
         From<<T as TryFrom<PaymentAdditionalData<'a, F>>>::Error>,
 {
+<<<<<<< HEAD
+=======
+    let (payment_method, router_data);
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fp_utils::when(merchant_connector_account.is_disabled(), || {
         Err(errors::ApiErrorResponse::MerchantConnectorAccountDisabled)
     })?;
@@ -1655,6 +1795,7 @@ where
         .change_context(errors::ApiErrorResponse::InternalServerError)
         .attach_printable("Failed while parsing value for ConnectorAuthType")?;
 
+<<<<<<< HEAD
     let payment_method = payment_data
         .payment_attempt
         .payment_method
@@ -1665,6 +1806,13 @@ where
         .payment_attempt
         .payment_method_type
         .or(payment_method_type);
+=======
+    payment_method = payment_data
+        .payment_attempt
+        .payment_method
+        .or(payment_data.payment_attempt.payment_method)
+        .get_required_value("payment_method_type")?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let resource_id = match payment_data
         .payment_attempt
@@ -1765,6 +1913,7 @@ where
                 .collect::<Result<Vec<_>, _>>()
         })
         .transpose()?;
+<<<<<<< HEAD
     let l2_l3_data =
         (state.conf.l2_l3_data_config.enabled && payment_data.is_l2_l3_enabled).then(|| {
             let shipping_address = unified_address.get_shipping();
@@ -1818,6 +1967,58 @@ where
     crate::logger::debug!("unified address details {:?}", unified_address);
 
     let router_data = types::RouterData {
+=======
+    let l2_l3_data = state.conf.l2_l3_data_config.enabled.then(|| {
+        let shipping_address = unified_address.get_shipping();
+        let billing_address = unified_address.get_payment_billing();
+
+        types::L2L3Data {
+            order_date: payment_data.payment_intent.order_date,
+            tax_status: payment_data.payment_intent.tax_status,
+            customer_tax_registration_id: customer.as_ref().and_then(|c| {
+                c.tax_registration_id
+                    .as_ref()
+                    .map(|e| e.clone().into_inner())
+            }),
+            order_details: order_details.clone(),
+            discount_amount: payment_data.payment_intent.discount_amount,
+            shipping_cost: payment_data.payment_intent.shipping_cost,
+            shipping_amount_tax: payment_data.payment_intent.shipping_amount_tax,
+            duty_amount: payment_data.payment_intent.duty_amount,
+            order_tax_amount: payment_data
+                .payment_attempt
+                .net_amount
+                .get_order_tax_amount(),
+            merchant_order_reference_id: payment_data
+                .payment_intent
+                .merchant_order_reference_id
+                .clone(),
+            customer_id: payment_data.payment_intent.customer_id.clone(),
+            shipping_origin_zip: shipping_address
+                .and_then(|addr| addr.address.as_ref())
+                .and_then(|details| details.origin_zip.clone()),
+            shipping_state: shipping_address
+                .as_ref()
+                .and_then(|addr| addr.address.as_ref())
+                .and_then(|details| details.state.clone()),
+            shipping_country: shipping_address
+                .as_ref()
+                .and_then(|addr| addr.address.as_ref())
+                .and_then(|details| details.country),
+            shipping_destination_zip: shipping_address
+                .as_ref()
+                .and_then(|addr| addr.address.as_ref())
+                .and_then(|details| details.zip.clone()),
+            billing_address_city: billing_address
+                .as_ref()
+                .and_then(|addr| addr.address.as_ref())
+                .and_then(|details| details.city.clone()),
+        }
+    });
+    crate::logger::debug!("unified address details {:?}", unified_address);
+
+    router_data = types::RouterData {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         flow: PhantomData,
         merchant_id: merchant_context.get_merchant_account().get_id().clone(),
         customer_id,
@@ -1831,7 +2032,10 @@ where
         attempt_id: payment_data.payment_attempt.attempt_id.clone(),
         status: payment_data.payment_attempt.status,
         payment_method,
+<<<<<<< HEAD
         payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_data.payment_intent.description.clone(),
         address: unified_address,
@@ -1893,7 +2097,10 @@ where
         is_payment_id_from_merchant: payment_data.payment_intent.is_payment_id_from_merchant,
         l2_l3_data,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -2029,7 +2236,10 @@ pub async fn construct_payment_router_data_for_update_metadata<'a>(
         attempt_id: payment_data.payment_attempt.attempt_id.clone(),
         status: payment_data.payment_attempt.status,
         payment_method,
+<<<<<<< HEAD
         payment_method_type: payment_data.payment_attempt.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: auth_type,
         description: payment_data.payment_intent.description.clone(),
         address: unified_address,
@@ -2091,7 +2301,10 @@ pub async fn construct_payment_router_data_for_update_metadata<'a>(
         is_payment_id_from_merchant: payment_data.payment_intent.is_payment_id_from_merchant,
         l2_l3_data: None,
         minor_amount_capturable: None,
+<<<<<<< HEAD
         authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     Ok(router_data)
@@ -2196,6 +2409,7 @@ where
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 impl<F> GenerateResponse<api_models::payments::PaymentsCancelResponse>
     for hyperswitch_domain_models::payments::PaymentCancelData<F>
@@ -2259,6 +2473,8 @@ where
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v1")]
 impl<F, Op, D> ToResponse<F, D, Op> for api::PaymentsResponse
 where
@@ -2455,6 +2671,7 @@ where
     ) -> RouterResponse<Self> {
         let payment_intent = payment_data.get_payment_intent();
         let client_secret = payment_data.get_client_secret();
+<<<<<<< HEAD
 
         let is_cit_transaction = payment_intent.setup_future_usage.is_off_session();
 
@@ -2473,6 +2690,8 @@ where
             mandate_type.as_ref(),
         );
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(services::ApplicationResponse::JsonWithHeaders((
             Self {
                 id: payment_intent.id.clone(),
@@ -2522,13 +2741,19 @@ where
                     .clone()
                     .map(ForeignFrom::foreign_from),
                 request_incremental_authorization: payment_intent.request_incremental_authorization,
+<<<<<<< HEAD
                 split_txns_enabled: payment_intent.split_txns_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 expires_on: payment_intent.session_expiry,
                 frm_metadata: payment_intent.frm_metadata.clone(),
                 request_external_three_ds_authentication: payment_intent
                     .request_external_three_ds_authentication,
+<<<<<<< HEAD
                 payment_type,
                 enable_partial_authorization: payment_intent.enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             vec![],
         )))
@@ -2628,6 +2853,7 @@ where
                 .clone(),
         )?;
 
+<<<<<<< HEAD
         let next_action = if payment_intent.status.is_in_terminal_state() {
             None
         } else {
@@ -2637,15 +2863,26 @@ where
             let next_action_containing_sdk_upi_intent =
                 extract_sdk_uri_information(payment_attempt.clone())?;
 
+=======
+        let next_action_containing_wait_screen =
+            wait_screen_next_steps_check(payment_attempt.clone())?;
+
+        let next_action = if payment_intent.status.is_in_terminal_state() {
+            None
+        } else {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_attempt
                 .redirection_data
                 .as_ref()
                 .map(|_| api_models::payments::NextActionData::RedirectToUrl { redirect_to_url })
+<<<<<<< HEAD
                 .or(next_action_containing_sdk_upi_intent.map(|sdk_uri_data| {
                     api_models::payments::NextActionData::SdkUpiIntentInformation {
                         sdk_uri: sdk_uri_data.sdk_uri,
                     }
                 }))
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .or(next_action_containing_wait_screen.map(|wait_screen_data| {
                     api_models::payments::NextActionData::WaitScreenInformation {
                         display_from_timestamp: wait_screen_data.display_from_timestamp,
@@ -2680,7 +2917,10 @@ where
             customer_id: payment_intent.customer_id.clone(),
             connector: Some(connector),
             created: payment_intent.created_at,
+<<<<<<< HEAD
             modified_at: payment_intent.modified_at,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_method_data,
             payment_method_type: Some(payment_attempt.payment_method_type),
             payment_method_subtype: Some(payment_attempt.payment_method_subtype),
@@ -2701,10 +2941,14 @@ where
             is_iframe_redirection_enabled: None,
             merchant_reference_id: payment_intent.merchant_reference_id.clone(),
             raw_connector_response,
+<<<<<<< HEAD
             feature_metadata: payment_intent
                 .feature_metadata
                 .map(|feature_metadata| feature_metadata.convert_back()),
             metadata: payment_intent.metadata,
+=======
+            feature_metadata: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         Ok(services::ApplicationResponse::JsonWithHeaders((
@@ -2795,7 +3039,10 @@ where
                 .map(From::from),
             shipping: self.payment_address.get_shipping().cloned().map(From::from),
             created: payment_intent.created_at,
+<<<<<<< HEAD
             modified_at: payment_intent.modified_at,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_method_data,
             payment_method_type: Some(payment_attempt.payment_method_type),
             payment_method_subtype: Some(payment_attempt.payment_method_subtype),
@@ -2814,10 +3061,14 @@ where
             is_iframe_redirection_enabled: payment_intent.is_iframe_redirection_enabled,
             merchant_reference_id: payment_intent.merchant_reference_id.clone(),
             raw_connector_response,
+<<<<<<< HEAD
             feature_metadata: payment_intent
                 .feature_metadata
                 .map(|feature_metadata| feature_metadata.convert_back()),
             metadata: payment_intent.metadata,
+=======
+            feature_metadata: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         Ok(services::ApplicationResponse::JsonWithHeaders((
@@ -3386,9 +3637,12 @@ where
             let next_action_containing_wait_screen =
                 wait_screen_next_steps_check(payment_attempt.clone())?;
 
+<<<<<<< HEAD
             let next_action_containing_sdk_upi_intent =
                 extract_sdk_uri_information(payment_attempt.clone())?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let next_action_invoke_hidden_frame =
                 next_action_invoke_hidden_frame(&payment_attempt)?;
 
@@ -3397,7 +3651,10 @@ where
                 || next_action_voucher.is_some()
                 || next_action_containing_qr_code_url.is_some()
                 || next_action_containing_wait_screen.is_some()
+<<<<<<< HEAD
                 || next_action_containing_sdk_upi_intent.is_some()
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 || papal_sdk_next_action.is_some()
                 || next_action_containing_fetch_qr_code_url.is_some()
                 || payment_data.get_authentication().is_some()
@@ -3431,11 +3688,14 @@ where
                                     next_action_data: paypal_next_action_data
                                 }
                             }))
+<<<<<<< HEAD
                             .or(next_action_containing_sdk_upi_intent.map(|sdk_uri_data| {
                                 api_models::payments::NextActionData::SdkUpiIntentInformation {
                                     sdk_uri: sdk_uri_data.sdk_uri,
                                 }
                             }))
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             .or(next_action_containing_wait_screen.map(|wait_screen_data| {
                                 api_models::payments::NextActionData::WaitScreenInformation {
                                     display_from_timestamp: wait_screen_data.display_from_timestamp,
@@ -3472,9 +3732,12 @@ where
                                         let payment_connector_name = payment_attempt.connector
                                             .as_ref()
                                             .get_required_value("connector")?;
+<<<<<<< HEAD
                                         let is_jwt_flow = authentication.is_jwt_flow()
                                             .change_context(errors::ApiErrorResponse::InternalServerError)
                                             .attach_printable("Failed to determine if the authentication is JWT flow")?;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                         Some(api_models::payments::NextActionData::ThreeDsInvoke {
                                             three_ds_data: api_models::payments::ThreeDsData {
                                                 three_ds_authentication_url: helpers::create_authentication_url(base_url, &payment_attempt),
@@ -3488,6 +3751,7 @@ where
                                                         three_ds_method_data_submission: true,
                                                         three_ds_method_data: Some(three_ds_method_data.clone()),
                                                         three_ds_method_url: Some(three_ds_method_url.to_owned()),
+<<<<<<< HEAD
                                                         three_ds_method_key: if is_jwt_flow {
                                                             Some(api_models::payments::ThreeDsMethodKey::JWT)
                                                         } else {
@@ -3495,13 +3759,18 @@ where
                                                         },
                                                         // In JWT flow, we need to wait for post message to get the result
                                                         consume_post_message_for_three_ds_method_completion: is_jwt_flow,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                                     }
                                                 }).unwrap_or(api_models::payments::ThreeDsMethodData::AcsThreeDsMethodData {
                                                         three_ds_method_data_submission: false,
                                                         three_ds_method_data: None,
                                                         three_ds_method_url: None,
+<<<<<<< HEAD
                                                         three_ds_method_key: None,
                                                         consume_post_message_for_three_ds_method_completion: false,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                                 }),
                                                 poll_config: api_models::payments::PollConfigResponse {poll_id: request_poll_id, delay_in_secs: poll_config.delay_in_secs, frequency: poll_config.frequency},
                                                 message_version: authentication.message_version.as_ref()
@@ -3604,6 +3873,7 @@ where
             .get_connector_payment_id()
             .map(ToString::to_string);
 
+<<<<<<< HEAD
         let manual_retry_allowed = match payment_data.get_is_manual_retry_enabled() {
             Some(true) => helpers::is_manual_retry_allowed(
                 &payment_intent.status,
@@ -3614,6 +3884,8 @@ where
             Some(false) | None => None,
         };
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let payments_response = api::PaymentsResponse {
             payment_id: payment_intent.payment_id,
             merchant_id: payment_intent.merchant_id,
@@ -3687,7 +3959,16 @@ where
             ephemeral_key: payment_data
                 .get_ephemeral_key()
                 .map(ForeignFrom::foreign_from),
+<<<<<<< HEAD
             manual_retry_allowed,
+=======
+            manual_retry_allowed: helpers::is_manual_retry_allowed(
+                &payment_intent.status,
+                &payment_attempt.status,
+                connector_request_reference_id_config,
+                &merchant_id,
+            ),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_transaction_id,
             frm_message,
             metadata: payment_intent.metadata,
@@ -3720,7 +4001,10 @@ where
             merchant_order_reference_id: payment_intent.merchant_order_reference_id,
             order_tax_amount,
             connector_mandate_id,
+<<<<<<< HEAD
             mit_category: payment_intent.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             shipping_cost: payment_intent.shipping_cost,
             capture_before: payment_attempt.capture_before,
             extended_authorization_applied: payment_attempt.extended_authorization_applied,
@@ -3733,6 +4017,7 @@ where
             whole_connector_response: payment_data.get_whole_connector_response(),
             payment_channel: payment_intent.payment_channel,
             enable_partial_authorization: payment_intent.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: payment_intent.enable_overcapture,
             is_overcapture_enabled: payment_attempt.is_overcapture_enabled,
             network_details: payment_attempt
@@ -3740,6 +4025,8 @@ where
                 .map(NetworkDetails::foreign_from),
             is_stored_credential: payment_attempt.is_stored_credential,
             request_extended_authorization: payment_attempt.request_extended_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         services::ApplicationResponse::JsonWithHeaders((payments_response, headers))
@@ -3856,6 +4143,7 @@ pub fn fetch_qr_code_url_next_steps_check(
     Ok(qr_code_fetch_url)
 }
 
+<<<<<<< HEAD
 pub fn extract_sdk_uri_information(
     payment_attempt: storage::PaymentAttempt,
 ) -> RouterResult<Option<api_models::payments::SdkUpiIntentInformation>> {
@@ -3868,6 +4156,8 @@ pub fn extract_sdk_uri_information(
     Ok(sdk_uri_information)
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub fn wait_screen_next_steps_check(
     payment_attempt: storage::PaymentAttempt,
 ) -> RouterResult<Option<api_models::payments::WaitScreenInstructions>> {
@@ -4040,7 +4330,10 @@ impl ForeignFrom<(storage::PaymentIntent, storage::PaymentAttempt)> for api::Pay
             connector_mandate_id:None,
             shipping_cost: None,
             card_discovery: pa.card_discovery,
+<<<<<<< HEAD
             mit_category: pi.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             force_3ds_challenge: pi.force_3ds_challenge,
             force_3ds_challenge_trigger: pi.force_3ds_challenge_trigger,
             whole_connector_response: None,
@@ -4050,11 +4343,14 @@ impl ForeignFrom<(storage::PaymentIntent, storage::PaymentAttempt)> for api::Pay
             payment_channel: pi.payment_channel,
             network_transaction_id: None,
             enable_partial_authorization: pi.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: pi.enable_overcapture,
             is_overcapture_enabled: pa.is_overcapture_enabled,
             network_details: pa.network_details.map(NetworkDetails::foreign_from),
             is_stored_credential:pa.is_stored_credential,
             request_extended_authorization: pa.request_extended_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -4383,12 +4679,18 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsAuthoriz
             merchant_config_currency: None,
             connector_testing_data: None,
             order_id: None,
+<<<<<<< HEAD
             mit_category: None,
             locale: None,
             payment_channel: None,
             enable_partial_authorization: None,
             enable_overcapture: None,
             is_stored_credential: None,
+=======
+            locale: None,
+            payment_channel: None,
+            enable_partial_authorization: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -4618,11 +4920,15 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsAuthoriz
             merchant_account_id,
             merchant_config_currency,
             connector_testing_data,
+<<<<<<< HEAD
             mit_category: payment_data.payment_intent.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             order_id: None,
             locale: Some(additional_data.state.locale.clone()),
             payment_channel: payment_data.payment_intent.payment_channel,
             enable_partial_authorization: payment_data.payment_intent.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: payment_data.payment_intent.enable_overcapture,
             is_stored_credential: payment_data.payment_attempt.is_stored_credential,
         })
@@ -4660,6 +4966,8 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsExtendAu
                 .connector_transaction_id(&payment_data.payment_attempt)?
                 .ok_or(errors::ApiErrorResponse::ResourceIdNotFound)?,
             connector_meta: payment_data.payment_attempt.connector_metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -4714,7 +5022,10 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSyncData
                 .payment_attempt
                 .connector_response_reference_id
                 .clone(),
+<<<<<<< HEAD
             setup_future_usage: payment_data.payment_intent.setup_future_usage,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -4918,6 +5229,7 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsCancelDa
     type Error = error_stack::Report<errors::ApiErrorResponse>;
 
     fn try_from(additional_data: PaymentAdditionalData<'_, F>) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let payment_data = additional_data.payment_data;
         let connector = api::ConnectorData::get_connector_by_name(
             &additional_data.state.conf.connectors,
@@ -4967,6 +5279,9 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsCancelDa
             webhook_url,
             capture_method: Some(capture_method),
         })
+=======
+        todo!()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -5274,6 +5589,7 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSessionD
                 ForeignInto::foreign_into((apple_pay_recurring_details, apple_pay_amount))
             });
 
+<<<<<<< HEAD
         let order_tax_amount = payment_data
             .payment_intent
             .amount_details
@@ -5281,6 +5597,8 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSessionD
             .clone()
             .and_then(|tax| tax.get_default_tax_amount());
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(Self {
             amount: amount.get_amount_as_i64(), //need to change once we move to connector module
             minor_amount: amount,
@@ -5298,11 +5616,14 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSessionD
             email: payment_data.email,
             apple_pay_recurring_details,
             customer_name: None,
+<<<<<<< HEAD
             metadata: payment_data.payment_intent.metadata,
             order_tax_amount,
             shipping_cost: payment_data.payment_intent.amount_details.shipping_cost,
             payment_method: Some(payment_data.payment_attempt.payment_method_type),
             payment_method_type: Some(payment_data.payment_attempt.payment_method_subtype),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -5372,6 +5693,7 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSessionD
                 ForeignFrom::foreign_from((apple_pay_recurring_details, apple_pay_amount))
             });
 
+<<<<<<< HEAD
         let order_tax_amount = payment_data
             .payment_intent
             .tax_details
@@ -5386,6 +5708,8 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSessionD
             .clone()
             .map(Secret::new);
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(Self {
             amount: net_amount.get_amount_as_i64(), //need to change once we move to connector module
             minor_amount: amount,
@@ -5403,11 +5727,14 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsSessionD
             surcharge_details: payment_data.surcharge_details,
             apple_pay_recurring_details,
             customer_name: None,
+<<<<<<< HEAD
             order_tax_amount,
             shipping_cost,
             metadata,
             payment_method: payment_data.payment_attempt.payment_method,
             payment_method_type: payment_data.payment_attempt.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -5639,7 +5966,10 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::SetupMandateRequ
             payment_channel: payment_data.payment_intent.payment_channel,
             related_transaction_id: None,
             enrolled_for_3ds: true,
+<<<<<<< HEAD
             is_stored_credential: payment_data.payment_attempt.is_stored_credential,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -5783,7 +6113,10 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::CompleteAuthoriz
             merchant_account_id,
             merchant_config_currency,
             threeds_method_comp_ind: payment_data.threeds_method_comp_ind,
+<<<<<<< HEAD
             is_stored_credential: payment_data.payment_attempt.is_stored_credential,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -5894,7 +6227,10 @@ impl<F: Clone> TryFrom<PaymentAdditionalData<'_, F>> for types::PaymentsPreProce
             metadata: payment_data.payment_intent.metadata.map(Secret::new),
             customer_acceptance: payment_data.customer_acceptance,
             setup_future_usage: payment_data.payment_intent.setup_future_usage,
+<<<<<<< HEAD
             is_stored_credential: payment_data.payment_attempt.is_stored_credential,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -6115,7 +6451,10 @@ impl ForeignFrom<&hyperswitch_domain_models::payments::payment_attempt::ErrorDet
         Self {
             code: error_details.code.to_owned(),
             message: error_details.message.to_owned(),
+<<<<<<< HEAD
             reason: error_details.reason.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             unified_code: error_details.unified_code.clone(),
             unified_message: error_details.unified_message.clone(),
             network_advice_code: error_details.network_advice_code.clone(),
@@ -6398,6 +6737,7 @@ impl ForeignFrom<ConnectorMandateReferenceId> for DieselConnectorMandateReferenc
     }
 }
 
+<<<<<<< HEAD
 impl ForeignFrom<DieselNetworkDetails> for NetworkDetails {
     fn foreign_from(value: DieselNetworkDetails) -> Self {
         Self {
@@ -6414,6 +6754,8 @@ impl ForeignFrom<NetworkDetails> for DieselNetworkDetails {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 impl ForeignFrom<diesel_models::ConnectorTokenDetails>
     for Option<api_models::payments::ConnectorTokenDetails>
@@ -6430,6 +6772,7 @@ impl ForeignFrom<diesel_models::ConnectorTokenDetails>
     }
 }
 
+<<<<<<< HEAD
 impl
     ForeignFrom<(
         Self,
@@ -6491,6 +6834,40 @@ impl
             // Skip BIN lookup for non-card payments
             _ => payment_method_type,
         }
+=======
+impl ForeignFrom<(Self, Option<&api_models::payments::AdditionalPaymentData>)>
+    for Option<enums::PaymentMethodType>
+{
+    fn foreign_from(req: (Self, Option<&api_models::payments::AdditionalPaymentData>)) -> Self {
+        let (payment_method_type, additional_pm_data) = req;
+        additional_pm_data
+            .and_then(|pm_data| {
+                if let api_models::payments::AdditionalPaymentData::Card(card_info) = pm_data {
+                    card_info.card_type.as_ref().and_then(|card_type_str| {
+                        api_models::enums::PaymentMethodType::from_str(&card_type_str.to_lowercase()).map_err(|err| {
+                            crate::logger::error!(
+                                "Err - {:?}\nInvalid card_type value found in BIN DB - {:?}",
+                                err,
+                                card_type_str,
+                            );
+                        }).ok()
+                    })
+                } else {
+                    None
+                }
+            })
+            .map_or(payment_method_type, |card_type_in_bin_store| {
+                if let Some(card_type_in_req) = payment_method_type {
+                    if card_type_in_req != card_type_in_bin_store {
+                        crate::logger::info!(
+                            "Mismatch in card_type\nAPI request - {}; BIN lookup - {}\nOverriding with {}",
+                            card_type_in_req, card_type_in_bin_store, card_type_in_bin_store,
+                        );
+                    }
+                }
+                Some(card_type_in_bin_store)
+            })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -6512,6 +6889,7 @@ impl From<pm_types::TokenResponse> for domain::NetworkTokenData {
         }
     }
 }
+<<<<<<< HEAD
 impl ForeignFrom<&hyperswitch_domain_models::router_data::ErrorResponse> for DieselNetworkDetails {
     fn foreign_from(err: &hyperswitch_domain_models::router_data::ErrorResponse) -> Self {
         Self {
@@ -6519,6 +6897,8 @@ impl ForeignFrom<&hyperswitch_domain_models::router_data::ErrorResponse> for Die
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl ForeignFrom<common_types::three_ds_decision_rule_engine::ThreeDSDecision>
     for common_enums::AuthenticationType

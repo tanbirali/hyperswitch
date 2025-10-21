@@ -856,15 +856,26 @@ mod tests {
         events::EventMetadata,
     };
     use futures::future::join_all;
+<<<<<<< HEAD
     use hyperswitch_domain_models::{
         master_key::MasterKeyInterface, merchant_account::MerchantAccountSetter,
     };
+=======
+    use hyperswitch_domain_models::merchant_account::MerchantAccountSetter;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     use time::macros::datetime;
     use tokio::time::{timeout, Duration};
 
     use crate::{
         core::webhooks as webhooks_core,
+<<<<<<< HEAD
         db::{events::EventInterface, merchant_key_store::MerchantKeyStoreInterface, MockDb},
+=======
+        db::{
+            events::EventInterface, merchant_key_store::MerchantKeyStoreInterface,
+            MasterKeyInterface, MockDb,
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         routes::{
             self,
             app::{settings::Settings, StorageImpl},
@@ -1181,7 +1192,10 @@ mod tests {
                 payment_statuses_enabled: None,
                 refund_statuses_enabled: None,
                 payout_statuses_enabled: None,
+<<<<<<< HEAD
                 multiple_webhooks_list: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             sub_merchants_enabled: None,
             parent_merchant_id: None,
@@ -1249,7 +1263,10 @@ mod tests {
                 payment_statuses_enabled: None,
                 refund_statuses_enabled: None,
                 payout_statuses_enabled: None,
+<<<<<<< HEAD
                 multiple_webhooks_list: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             metadata: None,
             routing_algorithm: None,
@@ -1290,11 +1307,14 @@ mod tests {
             is_pre_network_tokenization_enabled: false,
             merchant_category_code: None,
             dispute_polling_interval: None,
+<<<<<<< HEAD
             is_manual_retry_enabled: None,
             always_enable_overcapture: None,
             external_vault_details: domain::ExternalVaultDetails::Skip,
             billing_processor_id: None,
             is_l2_l3_enabled: false,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         });
 
         let business_profile = state
@@ -1401,7 +1421,10 @@ mod tests {
             connector_mandate_id: None,
             shipping_cost: None,
             card_discovery: None,
+<<<<<<< HEAD
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             force_3ds_challenge: None,
             force_3ds_challenge_trigger: None,
             issuer_error_code: None,
@@ -1411,11 +1434,14 @@ mod tests {
             payment_channel: None,
             network_transaction_id: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             is_overcapture_enabled: None,
             enable_overcapture: None,
             network_details: None,
             is_stored_credential: None,
             request_extended_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let content =
             api_webhooks::OutgoingWebhookContent::PaymentDetails(Box::new(expected_response));

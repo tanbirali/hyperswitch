@@ -287,9 +287,13 @@ pub async fn retry_delivery_attempt(
         &event_to_retry.primary_object_id,
         event_to_retry.event_type,
         delivery_attempt,
+<<<<<<< HEAD
     )
     .change_context(errors::ApiErrorResponse::WebhookProcessingFailure)
     .attach_printable("Failed to generate idempotent event ID")?;
+=======
+    );
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let now = common_utils::date_time::now();
     let new_event = domain::Event {

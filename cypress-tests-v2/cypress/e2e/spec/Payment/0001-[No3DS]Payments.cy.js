@@ -40,11 +40,20 @@ describe("[Payment] [No 3DS] [Payment Method: Card]", () => {
       let req_data = data["Request"];
       let res_data = data["Response"];
       cy.paymentIntentCreateCall(
+<<<<<<< HEAD
         globalState,
         fixtures.createPaymentBody,
         res_data,
         "no_three_ds",
         "automatic"
+=======
+        fixtures.createPaymentBody,
+        req_data,
+        res_data,
+        "no_three_ds",
+        "automatic",
+        globalState
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       );
     });
 
@@ -58,7 +67,11 @@ describe("[Payment] [No 3DS] [Payment Method: Card]", () => {
       ];
       let req_data = data["Request"];
       let res_data = data["Response"];
+<<<<<<< HEAD
       cy.paymentConfirmCall(
+=======
+      cy.paymentIntentConfirmCall(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         fixtures.confirmBody,
         req_data,
         res_data,
@@ -96,11 +109,20 @@ describe("[Payment] [No 3DS] [Payment Method: Card]", () => {
       let req_data = data["Request"];
       let res_data = data["Response"];
       cy.paymentIntentCreateCall(
+<<<<<<< HEAD
         globalState,
         fixtures.createPaymentBody,
         res_data,
         "no_three_ds",
         "automatic"
+=======
+        fixtures.createPaymentBody,
+        req_data,
+        res_data,
+        "no_three_ds",
+        "automatic",
+        globalState
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       );
     });
 
@@ -114,7 +136,11 @@ describe("[Payment] [No 3DS] [Payment Method: Card]", () => {
       ];
       let req_data = data["Request"];
       let res_data = data["Response"];
+<<<<<<< HEAD
       cy.paymentConfirmCall(
+=======
+      cy.paymentIntentConfirmCall(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         fixtures.confirmBody,
         req_data,
         res_data,

@@ -139,6 +139,7 @@ impl TryFrom<PayoneRouterData<&PayoutsRouterData<PoFulfill>>> for PayonePayoutFu
                     amount: item.amount,
                     currency_code: item.router_data.request.destination_currency.to_string(),
                 };
+<<<<<<< HEAD
                 let card_payout_method_specific_input = match item
                     .router_data
                     .get_payout_method_data()?
@@ -168,16 +169,51 @@ impl TryFrom<PayoneRouterData<&PayoutsRouterData<PoFulfill>>> for PayonePayoutFu
                         get_unimplemented_payment_method_error_message("Payone"),
                     ))?,
                 };
+=======
+                let card_payout_method_specific_input =
+                    match item.router_data.get_payout_method_data()? {
+                        PayoutMethodData::Card(card_data) => CardPayoutMethodSpecificInput {
+                            card: Card {
+                                card_number: card_data.card_number.clone(),
+                                card_holder_name: card_data
+                                    .card_holder_name
+                                    .clone()
+                                    .get_required_value("card_holder_name")
+                                    .change_context(ConnectorError::MissingRequiredField {
+                                        field_name: "payout_method_data.card.holder_name",
+                                    })?,
+                                expiry_date: card_data
+                                    .get_card_expiry_month_year_2_digit_with_delimiter(
+                                        "".to_string(),
+                                    )?,
+                            },
+                            payment_product_id: PaymentProductId::try_from(
+                                card_data.get_card_issuer()?,
+                            )?,
+                        },
+                        PayoutMethodData::Bank(_) | PayoutMethodData::Wallet(_) => {
+                            Err(ConnectorError::NotImplemented(
+                                get_unimplemented_payment_method_error_message("Payone"),
+                            ))?
+                        }
+                    };
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 Ok(Self {
                     amount_of_money,
                     card_payout_method_specific_input,
                 })
             }
+<<<<<<< HEAD
             PayoutType::Wallet | PayoutType::Bank | PayoutType::BankRedirect => {
                 Err(ConnectorError::NotImplemented(
                     get_unimplemented_payment_method_error_message("Payone"),
                 ))?
             }
+=======
+            PayoutType::Wallet | PayoutType::Bank => Err(ConnectorError::NotImplemented(
+                get_unimplemented_payment_method_error_message("Payone"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -201,7 +237,10 @@ impl TryFrom<CardIssuer> for PaymentProductId {
             | CardIssuer::DinersClub
             | CardIssuer::JCB
             | CardIssuer::CarteBlanche
+<<<<<<< HEAD
             | CardIssuer::UnionPay
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | CardIssuer::CartesBancaires => Err(ConnectorError::NotImplemented(
                 get_unimplemented_payment_method_error_message("payone"),
             )
@@ -273,7 +312,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, PayonePayoutFulfillResponse>>
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })

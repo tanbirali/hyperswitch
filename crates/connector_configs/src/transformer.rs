@@ -60,8 +60,7 @@ impl DashboardRequestPayload {
                 (_, GooglePay)
                 | (_, ApplePay)
                 | (_, PaymentMethodType::SamsungPay)
-                | (_, PaymentMethodType::Paze)
-                | (_, PaymentMethodType::AmazonPay) => {
+                | (_, PaymentMethodType::Paze) => {
                     Some(api_models::enums::PaymentExperience::InvokeSdkClient)
                 }
                 (_, PaymentMethodType::DirectCarrierBilling) => {

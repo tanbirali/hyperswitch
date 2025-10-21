@@ -1,5 +1,9 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::{fmt::Write, sync::LazyLock};
+=======
+use std::fmt::Write;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use base64::Engine;
 use common_enums::{enums, CallConnectorAction, PaymentAction};
@@ -20,9 +24,14 @@ use hyperswitch_domain_models::{
     router_flow_types::{
         access_token_auth::AccessTokenAuth,
         payments::{
+<<<<<<< HEAD
             Authorize, Capture, ExtendAuthorization, IncrementalAuthorization, PSync,
             PaymentMethodToken, PostSessionTokens, PreProcessing, SdkSessionUpdate, Session,
             SetupMandate, Void,
+=======
+            Authorize, Capture, IncrementalAuthorization, PSync, PaymentMethodToken,
+            PostSessionTokens, PreProcessing, SdkSessionUpdate, Session, SetupMandate, Void,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
         refunds::{Execute, RSync},
         CompleteAuthorize, VerifyWebhookSource,
@@ -30,6 +39,7 @@ use hyperswitch_domain_models::{
     router_request_types::{
         AccessTokenRequestData, CompleteAuthorizeData, PaymentMethodTokenizationData,
         PaymentsAuthorizeData, PaymentsCancelData, PaymentsCaptureData,
+<<<<<<< HEAD
         PaymentsExtendAuthorizationData, PaymentsIncrementalAuthorizationData,
         PaymentsPostSessionTokensData, PaymentsPreProcessingData, PaymentsSessionData,
         PaymentsSyncData, RefundsData, ResponseId, SdkPaymentsSessionUpdateData,
@@ -46,6 +56,21 @@ use hyperswitch_domain_models::{
         PaymentsPreProcessingRouterData, PaymentsSyncRouterData, RefreshTokenRouterData,
         RefundSyncRouterData, RefundsRouterData, SdkSessionUpdateRouterData,
         SetupMandateRouterData, VerifyWebhookSourceRouterData,
+=======
+        PaymentsIncrementalAuthorizationData, PaymentsPostSessionTokensData,
+        PaymentsPreProcessingData, PaymentsSessionData, PaymentsSyncData, RefundsData, ResponseId,
+        SdkPaymentsSessionUpdateData, SetupMandateRequestData, VerifyWebhookSourceRequestData,
+    },
+    router_response_types::{
+        PaymentsResponseData, RefundsResponseData, VerifyWebhookSourceResponseData,
+    },
+    types::{
+        PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
+        PaymentsCompleteAuthorizeRouterData, PaymentsIncrementalAuthorizationRouterData,
+        PaymentsPostSessionTokensRouterData, PaymentsPreProcessingRouterData,
+        PaymentsSyncRouterData, RefreshTokenRouterData, RefundSyncRouterData, RefundsRouterData,
+        SdkSessionUpdateRouterData, SetupMandateRouterData, VerifyWebhookSourceRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 #[cfg(feature = "payouts")]
@@ -66,11 +91,18 @@ use hyperswitch_interfaces::{
     disputes, errors,
     events::connector_api_logs::ConnectorEvent,
     types::{
+<<<<<<< HEAD
         ExtendedAuthorizationType, IncrementalAuthorizationType, PaymentsAuthorizeType,
         PaymentsCaptureType, PaymentsCompleteAuthorizeType, PaymentsPostSessionTokensType,
         PaymentsPreProcessingType, PaymentsSyncType, PaymentsVoidType, RefreshTokenType,
         RefundExecuteType, RefundSyncType, Response, SdkSessionUpdateType, SetupMandateType,
         VerifyWebhookSourceType,
+=======
+        IncrementalAuthorizationType, PaymentsAuthorizeType, PaymentsCaptureType,
+        PaymentsCompleteAuthorizeType, PaymentsPostSessionTokensType, PaymentsPreProcessingType,
+        PaymentsSyncType, PaymentsVoidType, RefreshTokenType, RefundExecuteType, RefundSyncType,
+        Response, SdkSessionUpdateType, SetupMandateType, VerifyWebhookSourceType,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     webhooks::{IncomingWebhook, IncomingWebhookRequestDetails},
 };
@@ -123,7 +155,10 @@ impl api::RefundSync for Paypal {}
 impl api::ConnectorVerifyWebhookSource for Paypal {}
 impl api::PaymentPostSessionTokens for Paypal {}
 impl api::PaymentSessionUpdate for Paypal {}
+<<<<<<< HEAD
 impl api::PaymentExtendAuthorization for Paypal {}
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl api::Payouts for Paypal {}
 #[cfg(feature = "payouts")]
@@ -375,6 +410,25 @@ impl ConnectorCommon for Paypal {
 }
 
 impl ConnectorValidation for Paypal {
+<<<<<<< HEAD
+=======
+    fn validate_connector_against_payment_request(
+        &self,
+        capture_method: Option<enums::CaptureMethod>,
+        _payment_method: enums::PaymentMethod,
+        _pmt: Option<enums::PaymentMethodType>,
+    ) -> CustomResult<(), errors::ConnectorError> {
+        let capture_method = capture_method.unwrap_or_default();
+        match capture_method {
+            enums::CaptureMethod::Automatic
+            | enums::CaptureMethod::Manual
+            | enums::CaptureMethod::SequentialAutomatic => Ok(()),
+            enums::CaptureMethod::ManualMultiple | enums::CaptureMethod::Scheduled => Err(
+                connector_utils::construct_not_implemented_error_report(capture_method, self.id()),
+            ),
+        }
+    }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn validate_mandate_payment(
         &self,
         pm_type: Option<enums::PaymentMethodType>,
@@ -1099,6 +1153,7 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
     }
 }
 
+<<<<<<< HEAD
 impl
     ConnectorIntegration<ExtendAuthorization, PaymentsExtendAuthorizationData, PaymentsResponseData>
     for Paypal
@@ -1200,6 +1255,8 @@ impl
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl PaymentIncrementalAuthorization for Paypal {}
 
 impl
@@ -2439,6 +2496,7 @@ impl ConnectorErrorTypeMapping for Paypal {
     }
 }
 
+<<<<<<< HEAD
 static PAYPAL_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -2587,3 +2645,6 @@ impl ConnectorSpecifications for Paypal {
         Some(&PAYPAL_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Paypal {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

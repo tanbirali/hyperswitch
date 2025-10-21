@@ -24,12 +24,20 @@ use hyperswitch_domain_models::{
         RefundsData, SetupMandateRequestData,
     },
     router_response_types::{
+<<<<<<< HEAD
         ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
         SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         PaymentsSyncRouterData, RefundSyncRouterData, RefundsRouterData,
+=======
+        ConnectorInfo, PaymentsResponseData, RefundsResponseData, SupportedPaymentMethods,
+    },
+    types::{
+        PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, PaymentsSyncRouterData,
+        RefundSyncRouterData, RefundsRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 use hyperswitch_interfaces::{
@@ -43,7 +51,11 @@ use hyperswitch_interfaces::{
     types::{self, Response},
     webhooks,
 };
+<<<<<<< HEAD
 use masking::Mask;
+=======
+use masking::{ExposeInterface, Mask};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use transformers as trustpayments;
 
 use crate::{constants::headers, types::ResponseRouterData, utils};
@@ -77,6 +89,7 @@ impl api::PaymentToken for Trustpayments {}
 impl ConnectorIntegration<PaymentMethodToken, PaymentMethodTokenizationData, PaymentsResponseData>
     for Trustpayments
 {
+<<<<<<< HEAD
     fn get_headers(
         &self,
         req: &RouterData<PaymentMethodToken, PaymentMethodTokenizationData, PaymentsResponseData>,
@@ -153,6 +166,9 @@ impl ConnectorIntegration<PaymentMethodToken, PaymentMethodTokenizationData, Pay
     ) -> CustomResult<ErrorResponse, errors::ConnectorError> {
         self.build_error_response(res, event_builder)
     }
+=======
+    // Not Implemented (R)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<Flow, Request, Response> ConnectorCommonExt<Flow, Request, Response> for Trustpayments
@@ -180,7 +196,16 @@ impl ConnectorCommon for Trustpayments {
     }
 
     fn get_currency_unit(&self) -> api::CurrencyUnit {
+<<<<<<< HEAD
         api::CurrencyUnit::Minor
+=======
+        // todo!()
+        api::CurrencyUnit::Minor
+
+        //    TODO! Check connector documentation, on which unit they are processing the currency.
+        //    If the connector accepts amount in lower unit ( i.e cents for USD) then return api::CurrencyUnit::Minor,
+        //    if connector accepts amount in base unit (i.e dollars for USD) then return api::CurrencyUnit::Base
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn common_get_content_type(&self) -> &'static str {
@@ -199,7 +224,11 @@ impl ConnectorCommon for Trustpayments {
             .change_context(errors::ConnectorError::FailedToObtainAuthType)?;
         Ok(vec![(
             headers::AUTHORIZATION.to_string(),
+<<<<<<< HEAD
             auth.get_basic_auth_header().into_masked(),
+=======
+            auth.api_key.expose().into_masked(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )])
     }
 
@@ -257,7 +286,13 @@ impl ConnectorValidation for Trustpayments {
     }
 }
 
+<<<<<<< HEAD
 impl ConnectorIntegration<Session, PaymentsSessionData, PaymentsResponseData> for Trustpayments {}
+=======
+impl ConnectorIntegration<Session, PaymentsSessionData, PaymentsResponseData> for Trustpayments {
+    //TODO: implement sessions flow
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl ConnectorIntegration<AccessTokenAuth, AccessTokenRequestData, AccessToken> for Trustpayments {}
 
@@ -284,9 +319,15 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
     fn get_url(
         &self,
         _req: &PaymentsAuthorizeRouterData,
+<<<<<<< HEAD
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
         Ok(format!("{}/json/", self.base_url(connectors)))
+=======
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_request_body(
@@ -372,6 +413,7 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Tru
     fn get_url(
         &self,
         _req: &PaymentsSyncRouterData,
+<<<<<<< HEAD
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
         Ok(format!("{}/json/", self.base_url(connectors)))
@@ -384,6 +426,11 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Tru
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
         let connector_req = trustpayments::TrustpaymentsSyncRequest::try_from(req)?;
         Ok(RequestContent::Json(Box::new(connector_req)))
+=======
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -393,6 +440,7 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Tru
     ) -> CustomResult<Option<Request>, errors::ConnectorError> {
         Ok(Some(
             RequestBuilder::new()
+<<<<<<< HEAD
                 .method(Method::Post)
                 .url(&types::PaymentsSyncType::get_url(self, req, connectors)?)
                 .attach_default_headers()
@@ -400,6 +448,12 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Tru
                 .set_body(types::PaymentsSyncType::get_request_body(
                     self, req, connectors,
                 )?)
+=======
+                .method(Method::Get)
+                .url(&types::PaymentsSyncType::get_url(self, req, connectors)?)
+                .attach_default_headers()
+                .headers(types::PaymentsSyncType::get_headers(self, req, connectors)?)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .build(),
         ))
     }
@@ -448,13 +502,20 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
     fn get_url(
         &self,
         _req: &PaymentsCaptureRouterData,
+<<<<<<< HEAD
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
         Ok(format!("{}/json/", self.base_url(connectors)))
+=======
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_request_body(
         &self,
+<<<<<<< HEAD
         req: &PaymentsCaptureRouterData,
         _connectors: &Connectors,
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
@@ -468,6 +529,12 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
         let connector_req =
             trustpayments::TrustpaymentsCaptureRequest::try_from(&connector_router_data)?;
         Ok(RequestContent::Json(Box::new(connector_req)))
+=======
+        _req: &PaymentsCaptureRouterData,
+        _connectors: &Connectors,
+    ) -> CustomResult<RequestContent, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_request_body method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -518,6 +585,7 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
     }
 }
 
+<<<<<<< HEAD
 impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Trustpayments {
     fn get_headers(
         &self,
@@ -593,6 +661,9 @@ impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Tr
         self.build_error_response(res, event_builder)
     }
 }
+=======
+impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Trustpayments {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Trustpayments {
     fn get_headers(
@@ -610,9 +681,15 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Trustpa
     fn get_url(
         &self,
         _req: &RefundsRouterData<Execute>,
+<<<<<<< HEAD
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
         Ok(format!("{}/json/", self.base_url(connectors)))
+=======
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_request_body(
@@ -696,6 +773,7 @@ impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Trustpaym
     fn get_url(
         &self,
         _req: &RefundSyncRouterData,
+<<<<<<< HEAD
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
         Ok(format!("{}/json/", self.base_url(connectors)))
@@ -708,6 +786,11 @@ impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Trustpaym
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
         let connector_req = trustpayments::TrustpaymentsRefundSyncRequest::try_from(req)?;
         Ok(RequestContent::Json(Box::new(connector_req)))
+=======
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -717,7 +800,11 @@ impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Trustpaym
     ) -> CustomResult<Option<Request>, errors::ConnectorError> {
         Ok(Some(
             RequestBuilder::new()
+<<<<<<< HEAD
                 .method(Method::Post)
+=======
+                .method(Method::Get)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .url(&types::RefundSyncType::get_url(self, req, connectors)?)
                 .attach_default_headers()
                 .headers(types::RefundSyncType::get_headers(self, req, connectors)?)
@@ -781,6 +868,7 @@ impl webhooks::IncomingWebhook for Trustpayments {
 }
 
 static TRUSTPAYMENTS_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
+<<<<<<< HEAD
     LazyLock::new(|| {
         let supported_capture_methods = vec![
             enums::CaptureMethod::Automatic,
@@ -836,6 +924,9 @@ static TRUSTPAYMENTS_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods
 
         trustpayments_supported_payment_methods
     });
+=======
+    LazyLock::new(SupportedPaymentMethods::new);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 static TRUSTPAYMENTS_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
     display_name: "Trustpayments",

@@ -1,13 +1,20 @@
 use common_utils::id_type;
 use masking::Secret;
+<<<<<<< HEAD
 use time::PrimitiveDateTime;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[derive(Debug, serde::Deserialize, serde::Serialize, Clone)]
 pub struct ChatRequest {
     pub message: Secret<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, serde::Deserialize, serde::Serialize, Clone)]
+=======
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ChatResponse {
     pub response: Secret<serde_json::Value>,
     pub merchant_id: id_type::MerchantId,
@@ -17,6 +24,7 @@ pub struct ChatResponse {
     #[serde(skip_serializing)]
     pub row_count: Option<i32>,
 }
+<<<<<<< HEAD
 
 #[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct ChatListRequest {
@@ -46,3 +54,5 @@ pub struct ChatConversation {
 pub struct ChatListResponse {
     pub conversations: Vec<ChatConversation>,
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -4,6 +4,7 @@ All notable changes to HyperSwitch will be documented here.
 
 - - -
 
+<<<<<<< HEAD
 ## 2025.10.20.0
 
 ### Features
@@ -882,6 +883,15 @@ All notable changes to HyperSwitch will be documented here.
 - **wasm:** [dwolla] fix WASM changes ([#9051](https://github.com/juspay/hyperswitch/pull/9051)) ([`a71acbf`](https://github.com/juspay/hyperswitch/commit/a71acbf8ac0f901983a7664bbb472fce60b797a4))
 
 **Full Changelog:** [`2025.08.28.0...2025.08.29.0`](https://github.com/juspay/hyperswitch/compare/2025.08.28.0...2025.08.29.0)
+=======
+## 2025.08.28.0-hotfix1
+
+### Features
+
+- **core:** Update payment methods api ([#9242](https://github.com/juspay/hyperswitch/pull/9242)) ([`5394395`](https://github.com/juspay/hyperswitch/commit/539439549b62a6aa109e83464e051df1ccafbb99))
+
+**Full Changelog:** [`2025.08.28.0...2025.08.28.0-hotfix1`](https://github.com/juspay/hyperswitch/compare/2025.08.28.0...2025.08.28.0-hotfix1)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 - - -
 

@@ -1,6 +1,9 @@
 use base64::Engine;
 use common_enums::enums;
+<<<<<<< HEAD
 use common_types::payments::ApplePayPredecryptData;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{
     consts, date_time,
     ext_traits::ValueExt,
@@ -9,10 +12,17 @@ use common_utils::{
 };
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
+<<<<<<< HEAD
     payment_method_data::{ApplePayWalletData, GooglePayWalletData, PaymentMethodData, WalletData},
     router_data::{
         AdditionalPaymentMethodConnectorResponse, ConnectorAuthType, ConnectorResponseData,
         ErrorResponse, PaymentMethodToken, RouterData,
+=======
+    payment_method_data::{GooglePayWalletData, PaymentMethodData, WalletData},
+    router_data::{
+        AdditionalPaymentMethodConnectorResponse, ConnectorAuthType, ConnectorResponseData,
+        ErrorResponse, RouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     router_flow_types::refunds::{Execute, RSync},
     router_request_types::{
@@ -34,7 +44,10 @@ use serde_json::Value;
 use crate::{
     constants,
     types::{RefundsResponseRouterData, ResponseRouterData},
+<<<<<<< HEAD
     unimplemented_payment_method,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     utils::{
         self, AddressDetailsData, CardData, PaymentsAuthorizeRequestData,
         PaymentsCompleteAuthorizeRequestData, PaymentsPreProcessingRequestData,
@@ -182,6 +195,7 @@ pub struct GooglePayPaymentInformation {
 }
 
 #[derive(Debug, Serialize)]
+<<<<<<< HEAD
 #[serde(rename_all = "camelCase")]
 pub struct TokenizedCard {
     number: cards::CardNumber,
@@ -213,12 +227,17 @@ pub struct ApplePayPaymentInformation {
 pub const FLUID_DATA_DESCRIPTOR: &str = "RklEPUNPTU1PTi5BUFBMRS5JTkFQUC5QQVlNRU5U";
 
 #[derive(Debug, Serialize)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(untagged)]
 pub enum PaymentInformation {
     Cards(Box<CardPaymentInformation>),
     GooglePay(Box<GooglePayPaymentInformation>),
+<<<<<<< HEAD
     ApplePay(Box<ApplePayPaymentInformation>),
     ApplePayToken(Box<ApplePayTokenPaymentInformation>),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -237,8 +256,11 @@ pub struct Card {
 #[serde(rename_all = "camelCase")]
 pub struct FluidData {
     value: Secret<String>,
+<<<<<<< HEAD
     #[serde(skip_serializing_if = "Option::is_none")]
     descriptor: Option<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -326,6 +348,7 @@ fn get_barclaycard_card_type(card_network: common_enums::CardNetwork) -> Option<
 #[derive(Debug, Serialize)]
 pub enum PaymentSolution {
     GooglePay,
+<<<<<<< HEAD
     ApplePay,
 }
 
@@ -333,13 +356,18 @@ pub enum PaymentSolution {
 pub enum TransactionType {
     #[serde(rename = "1")]
     InApp,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<PaymentSolution> for String {
     fn from(solution: PaymentSolution) -> Self {
         let payment_solution = match solution {
             PaymentSolution::GooglePay => "012",
+<<<<<<< HEAD
             PaymentSolution::ApplePay => "001",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         payment_solution.to_string()
     }
@@ -383,6 +411,7 @@ impl
             Option<String>,
         ),
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let commerce_indicator = solution
             .as_ref()
             .map(|pm_solution| match pm_solution {
@@ -400,6 +429,9 @@ impl
             })
             .unwrap_or("internet")
             .to_string();
+=======
+        let commerce_indicator = get_commerce_indicator(network);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let cavv_algorithm = Some("2".to_string());
         Ok(Self {
             capture: Some(matches!(
@@ -1339,6 +1371,7 @@ impl
     }
 }
 
+<<<<<<< HEAD
 impl
     TryFrom<(
         &BarclaycardRouterData<&PaymentsAuthorizeRouterData>,
@@ -1423,6 +1456,8 @@ impl
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<&BarclaycardRouterData<&PaymentsAuthorizeRouterData>> for BarclaycardPaymentsRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
@@ -1432,6 +1467,7 @@ impl TryFrom<&BarclaycardRouterData<&PaymentsAuthorizeRouterData>> for Barclayca
             PaymentMethodData::Card(ccard) => Self::try_from((item, ccard)),
             PaymentMethodData::Wallet(wallet_data) => match wallet_data {
                 WalletData::GooglePay(google_pay_data) => Self::try_from((item, google_pay_data)),
+<<<<<<< HEAD
                 WalletData::ApplePay(apple_pay_data) => {
                     match item.router_data.payment_method_token.clone() {
                         Some(payment_method_token) => match payment_method_token {
@@ -1527,10 +1563,16 @@ impl TryFrom<&BarclaycardRouterData<&PaymentsAuthorizeRouterData>> for Barclayca
                         }
                     }
                 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 WalletData::AliPayQr(_)
                 | WalletData::AliPayRedirect(_)
                 | WalletData::AliPayHkRedirect(_)
                 | WalletData::AmazonPayRedirect(_)
+<<<<<<< HEAD
+=======
+                | WalletData::ApplePay(_)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::MomoRedirect(_)
                 | WalletData::KakaoPayRedirect(_)
                 | WalletData::GoPayRedirect(_)
@@ -1557,7 +1599,10 @@ impl TryFrom<&BarclaycardRouterData<&PaymentsAuthorizeRouterData>> for Barclayca
                 | WalletData::Paysera(_)
                 | WalletData::Skrill(_)
                 | WalletData::BluecodeRedirect {}
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::Mifinity(_) => Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("Barclaycard"),
                 )
@@ -2911,7 +2956,10 @@ impl TryFrom<&GooglePayWalletData> for PaymentInformation {
                             .clone(),
                     ),
                 ),
+<<<<<<< HEAD
                 descriptor: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         })))
     }

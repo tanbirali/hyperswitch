@@ -37,9 +37,17 @@ use crate::{
     type_encryption::{crypto_operation, CryptoOperation},
 };
 
+<<<<<<< HEAD
 #[derive(Debug, serde::Deserialize, serde::Serialize, Clone)]
 pub struct VaultId(String);
 
+=======
+#[cfg(feature = "v2")]
+#[derive(Debug, serde::Deserialize, serde::Serialize, Clone)]
+pub struct VaultId(String);
+
+#[cfg(any(feature = "v2", feature = "tokenization_v2"))]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl VaultId {
     pub fn get_string_repr(&self) -> &String {
         &self.0
@@ -86,9 +94,13 @@ pub struct PaymentMethod {
     pub network_token_requestor_reference_id: Option<String>,
     pub network_token_locker_id: Option<String>,
     pub network_token_payment_method_data: OptionalEncryptableValue,
+<<<<<<< HEAD
     pub vault_source_details: PaymentMethodVaultSourceDetails,
 }
 
+=======
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 #[derive(Clone, Debug, router_derive::ToEncryption)]
 pub struct PaymentMethod {
@@ -128,7 +140,10 @@ pub struct PaymentMethod {
     #[encrypt(ty = Value)]
     pub external_vault_token_data:
         Option<Encryptable<api_models::payment_methods::ExternalVaultTokenData>>,
+<<<<<<< HEAD
     pub vault_type: Option<storage_enums::VaultType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl PaymentMethod {
@@ -260,7 +275,10 @@ impl super::behaviour::Conversion for PaymentMethod {
     type DstType = diesel_models::payment_method::PaymentMethod;
     type NewDstType = diesel_models::payment_method::PaymentMethodNew;
     async fn convert(self) -> CustomResult<Self::DstType, ValidationError> {
+<<<<<<< HEAD
         let (vault_type, external_vault_source) = self.vault_source_details.into();
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(Self::DstType {
             customer_id: self.customer_id,
             merchant_id: self.merchant_id,
@@ -300,8 +318,11 @@ impl super::behaviour::Conversion for PaymentMethod {
             network_token_payment_method_data: self
                 .network_token_payment_method_data
                 .map(|val| val.into()),
+<<<<<<< HEAD
             external_vault_source,
             vault_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -314,6 +335,7 @@ impl super::behaviour::Conversion for PaymentMethod {
     where
         Self: Sized,
     {
+<<<<<<< HEAD
         // Decrypt encrypted fields first
         let (
             payment_method_data,
@@ -370,10 +392,89 @@ impl super::behaviour::Conversion for PaymentMethod {
                 payment_method_billing_address,
                 network_token_payment_method_data,
             ))
+=======
+        async {
+            Ok::<Self, error_stack::Report<common_utils::errors::CryptoError>>(Self {
+                customer_id: item.customer_id,
+                merchant_id: item.merchant_id,
+                payment_method_id: item.payment_method_id,
+                accepted_currency: item.accepted_currency,
+                scheme: item.scheme,
+                token: item.token,
+                cardholder_name: item.cardholder_name,
+                issuer_name: item.issuer_name,
+                issuer_country: item.issuer_country,
+                payer_country: item.payer_country,
+                is_stored: item.is_stored,
+                swift_code: item.swift_code,
+                direct_debit_token: item.direct_debit_token,
+                created_at: item.created_at,
+                last_modified: item.last_modified,
+                payment_method: item.payment_method,
+                payment_method_type: item.payment_method_type,
+                payment_method_issuer: item.payment_method_issuer,
+                payment_method_issuer_code: item.payment_method_issuer_code,
+                metadata: item.metadata,
+                payment_method_data: item
+                    .payment_method_data
+                    .async_lift(|inner| async {
+                        crypto_operation(
+                            state,
+                            type_name!(Self::DstType),
+                            CryptoOperation::DecryptOptional(inner),
+                            key_manager_identifier.clone(),
+                            key.peek(),
+                        )
+                        .await
+                        .and_then(|val| val.try_into_optionaloperation())
+                    })
+                    .await?,
+                locker_id: item.locker_id,
+                last_used_at: item.last_used_at,
+                connector_mandate_details: item.connector_mandate_details,
+                customer_acceptance: item.customer_acceptance,
+                status: item.status,
+                network_transaction_id: item.network_transaction_id,
+                client_secret: item.client_secret,
+                payment_method_billing_address: item
+                    .payment_method_billing_address
+                    .async_lift(|inner| async {
+                        crypto_operation(
+                            state,
+                            type_name!(Self::DstType),
+                            CryptoOperation::DecryptOptional(inner),
+                            key_manager_identifier.clone(),
+                            key.peek(),
+                        )
+                        .await
+                        .and_then(|val| val.try_into_optionaloperation())
+                    })
+                    .await?,
+                updated_by: item.updated_by,
+                version: item.version,
+                network_token_requestor_reference_id: item.network_token_requestor_reference_id,
+                network_token_locker_id: item.network_token_locker_id,
+                network_token_payment_method_data: item
+                    .network_token_payment_method_data
+                    .async_lift(|inner| async {
+                        crypto_operation(
+                            state,
+                            type_name!(Self::DstType),
+                            CryptoOperation::DecryptOptional(inner),
+                            key_manager_identifier.clone(),
+                            key.peek(),
+                        )
+                        .await
+                        .and_then(|val| val.try_into_optionaloperation())
+                    })
+                    .await?,
+            })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
         .await
         .change_context(ValidationError::InvalidValue {
             message: "Failed while decrypting payment method data".to_string(),
+<<<<<<< HEAD
         })?;
 
         let vault_source_details = PaymentMethodVaultSourceDetails::try_from((
@@ -418,11 +519,16 @@ impl super::behaviour::Conversion for PaymentMethod {
             network_token_locker_id: item.network_token_locker_id,
             network_token_payment_method_data,
             vault_source_details,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
     async fn construct_new(self) -> CustomResult<Self::NewDstType, ValidationError> {
+<<<<<<< HEAD
         let (vault_type, external_vault_source) = self.vault_source_details.into();
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(Self::NewDstType {
             customer_id: self.customer_id,
             merchant_id: self.merchant_id,
@@ -462,8 +568,11 @@ impl super::behaviour::Conversion for PaymentMethod {
             network_token_payment_method_data: self
                 .network_token_payment_method_data
                 .map(|val| val.into()),
+<<<<<<< HEAD
             external_vault_source,
             vault_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -503,7 +612,10 @@ impl super::behaviour::Conversion for PaymentMethod {
                 .map(|val| val.into()),
             external_vault_source: self.external_vault_source,
             external_vault_token_data: self.external_vault_token_data.map(|val| val.into()),
+<<<<<<< HEAD
             vault_type: self.vault_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -609,7 +721,10 @@ impl super::behaviour::Conversion for PaymentMethod {
                 network_token_payment_method_data,
                 external_vault_source: storage_model.external_vault_source,
                 external_vault_token_data,
+<<<<<<< HEAD
                 vault_type: storage_model.vault_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
         }
         .await
@@ -647,7 +762,10 @@ impl super::behaviour::Conversion for PaymentMethod {
                 .network_token_payment_method_data
                 .map(|val| val.into()),
             external_vault_token_data: self.external_vault_token_data.map(|val| val.into()),
+<<<<<<< HEAD
             vault_type: self.vault_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -1116,6 +1234,7 @@ impl ForeignTryFrom<(&[payment_methods::PaymentMethodRecord], id_type::MerchantI
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 #[derive(Clone, Debug, Default)]
 pub enum PaymentMethodVaultSourceDetails {
     ExternalVault {
@@ -1178,6 +1297,8 @@ impl From<PaymentMethodVaultSourceDetails>
 }
 
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(test)]
 mod tests {
     #![allow(clippy::unwrap_used)]
@@ -1223,7 +1344,10 @@ mod tests {
             network_token_requestor_reference_id: None,
             network_token_locker_id: None,
             network_token_payment_method_data: None,
+<<<<<<< HEAD
             vault_source_details: Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         payment_method.clone()
     }

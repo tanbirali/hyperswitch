@@ -14,11 +14,15 @@ use error_stack::ResultExt;
 use masking::{PeekInterface, Secret};
 use router_env::logger;
 
+<<<<<<< HEAD
 use crate::{
     behaviour::Conversion,
     merchant_key_store,
     type_encryption::{crypto_operation, AsyncLift, CryptoOperation},
 };
+=======
+use crate::type_encryption::{crypto_operation, AsyncLift, CryptoOperation};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[cfg(feature = "v1")]
 #[derive(Clone, Debug, serde::Serialize)]
@@ -227,6 +231,7 @@ impl MerchantAccount {
         &self.organization_id
     }
 
+<<<<<<< HEAD
     /// Get the merchant_details from MerchantAccount
     pub fn get_merchant_details(&self) -> &OptionalEncryptableValue {
         &self.merchant_details
@@ -243,6 +248,8 @@ impl MerchantAccount {
         })
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Check whether the merchant account is a platform account
     pub fn is_platform_account(&self) -> bool {
         matches!(
@@ -590,7 +597,11 @@ impl From<MerchantAccountUpdate> for MerchantAccountUpdateInternal {
 
 #[cfg(feature = "v2")]
 #[async_trait::async_trait]
+<<<<<<< HEAD
 impl Conversion for MerchantAccount {
+=======
+impl super::behaviour::Conversion for MerchantAccount {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     type DstType = diesel_models::merchant_account::MerchantAccount;
     type NewDstType = diesel_models::merchant_account::MerchantAccountNew;
     async fn convert(self) -> CustomResult<Self::DstType, ValidationError> {
@@ -706,7 +717,11 @@ impl Conversion for MerchantAccount {
 
 #[cfg(feature = "v1")]
 #[async_trait::async_trait]
+<<<<<<< HEAD
 impl Conversion for MerchantAccount {
+=======
+impl super::behaviour::Conversion for MerchantAccount {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     type DstType = diesel_models::merchant_account::MerchantAccount;
     type NewDstType = diesel_models::merchant_account::MerchantAccountNew;
     async fn convert(self) -> CustomResult<Self::DstType, ValidationError> {
@@ -882,6 +897,7 @@ impl MerchantAccount {
         metadata.and_then(|a| a.compatible_connector)
     }
 }
+<<<<<<< HEAD
 
 #[async_trait::async_trait]
 pub trait MerchantAccountInterface
@@ -966,3 +982,5 @@ where
         Self::Error,
     >;
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

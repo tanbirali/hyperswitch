@@ -1,7 +1,10 @@
 import { defineConfig } from "cypress";
 import mochawesome from "cypress-mochawesome-reporter/plugin.js";
 import fs from "fs";
+<<<<<<< HEAD
 import { getTimeoutMultiplier } from "./cypress/utils/RequestBodyUtils.js";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 let globalState;
 
@@ -10,9 +13,12 @@ const connectorId = process.env.CYPRESS_CONNECTOR || "service";
 const screenshotsFolderName = `screenshots/${connectorId}`;
 const reportName = process.env.REPORT_NAME || `${connectorId}_report`;
 
+<<<<<<< HEAD
 // Get timeout multiplier from shared utility
 const timeoutMultiplier = getTimeoutMultiplier();
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
@@ -75,11 +81,18 @@ export default defineConfig({
       inlineAssets: true,
       saveJson: true,
     },
+<<<<<<< HEAD
     defaultCommandTimeout: Math.round(30000 * timeoutMultiplier),
     pageLoadTimeout: Math.round(90000 * timeoutMultiplier), // 90s local, 135s (2.25min) CI
     responseTimeout: Math.round(60000 * timeoutMultiplier),
     requestTimeout: Math.round(45000 * timeoutMultiplier),
     taskTimeout: Math.round(120000 * timeoutMultiplier),
+=======
+    defaultCommandTimeout: 15000,
+    pageLoadTimeout: 50000,
+    responseTimeout: 45000,
+    requestTimeout: 30000,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     screenshotsFolder: screenshotsFolderName,
     video: true,
     videoCompression: 32,

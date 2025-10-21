@@ -51,7 +51,10 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable 2 weeks ago
+<<<<<<< HEAD
           components: rustfmt
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
       - uses: baptiste0928/cargo-install@v3.3.0
         with:

@@ -74,6 +74,7 @@ pub async fn get_groups_and_resources_for_role_from_token(
     ))
     .await
 }
+<<<<<<< HEAD
 
 pub async fn get_parent_groups_info_for_role_from_token(
     state: web::Data<AppState>,
@@ -95,6 +96,8 @@ pub async fn get_parent_groups_info_for_role_from_token(
     .await
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 // TODO: To be deprecated
 pub async fn create_role(
     state: web::Data<AppState>,

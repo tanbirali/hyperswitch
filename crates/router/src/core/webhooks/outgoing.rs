@@ -60,9 +60,13 @@ pub(crate) async fn create_event_and_trigger_outgoing_webhook(
 ) -> CustomResult<(), errors::ApiErrorResponse> {
     let delivery_attempt = enums::WebhookDeliveryAttempt::InitialAttempt;
     let idempotent_event_id =
+<<<<<<< HEAD
         utils::get_idempotent_event_id(&primary_object_id, event_type, delivery_attempt)
             .change_context(errors::ApiErrorResponse::WebhookProcessingFailure)
             .attach_printable("Failed to generate idempotent event ID")?;
+=======
+        utils::get_idempotent_event_id(&primary_object_id, event_type, delivery_attempt);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let webhook_url_result = get_webhook_url_from_business_profile(&business_profile);
 
     if !state.conf.webhooks.outgoing_enabled

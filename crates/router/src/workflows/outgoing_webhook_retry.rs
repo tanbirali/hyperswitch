@@ -72,9 +72,13 @@ impl ProcessTrackerWorkflow<SessionState> for OutgoingWebhookRetryWorkflow {
             &tracking_data.primary_object_id,
             tracking_data.event_type,
             delivery_attempt,
+<<<<<<< HEAD
         )
         .change_context(errors::ApiErrorResponse::WebhookProcessingFailure)
         .attach_printable("Failed to generate idempotent event ID")?;
+=======
+        );
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         let initial_event = match &tracking_data.initial_attempt_id {
             Some(initial_attempt_id) => {

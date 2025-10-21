@@ -211,6 +211,7 @@ export const connectorDetails = {
         },
       },
     },
+<<<<<<< HEAD
     Overcapture: {
       Request: {
         amount_to_capture: 7000,
@@ -225,6 +226,9 @@ export const connectorDetails = {
         },
       },
     },
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     PartialCapture: {
       Request: {
         amount_to_capture: 2000,

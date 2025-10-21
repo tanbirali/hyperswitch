@@ -73,8 +73,11 @@ impl
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
         header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+<<<<<<< HEAD
         payment_method: Option<common_enums::PaymentMethod>,
         payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::PaymentsSessionRouterData> {
         Box::pin(transformers::construct_payment_router_data::<
             api::Session,
@@ -88,8 +91,11 @@ impl
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+<<<<<<< HEAD
             payment_method,
             payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ))
         .await
     }
@@ -1250,6 +1256,7 @@ fn create_paypal_sdk_session_token(
                     sdk_next_action: payment_types::SdkNextAction {
                         next_action: payment_types::NextActionCall::PostSessionTokens,
                     },
+<<<<<<< HEAD
                     client_token: None,
                     transaction_info: None,
                 },
@@ -1395,6 +1402,8 @@ async fn create_amazon_pay_session_token(
                     total_tax_amount,
                     total_base_amount,
                     delivery_options,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 },
             )),
         }),
@@ -1457,7 +1466,10 @@ impl RouterDataSession for types::PaymentsSessionRouterData {
 
                 Ok(resp)
             }
+<<<<<<< HEAD
             api::GetToken::AmazonPayMetadata => create_amazon_pay_session_token(self, state).await,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

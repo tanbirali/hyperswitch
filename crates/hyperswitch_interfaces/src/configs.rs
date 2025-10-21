@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use common_utils::{crypto::Encryptable, errors::CustomResult, id_type};
 pub use hyperswitch_domain_models::{
     connector_endpoints::Connectors, errors::api_error_response, merchant_connector_account,
@@ -189,3 +190,6 @@ impl MerchantConnectorAccountType {
         }
     }
 }
+=======
+pub use hyperswitch_domain_models::connector_endpoints::Connectors;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

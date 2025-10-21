@@ -48,6 +48,7 @@ pub mod profiles;
 #[cfg(feature = "recon")]
 pub mod recon;
 pub mod refunds;
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 pub mod revenue_recovery_data_backfill;
 #[cfg(feature = "v2")]
@@ -56,6 +57,10 @@ pub mod revenue_recovery_redis;
 pub mod routing;
 #[cfg(feature = "v1")]
 pub mod subscription;
+=======
+#[cfg(feature = "olap")]
+pub mod routing;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod three_ds_decision_rule;
 pub mod tokenization;
 #[cfg(feature = "olap")]
@@ -91,6 +96,11 @@ pub use self::app::PaymentMethodSession;
 pub use self::app::Proxy;
 #[cfg(all(feature = "olap", feature = "recon", feature = "v1"))]
 pub use self::app::Recon;
+<<<<<<< HEAD
+=======
+#[cfg(feature = "v2")]
+pub use self::app::Tokenization;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub use self::app::{
     ApiKeys, AppState, ApplePayCertificatesMigration, Authentication, Cache, Cards, Chat, Configs,
     ConnectorOnboarding, Customers, Disputes, EphemeralKey, FeatureMatrix, Files, Forex, Gsm,
@@ -100,11 +110,17 @@ pub use self::app::{
     User, UserDeprecated, Webhooks,
 };
 #[cfg(feature = "olap")]
+<<<<<<< HEAD
 pub use self::app::{Blocklist, Organization, Routing, Subscription, Verify, WebhookEvents};
 #[cfg(feature = "payouts")]
 pub use self::app::{PayoutLink, Payouts};
 #[cfg(feature = "v2")]
 pub use self::app::{RecoveryDataBackfill, Tokenization};
+=======
+pub use self::app::{Blocklist, Organization, Routing, Verify, WebhookEvents};
+#[cfg(feature = "payouts")]
+pub use self::app::{PayoutLink, Payouts};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(all(feature = "stripe", feature = "v1"))]
 pub use super::compatibility::stripe::StripeApis;
 #[cfg(feature = "olap")]

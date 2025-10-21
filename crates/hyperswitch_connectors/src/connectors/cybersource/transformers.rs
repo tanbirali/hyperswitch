@@ -34,20 +34,32 @@ use hyperswitch_domain_models::{
         SetupMandate,
     },
     router_request_types::{
+<<<<<<< HEAD
         authentication::MessageExtensionAttribute, CompleteAuthorizeData, PaymentsAuthenticateData,
         PaymentsAuthorizeData, PaymentsCancelData, PaymentsCaptureData,
         PaymentsPostAuthenticateData, PaymentsPreAuthenticateData, PaymentsPreProcessingData,
         PaymentsSyncData, ResponseId, SetupMandateRequestData,
+=======
+        authentication::MessageExtensionAttribute, CompleteAuthorizeData, PaymentsAuthorizeData,
+        PaymentsCancelData, PaymentsCaptureData, PaymentsPreProcessingData, PaymentsSyncData,
+        ResponseId, SetupMandateRequestData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     router_response_types::{
         MandateReference, PaymentsResponseData, RedirectForm, RefundsResponseData,
     },
     types::{
+<<<<<<< HEAD
         PaymentsAuthenticateRouterData, PaymentsAuthorizeRouterData, PaymentsCancelRouterData,
         PaymentsCaptureRouterData, PaymentsCompleteAuthorizeRouterData,
         PaymentsIncrementalAuthorizationRouterData, PaymentsPostAuthenticateRouterData,
         PaymentsPreAuthenticateRouterData, PaymentsPreProcessingRouterData, RefundsRouterData,
         SetupMandateRouterData,
+=======
+        PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
+        PaymentsCompleteAuthorizeRouterData, PaymentsIncrementalAuthorizationRouterData,
+        PaymentsPreProcessingRouterData, RefundsRouterData, SetupMandateRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 use hyperswitch_interfaces::{api, errors};
@@ -100,7 +112,10 @@ impl From<CardIssuer> for String {
             CardIssuer::CarteBlanche => "006",
             CardIssuer::JCB => "007",
             CardIssuer::CartesBancaires => "036",
+<<<<<<< HEAD
             CardIssuer::UnionPay => "062",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         card_type.to_string()
     }
@@ -275,9 +290,12 @@ impl TryFrom<&SetupMandateRouterData> for CybersourceZeroMandateRequest {
                                 ),
                                 descriptor: None,
                             },
+<<<<<<< HEAD
                             tokenized_card: GooglePayTokenizedCard {
                                 transaction_type: TransactionType::InApp,
                             },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         },
                     )),
                     Some(PaymentSolution::GooglePay),
@@ -308,7 +326,10 @@ impl TryFrom<&SetupMandateRouterData> for CybersourceZeroMandateRequest {
                 | WalletData::PaypalRedirect(_)
                 | WalletData::PaypalSdk(_)
                 | WalletData::Paze(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::TwintRedirect {}
                 | WalletData::VippsRedirect {}
                 | WalletData::TouchNGoRedirect(_)
@@ -562,6 +583,7 @@ pub struct ApplePayPaymentInformation {
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
+<<<<<<< HEAD
 pub struct MandatePaymentTokenizedCard {
     transaction_type: TransactionType,
 }
@@ -578,6 +600,10 @@ pub struct MandatePaymentInformation {
     #[serde(skip_serializing_if = "Option::is_none")]
     tokenized_card: Option<MandatePaymentTokenizedCard>,
     card: Option<MandateCard>,
+=======
+pub struct MandatePaymentInformation {
+    payment_instrument: CybersoucrePaymentInstrument,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -596,6 +622,7 @@ pub const FLUID_DATA_DESCRIPTOR_FOR_SAMSUNG_PAY: &str = "FID=COMMON.SAMSUNG.INAP
 #[serde(rename_all = "camelCase")]
 pub struct GooglePayTokenPaymentInformation {
     fluid_data: FluidData,
+<<<<<<< HEAD
     tokenized_card: GooglePayTokenizedCard,
 }
 
@@ -603,6 +630,8 @@ pub struct GooglePayTokenPaymentInformation {
 #[serde(rename_all = "camelCase")]
 pub struct GooglePayTokenizedCard {
     transaction_type: TransactionType,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -736,6 +765,7 @@ pub struct BillTo {
     email: pii::Email,
 }
 
+<<<<<<< HEAD
 impl From<&CybersourceRouterData<&PaymentsPreAuthenticateRouterData>>
     for ClientReferenceInformation
 {
@@ -746,6 +776,8 @@ impl From<&CybersourceRouterData<&PaymentsPreAuthenticateRouterData>>
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl From<&CybersourceRouterData<&PaymentsAuthorizeRouterData>> for ClientReferenceInformation {
     fn from(item: &CybersourceRouterData<&PaymentsAuthorizeRouterData>) -> Self {
         Self {
@@ -2103,9 +2135,12 @@ impl
                     ),
                     descriptor: None,
                 },
+<<<<<<< HEAD
                 tokenized_card: GooglePayTokenizedCard {
                     transaction_type: TransactionType::InApp,
                 },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }));
         let processing_information =
             ProcessingInformation::try_from((item, Some(PaymentSolution::GooglePay), None))?;
@@ -2513,7 +2548,10 @@ impl TryFrom<&CybersourceRouterData<&PaymentsAuthorizeRouterData>> for Cybersour
                         | WalletData::WeChatPayQr(_)
                         | WalletData::CashappQr(_)
                         | WalletData::SwishQr(_)
+<<<<<<< HEAD
                         | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         | WalletData::Mifinity(_)
                         | WalletData::RevolutPay(_) => Err(errors::ConnectorError::NotImplemented(
                             utils::get_unimplemented_payment_method_error_message("Cybersource"),
@@ -2576,6 +2614,7 @@ impl TryFrom<(&CybersourceRouterData<&PaymentsAuthorizeRouterData>, String)>
         let payment_instrument = CybersoucrePaymentInstrument {
             id: connector_mandate_id.into(),
         };
+<<<<<<< HEAD
         let mandate_card_information = match item.router_data.request.payment_method_type {
             Some(enums::PaymentMethodType::Credit) | Some(enums::PaymentMethodType::Debit) => {
                 Some(MandateCard {
@@ -2594,6 +2633,8 @@ impl TryFrom<(&CybersourceRouterData<&PaymentsAuthorizeRouterData>, String)>
             _ => None,
         };
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let bill_to = item
             .router_data
             .get_optional_billing_email()
@@ -2603,8 +2644,11 @@ impl TryFrom<(&CybersourceRouterData<&PaymentsAuthorizeRouterData>, String)>
         let payment_information =
             PaymentInformation::MandatePayment(Box::new(MandatePaymentInformation {
                 payment_instrument,
+<<<<<<< HEAD
                 tokenized_card,
                 card: mandate_card_information,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }));
         let client_reference_information = ClientReferenceInformation::from(item);
         let merchant_defined_information = item
@@ -2691,6 +2735,7 @@ impl TryFrom<&CybersourceRouterData<&PaymentsAuthorizeRouterData>> for Cybersour
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&CybersourceRouterData<&PaymentsPreAuthenticateRouterData>>
     for CybersourceAuthSetupRequest
 {
@@ -2762,6 +2807,8 @@ impl TryFrom<&CybersourceRouterData<&PaymentsPreAuthenticateRouterData>>
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CybersourcePaymentsCaptureRequest {
@@ -3525,6 +3572,7 @@ impl TryFrom<&CybersourceRouterData<&PaymentsPreProcessingRouterData>>
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&CybersourceRouterData<&PaymentsAuthenticateRouterData>>
     for CybersourceAuthEnrollmentRequest
 {
@@ -3746,6 +3794,8 @@ impl TryFrom<&CybersourceRouterData<&PaymentsPostAuthenticateRouterData>>
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<&CybersourceRouterData<&PaymentsCompleteAuthorizeRouterData>>
     for CybersourcePaymentsRequest
 {
@@ -3838,6 +3888,7 @@ pub enum CybersourcePreProcessingResponse {
     ErrorInformation(Box<CybersourceErrorInformationResponse>),
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum CybersourceAuthenticateResponse {
@@ -3845,6 +3896,8 @@ pub enum CybersourceAuthenticateResponse {
     ErrorInformation(Box<CybersourceErrorInformationResponse>),
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl From<CybersourceAuthEnrollmentStatus> for enums::AttemptStatus {
     fn from(item: CybersourceAuthEnrollmentStatus) -> Self {
         match item {
@@ -4265,6 +4318,7 @@ impl<F>
     TryFrom<
         ResponseRouterData<
             F,
+<<<<<<< HEAD
             CybersourceAuthSetupResponse,
             PaymentsPreAuthenticateData,
             PaymentsResponseData,
@@ -4621,6 +4675,8 @@ impl<F>
     TryFrom<
         ResponseRouterData<
             F,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             CybersourceTransactionResponse,
             PaymentsSyncData,
             PaymentsResponseData,
@@ -4975,12 +5031,21 @@ impl TryFrom<&CybersourceRouterData<&PayoutsRouterData<PoFulfill>>>
                     payment_information,
                 })
             }
+<<<<<<< HEAD
             enums::PayoutType::Bank
             | enums::PayoutType::Wallet
             | enums::PayoutType::BankRedirect => Err(errors::ConnectorError::NotSupported {
                 message: "PayoutType is not supported".to_string(),
                 connector: "Cybersource",
             })?,
+=======
+            enums::PayoutType::Bank | enums::PayoutType::Wallet => {
+                Err(errors::ConnectorError::NotSupported {
+                    message: "PayoutType is not supported".to_string(),
+                    connector: "Cybersource",
+                })?
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -5034,12 +5099,21 @@ impl TryFrom<PayoutMethodData> for PaymentInformation {
                 };
                 Ok(Self::Cards(Box::new(CardPaymentInformation { card })))
             }
+<<<<<<< HEAD
             PayoutMethodData::Bank(_)
             | PayoutMethodData::Wallet(_)
             | PayoutMethodData::BankRedirect(_) => Err(errors::ConnectorError::NotSupported {
                 message: "PayoutMethod is not supported".to_string(),
                 connector: "Cybersource",
             })?,
+=======
+            PayoutMethodData::Bank(_) | PayoutMethodData::Wallet(_) => {
+                Err(errors::ConnectorError::NotSupported {
+                    message: "PayoutMethod is not supported".to_string(),
+                    connector: "Cybersource",
+                })?
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -5085,7 +5159,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, CybersourceFulfillResponse>> for Pa
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })

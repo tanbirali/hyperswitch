@@ -605,14 +605,19 @@ export const connectorDetails = {
         },
       },
       Request: {
+<<<<<<< HEAD
         amount: 0,
         setup_future_usage: "off_session",
         currency: "USD",
+=======
+        currency: "BRL",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       Response: {
         status: 200,
         body: {
           status: "requires_payment_method",
+<<<<<<< HEAD
           setup_future_usage: "off_session",
           amount: 0,
         },
@@ -642,6 +647,8 @@ export const connectorDetails = {
           amount: 0,
           setup_future_usage: "off_session",
           payment_method_type: "credit",
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
       },
     },
@@ -661,10 +668,18 @@ export const connectorDetails = {
         mandate_data: singleUseMandateData,
       },
       Response: {
+<<<<<<< HEAD
         status: 200,
         body: {
           status: "succeeded",
           amount: 0,
+=======
+        status: 501,
+        body: {
+          code: "IR_00",
+          message: "Setup Mandate flow for Payload is not implemented",
+          type: "invalid_request",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
       },
     },

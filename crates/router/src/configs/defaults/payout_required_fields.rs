@@ -38,7 +38,11 @@ impl Default for PayoutRequiredFields {
                     // Adyen
                     get_connector_payment_method_type_fields(
                         PayoutConnectors::Adyenplatform,
+<<<<<<< HEAD
                         PaymentMethodType::SepaBankTransfer,
+=======
+                        PaymentMethodType::Sepa,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     ),
                     // Ebanx
                     get_connector_payment_method_type_fields(
@@ -117,7 +121,11 @@ fn get_billing_details_for_payment_method(
             ]);
 
             // Add first_name for bank payouts only
+<<<<<<< HEAD
             if payment_method_type == PaymentMethodType::SepaBankTransfer {
+=======
+            if payment_method_type == PaymentMethodType::Sepa {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 fields.insert(
                     "billing.address.first_name".to_string(),
                     RequiredFieldInfo {
@@ -209,7 +217,11 @@ fn get_connector_payment_method_type_fields(
                 },
             )
         }
+<<<<<<< HEAD
         PaymentMethodType::SepaBankTransfer => {
+=======
+        PaymentMethodType::Sepa => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             common_fields.extend(get_sepa_fields());
             (
                 payment_method_type,
@@ -244,6 +256,7 @@ fn get_connector_payment_method_type_fields(
             )
         }
 
+<<<<<<< HEAD
         // Bank Redirect
         PaymentMethodType::Interac => {
             common_fields.extend(get_interac_fields(connector));
@@ -262,6 +275,8 @@ fn get_connector_payment_method_type_fields(
             )
         }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         _ => (
             payment_method_type,
             ConnectorFields {
@@ -393,6 +408,7 @@ fn get_paypal_fields() -> HashMap<String, RequiredFieldInfo> {
     )])
 }
 
+<<<<<<< HEAD
 fn get_interac_fields(connector: PayoutConnectors) -> HashMap<String, RequiredFieldInfo> {
     match connector {
         PayoutConnectors::Loonio => HashMap::from([
@@ -475,6 +491,8 @@ fn get_interac_fields(connector: PayoutConnectors) -> HashMap<String, RequiredFi
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 fn get_countries_for_connector(connector: PayoutConnectors) -> Vec<CountryAlpha2> {
     match connector {
         PayoutConnectors::Adyenplatform => vec![

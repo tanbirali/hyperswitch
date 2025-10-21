@@ -41,6 +41,10 @@ crates/analytics/ @juspay/hyperswitch-analytics
 
 scripts/add_connector.sh @juspay/hyperswitch-connector
 connector-template/ @juspay/hyperswitch-connector
+<<<<<<< HEAD
+=======
+crates/router/src/core/connector_validation.rs @juspay/hyperswitch-connector
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 crates/router/src/connector/ @juspay/hyperswitch-connector
 crates/router/tests/connectors/ @juspay/hyperswitch-connector
 crates/test_utils/tests/connectors/ @juspay/hyperswitch-connector
@@ -58,7 +62,10 @@ crates/router/src/types/connector_transformers.rs @juspay/hyperswitch-connector
 crates/router/src/compatibility/ @juspay/hyperswitch-compatibility
 
 crates/router/src/core/ @juspay/hyperswitch-core
+<<<<<<< HEAD
 crates/router/src/core/connector_validation.rs @juspay/hyperswitch-connector
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 crates/api_models/src/routing.rs @juspay/hyperswitch-routing
 crates/hyperswitch_constraint_graph @juspay/hyperswitch-routing
@@ -153,6 +160,7 @@ Dockerfile @juspay/hyperswitch-infra
 docker-compose.yml @juspay/hyperswitch-infra
 .dockerignore @juspay/hyperswitch-infra
 monitoring/ @juspay/hyperswitch-infra
+<<<<<<< HEAD
 
 # Payout related ownership rules
 crates/router/src/core/payouts.rs @juspay/hyperswitch-payouts
@@ -189,3 +197,5 @@ crates/hyperswitch_connectors/src/connectors/stripe/transformers/connect.rs @jus
 
 crates/router/tests/connectors/adyenplatform.rs @juspay/hyperswitch-payouts
 crates/router/tests/connectors/wise.rs @juspay/hyperswitch-payouts
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

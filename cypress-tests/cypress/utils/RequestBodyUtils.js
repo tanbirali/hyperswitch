@@ -3,7 +3,15 @@ const keyPrefixes = {
     publishable_key: "pk_dev_",
     key_id: "dev_",
   },
+<<<<<<< HEAD
   hyperswitch: {
+=======
+  integ: {
+    publishable_key: "pk_snd_",
+    key_id: "snd_",
+  },
+  sandbox: {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     publishable_key: "pk_snd_",
     key_id: "snd_",
   },
@@ -321,6 +329,7 @@ export function generateRandomName() {
 
   return `${randomFirstName} ${randomLastName}`;
 }
+<<<<<<< HEAD
 
 /**
  * Detects if running in CI environment
@@ -337,3 +346,5 @@ export const isCI = () => {
 export const getTimeoutMultiplier = () => {
   return isCI() ? 1.5 : 1;
 };
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -8,9 +8,12 @@ pub enum CustomersErrorResponse {
     #[error("Something went wrong")]
     InternalServerError,
 
+<<<<<<< HEAD
     #[error("Invalid request data: {message}")]
     InvalidRequestData { message: String },
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[error("Customer has already been redacted")]
     MandateActive,
 

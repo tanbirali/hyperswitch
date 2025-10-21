@@ -4,6 +4,7 @@ use hyperswitch_domain_models::{
     router_flow_types::{
         payments::{
             Approve, Authorize, AuthorizeSessionToken, CalculateTax, Capture, CompleteAuthorize,
+<<<<<<< HEAD
             CreateConnectorCustomer, ExtendAuthorization, IncrementalAuthorization, PSync,
             PaymentMethodToken, PostCaptureVoid, PostProcessing, PostSessionTokens, PreProcessing,
             Reject, SdkSessionUpdate, Session, SetupMandate, UpdateMetadata, Void,
@@ -25,6 +26,24 @@ use hyperswitch_domain_models::{
     router_response_types::{
         GiftCardBalanceCheckResponseData, PaymentsResponseData, TaxCalculationResponseData,
     },
+=======
+            CreateConnectorCustomer, IncrementalAuthorization, PSync, PaymentMethodToken,
+            PostCaptureVoid, PostProcessing, PostSessionTokens, PreProcessing, Reject,
+            SdkSessionUpdate, Session, SetupMandate, UpdateMetadata, Void,
+        },
+        CreateOrder, ExternalVaultProxy,
+    },
+    router_request_types::{
+        AuthorizeSessionTokenData, CompleteAuthorizeData, ConnectorCustomerData,
+        CreateOrderRequestData, ExternalVaultProxyPaymentsData, PaymentMethodTokenizationData,
+        PaymentsApproveData, PaymentsAuthorizeData, PaymentsCancelData,
+        PaymentsCancelPostCaptureData, PaymentsCaptureData, PaymentsIncrementalAuthorizationData,
+        PaymentsPostProcessingData, PaymentsPostSessionTokensData, PaymentsPreProcessingData,
+        PaymentsRejectData, PaymentsSessionData, PaymentsSyncData, PaymentsTaxCalculationData,
+        PaymentsUpdateMetadataData, SdkPaymentsSessionUpdateData, SetupMandateRequestData,
+    },
+    router_response_types::{PaymentsResponseData, TaxCalculationResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 use crate::api;
@@ -50,13 +69,19 @@ pub trait Payment:
     + PaymentsPostProcessing
     + ConnectorCustomer
     + PaymentIncrementalAuthorization
+<<<<<<< HEAD
     + PaymentExtendAuthorization
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + PaymentSessionUpdate
     + PaymentPostSessionTokens
     + PaymentUpdateMetadata
     + PaymentsCreateOrder
     + ExternalVaultProxyPaymentsCreateV1
+<<<<<<< HEAD
     + PaymentsGiftCardBalanceCheck
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
 }
 
@@ -102,6 +127,7 @@ pub trait PaymentPostCaptureVoid:
 {
 }
 
+<<<<<<< HEAD
 /// trait PaymentExtendAuthorization
 pub trait PaymentExtendAuthorization:
     api::ConnectorIntegration<
@@ -112,6 +138,8 @@ pub trait PaymentExtendAuthorization:
 {
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// trait PaymentApprove
 pub trait PaymentApprove:
     api::ConnectorIntegration<Approve, PaymentsApproveData, PaymentsResponseData>
@@ -188,6 +216,7 @@ pub trait PaymentsPreProcessing:
 {
 }
 
+<<<<<<< HEAD
 /// trait PaymentsPreAuthenticate
 pub trait PaymentsPreAuthenticate:
     api::ConnectorIntegration<PreAuthenticate, PaymentsPreAuthenticateData, PaymentsResponseData>
@@ -206,6 +235,8 @@ pub trait PaymentsPostAuthenticate:
 {
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// trait PaymentsPostProcessing
 pub trait PaymentsPostProcessing:
     api::ConnectorIntegration<PostProcessing, PaymentsPostProcessingData, PaymentsResponseData>
@@ -223,6 +254,7 @@ pub trait ExternalVaultProxyPaymentsCreateV1:
     api::ConnectorIntegration<ExternalVaultProxy, ExternalVaultProxyPaymentsData, PaymentsResponseData>
 {
 }
+<<<<<<< HEAD
 
 /// trait PaymentsGiftCardBalanceCheck
 pub trait PaymentsGiftCardBalanceCheck:
@@ -233,3 +265,5 @@ pub trait PaymentsGiftCardBalanceCheck:
 >
 {
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

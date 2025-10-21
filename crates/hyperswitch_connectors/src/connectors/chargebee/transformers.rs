@@ -1,6 +1,7 @@
 #[cfg(all(feature = "revenue_recovery", feature = "v2"))]
 use std::str::FromStr;
 
+<<<<<<< HEAD
 use common_enums::{connector_enums, enums};
 use common_utils::{
     errors::CustomResult,
@@ -9,6 +10,10 @@ use common_utils::{
     pii::{self, Email},
     types::MinorUnit,
 };
+=======
+use common_enums::enums;
+use common_utils::{errors::CustomResult, ext_traits::ByteSliceExt, pii, types::MinorUnit};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use error_stack::ResultExt;
 #[cfg(all(feature = "revenue_recovery", feature = "v2"))]
 use hyperswitch_domain_models::revenue_recovery;
@@ -17,6 +22,7 @@ use hyperswitch_domain_models::{
     router_data::{ConnectorAuthType, RouterData},
     router_flow_types::{
         refunds::{Execute, RSync},
+<<<<<<< HEAD
         subscriptions::SubscriptionCreate,
         CreateConnectorCustomer, InvoiceRecordBack,
     },
@@ -41,11 +47,25 @@ use hyperswitch_domain_models::{
 };
 use hyperswitch_interfaces::errors;
 use masking::{ExposeInterface, Secret};
+=======
+        RecoveryRecordBack,
+    },
+    router_request_types::{revenue_recovery::RevenueRecoveryRecordBackRequest, ResponseId},
+    router_response_types::{
+        revenue_recovery::RevenueRecoveryRecordBackResponse, PaymentsResponseData,
+        RefundsResponseData,
+    },
+    types::{PaymentsAuthorizeRouterData, RefundsRouterData, RevenueRecoveryRecordBackRouterData},
+};
+use hyperswitch_interfaces::errors;
+use masking::Secret;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use serde::{Deserialize, Serialize};
 use time::PrimitiveDateTime;
 
 use crate::{
     types::{RefundsResponseRouterData, ResponseRouterData},
+<<<<<<< HEAD
     utils::{self, PaymentsAuthorizeRequestData, RouterData as OtherRouterData},
 };
 
@@ -200,6 +220,11 @@ impl
     }
 }
 
+=======
+    utils::{self, PaymentsAuthorizeRequestData},
+};
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 //TODO: Fill the struct with respective fields
 pub struct ChargebeeRouterData<T> {
     pub amount: MinorUnit, // The type of amount that a connector accepts, for example, String, i64, f64, etc.
@@ -461,6 +486,7 @@ pub enum ChargebeeEventType {
     PaymentSucceeded,
     PaymentFailed,
     InvoiceDeleted,
+<<<<<<< HEAD
     InvoiceGenerated,
 }
 
@@ -479,6 +505,21 @@ pub struct ChargebeeInvoiceData {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
+=======
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ChargebeeInvoiceData {
+    // invoice id
+    pub id: String,
+    pub total: MinorUnit,
+    pub currency_code: enums::Currency,
+    pub billing_address: Option<ChargebeeInvoiceBillingAddress>,
+    pub linked_payments: Option<Vec<ChargebeeInvoicePayments>>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ChargebeeInvoicePayments {
     pub txn_status: Option<String>,
 }
@@ -546,7 +587,11 @@ pub struct ChargebeeCustomer {
     pub payment_method: ChargebeePaymentMethod,
 }
 
+<<<<<<< HEAD
 #[derive(Serialize, Deserialize, Clone, Debug)]
+=======
+#[derive(Serialize, Deserialize, Debug)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ChargebeeInvoiceBillingAddress {
     pub line1: Option<Secret<String>>,
     pub line2: Option<Secret<String>>,
@@ -589,6 +634,7 @@ impl ChargebeeInvoiceBody {
         Ok(webhook_body)
     }
 }
+<<<<<<< HEAD
 // Structure to extract MIT payment data from invoice_generated webhook
 #[derive(Debug, Clone)]
 pub struct ChargebeeMitPaymentData {
@@ -618,6 +664,9 @@ impl TryFrom<ChargebeeInvoiceBody> for ChargebeeMitPaymentData {
         })
     }
 }
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ChargebeeMandateDetails {
     pub customer_id: String,
     pub mandate_id: String,
@@ -652,10 +701,16 @@ impl TryFrom<ChargebeeWebhookBody> for revenue_recovery::RevenueRecoveryAttemptD
     fn try_from(item: ChargebeeWebhookBody) -> Result<Self, Self::Error> {
         let amount = item.content.transaction.amount;
         let currency = item.content.transaction.currency_code.to_owned();
+<<<<<<< HEAD
         let merchant_reference_id = common_utils::id_type::PaymentReferenceId::from_str(
             item.content.invoice.id.get_string_repr(),
         )
         .change_context(errors::ConnectorError::WebhookBodyDecodingFailed)?;
+=======
+        let merchant_reference_id =
+            common_utils::id_type::PaymentReferenceId::from_str(&item.content.invoice.id)
+                .change_context(errors::ConnectorError::WebhookBodyDecodingFailed)?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let connector_transaction_id = item
             .content
             .transaction
@@ -779,6 +834,7 @@ impl From<ChargebeeEventType> for api_models::webhooks::IncomingWebhookEvent {
             ChargebeeEventType::PaymentSucceeded => Self::RecoveryPaymentSuccess,
             ChargebeeEventType::PaymentFailed => Self::RecoveryPaymentFailure,
             ChargebeeEventType::InvoiceDeleted => Self::RecoveryInvoiceCancel,
+<<<<<<< HEAD
             ChargebeeEventType::InvoiceGenerated => Self::InvoiceGenerated,
         }
     }
@@ -792,6 +848,8 @@ impl From<ChargebeeEventType> for api_models::webhooks::IncomingWebhookEvent {
             ChargebeeEventType::PaymentFailed => Self::PaymentIntentFailure,
             ChargebeeEventType::InvoiceDeleted => Self::EventNotSupported,
             ChargebeeEventType::InvoiceGenerated => Self::InvoiceGenerated,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -800,10 +858,16 @@ impl From<ChargebeeEventType> for api_models::webhooks::IncomingWebhookEvent {
 impl TryFrom<ChargebeeInvoiceBody> for revenue_recovery::RevenueRecoveryInvoiceData {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: ChargebeeInvoiceBody) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let merchant_reference_id = common_utils::id_type::PaymentReferenceId::from_str(
             item.content.invoice.id.get_string_repr(),
         )
         .change_context(errors::ConnectorError::WebhookBodyDecodingFailed)?;
+=======
+        let merchant_reference_id =
+            common_utils::id_type::PaymentReferenceId::from_str(&item.content.invoice.id)
+                .change_context(errors::ConnectorError::WebhookBodyDecodingFailed)?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         // The retry count will never exceed u16 limit in a billing connector. It can have maximum of 12 in case of charge bee so its ok to suppress this
         #[allow(clippy::as_conversions)]
@@ -831,13 +895,20 @@ impl TryFrom<ChargebeeInvoiceBody> for revenue_recovery::RevenueRecoveryInvoiceD
             retry_count,
             next_billing_at: invoice_next_billing_time,
             billing_started_at,
+<<<<<<< HEAD
             metadata: None,
             // TODO! This field should be handled for billing connnector integrations
             enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
 
+<<<<<<< HEAD
+=======
+#[cfg(all(feature = "revenue_recovery", feature = "v2"))]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl From<ChargebeeInvoiceData> for api_models::payments::Address {
     fn from(item: ChargebeeInvoiceData) -> Self {
         Self {
@@ -850,6 +921,10 @@ impl From<ChargebeeInvoiceData> for api_models::payments::Address {
     }
 }
 
+<<<<<<< HEAD
+=======
+#[cfg(all(feature = "revenue_recovery", feature = "v2"))]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl From<ChargebeeInvoiceBillingAddress> for api_models::payments::AddressDetails {
     fn from(item: ChargebeeInvoiceBillingAddress) -> Self {
         Self {
@@ -892,10 +967,20 @@ pub enum ChargebeeRecordStatus {
     Failure,
 }
 
+<<<<<<< HEAD
 impl TryFrom<&ChargebeeRouterData<&InvoiceRecordBackRouterData>> for ChargebeeRecordPaymentRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: &ChargebeeRouterData<&InvoiceRecordBackRouterData>,
+=======
+#[cfg(all(feature = "v2", feature = "revenue_recovery"))]
+impl TryFrom<&ChargebeeRouterData<&RevenueRecoveryRecordBackRouterData>>
+    for ChargebeeRecordPaymentRequest
+{
+    type Error = error_stack::Report<errors::ConnectorError>;
+    fn try_from(
+        item: &ChargebeeRouterData<&RevenueRecoveryRecordBackRouterData>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> Result<Self, Self::Error> {
         let req = &item.router_data.request;
         Ok(Self {
@@ -910,6 +995,10 @@ impl TryFrom<&ChargebeeRouterData<&InvoiceRecordBackRouterData>> for ChargebeeRe
     }
 }
 
+<<<<<<< HEAD
+=======
+#[cfg(all(feature = "v2", feature = "revenue_recovery"))]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<enums::AttemptStatus> for ChargebeeRecordStatus {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(status: enums::AttemptStatus) -> Result<Self, Self::Error> {
@@ -963,31 +1052,52 @@ pub struct ChargebeeRecordbackInvoice {
 impl
     TryFrom<
         ResponseRouterData<
+<<<<<<< HEAD
             InvoiceRecordBack,
             ChargebeeRecordbackResponse,
             InvoiceRecordBackRequest,
             InvoiceRecordBackResponse,
         >,
     > for InvoiceRecordBackRouterData
+=======
+            RecoveryRecordBack,
+            ChargebeeRecordbackResponse,
+            RevenueRecoveryRecordBackRequest,
+            RevenueRecoveryRecordBackResponse,
+        >,
+    > for RevenueRecoveryRecordBackRouterData
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: ResponseRouterData<
+<<<<<<< HEAD
             InvoiceRecordBack,
             ChargebeeRecordbackResponse,
             InvoiceRecordBackRequest,
             InvoiceRecordBackResponse,
+=======
+            RecoveryRecordBack,
+            ChargebeeRecordbackResponse,
+            RevenueRecoveryRecordBackRequest,
+            RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         >,
     ) -> Result<Self, Self::Error> {
         let merchant_reference_id = item.response.invoice.id;
         Ok(Self {
+<<<<<<< HEAD
             response: Ok(InvoiceRecordBackResponse {
+=======
+            response: Ok(RevenueRecoveryRecordBackResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 merchant_reference_id,
             }),
             ..item.data
         })
     }
 }
+<<<<<<< HEAD
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ChargebeeListPlansResponse {
@@ -1428,3 +1538,5 @@ impl From<ChargebeeInvoiceStatus> for connector_enums::InvoiceStatus {
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

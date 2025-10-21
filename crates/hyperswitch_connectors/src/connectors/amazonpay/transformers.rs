@@ -1,20 +1,33 @@
+<<<<<<< HEAD
 use std::collections::HashMap;
 
 use common_enums::{enums, CaptureMethod};
 use common_utils::{errors::CustomResult, pii, types::StringMajorUnit};
 use hyperswitch_domain_models::{
     router_data::{ConnectorAuthType, ErrorResponse, RouterData},
+=======
+use common_enums::enums;
+use common_utils::types::StringMinorUnit;
+use hyperswitch_domain_models::{
+    payment_method_data::PaymentMethodData,
+    router_data::{ConnectorAuthType, RouterData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     router_flow_types::refunds::{Execute, RSync},
     router_request_types::ResponseId,
     router_response_types::{PaymentsResponseData, RefundsResponseData},
     types::{PaymentsAuthorizeRouterData, RefundsRouterData},
 };
+<<<<<<< HEAD
 use hyperswitch_interfaces::{consts, errors};
+=======
+use hyperswitch_interfaces::errors;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::Secret;
 use serde::{Deserialize, Serialize};
 
 use crate::{
     types::{RefundsResponseRouterData, ResponseRouterData},
+<<<<<<< HEAD
     utils::{is_refund_failure, RouterData as _},
 };
 
@@ -25,6 +38,20 @@ pub struct AmazonpayRouterData<T> {
 
 impl<T> From<(StringMajorUnit, T)> for AmazonpayRouterData<T> {
     fn from((amount, item): (StringMajorUnit, T)) -> Self {
+=======
+    utils::PaymentsAuthorizeRequestData,
+};
+
+//TODO: Fill the struct with respective fields
+pub struct AmazonpayRouterData<T> {
+    pub amount: StringMinorUnit, // The type of amount that a connector accepts, for example, String, i64, f64, etc.
+    pub router_data: T,
+}
+
+impl<T> From<(StringMinorUnit, T)> for AmazonpayRouterData<T> {
+    fn from((amount, item): (StringMinorUnit, T)) -> Self {
+        //Todo :  use utils to convert the amount to the type of amount that a connector accepts
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Self {
             amount,
             router_data: item,
@@ -32,6 +59,7 @@ impl<T> From<(StringMajorUnit, T)> for AmazonpayRouterData<T> {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct AmazonpayFinalizeRequest {
@@ -76,10 +104,30 @@ fn get_amazonpay_capture_type(
 }
 
 impl TryFrom<&AmazonpayRouterData<&PaymentsAuthorizeRouterData>> for AmazonpayFinalizeRequest {
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Serialize, PartialEq)]
+pub struct AmazonpayPaymentsRequest {
+    amount: StringMinorUnit,
+    card: AmazonpayCard,
+}
+
+#[derive(Default, Debug, Serialize, Eq, PartialEq)]
+pub struct AmazonpayCard {
+    number: cards::CardNumber,
+    expiry_month: Secret<String>,
+    expiry_year: Secret<String>,
+    cvc: Secret<String>,
+    complete: bool,
+}
+
+impl TryFrom<&AmazonpayRouterData<&PaymentsAuthorizeRouterData>> for AmazonpayPaymentsRequest {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: &AmazonpayRouterData<&PaymentsAuthorizeRouterData>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let charge_amount = ChargeAmount {
             amount: item.amount.clone(),
             currency_code: item.router_data.request.currency,
@@ -312,27 +360,57 @@ impl<F, T> TryFrom<ResponseRouterData<F, AmazonpayFinalizeResponse, T, PaymentsR
                     ..item.data
                 })
             }
+=======
+        match item.router_data.request.payment_method_data.clone() {
+            PaymentMethodData::Card(req_card) => {
+                let card = AmazonpayCard {
+                    number: req_card.card_number,
+                    expiry_month: req_card.card_exp_month,
+                    expiry_year: req_card.card_exp_year,
+                    cvc: req_card.card_cvc,
+                    complete: item.router_data.request.is_auto_capture()?,
+                };
+                Ok(Self {
+                    amount: item.amount.clone(),
+                    card,
+                })
+            }
+            _ => Err(errors::ConnectorError::NotImplemented("Payment method".to_string()).into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
 
+<<<<<<< HEAD
 pub struct AmazonpayAuthType {
     pub(super) public_key: Secret<String>,
     pub(super) private_key: Secret<String>,
+=======
+//TODO: Fill the struct with respective fields
+// Auth Struct
+pub struct AmazonpayAuthType {
+    pub(super) api_key: Secret<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&ConnectorAuthType> for AmazonpayAuthType {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(auth_type: &ConnectorAuthType) -> Result<Self, Self::Error> {
         match auth_type {
+<<<<<<< HEAD
             ConnectorAuthType::BodyKey { api_key, key1 } => Ok(Self {
                 public_key: api_key.to_owned(),
                 private_key: key1.to_owned(),
+=======
+            ConnectorAuthType::HeaderKey { api_key } => Ok(Self {
+                api_key: api_key.to_owned(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             _ => Err(errors::ConnectorError::FailedToObtainAuthType.into()),
         }
     }
 }
+<<<<<<< HEAD
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
@@ -343,21 +421,39 @@ pub enum AmazonpayPaymentStatus {
     Captured,
     CaptureInitiated,
     Declined,
+=======
+// PaymentsResponse
+//TODO: Append the remaining status flags
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum AmazonpayPaymentStatus {
+    Succeeded,
+    Failed,
+    #[default]
+    Processing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<AmazonpayPaymentStatus> for common_enums::AttemptStatus {
     fn from(item: AmazonpayPaymentStatus) -> Self {
         match item {
+<<<<<<< HEAD
             AmazonpayPaymentStatus::AuthorizationInitiated => Self::Pending,
             AmazonpayPaymentStatus::Authorized => Self::Authorized,
             AmazonpayPaymentStatus::Canceled => Self::Voided,
             AmazonpayPaymentStatus::Captured => Self::Charged,
             AmazonpayPaymentStatus::CaptureInitiated => Self::CaptureInitiated,
             AmazonpayPaymentStatus::Declined => Self::CaptureFailed,
+=======
+            AmazonpayPaymentStatus::Succeeded => Self::Charged,
+            AmazonpayPaymentStatus::Failed => Self::Failure,
+            AmazonpayPaymentStatus::Processing => Self::Authorizing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct AmazonpayPaymentsResponse {
@@ -411,6 +507,13 @@ pub struct MerchantMetadata {
     merchant_store_name: Option<String>,
     note_to_buyer: Option<String>,
     custom_information: Option<String>,
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct AmazonpayPaymentsResponse {
+    status: AmazonpayPaymentStatus,
+    id: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<F, T> TryFrom<ResponseRouterData<F, AmazonpayPaymentsResponse, T, PaymentsResponseData>>
@@ -420,6 +523,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, AmazonpayPaymentsResponse, T, PaymentsR
     fn try_from(
         item: ResponseRouterData<F, AmazonpayPaymentsResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         match item.response.status_details.state {
             AmazonpayPaymentStatus::Canceled => {
                 Ok(Self {
@@ -482,11 +586,37 @@ impl<F, T> TryFrom<ResponseRouterData<F, AmazonpayPaymentsResponse, T, PaymentsR
 pub struct AmazonpayRefundRequest {
     pub refund_amount: ChargeAmount,
     pub charge_id: String,
+=======
+        Ok(Self {
+            status: common_enums::AttemptStatus::from(item.response.status),
+            response: Ok(PaymentsResponseData::TransactionResponse {
+                resource_id: ResponseId::ConnectorTransactionId(item.response.id),
+                redirection_data: Box::new(None),
+                mandate_reference: Box::new(None),
+                connector_metadata: None,
+                network_txn_id: None,
+                connector_response_reference_id: None,
+                incremental_authorization_allowed: None,
+                charges: None,
+            }),
+            ..item.data
+        })
+    }
+}
+
+//TODO: Fill the struct with respective fields
+// REFUND :
+// Type definition for RefundRequest
+#[derive(Default, Debug, Serialize)]
+pub struct AmazonpayRefundRequest {
+    pub amount: StringMinorUnit,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<F> TryFrom<&AmazonpayRouterData<&RefundsRouterData<F>>> for AmazonpayRefundRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: &AmazonpayRouterData<&RefundsRouterData<F>>) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let refund_amount = ChargeAmount {
             amount: item.amount.clone(),
             currency_code: item.router_data.request.currency,
@@ -495,27 +625,51 @@ impl<F> TryFrom<&AmazonpayRouterData<&RefundsRouterData<F>>> for AmazonpayRefund
         Ok(Self {
             refund_amount,
             charge_id,
+=======
+        Ok(Self {
+            amount: item.amount.to_owned(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum RefundStatus {
     RefundInitiated,
     Refunded,
     Declined,
+=======
+// Type definition for Refund Response
+
+#[allow(dead_code)]
+#[derive(Debug, Serialize, Default, Deserialize, Clone)]
+pub enum RefundStatus {
+    Succeeded,
+    Failed,
+    #[default]
+    Processing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<RefundStatus> for enums::RefundStatus {
     fn from(item: RefundStatus) -> Self {
         match item {
+<<<<<<< HEAD
             RefundStatus::RefundInitiated => Self::Pending,
             RefundStatus::Refunded => Self::Success,
             RefundStatus::Declined => Self::Failure,
+=======
+            RefundStatus::Succeeded => Self::Success,
+            RefundStatus::Failed => Self::Failure,
+            RefundStatus::Processing => Self::Pending,
+            //TODO: Review mapping
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RefundResponse {
@@ -536,6 +690,13 @@ pub struct RefundStatusDetails {
     reason_code: Option<String>,
     reason_description: Option<String>,
     last_updated_timestamp: String,
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Clone, Serialize, Deserialize)]
+pub struct RefundResponse {
+    id: String,
+    status: RefundStatus,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<RefundsResponseRouterData<Execute, RefundResponse>> for RefundsRouterData<Execute> {
@@ -543,6 +704,7 @@ impl TryFrom<RefundsResponseRouterData<Execute, RefundResponse>> for RefundsRout
     fn try_from(
         item: RefundsResponseRouterData<Execute, RefundResponse>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         match item.response.status_details.state {
             RefundStatus::Declined => {
                 Ok(Self {
@@ -572,6 +734,15 @@ impl TryFrom<RefundsResponseRouterData<Execute, RefundResponse>> for RefundsRout
                 })
             }
         }
+=======
+        Ok(Self {
+            response: Ok(RefundsResponseData {
+                connector_refund_id: item.response.id.to_string(),
+                refund_status: enums::RefundStatus::from(item.response.status),
+            }),
+            ..item.data
+        })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -580,6 +751,7 @@ impl TryFrom<RefundsResponseRouterData<RSync, RefundResponse>> for RefundsRouter
     fn try_from(
         item: RefundsResponseRouterData<RSync, RefundResponse>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let refund_status = enums::RefundStatus::from(item.response.status_details.state);
         let response = if is_refund_failure(refund_status) {
             Err(ErrorResponse {
@@ -602,14 +774,31 @@ impl TryFrom<RefundsResponseRouterData<RSync, RefundResponse>> for RefundsRouter
         };
         Ok(Self {
             response,
+=======
+        Ok(Self {
+            response: Ok(RefundsResponseData {
+                connector_refund_id: item.response.id.to_string(),
+                refund_status: enums::RefundStatus::from(item.response.status),
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct AmazonpayErrorResponse {
     pub reason_code: String,
     pub message: String,
+=======
+//TODO: Fill the struct with respective fields
+#[derive(Default, Debug, Serialize, Deserialize, PartialEq)]
+pub struct AmazonpayErrorResponse {
+    pub status_code: u16,
+    pub code: String,
+    pub message: String,
+    pub reason: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

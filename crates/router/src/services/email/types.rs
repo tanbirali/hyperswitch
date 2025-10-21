@@ -3,7 +3,11 @@ use common_enums::{EntityType, MerchantProductType};
 use common_utils::{errors::CustomResult, pii, types::user::EmailThemeConfig};
 use error_stack::ResultExt;
 use external_services::email::{EmailContents, EmailData, EmailError};
+<<<<<<< HEAD
 use masking::{ExposeInterface, PeekInterface, Secret};
+=======
+use masking::{ExposeInterface, Secret};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use crate::{configs, consts, routes::SessionState};
 #[cfg(feature = "olap")]
@@ -567,6 +571,7 @@ impl BizEmailProd {
                 state.conf.email.prod_intent_recipient_email.clone(),
             )?,
             settings: state.conf.clone(),
+<<<<<<< HEAD
             user_name: data
                 .poc_name
                 .map(|s| Secret::new(s.peek().clone().into_inner()))
@@ -579,14 +584,23 @@ impl BizEmailProd {
                 .legal_business_name
                 .map(|s| s.into_inner())
                 .unwrap_or_default(),
+=======
+            user_name: data.poc_name.unwrap_or_default(),
+            poc_email: data.poc_email.unwrap_or_default(),
+            legal_business_name: data.legal_business_name.unwrap_or_default(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             business_location: data
                 .business_location
                 .unwrap_or(common_enums::CountryAlpha2::AD)
                 .to_string(),
+<<<<<<< HEAD
             business_website: data
                 .business_website
                 .map(|s| s.into_inner())
                 .unwrap_or_default(),
+=======
+            business_website: data.business_website.unwrap_or_default(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             theme_id,
             theme_config,
             product_type: data.product_type,

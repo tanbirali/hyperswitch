@@ -1,5 +1,8 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::sync::LazyLock;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use api_models::webhooks::{ConnectorWebhookSecrets, IncomingWebhookEvent, ObjectReferenceId};
 use base64::Engine;
@@ -26,10 +29,14 @@ use hyperswitch_domain_models::{
         PaymentsAuthorizeData, PaymentsCancelData, PaymentsCaptureData, PaymentsSessionData,
         PaymentsSyncData, RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorInfo, MandateRevokeResponseData, PaymentMethodDetails, PaymentsResponseData,
         RefundsResponseData, SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
+=======
+    router_response_types::{MandateRevokeResponseData, PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         MandateRevokeRouterData, PaymentsAuthorizeRouterData, PaymentsCancelRouterData,
         PaymentsCaptureRouterData, PaymentsSyncRouterData, RefundSyncRouterData, RefundsRouterData,
@@ -914,6 +921,7 @@ impl webhooks::IncomingWebhook for Noon {
     }
 }
 
+<<<<<<< HEAD
 static NOON_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -1026,3 +1034,6 @@ impl ConnectorSpecifications for Noon {
         Some(&NOON_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Noon {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

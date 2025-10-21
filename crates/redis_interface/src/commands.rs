@@ -486,6 +486,7 @@ impl super::RedisConnectionPool {
     }
 
     #[instrument(level = "DEBUG", skip(self))]
+<<<<<<< HEAD
     pub async fn get_ttl(&self, key: &RedisKey) -> CustomResult<i64, errors::RedisError> {
         self.pool
             .ttl(key.tenant_aware_key(self))
@@ -494,6 +495,8 @@ impl super::RedisConnectionPool {
     }
 
     #[instrument(level = "DEBUG", skip(self))]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub async fn set_hash_fields<V>(
         &self,
         key: &RedisKey,

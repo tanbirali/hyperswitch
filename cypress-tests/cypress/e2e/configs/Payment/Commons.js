@@ -738,6 +738,7 @@ export const connectorDetails = {
         body: {},
       },
     }),
+<<<<<<< HEAD
     ManualRetryPaymentDisabled: getCustomExchange({
       Request: {
         payment_method: "card",
@@ -794,6 +795,8 @@ export const connectorDetails = {
         },
       },
     }),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Capture: getCustomExchange({
       Request: {
         amount_to_capture: 6000,

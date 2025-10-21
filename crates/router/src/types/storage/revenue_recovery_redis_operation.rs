@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+<<<<<<< HEAD
 use api_models::revenue_recovery_data_backfill::{self, RedisKeyType};
 use common_enums::enums::CardNetwork;
 use common_utils::{date_time, errors::CustomResult, id_type};
@@ -11,6 +12,18 @@ use serde::{Deserialize, Serialize};
 use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime};
 
 use crate::{db::errors, types::storage::enums::RevenueRecoveryAlgorithmType, SessionState};
+=======
+use common_enums::enums::CardNetwork;
+use common_utils::{date_time, errors::CustomResult, id_type};
+use error_stack::ResultExt;
+use masking::Secret;
+use redis_interface::{DelReply, SetnxReply};
+use router_env::{instrument, tracing};
+use serde::{Deserialize, Serialize};
+use time::{Date, Duration, OffsetDateTime, PrimitiveDateTime};
+
+use crate::{db::errors, SessionState};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 // Constants for retry window management
 const RETRY_WINDOW_DAYS: i32 = 30;
@@ -62,14 +75,18 @@ pub struct PaymentProcessorTokenWithRetryInfo {
     pub retry_wait_time_hours: i64,
     /// Number of retries remaining in the 30-day rolling window
     pub monthly_retry_remaining: i32,
+<<<<<<< HEAD
     // Current total retry count in 30-day window
     pub total_30_day_retries: i32,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 /// Redis-based token management struct
 pub struct RedisTokenManager;
 
 impl RedisTokenManager {
+<<<<<<< HEAD
     fn get_connector_customer_lock_key(connector_customer_id: &str) -> String {
         format!("customer:{connector_customer_id}:status")
     }
@@ -78,6 +95,8 @@ impl RedisTokenManager {
         format!("customer:{connector_customer_id}:tokens")
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Lock connector customer
     #[instrument(skip_all)]
     pub async fn lock_connector_customer_status(
@@ -93,7 +112,11 @@ impl RedisTokenManager {
                     errors::RedisError::RedisConnectionError.into(),
                 ))?;
 
+<<<<<<< HEAD
         let lock_key = Self::get_connector_customer_lock_key(connector_customer_id);
+=======
+        let lock_key = format!("customer:{connector_customer_id}:status");
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let seconds = &state.conf.revenue_recovery.redis_ttl_in_seconds;
 
         let result: bool = match redis_conn
@@ -120,6 +143,7 @@ impl RedisTokenManager {
 
         Ok(result)
     }
+<<<<<<< HEAD
     #[instrument(skip_all)]
     pub async fn update_connector_customer_lock_ttl(
         state: &SessionState,
@@ -156,6 +180,8 @@ impl RedisTokenManager {
 
         Ok(result)
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     /// Unlock connector customer status
     #[instrument(skip_all)]
@@ -171,7 +197,11 @@ impl RedisTokenManager {
                     errors::RedisError::RedisConnectionError.into(),
                 ))?;
 
+<<<<<<< HEAD
         let lock_key = Self::get_connector_customer_lock_key(connector_customer_id);
+=======
+        let lock_key = format!("customer:{connector_customer_id}:status");
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         match redis_conn.delete_key(&lock_key.into()).await {
             Ok(DelReply::KeyDeleted) => {
@@ -205,7 +235,11 @@ impl RedisTokenManager {
                 .change_context(errors::StorageError::RedisError(
                     errors::RedisError::RedisConnectionError.into(),
                 ))?;
+<<<<<<< HEAD
         let tokens_key = Self::get_connector_customer_tokens_key(connector_customer_id);
+=======
+        let tokens_key = format!("customer:{connector_customer_id}:tokens");
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         let get_hash_err =
             errors::StorageError::RedisError(errors::RedisError::GetHashFieldFailed.into());
@@ -215,6 +249,10 @@ impl RedisTokenManager {
             .await
             .change_context(get_hash_err)?;
 
+<<<<<<< HEAD
+=======
+        // build the result map using iterator adapters (explicit match preserved for logging)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let payment_processor_token_info_map: HashMap<String, PaymentProcessorTokenStatus> =
             payment_processor_tokens
                 .into_iter()
@@ -255,7 +293,11 @@ impl RedisTokenManager {
                 .change_context(errors::StorageError::RedisError(
                     errors::RedisError::RedisConnectionError.into(),
                 ))?;
+<<<<<<< HEAD
         let tokens_key = Self::get_connector_customer_tokens_key(connector_customer_id);
+=======
+        let tokens_key = format!("customer:{connector_customer_id}:tokens");
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         // allocate capacity up-front to avoid rehashing
         let mut serialized_payment_processor_tokens: HashMap<String, String> =
@@ -358,18 +400,27 @@ impl RedisTokenManager {
             // Obtain network-specific limits and compute remaining monthly retries.
             let card_network_config = card_config.get_network_config(card_network);
 
+<<<<<<< HEAD
             let monthly_retry_remaining = std::cmp::max(
                 0,
                 card_network_config.max_retry_count_for_thirty_day
                     - retry_info.total_30_day_retries,
             );
+=======
+            let monthly_retry_remaining = card_network_config
+                .max_retry_count_for_thirty_day
+                .saturating_sub(retry_info.total_30_day_retries);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             // Build the per-token result struct.
             let token_with_retry_info = PaymentProcessorTokenWithRetryInfo {
                 token_status: payment_processor_token_status.clone(),
                 retry_wait_time_hours,
                 monthly_retry_remaining,
+<<<<<<< HEAD
                 total_30_day_retries: retry_info.total_30_day_retries,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             };
 
             result.insert(payment_processor_token_id.clone(), token_with_retry_info);
@@ -416,7 +467,10 @@ impl RedisTokenManager {
         let monthly_wait_hours =
             if total_30_day_retries >= card_network_config.max_retry_count_for_thirty_day {
                 (0..RETRY_WINDOW_DAYS)
+<<<<<<< HEAD
                     .rev()
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     .map(|i| today - Duration::days(i.into()))
                     .find(|date| token.daily_retry_history.get(date).copied().unwrap_or(0) > 0)
                     .map(|date| Self::calculate_wait_hours(date + Duration::days(31), now))
@@ -506,6 +560,7 @@ impl RedisTokenManager {
         connector_customer_id: &str,
         error_code: &Option<String>,
         is_hard_decline: &Option<bool>,
+<<<<<<< HEAD
         payment_processor_token_id: Option<&str>,
     ) -> CustomResult<bool, errors::StorageError> {
         let today = OffsetDateTime::now_utc().date();
@@ -533,6 +588,23 @@ impl RedisTokenManager {
             }
             None => None,
         };
+=======
+    ) -> CustomResult<bool, errors::StorageError> {
+        let today = OffsetDateTime::now_utc().date();
+        let updated_token =
+            Self::get_connector_customer_payment_processor_tokens(state, connector_customer_id)
+                .await?
+                .values()
+                .find(|status| status.scheduled_at.is_some())
+                .map(|status| PaymentProcessorTokenStatus {
+                    payment_processor_token_details: status.payment_processor_token_details.clone(),
+                    inserted_by_attempt_id: status.inserted_by_attempt_id.clone(),
+                    error_code: error_code.clone(),
+                    daily_retry_history: status.daily_retry_history.clone(),
+                    scheduled_at: None,
+                    is_hard_decline: *is_hard_decline,
+                });
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         match updated_token {
             Some(mut token) => {
@@ -574,7 +646,11 @@ impl RedisTokenManager {
             None => {
                 tracing::debug!(
                     connector_customer_id = connector_customer_id,
+<<<<<<< HEAD
                     "No Token found with token id to update error code",
+=======
+                    "No Token found with scheduled time to update error code",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 );
                 Ok(false)
             }
@@ -663,6 +739,7 @@ impl RedisTokenManager {
         Ok(scheduled_token)
     }
 
+<<<<<<< HEAD
     // Get payment processor token using token id
     #[instrument(skip_all)]
     pub async fn get_payment_processor_token_using_token_id(
@@ -670,10 +747,19 @@ impl RedisTokenManager {
         connector_customer_id: &str,
         payment_processor_token: &str,
     ) -> CustomResult<Option<PaymentProcessorTokenStatus>, errors::StorageError> {
+=======
+    // Get payment processor token with max retry remaining for cascading retry algorithm
+    #[instrument(skip_all)]
+    pub async fn get_token_with_max_retry_remaining(
+        state: &SessionState,
+        connector_customer_id: &str,
+    ) -> CustomResult<Option<PaymentProcessorTokenWithRetryInfo>, errors::StorageError> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         // Get all tokens for the customer
         let tokens_map =
             Self::get_connector_customer_payment_processor_tokens(state, connector_customer_id)
                 .await?;
+<<<<<<< HEAD
         let token_details = tokens_map.get(payment_processor_token).cloned();
 
         tracing::debug!(
@@ -683,6 +769,25 @@ impl RedisTokenManager {
         );
 
         Ok(token_details)
+=======
+
+        // Tokens with retry metadata
+        let tokens_with_retry = Self::get_tokens_with_retry_metadata(state, &tokens_map);
+
+        // Find the token with max retry remaining
+        let max_retry_token = tokens_with_retry
+            .into_iter()
+            .filter(|(_, token_info)| !token_info.token_status.is_hard_decline.unwrap_or(false))
+            .max_by_key(|(_, token_info)| token_info.monthly_retry_remaining)
+            .map(|(_, token_info)| token_info);
+
+        tracing::debug!(
+            connector_customer_id = connector_customer_id,
+            "Fetched payment processor token with max retry remaining",
+        );
+
+        Ok(max_retry_token)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     // Check if all tokens are hard declined or no token found for the customer
@@ -694,9 +799,16 @@ impl RedisTokenManager {
         let tokens_map =
             Self::get_connector_customer_payment_processor_tokens(state, connector_customer_id)
                 .await?;
+<<<<<<< HEAD
         let all_hard_declined = tokens_map
             .values()
             .all(|token| token.is_hard_decline.unwrap_or(false));
+=======
+        let all_hard_declined = tokens_map.is_empty()
+            && tokens_map
+                .values()
+                .all(|token| token.is_hard_decline.unwrap_or(false));
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         tracing::debug!(
             connector_customer_id = connector_customer_id,
@@ -706,6 +818,7 @@ impl RedisTokenManager {
 
         Ok(all_hard_declined)
     }
+<<<<<<< HEAD
 
     // Get token based on retry type
     pub async fn get_token_based_on_retry_type(
@@ -920,4 +1033,6 @@ impl RedisTokenManager {
 
         Ok(())
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

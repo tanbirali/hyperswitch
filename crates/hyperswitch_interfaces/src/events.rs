@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use crate::events::connector_api_logs::ConnectorEvent;
 
 pub mod connector_api_logs;
@@ -13,3 +14,9 @@ where
     #[track_caller]
     fn log_connector_event(&self, event: &ConnectorEvent);
 }
+=======
+//! Events interface
+
+pub mod connector_api_logs;
+pub mod routing_api_logs;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

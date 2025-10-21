@@ -77,7 +77,10 @@ use crate::{
     configs::settings,
     consts as router_consts,
     core::{
+<<<<<<< HEAD
         configs,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         errors::{self, StorageErrorExt},
         payment_methods::{network_tokenization, transformers as payment_methods, vault},
         payments::{
@@ -132,7 +135,10 @@ impl PaymentMethodsController for PmCards<'_> {
         network_token_requestor_reference_id: Option<String>,
         network_token_locker_id: Option<String>,
         network_token_payment_method_data: crypto::OptionalEncryptableValue,
+<<<<<<< HEAD
         vault_source_details: Option<domain::PaymentMethodVaultSourceDetails>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> errors::CustomResult<domain::PaymentMethod, errors::ApiErrorResponse> {
         let db = &*self.state.store;
         let customer = db
@@ -192,8 +198,11 @@ impl PaymentMethodsController for PmCards<'_> {
                     network_token_requestor_reference_id,
                     network_token_locker_id,
                     network_token_payment_method_data,
+<<<<<<< HEAD
                     vault_source_details: vault_source_details
                         .unwrap_or(domain::PaymentMethodVaultSourceDetails::InternalVault),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 },
                 self.merchant_context.get_merchant_account().storage_scheme,
             )
@@ -324,7 +333,10 @@ impl PaymentMethodsController for PmCards<'_> {
                         None,
                         None,
                         None,
+<<<<<<< HEAD
                         Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     )
                     .await
                 } else {
@@ -469,7 +481,10 @@ impl PaymentMethodsController for PmCards<'_> {
         network_token_requestor_reference_id: Option<String>,
         network_token_locker_id: Option<String>,
         network_token_payment_method_data: crypto::OptionalEncryptableValue,
+<<<<<<< HEAD
         vault_source_details: Option<domain::PaymentMethodVaultSourceDetails>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> errors::RouterResult<domain::PaymentMethod> {
         let pm_card_details = resp.card.clone().map(|card| {
             PaymentMethodsData::Card(CardDetailsPaymentMethod::from((card.clone(), None)))
@@ -503,7 +518,10 @@ impl PaymentMethodsController for PmCards<'_> {
             network_token_requestor_reference_id,
             network_token_locker_id,
             network_token_payment_method_data,
+<<<<<<< HEAD
             vault_source_details,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )
         .await
     }
@@ -1305,7 +1323,10 @@ impl PaymentMethodsController for PmCards<'_> {
                         None,
                         None,
                         None,
+<<<<<<< HEAD
                         Default::default(), //Currently this method is used for adding payment method via PaymentMethodCreate API which doesn't support external vault. hence Default i.e. InternalVault is passed for vault source and type
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     )
                     .await?;
 
@@ -1380,7 +1401,10 @@ pub async fn get_client_secret_or_add_payment_method(
                 None,
                 None,
                 None,
+<<<<<<< HEAD
                 Default::default(), //Currently this method is used for adding payment method via PaymentMethodCreate API which doesn't support external vault. hence Default i.e. InternalVault is passed for vault type
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
             .await?;
 
@@ -1708,6 +1732,10 @@ pub async fn update_customer_payment_method(
                 pm.locker_id.as_ref().unwrap_or(&pm.payment_method_id),
             )
             .await
+<<<<<<< HEAD
+=======
+            .change_context(errors::ApiErrorResponse::InternalServerError)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .attach_printable("Error getting card from locker")?;
 
             if card_update.card_exp_month.is_some() || card_update.card_exp_year.is_some() {
@@ -1936,6 +1964,7 @@ pub async fn get_card_from_locker(
                 api_enums::LockerChoice::HyperswitchCardVault,
             )
             .await
+<<<<<<< HEAD
             .map_err(|err| match err.current_context() {
                 errors::VaultError::FetchCardFailed => {
                     err.change_context(errors::ApiErrorResponse::GenericNotFoundError {
@@ -1946,6 +1975,10 @@ pub async fn get_card_from_locker(
                     .change_context(errors::ApiErrorResponse::InternalServerError)
                     .attach_printable("Error getting card from card vault"),
             })
+=======
+            .change_context(errors::ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed while getting card from hyperswitch card vault")
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .inspect_err(|_| {
                 metrics::CARD_LOCKER_FAILURES.add(
                     1,
@@ -2842,11 +2875,19 @@ pub async fn list_payment_methods(
             if routing_enabled_pm_types.contains(&intermediate.payment_method_type)
                 || routing_enabled_pms.contains(&intermediate.payment_method)
             {
+<<<<<<< HEAD
                 let connector_data = helpers::get_connector_data_with_token(
                     &state,
                     intermediate.connector.to_string(),
                     None,
                     intermediate.payment_method_type,
+=======
+                let connector_data = api::ConnectorData::get_connector_by_name(
+                    &state.clone().conf.connectors,
+                    &intermediate.connector,
+                    api::GetToken::from(intermediate.payment_method_type),
+                    None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 )
                 .change_context(errors::ApiErrorResponse::InternalServerError)
                 .attach_printable("invalid connector name received")?;
@@ -3051,7 +3092,10 @@ pub async fn list_payment_methods(
             surcharge_amount: None,
             tax_amount: None,
             routing_approach,
+<<<<<<< HEAD
             is_stored_credential: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         state
@@ -4005,8 +4049,14 @@ fn filter_installment_based(
     payment_method: &RequestPaymentMethodTypes,
     installment_payment_enabled: Option<bool>,
 ) -> bool {
+<<<<<<< HEAD
     installment_payment_enabled
         .is_none_or(|enabled| payment_method.installment_payment_enabled == Some(enabled))
+=======
+    installment_payment_enabled.map_or(true, |enabled| {
+        payment_method.installment_payment_enabled == Some(enabled)
+    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 fn filter_pm_card_network_based(
@@ -4032,14 +4082,24 @@ fn filter_pm_based_on_allowed_types(
     allowed_types: Option<&Vec<api_enums::PaymentMethodType>>,
     payment_method_type: api_enums::PaymentMethodType,
 ) -> bool {
+<<<<<<< HEAD
     allowed_types.is_none_or(|pm| pm.contains(&payment_method_type))
+=======
+    allowed_types.map_or(true, |pm| pm.contains(&payment_method_type))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 fn filter_recurring_based(
     payment_method: &RequestPaymentMethodTypes,
     recurring_enabled: Option<bool>,
 ) -> bool {
+<<<<<<< HEAD
     recurring_enabled.is_none_or(|enabled| payment_method.recurring_enabled == Some(enabled))
+=======
+    recurring_enabled.map_or(true, |enabled| {
+        payment_method.recurring_enabled == Some(enabled)
+    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -4141,6 +4201,7 @@ pub async fn list_customer_payment_method(
         .await
         .to_not_found_response(errors::ApiErrorResponse::CustomerNotFound)?;
 
+<<<<<<< HEAD
     let requires_cvv = configs::get_config_bool(
         state,
         router_consts::superposition::REQUIRES_CVV, // superposition key
@@ -4162,6 +4223,21 @@ pub async fn list_customer_payment_method(
     .await
     .change_context(errors::ApiErrorResponse::InternalServerError)
     .attach_printable("Failed to fetch requires_cvv config")?;
+=======
+    let is_requires_cvv = db
+        .find_config_by_key_unwrap_or(
+            &merchant_context
+                .get_merchant_account()
+                .get_id()
+                .get_requires_cvv_key(),
+            Some("true".to_string()),
+        )
+        .await
+        .change_context(errors::ApiErrorResponse::InternalServerError)
+        .attach_printable("Failed to fetch requires_cvv config")?;
+
+    let requires_cvv = is_requires_cvv.config != "false";
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let resp = db
         .find_payment_method_by_customer_id_merchant_id_status(
@@ -4623,6 +4699,10 @@ pub async fn get_card_details_from_locker(
         pm.locker_id.as_ref().unwrap_or(pm.get_id()),
     )
     .await
+<<<<<<< HEAD
+=======
+    .change_context(errors::ApiErrorResponse::InternalServerError)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     .attach_printable("Error getting card from card vault")?;
 
     payment_methods::get_card_detail(pm, card)
@@ -4818,12 +4898,15 @@ pub async fn get_bank_from_hs_locker(
             message: "Expected bank details, found wallet details instead".to_string(),
         }
         .into()),
+<<<<<<< HEAD
         api::PayoutMethodData::BankRedirect(_) => {
             Err(errors::ApiErrorResponse::InvalidRequestData {
                 message: "Expected bank details, found bank redirect details instead".to_string(),
             }
             .into())
         }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 

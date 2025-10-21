@@ -17,14 +17,20 @@ use hyperswitch_domain_models::payments::payment_intent::CustomerData;
 use masking::{ExposeInterface, PeekInterface, Secret};
 
 use super::domain;
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use crate::db::storage::revenue_recovery_redis_operation;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::{
     core::errors,
     headers::{
         ACCEPT_LANGUAGE, BROWSER_NAME, X_APP_ID, X_CLIENT_PLATFORM, X_CLIENT_SOURCE,
         X_CLIENT_VERSION, X_MERCHANT_DOMAIN, X_PAYMENT_CONFIRM_SOURCE, X_REDIRECT_URI,
+<<<<<<< HEAD
         X_REFERENCE_ID,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     services::authentication::get_header_value_by_key,
     types::{
@@ -326,6 +332,7 @@ impl ForeignFrom<api_enums::PaymentMethodType> for api_enums::PaymentMethod {
             | api_enums::PaymentMethodType::Trustly
             | api_enums::PaymentMethodType::Bizum
             | api_enums::PaymentMethodType::Interac => Self::BankRedirect,
+<<<<<<< HEAD
             api_enums::PaymentMethodType::UpiCollect
             | api_enums::PaymentMethodType::UpiIntent
             | api_enums::PaymentMethodType::UpiQr => Self::Upi,
@@ -333,6 +340,14 @@ impl ForeignFrom<api_enums::PaymentMethodType> for api_enums::PaymentMethod {
             api_enums::PaymentMethodType::Ach
             | api_enums::PaymentMethodType::Sepa
             | api_enums::PaymentMethodType::SepaGuarenteedDebit
+=======
+            api_enums::PaymentMethodType::UpiCollect | api_enums::PaymentMethodType::UpiIntent => {
+                Self::Upi
+            }
+            api_enums::PaymentMethodType::CryptoCurrency => Self::Crypto,
+            api_enums::PaymentMethodType::Ach
+            | api_enums::PaymentMethodType::Sepa
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | api_enums::PaymentMethodType::Bacs
             | api_enums::PaymentMethodType::Becs => Self::BankDebit,
             api_enums::PaymentMethodType::Credit | api_enums::PaymentMethodType::Debit => {
@@ -1196,9 +1211,12 @@ impl ForeignFrom<&api_models::payouts::PayoutMethodData> for api_enums::PaymentM
             api_models::payouts::PayoutMethodData::Bank(bank) => Self::foreign_from(bank),
             api_models::payouts::PayoutMethodData::Card(_) => Self::Debit,
             api_models::payouts::PayoutMethodData::Wallet(wallet) => Self::foreign_from(wallet),
+<<<<<<< HEAD
             api_models::payouts::PayoutMethodData::BankRedirect(bank_redirect) => {
                 Self::foreign_from(bank_redirect)
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1221,6 +1239,7 @@ impl ForeignFrom<&api_models::payouts::Wallet> for api_enums::PaymentMethodType 
         match value {
             api_models::payouts::Wallet::Paypal(_) => Self::Paypal,
             api_models::payouts::Wallet::Venmo(_) => Self::Venmo,
+<<<<<<< HEAD
             api_models::payouts::Wallet::ApplePayDecrypt(_) => Self::ApplePay,
         }
     }
@@ -1231,6 +1250,8 @@ impl ForeignFrom<&api_models::payouts::BankRedirect> for api_enums::PaymentMetho
     fn foreign_from(value: &api_models::payouts::BankRedirect) -> Self {
         match value {
             api_models::payouts::BankRedirect::Interac(_) => Self::Interac,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1242,7 +1263,10 @@ impl ForeignFrom<&api_models::payouts::PayoutMethodData> for api_enums::PaymentM
             api_models::payouts::PayoutMethodData::Bank(_) => Self::BankTransfer,
             api_models::payouts::PayoutMethodData::Card(_) => Self::Card,
             api_models::payouts::PayoutMethodData::Wallet(_) => Self::Wallet,
+<<<<<<< HEAD
             api_models::payouts::PayoutMethodData::BankRedirect(_) => Self::BankRedirect,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1254,7 +1278,10 @@ impl ForeignFrom<&api_models::payouts::PayoutMethodData> for api_models::enums::
             api_models::payouts::PayoutMethodData::Bank(_) => Self::Bank,
             api_models::payouts::PayoutMethodData::Card(_) => Self::Card,
             api_models::payouts::PayoutMethodData::Wallet(_) => Self::Wallet,
+<<<<<<< HEAD
             api_models::payouts::PayoutMethodData::BankRedirect(_) => Self::BankRedirect,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1266,7 +1293,10 @@ impl ForeignFrom<api_models::enums::PayoutType> for api_enums::PaymentMethod {
             api_models::enums::PayoutType::Bank => Self::BankTransfer,
             api_models::enums::PayoutType::Card => Self::Card,
             api_models::enums::PayoutType::Wallet => Self::Wallet,
+<<<<<<< HEAD
             api_models::enums::PayoutType::BankRedirect => Self::BankRedirect,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1357,8 +1387,11 @@ impl ForeignTryFrom<&HeaderMap> for hyperswitch_domain_models::payments::HeaderP
 
         let x_redirect_uri =
             get_header_value_by_key(X_REDIRECT_URI.into(), headers)?.map(|val| val.to_string());
+<<<<<<< HEAD
         let x_reference_id =
             get_header_value_by_key(X_REFERENCE_ID.into(), headers)?.map(|val| val.to_string());
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(Self {
             payment_confirm_source,
@@ -1371,7 +1404,10 @@ impl ForeignTryFrom<&HeaderMap> for hyperswitch_domain_models::payments::HeaderP
             locale,
             x_app_id,
             x_redirect_uri,
+<<<<<<< HEAD
             x_reference_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -1448,8 +1484,11 @@ impl ForeignTryFrom<&HeaderMap> for hyperswitch_domain_models::payments::HeaderP
 
         let x_redirect_uri =
             get_header_value_by_key(X_REDIRECT_URI.into(), headers)?.map(|val| val.to_string());
+<<<<<<< HEAD
         let x_reference_id =
             get_header_value_by_key(X_REFERENCE_ID.into(), headers)?.map(|val| val.to_string());
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(Self {
             payment_confirm_source,
@@ -1462,7 +1501,10 @@ impl ForeignTryFrom<&HeaderMap> for hyperswitch_domain_models::payments::HeaderP
             locale,
             x_app_id,
             x_redirect_uri,
+<<<<<<< HEAD
             x_reference_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -2016,7 +2058,10 @@ impl ForeignFrom<api_models::admin::WebhookDetails>
             payment_statuses_enabled: item.payment_statuses_enabled,
             refund_statuses_enabled: item.refund_statuses_enabled,
             payout_statuses_enabled: item.payout_statuses_enabled,
+<<<<<<< HEAD
             multiple_webhooks_list: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -2258,6 +2303,7 @@ impl ForeignFrom<card_info_types::CardInfoUpdateRequest> for storage::CardInfo {
         }
     }
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v2")]
 impl ForeignFrom<&revenue_recovery_redis_operation::PaymentProcessorTokenStatus>
@@ -2285,3 +2331,5 @@ impl ForeignFrom<&revenue_recovery_redis_operation::PaymentProcessorTokenStatus>
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

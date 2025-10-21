@@ -239,7 +239,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, StripeConnectPayoutCreateResponse>>
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -276,7 +279,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, StripeConnectPayoutFulfillResponse>
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -309,7 +315,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, StripeConnectReversalResponse>>
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -385,7 +394,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, StripeConnectRecipientCreateRespons
                 should_add_next_step_to_process_tracker: true,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -449,6 +461,7 @@ impl<F> TryFrom<&PayoutsRouterData<F>> for StripeConnectRecipientAccountCreateRe
                 }
                 .into())
             }
+<<<<<<< HEAD
             api_models::payouts::PayoutMethodData::BankRedirect(_) => {
                 Err(errors::ConnectorError::NotSupported {
                     message: "Payouts via BankRedirect are not supported".to_string(),
@@ -456,6 +469,8 @@ impl<F> TryFrom<&PayoutsRouterData<F>> for StripeConnectRecipientAccountCreateRe
                 }
                 .into())
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -476,7 +491,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, StripeConnectRecipientAccountCreate
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })

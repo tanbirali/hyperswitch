@@ -93,6 +93,7 @@ export const connectorDetails = {
         },
       },
     },
+<<<<<<< HEAD
     PaymentIntentOffSession: {
       Request: {
         amount: 6000,
@@ -108,6 +109,8 @@ export const connectorDetails = {
         },
       },
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     No3DSAutoCapture: {
       Request: {
         payment_method: "card",

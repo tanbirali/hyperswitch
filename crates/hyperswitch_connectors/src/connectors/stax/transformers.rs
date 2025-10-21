@@ -6,9 +6,13 @@ use hyperswitch_domain_models::{
     router_data::{ConnectorAuthType, PaymentMethodToken, RouterData},
     router_flow_types::refunds::{Execute, RSync},
     router_request_types::ResponseId,
+<<<<<<< HEAD
     router_response_types::{
         ConnectorCustomerResponseData, PaymentsResponseData, RefundsResponseData,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types,
 };
 use hyperswitch_interfaces::{api, errors};
@@ -198,9 +202,15 @@ impl<F, T> TryFrom<ResponseRouterData<F, StaxCustomerResponse, T, PaymentsRespon
         item: ResponseRouterData<F, StaxCustomerResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
         Ok(Self {
+<<<<<<< HEAD
             response: Ok(PaymentsResponseData::ConnectorCustomerResponse(
                 ConnectorCustomerResponseData::new_with_customer_id(item.response.id.expose()),
             )),
+=======
+            response: Ok(PaymentsResponseData::ConnectorCustomerResponse {
+                connector_customer_id: item.response.id.expose(),
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }

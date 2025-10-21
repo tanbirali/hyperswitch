@@ -297,8 +297,11 @@ pub async fn generate_sample_data(
             tax_status: None,
             shipping_amount_tax: None,
             enable_partial_authorization: None,
+<<<<<<< HEAD
             enable_overcapture: None,
             mit_category: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let (connector_transaction_id, processor_transaction_data) =
             ConnectorTransactionId::form_id_and_data(attempt_id.clone());
@@ -394,9 +397,12 @@ pub async fn generate_sample_data(
             routing_approach: None,
             connector_request_reference_id: None,
             network_transaction_id: None,
+<<<<<<< HEAD
             network_details: None,
             is_stored_credential: None,
             authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let refund = if refunds_count < number_of_refunds && !is_failed_payment {

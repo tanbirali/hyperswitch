@@ -1,6 +1,10 @@
 use common_utils::{
     ext_traits::Encode,
+<<<<<<< HEAD
     types::{MinorUnit, StringMajorUnit, StringMinorUnitForConnector},
+=======
+    types::{MinorUnit, StringMinorUnitForConnector},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
@@ -316,7 +320,11 @@ pub struct EnhancedData {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub destination_country_code: Option<common_enums::CountryAlpha2>,
     #[serde(skip_serializing_if = "Option::is_none")]
+<<<<<<< HEAD
     pub detail_tax: Option<DetailTax>,
+=======
+    pub invoice_reference_number: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub line_item_data: Option<Vec<LineItemData>>,
 }
@@ -324,11 +332,18 @@ pub struct EnhancedData {
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DetailTax {
+<<<<<<< HEAD
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tax_included_in_total: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tax_amount: Option<MinorUnit>,
     #[serde(skip_serializing_if = "Option::is_none")]
+=======
+    pub tax_included_in_total: Option<bool>,
+    pub tax_amount: Option<MinorUnit>,
+    pub tax_rate: Option<String>,
+    pub tax_type_identifier: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub card_acceptor_tax_id: Option<Secret<String>>,
 }
 
@@ -357,6 +372,10 @@ pub struct LineItemData {
     pub commodity_code: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unit_cost: Option<MinorUnit>,
+<<<<<<< HEAD
+=======
+    // pub detail_tax: Option<DetailTax>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -539,12 +558,15 @@ impl<F> TryFrom<ResponseRouterData<F, VantivSyncResponse, PaymentsSyncData, Paym
                 .and_then(|detail| detail.response_reason_message.clone())
                 .unwrap_or(item.response.payment_status.to_string());
 
+<<<<<<< HEAD
             let connector_transaction_id = item
                 .response
                 .payment_detail
                 .as_ref()
                 .and_then(|detail| detail.payment_id.map(|id| id.to_string()));
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Ok(Self {
                 status,
                 response: Err(ErrorResponse {
@@ -553,7 +575,11 @@ impl<F> TryFrom<ResponseRouterData<F, VantivSyncResponse, PaymentsSyncData, Paym
                     reason: Some(error_message.clone()),
                     status_code: item.http_code,
                     attempt_status: None,
+<<<<<<< HEAD
                     connector_transaction_id,
+=======
+                    connector_transaction_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     network_advice_code: None,
                     network_decline_code: None,
                     network_error_message: None,
@@ -562,6 +588,7 @@ impl<F> TryFrom<ResponseRouterData<F, VantivSyncResponse, PaymentsSyncData, Paym
                 ..item.data
             })
         } else {
+<<<<<<< HEAD
             let required_conversion_type = common_utils::types::StringMajorUnitForConnector;
             let minor_amount_captured = item
                 .response
@@ -577,6 +604,8 @@ impl<F> TryFrom<ResponseRouterData<F, VantivSyncResponse, PaymentsSyncData, Paym
                 })
                 .transpose()
                 .change_context(errors::ConnectorError::ResponseHandlingFailed)?;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Ok(Self {
                 status,
                 response: Ok(PaymentsResponseData::TransactionResponse {
@@ -591,7 +620,10 @@ impl<F> TryFrom<ResponseRouterData<F, VantivSyncResponse, PaymentsSyncData, Paym
                     incremental_authorization_allowed: None,
                     charges: None,
                 }),
+<<<<<<< HEAD
                 minor_amount_captured,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 ..item.data
             })
         }
@@ -954,7 +986,11 @@ where
 {
     let l2_l3_data = item.get_optional_l2_l3_data();
     if let Some(l2_l3_data) = l2_l3_data {
+<<<<<<< HEAD
         let line_item_data = l2_l3_data.order_details.as_ref().map(|order_details| {
+=======
+        let line_item_data = l2_l3_data.order_details.map(|order_details| {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             order_details
                 .iter()
                 .enumerate()
@@ -985,6 +1021,7 @@ where
         let customer_reference =
             get_vantiv_customer_reference(&l2_l3_data.merchant_order_reference_id);
 
+<<<<<<< HEAD
         let detail_tax: Option<DetailTax> = if l2_l3_data.merchant_tax_registration_id.is_some()
             && l2_l3_data.order_details.is_some()
         {
@@ -1004,6 +1041,8 @@ where
         } else {
             None
         };
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let enhanced_data = EnhancedData {
             customer_reference,
             sales_tax: l2_l3_data.order_tax_amount,
@@ -1011,10 +1050,17 @@ where
             discount_amount: l2_l3_data.discount_amount,
             shipping_amount: l2_l3_data.shipping_cost,
             duty_amount: l2_l3_data.duty_amount,
+<<<<<<< HEAD
             ship_from_postal_code: l2_l3_data.get_shipping_origin_zip(),
             destination_postal_code: l2_l3_data.get_shipping_zip(),
             destination_country_code: l2_l3_data.get_shipping_country(),
             detail_tax,
+=======
+            ship_from_postal_code: l2_l3_data.shipping_origin_zip,
+            destination_postal_code: l2_l3_data.shipping_destination_zip,
+            destination_country_code: l2_l3_data.shipping_country,
+            invoice_reference_number: l2_l3_data.merchant_order_reference_id,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             line_item_data,
         };
         Ok(Some(enhanced_data))
@@ -1224,7 +1270,11 @@ pub struct PaymentDetail {
     pub response_reason_message: Option<String>,
     pub reject_type: Option<String>,
     pub dupe_txn_id: Option<u64>,
+<<<<<<< HEAD
     pub amount: Option<StringMajorUnit>,
+=======
+    pub amount: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub purchase_currency: Option<String>,
     pub post_day: Option<String>,
     pub reported_timestamp: Option<String>,
@@ -1937,7 +1987,10 @@ impl<F>
                         }),
                         connector_response,
                         amount_captured: sale_response.approved_amount.map(MinorUnit::get_amount_as_i64),
+<<<<<<< HEAD
                         minor_amount_captured: sale_response.approved_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         ..item.data
                     })
                 }
@@ -2015,11 +2068,14 @@ impl<F>
                         } else {
                             None
                         },
+<<<<<<< HEAD
                         minor_amount_captured: if payment_flow_type == WorldpayvantivPaymentFlow::Sale {
                             auth_response.approved_amount
                         } else {
                             None
                         },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         ..item.data
                     })
                 }
@@ -2191,11 +2247,14 @@ impl TryFrom<RefundsResponseRouterData<RSync, VantivSyncResponse>> for RefundsRo
                 .as_ref()
                 .and_then(|detail| detail.response_reason_message.clone())
                 .unwrap_or(consts::NO_ERROR_MESSAGE.to_string());
+<<<<<<< HEAD
             let connector_transaction_id = item
                 .response
                 .payment_detail
                 .as_ref()
                 .and_then(|detail| detail.payment_id.map(|id| id.to_string()));
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             Ok(Self {
                 response: Err(ErrorResponse {
@@ -2204,7 +2263,11 @@ impl TryFrom<RefundsResponseRouterData<RSync, VantivSyncResponse>> for RefundsRo
                     reason: Some(error_message.clone()),
                     status_code: item.http_code,
                     attempt_status: None,
+<<<<<<< HEAD
                     connector_transaction_id,
+=======
+                    connector_transaction_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     network_advice_code: None,
                     network_decline_code: None,
                     network_error_message: None,

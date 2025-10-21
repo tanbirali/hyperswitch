@@ -4,6 +4,7 @@ use crate::{
     router_data::{AccessToken, AccessTokenAuthenticationResponse, RouterData},
     router_data_v2::{self, RouterDataV2},
     router_flow_types::{
+<<<<<<< HEAD
         mandate_revoke::MandateRevoke,
         revenue_recovery::InvoiceRecordBack,
         subscriptions::{
@@ -17,15 +18,28 @@ use crate::{
         GiftCardBalanceCheck, IncrementalAuthorization, PSync, PaymentMethodToken,
         PostAuthenticate, PostCaptureVoid, PostSessionTokens, PreAuthenticate, PreProcessing,
         RSync, SdkSessionUpdate, Session, SetupMandate, UpdateMetadata, VerifyWebhookSource, Void,
+=======
+        mandate_revoke::MandateRevoke, revenue_recovery::RecoveryRecordBack, AccessTokenAuth,
+        AccessTokenAuthentication, Authenticate, AuthenticationConfirmation, Authorize,
+        AuthorizeSessionToken, BillingConnectorInvoiceSync, BillingConnectorPaymentsSync,
+        CalculateTax, Capture, CompleteAuthorize, CreateConnectorCustomer, CreateOrder, Execute,
+        ExternalVaultProxy, IncrementalAuthorization, PSync, PaymentMethodToken, PostAuthenticate,
+        PostCaptureVoid, PostSessionTokens, PreAuthenticate, PreProcessing, RSync,
+        SdkSessionUpdate, Session, SetupMandate, UpdateMetadata, VerifyWebhookSource, Void,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     router_request_types::{
         revenue_recovery::{
             BillingConnectorInvoiceSyncRequest, BillingConnectorPaymentsSyncRequest,
+<<<<<<< HEAD
             InvoiceRecordBackRequest,
         },
         subscriptions::{
             GetSubscriptionEstimateRequest, GetSubscriptionPlanPricesRequest,
             GetSubscriptionPlansRequest, SubscriptionCreateRequest,
+=======
+            RevenueRecoveryRecordBackRequest,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
         unified_authentication_service::{
             UasAuthenticationRequestData, UasAuthenticationResponseData,
@@ -34,11 +48,17 @@ use crate::{
         },
         AccessTokenAuthenticationRequestData, AccessTokenRequestData, AuthorizeSessionTokenData,
         CompleteAuthorizeData, ConnectorCustomerData, CreateOrderRequestData,
+<<<<<<< HEAD
         ExternalVaultProxyPaymentsData, GiftCardBalanceCheckRequestData, MandateRevokeRequestData,
         PaymentMethodTokenizationData, PaymentsAuthenticateData, PaymentsAuthorizeData,
         PaymentsCancelData, PaymentsCancelPostCaptureData, PaymentsCaptureData,
         PaymentsExtendAuthorizationData, PaymentsIncrementalAuthorizationData,
         PaymentsPostAuthenticateData, PaymentsPostSessionTokensData, PaymentsPreAuthenticateData,
+=======
+        ExternalVaultProxyPaymentsData, MandateRevokeRequestData, PaymentMethodTokenizationData,
+        PaymentsAuthorizeData, PaymentsCancelData, PaymentsCancelPostCaptureData,
+        PaymentsCaptureData, PaymentsIncrementalAuthorizationData, PaymentsPostSessionTokensData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         PaymentsPreProcessingData, PaymentsSessionData, PaymentsSyncData,
         PaymentsTaxCalculationData, PaymentsUpdateMetadataData, RefundsData,
         SdkPaymentsSessionUpdateData, SetupMandateRequestData, VaultRequestData,
@@ -47,6 +67,7 @@ use crate::{
     router_response_types::{
         revenue_recovery::{
             BillingConnectorInvoiceSyncResponse, BillingConnectorPaymentsSyncResponse,
+<<<<<<< HEAD
             InvoiceRecordBackResponse,
         },
         subscriptions::{
@@ -56,6 +77,12 @@ use crate::{
         GiftCardBalanceCheckResponseData, MandateRevokeResponseData, PaymentsResponseData,
         RefundsResponseData, TaxCalculationResponseData, VaultResponseData,
         VerifyWebhookSourceResponseData,
+=======
+            RevenueRecoveryRecordBackResponse,
+        },
+        MandateRevokeResponseData, PaymentsResponseData, RefundsResponseData,
+        TaxCalculationResponseData, VaultResponseData, VerifyWebhookSourceResponseData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 #[cfg(feature = "payouts")]
@@ -69,12 +96,15 @@ pub type PaymentsAuthorizeSessionTokenRouterData =
     RouterData<AuthorizeSessionToken, AuthorizeSessionTokenData, PaymentsResponseData>;
 pub type PaymentsPreProcessingRouterData =
     RouterData<PreProcessing, PaymentsPreProcessingData, PaymentsResponseData>;
+<<<<<<< HEAD
 pub type PaymentsPreAuthenticateRouterData =
     RouterData<PreAuthenticate, PaymentsPreAuthenticateData, PaymentsResponseData>;
 pub type PaymentsAuthenticateRouterData =
     RouterData<Authenticate, PaymentsAuthenticateData, PaymentsResponseData>;
 pub type PaymentsPostAuthenticateRouterData =
     RouterData<PostAuthenticate, PaymentsPostAuthenticateData, PaymentsResponseData>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub type PaymentsSyncRouterData = RouterData<PSync, PaymentsSyncData, PaymentsResponseData>;
 pub type PaymentsCaptureRouterData = RouterData<Capture, PaymentsCaptureData, PaymentsResponseData>;
 pub type PaymentsCancelRouterData = RouterData<Void, PaymentsCancelData, PaymentsResponseData>;
@@ -98,11 +128,14 @@ pub type AccessTokenAuthenticationRouterData = RouterData<
     AccessTokenAuthenticationRequestData,
     AccessTokenAuthenticationResponse,
 >;
+<<<<<<< HEAD
 pub type PaymentsGiftCardBalanceCheckRouterData = RouterData<
     GiftCardBalanceCheck,
     GiftCardBalanceCheckRequestData,
     GiftCardBalanceCheckResponseData,
 >;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub type RefreshTokenRouterData = RouterData<AccessTokenAuth, AccessTokenRequestData, AccessToken>;
 pub type PaymentsPostSessionTokensRouterData =
     RouterData<PostSessionTokens, PaymentsPostSessionTokensData, PaymentsResponseData>;
@@ -130,8 +163,11 @@ pub type PaymentsIncrementalAuthorizationRouterData = RouterData<
     PaymentsIncrementalAuthorizationData,
     PaymentsResponseData,
 >;
+<<<<<<< HEAD
 pub type PaymentsExtendAuthorizationRouterData =
     RouterData<ExtendAuthorization, PaymentsExtendAuthorizationData, PaymentsResponseData>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub type SdkSessionUpdateRouterData =
     RouterData<SdkSessionUpdate, SdkPaymentsSessionUpdateData, PaymentsResponseData>;
 
@@ -144,6 +180,7 @@ pub type VerifyWebhookSourceRouterData = RouterData<
 #[cfg(feature = "payouts")]
 pub type PayoutsRouterData<F> = RouterData<F, PayoutsData, PayoutsResponseData>;
 
+<<<<<<< HEAD
 pub type InvoiceRecordBackRouterData =
     RouterData<InvoiceRecordBack, InvoiceRecordBackRequest, InvoiceRecordBackResponse>;
 
@@ -154,6 +191,12 @@ pub type GetSubscriptionEstimateRouterData = RouterData<
     GetSubscriptionEstimate,
     GetSubscriptionEstimateRequest,
     GetSubscriptionEstimateResponse,
+=======
+pub type RevenueRecoveryRecordBackRouterData = RouterData<
+    RecoveryRecordBack,
+    RevenueRecoveryRecordBackRequest,
+    RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 >;
 
 pub type UasAuthenticationRouterData =
@@ -185,6 +228,7 @@ pub type BillingConnectorPaymentsSyncRouterDataV2 = RouterDataV2<
     BillingConnectorPaymentsSyncResponse,
 >;
 
+<<<<<<< HEAD
 pub type InvoiceRecordBackRouterDataV2 = RouterDataV2<
     InvoiceRecordBack,
     router_data_v2::flow_common_types::InvoiceRecordBackData,
@@ -196,6 +240,13 @@ pub type GetSubscriptionPlanPricesRouterData = RouterData<
     GetSubscriptionPlanPrices,
     GetSubscriptionPlanPricesRequest,
     GetSubscriptionPlanPricesResponse,
+=======
+pub type RevenueRecoveryRecordBackRouterDataV2 = RouterDataV2<
+    RecoveryRecordBack,
+    router_data_v2::flow_common_types::RevenueRecoveryRecordBackData,
+    RevenueRecoveryRecordBackRequest,
+    RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 >;
 
 pub type VaultRouterData<F> = RouterData<F, VaultRequestData, VaultResponseData>;
@@ -213,6 +264,9 @@ pub type ExternalVaultProxyPaymentsRouterDataV2 = RouterDataV2<
     ExternalVaultProxyPaymentsData,
     PaymentsResponseData,
 >;
+<<<<<<< HEAD
 
 pub type SubscriptionCreateRouterData =
     RouterData<SubscriptionCreate, SubscriptionCreateRequest, SubscriptionCreateResponse>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

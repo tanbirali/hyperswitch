@@ -458,8 +458,12 @@ pub async fn change_password(
             },
         )
         .await
+<<<<<<< HEAD
         .change_context(UserErrors::InternalServerError)
         .attach_printable("Failed to update user password in the database")?;
+=======
+        .change_context(UserErrors::InternalServerError)?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let _ = auth::blacklist::insert_user_in_blacklist(&state, user.get_user_id())
         .await
@@ -2483,7 +2487,11 @@ pub async fn check_two_factor_auth_status_with_attempts(
 pub async fn create_user_authentication_method(
     state: SessionState,
     req: user_api::CreateUserAuthenticationMethodRequest,
+<<<<<<< HEAD
 ) -> UserResponse<user_api::CreateUserAuthenticationMethodResponse> {
+=======
+) -> UserResponse<()> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let user_auth_encryption_key = hex::decode(
         state
             .conf
@@ -2495,9 +2503,13 @@ pub async fn create_user_authentication_method(
     )
     .change_context(UserErrors::InternalServerError)
     .attach_printable("Failed to decode DEK")?;
+<<<<<<< HEAD
 
     let id = uuid::Uuid::new_v4().to_string();
 
+=======
+    let id = uuid::Uuid::new_v4().to_string();
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let (private_config, public_config) = utils::user::construct_public_and_private_db_configs(
         &state,
         &req.auth_method,
@@ -2514,6 +2526,7 @@ pub async fn create_user_authentication_method(
         .attach_printable("Failed to get list of auth methods for the owner id")?;
 
     let (auth_id, email_domain) = if let Some(auth_method) = auth_methods.first() {
+<<<<<<< HEAD
         let email_domain = match &req.email_domain {
             Some(email_domain) => {
                 if email_domain != &auth_method.email_domain {
@@ -2522,6 +2535,17 @@ pub async fn create_user_authentication_method(
                     )));
                 }
                 email_domain.clone()
+=======
+        let email_domain = match req.email_domain {
+            Some(email_domain) => {
+                if email_domain != auth_method.email_domain {
+                    return Err(report!(UserErrors::InvalidAuthMethodOperationWithMessage(
+                        "Email domain mismatch".to_string()
+                    )));
+                }
+
+                email_domain
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
             None => auth_method.email_domain.clone(),
         };
@@ -2533,6 +2557,10 @@ pub async fn create_user_authentication_method(
                 .ok_or(UserErrors::InvalidAuthMethodOperationWithMessage(
                     "Email domain not found".to_string(),
                 ))?;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         (uuid::Uuid::new_v4().to_string(), email_domain)
     };
 
@@ -2550,7 +2578,12 @@ pub async fn create_user_authentication_method(
                     })
                     .transpose()?
                     .map(|config| config.name);
+<<<<<<< HEAD
                 db_auth_name.is_some_and(|name| name == public_config.name)
+=======
+                let req_auth_name = public_config.name;
+                db_auth_name.is_some_and(|name| name == req_auth_name)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
             user_api::AuthConfig::Password | user_api::AuthConfig::MagicLink => true,
         };
@@ -2560,7 +2593,11 @@ pub async fn create_user_authentication_method(
     }
 
     let now = common_utils::date_time::now();
+<<<<<<< HEAD
     let inserted_auth_method = state
+=======
+    state
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         .store
         .insert_user_authentication_method(UserAuthenticationMethodNew {
             id,
@@ -2578,6 +2615,7 @@ pub async fn create_user_authentication_method(
         .await
         .to_duplicate_response(UserErrors::UserAuthMethodAlreadyExists)?;
 
+<<<<<<< HEAD
     Ok(ApplicationResponse::Json(
         user_api::CreateUserAuthenticationMethodResponse {
             id: inserted_auth_method.id,
@@ -2589,6 +2627,9 @@ pub async fn create_user_authentication_method(
             allow_signup: inserted_auth_method.allow_signup,
         },
     ))
+=======
+    Ok(ApplicationResponse::StatusOk)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub async fn update_user_authentication_method(

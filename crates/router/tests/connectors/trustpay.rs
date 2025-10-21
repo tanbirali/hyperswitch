@@ -53,7 +53,10 @@ fn get_default_browser_info() -> BrowserInformation {
         os_version: None,
         device_model: None,
         accept_language: Some("en".to_string()),
+<<<<<<< HEAD
         referer: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 

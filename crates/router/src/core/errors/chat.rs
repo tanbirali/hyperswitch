@@ -6,8 +6,11 @@ pub enum ChatErrors {
     MissingConfigError,
     #[error("Chat response deserialization failed")]
     ChatResponseDeserializationFailed,
+<<<<<<< HEAD
     #[error("Unauthorized access")]
     UnauthorizedAccess,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl common_utils::errors::ErrorSwitch<api_models::errors::types::ApiErrorResponse> for ChatErrors {
@@ -24,9 +27,12 @@ impl common_utils::errors::ErrorSwitch<api_models::errors::types::ApiErrorRespon
             Self::ChatResponseDeserializationFailed => {
                 AER::BadRequest(ApiError::new(sub_code, 2, self.get_error_message(), None))
             }
+<<<<<<< HEAD
             Self::UnauthorizedAccess => {
                 AER::Unauthorized(ApiError::new(sub_code, 3, self.get_error_message(), None))
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -37,7 +43,10 @@ impl ChatErrors {
             Self::InternalServerError => "Something went wrong".to_string(),
             Self::MissingConfigError => "Missing webhook url".to_string(),
             Self::ChatResponseDeserializationFailed => "Failed to parse chat response".to_string(),
+<<<<<<< HEAD
             Self::UnauthorizedAccess => "Not authorized to access the resource".to_string(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

@@ -20,7 +20,10 @@ pub mod fraud_check;
 pub mod generic_link;
 pub mod gsm;
 pub mod health_check;
+<<<<<<< HEAD
 pub mod hyperswitch_ai_interaction;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod kafka_store;
 pub mod locker_mock_up;
 pub mod mandate;
@@ -54,12 +57,19 @@ use hyperswitch_domain_models::payouts::{
 };
 use hyperswitch_domain_models::{
     cards_info::CardsInfoInterface,
+<<<<<<< HEAD
     master_key::MasterKeyInterface,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     payment_methods::PaymentMethodInterface,
     payments::{payment_attempt::PaymentAttemptInterface, payment_intent::PaymentIntentInterface},
 };
 #[cfg(not(feature = "payouts"))]
 use hyperswitch_domain_models::{PayoutAttemptInterface, PayoutsInterface};
+<<<<<<< HEAD
+=======
+use masking::PeekInterface;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use redis_interface::errors::RedisError;
 use router_env::logger;
 use storage_impl::{
@@ -97,7 +107,11 @@ pub trait StorageInterface:
     + address::AddressInterface
     + api_keys::ApiKeyInterface
     + blocklist_lookup::BlocklistLookupInterface
+<<<<<<< HEAD
     + configs::ConfigInterface<Error = StorageError>
+=======
+    + configs::ConfigInterface
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + capture::CaptureInterface
     + customers::CustomerInterface<Error = StorageError>
     + dashboard_metadata::DashboardMetadataInterface
@@ -109,9 +123,15 @@ pub trait StorageInterface:
     + FraudCheckInterface
     + locker_mock_up::LockerMockUpInterface
     + mandate::MandateInterface
+<<<<<<< HEAD
     + merchant_account::MerchantAccountInterface<Error = StorageError>
     + merchant_connector_account::ConnectorAccessToken
     + merchant_connector_account::MerchantConnectorAccountInterface<Error = StorageError>
+=======
+    + merchant_account::MerchantAccountInterface
+    + merchant_connector_account::ConnectorAccessToken
+    + merchant_connector_account::MerchantConnectorAccountInterface
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + PaymentAttemptInterface<Error = StorageError>
     + PaymentIntentInterface<Error = StorageError>
     + PaymentMethodInterface<Error = StorageError>
@@ -124,12 +144,20 @@ pub trait StorageInterface:
     + refund::RefundInterface
     + reverse_lookup::ReverseLookupInterface
     + CardsInfoInterface<Error = StorageError>
+<<<<<<< HEAD
     + merchant_key_store::MerchantKeyStoreInterface<Error = StorageError>
+=======
+    + merchant_key_store::MerchantKeyStoreInterface
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + MasterKeyInterface
     + payment_link::PaymentLinkInterface
     + RedisConnInterface
     + RequestIdStore
+<<<<<<< HEAD
     + business_profile::ProfileInterface<Error = StorageError>
+=======
+    + business_profile::ProfileInterface
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + routing_algorithm::RoutingAlgorithmInterface
     + gsm::GsmInterface
     + unified_translations::UnifiedTranslationsInterface
@@ -137,7 +165,10 @@ pub trait StorageInterface:
     + user::sample_data::BatchSampleDataInterface
     + health_check::HealthCheckDbInterface
     + user_authentication_method::UserAuthenticationMethodInterface
+<<<<<<< HEAD
     + hyperswitch_ai_interaction::HyperswitchAiInteractionInterface
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + authentication::AuthenticationInterface
     + generic_link::GenericLinkInterface
     + relay::RelayInterface
@@ -145,15 +176,22 @@ pub trait StorageInterface:
     + payment_method_session::PaymentMethodsSessionInterface
     + tokenization::TokenizationInterface
     + callback_mapper::CallbackMapperInterface
+<<<<<<< HEAD
     + storage_impl::subscription::SubscriptionInterface<Error = StorageError>
     + storage_impl::invoice::InvoiceInterface<Error = StorageError>
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + 'static
 {
     fn get_scheduler_db(&self) -> Box<dyn scheduler::SchedulerInterface>;
     fn get_payment_methods_store(&self) -> Box<dyn PaymentMethodsStorageInterface>;
+<<<<<<< HEAD
     fn get_subscription_store(&self)
         -> Box<dyn subscriptions::state::SubscriptionStorageInterface>;
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static>;
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)>;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[async_trait::async_trait]
@@ -168,7 +206,11 @@ pub trait GlobalStorageInterface:
     + RedisConnInterface
     + 'static
 {
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static>;
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)>;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[async_trait::async_trait]
@@ -177,10 +219,17 @@ pub trait AccountsStorageInterface:
     + Sync
     + dyn_clone::DynClone
     + OrganizationInterface
+<<<<<<< HEAD
     + merchant_account::MerchantAccountInterface<Error = StorageError>
     + business_profile::ProfileInterface<Error = StorageError>
     + merchant_connector_account::MerchantConnectorAccountInterface<Error = StorageError>
     + merchant_key_store::MerchantKeyStoreInterface<Error = StorageError>
+=======
+    + merchant_account::MerchantAccountInterface
+    + business_profile::ProfileInterface
+    + merchant_connector_account::MerchantConnectorAccountInterface
+    + merchant_key_store::MerchantKeyStoreInterface
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + dashboard_metadata::DashboardMetadataInterface
     + 'static
 {
@@ -197,6 +246,29 @@ pub trait CommonStorageInterface:
     fn get_accounts_storage_interface(&self) -> Box<dyn AccountsStorageInterface>;
 }
 
+<<<<<<< HEAD
+=======
+pub trait MasterKeyInterface {
+    fn get_master_key(&self) -> &[u8];
+}
+
+impl MasterKeyInterface for Store {
+    fn get_master_key(&self) -> &[u8] {
+        self.master_key().peek()
+    }
+}
+
+/// Default dummy key for MockDb
+impl MasterKeyInterface for MockDb {
+    fn get_master_key(&self) -> &[u8] {
+        &[
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+            25, 26, 27, 28, 29, 30, 31, 32,
+        ]
+    }
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[async_trait::async_trait]
 impl StorageInterface for Store {
     fn get_scheduler_db(&self) -> Box<dyn scheduler::SchedulerInterface> {
@@ -206,6 +278,7 @@ impl StorageInterface for Store {
         Box::new(self.clone())
     }
 
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static> {
         Box::new(self.clone())
     }
@@ -213,13 +286,20 @@ impl StorageInterface for Store {
     fn get_subscription_store(
         &self,
     ) -> Box<dyn subscriptions::state::SubscriptionStorageInterface> {
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Box::new(self.clone())
     }
 }
 
 #[async_trait::async_trait]
 impl GlobalStorageInterface for Store {
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static> {
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Box::new(self.clone())
     }
 }
@@ -235,19 +315,27 @@ impl StorageInterface for MockDb {
         Box::new(self.clone())
     }
 
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static> {
         Box::new(self.clone())
     }
     fn get_subscription_store(
         &self,
     ) -> Box<dyn subscriptions::state::SubscriptionStorageInterface> {
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Box::new(self.clone())
     }
 }
 
 #[async_trait::async_trait]
 impl GlobalStorageInterface for MockDb {
+<<<<<<< HEAD
     fn get_cache_store(&self) -> Box<dyn RedisConnInterface + Send + Sync + 'static> {
+=======
+    fn get_cache_store(&self) -> Box<(dyn RedisConnInterface + Send + Sync + 'static)> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Box::new(self.clone())
     }
 }

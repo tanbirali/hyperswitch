@@ -1,24 +1,35 @@
 use api_models::chat as chat_api;
 use common_utils::{
     consts,
+<<<<<<< HEAD
     crypto::{DecodeMessage, GcmAes256},
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     errors::CustomResult,
     request::{Method, RequestBuilder, RequestContent},
 };
 use error_stack::ResultExt;
 use external_services::http_client;
 use hyperswitch_domain_models::chat as chat_domain;
+<<<<<<< HEAD
 use masking::ExposeInterface;
 use router_env::{
     instrument, logger,
     tracing::{self, Instrument},
 };
+=======
+use router_env::{instrument, logger, tracing};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use crate::{
     db::errors::chat::ChatErrors,
     routes::{app::SessionStateInfo, SessionState},
+<<<<<<< HEAD
     services::{authentication as auth, authorization::roles, ApplicationResponse},
     utils,
+=======
+    services::{authentication as auth, ApplicationResponse},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 #[instrument(skip_all, fields(?session_id))]
@@ -28,6 +39,7 @@ pub async fn get_data_from_hyperswitch_ai_workflow(
     req: chat_api::ChatRequest,
     session_id: Option<&str>,
 ) -> CustomResult<ApplicationResponse<chat_api::ChatResponse>, ChatErrors> {
+<<<<<<< HEAD
     let role_info = roles::RoleInfo::from_role_id_org_id_tenant_id(
         &state,
         &user_from_token.role_id,
@@ -56,6 +68,17 @@ pub async fn get_data_from_hyperswitch_ai_workflow(
         merchant_id: user_from_token.merchant_id.clone(),
         profile_id: user_from_token.profile_id.clone(),
         entity_type: role_info.get_entity_type(),
+=======
+    let url = format!("{}/webhook", state.conf.chat.hyperswitch_ai_host);
+    let request_id = state.get_request_id();
+    let request_body = chat_domain::HyperswitchAiDataRequest {
+        query: chat_domain::GetDataMessage {
+            message: req.message,
+        },
+        org_id: user_from_token.org_id,
+        merchant_id: user_from_token.merchant_id,
+        profile_id: user_from_token.profile_id,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     logger::info!("Request for AI service: {:?}", request_body);
 
@@ -63,9 +86,17 @@ pub async fn get_data_from_hyperswitch_ai_workflow(
         .method(Method::Post)
         .url(&url)
         .attach_default_headers()
+<<<<<<< HEAD
         .header(consts::X_REQUEST_ID, &request_id)
         .set_body(RequestContent::Json(Box::new(request_body.clone())));
 
+=======
+        .set_body(RequestContent::Json(Box::new(request_body.clone())));
+
+    if let Some(request_id) = request_id {
+        request_builder = request_builder.header(consts::X_REQUEST_ID, &request_id);
+    }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     if let Some(session_id) = session_id {
         request_builder = request_builder.header(consts::X_CHAT_SESSION_ID, session_id);
     }
@@ -80,11 +111,16 @@ pub async fn get_data_from_hyperswitch_ai_workflow(
     .await
     .change_context(ChatErrors::InternalServerError)
     .attach_printable("Error when sending request to AI service")?
+<<<<<<< HEAD
     .json::<chat_api::ChatResponse>()
+=======
+    .json::<_>()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     .await
     .change_context(ChatErrors::InternalServerError)
     .attach_printable("Error when deserializing response from AI service")?;
 
+<<<<<<< HEAD
     let response_to_return = response.clone();
     tokio::spawn(
         async move {
@@ -208,4 +244,7 @@ pub async fn list_chat_conversations(
     return Ok(ApplicationResponse::Json(chat_api::ChatListResponse {
         conversations,
     }));
+=======
+    Ok(ApplicationResponse::Json(response))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

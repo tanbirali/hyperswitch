@@ -1,6 +1,10 @@
 pub mod transformers;
 
+<<<<<<< HEAD
 use std::sync::LazyLock;
+=======
+use std::fmt::Debug;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use api_models::enums::AuthenticationType;
 use common_enums::enums;
@@ -8,7 +12,10 @@ use common_utils::{
     errors::CustomResult,
     ext_traits::{BytesExt, ValueExt},
     request::{Method, Request, RequestBuilder, RequestContent},
+<<<<<<< HEAD
     types::{AmountConvertor, FloatMajorUnit, FloatMajorUnitForConnector},
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use error_stack::{report, ResultExt};
 use hyperswitch_domain_models::{
@@ -47,12 +54,17 @@ use hyperswitch_interfaces::{
     },
     webhooks,
 };
+<<<<<<< HEAD
+=======
+use lazy_static::lazy_static;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::{ExposeInterface, Mask};
 use transformers as powertranz;
 
 use crate::{
     constants::headers,
     types::ResponseRouterData,
+<<<<<<< HEAD
     utils::{
         convert_amount, PaymentsAuthorizeRequestData as _,
         PaymentsCompleteAuthorizeRequestData as _,
@@ -71,6 +83,13 @@ impl Powertranz {
         }
     }
 }
+=======
+    utils::{PaymentsAuthorizeRequestData as _, PaymentsCompleteAuthorizeRequestData as _},
+};
+
+#[derive(Debug, Clone)]
+pub struct Powertranz;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl api::Payment for Powertranz {}
 impl api::PaymentSession for Powertranz {}
@@ -224,6 +243,7 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
         req: &PaymentsAuthorizeRouterData,
         _connectors: &Connectors,
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
+<<<<<<< HEAD
         let amount = convert_amount(
             self.amount_convertor,
             req.request.minor_amount,
@@ -233,6 +253,9 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
         let connector_router_data = powertranz::PowertranzRouterData::try_from((amount, req))?;
         let connector_req =
             powertranz::PowertranzPaymentsRequest::try_from(&connector_router_data)?;
+=======
+        let connector_req = powertranz::PowertranzPaymentsRequest::try_from(req)?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(RequestContent::Json(Box::new(connector_req)))
     }
 
@@ -403,6 +426,7 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
         req: &PaymentsCaptureRouterData,
         _connectors: &Connectors,
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
+<<<<<<< HEAD
         let amount = convert_amount(
             self.amount_convertor,
             req.request.minor_amount_to_capture,
@@ -411,6 +435,9 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
 
         let connector_router_data = powertranz::PowertranzRouterData::try_from((amount, req))?;
         let connector_req = powertranz::PowertranzBaseRequest::try_from(&connector_router_data)?;
+=======
+        let connector_req = powertranz::PowertranzBaseRequest::try_from(&req.request)?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(RequestContent::Json(Box::new(connector_req)))
     }
 
@@ -560,6 +587,7 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Powertr
         req: &RefundsRouterData<Execute>,
         _connectors: &Connectors,
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
+<<<<<<< HEAD
         let amount = convert_amount(
             self.amount_convertor,
             req.request.minor_refund_amount,
@@ -568,6 +596,9 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Powertr
 
         let connector_router_data = powertranz::PowertranzRouterData::try_from((amount, req))?;
         let connector_req = powertranz::PowertranzBaseRequest::try_from(&connector_router_data)?;
+=======
+        let connector_req = powertranz::PowertranzBaseRequest::try_from(req)?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(RequestContent::Json(Box::new(connector_req)))
     }
 
@@ -644,8 +675,13 @@ impl webhooks::IncomingWebhook for Powertranz {
     }
 }
 
+<<<<<<< HEAD
 static POWERTRANZ_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
     LazyLock::new(|| {
+=======
+lazy_static! {
+    static ref POWERTRANZ_SUPPORTED_PAYMENT_METHODS: SupportedPaymentMethods = {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let supported_capture_methods = vec![
             enums::CaptureMethod::Automatic,
             enums::CaptureMethod::Manual,
@@ -655,7 +691,10 @@ static POWERTRANZ_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
         let supported_card_network = vec![
             common_enums::CardNetwork::Visa,
             common_enums::CardNetwork::Mastercard,
+<<<<<<< HEAD
             common_enums::CardNetwork::AmericanExpress,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ];
 
         let mut powertranz_supported_payment_methods = SupportedPaymentMethods::new();
@@ -663,7 +702,11 @@ static POWERTRANZ_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
         powertranz_supported_payment_methods.add(
             enums::PaymentMethod::Card,
             enums::PaymentMethodType::Credit,
+<<<<<<< HEAD
             PaymentMethodDetails {
+=======
+            PaymentMethodDetails{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 mandates: enums::FeatureStatus::NotSupported,
                 refunds: enums::FeatureStatus::Supported,
                 supported_capture_methods: supported_capture_methods.clone(),
@@ -676,13 +719,21 @@ static POWERTRANZ_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
                         }
                     }),
                 ),
+<<<<<<< HEAD
             },
+=======
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         );
 
         powertranz_supported_payment_methods.add(
             enums::PaymentMethod::Card,
             enums::PaymentMethodType::Debit,
+<<<<<<< HEAD
             PaymentMethodDetails {
+=======
+            PaymentMethodDetails{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 mandates: enums::FeatureStatus::NotSupported,
                 refunds: enums::FeatureStatus::Supported,
                 supported_capture_methods: supported_capture_methods.clone(),
@@ -695,6 +746,7 @@ static POWERTRANZ_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
                         }
                     }),
                 ),
+<<<<<<< HEAD
             },
         );
 
@@ -713,6 +765,29 @@ static POWERTRANZ_SUPPORTED_WEBHOOK_FLOWS: [enums::EventClass; 0] = [];
 impl ConnectorSpecifications for Powertranz {
     fn get_connector_about(&self) -> Option<&'static ConnectorInfo> {
         Some(&POWERTRANZ_CONNECTOR_INFO)
+=======
+            }
+        );
+
+        powertranz_supported_payment_methods
+    };
+
+    static ref POWERTRANZ_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
+        display_name: "Powertranz",
+        description:
+            "Powertranz is a leading payment gateway serving the Caribbean and parts of Central America ",
+        connector_type: enums::HyperswitchConnectorCategory::PaymentGateway,
+        integration_status: enums::ConnectorIntegrationStatus::Alpha,
+    };
+
+    static ref POWERTRANZ_SUPPORTED_WEBHOOK_FLOWS: Vec<enums::EventClass> = Vec::new();
+
+}
+
+impl ConnectorSpecifications for Powertranz {
+    fn get_connector_about(&self) -> Option<&'static ConnectorInfo> {
+        Some(&*POWERTRANZ_CONNECTOR_INFO)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_supported_payment_methods(&self) -> Option<&'static SupportedPaymentMethods> {
@@ -720,6 +795,10 @@ impl ConnectorSpecifications for Powertranz {
     }
 
     fn get_supported_webhook_flows(&self) -> Option<&'static [enums::EventClass]> {
+<<<<<<< HEAD
         Some(&POWERTRANZ_SUPPORTED_WEBHOOK_FLOWS)
+=======
+        Some(&*POWERTRANZ_SUPPORTED_WEBHOOK_FLOWS)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }

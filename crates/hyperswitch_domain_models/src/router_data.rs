@@ -4,16 +4,27 @@ use common_types::{payments as common_payment_types, primitive_wrappers};
 use common_utils::{
     errors::IntegrityCheckError,
     ext_traits::{OptionExt, ValueExt},
+<<<<<<< HEAD
     id_type::{self},
+=======
+    id_type,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::MinorUnit,
 };
 use error_stack::ResultExt;
 use masking::{ExposeInterface, Secret};
+<<<<<<< HEAD
 use serde::{Deserialize, Serialize};
 
 use crate::{
     address::AddressDetails, network_tokenization::NetworkTokenNumber,
     payment_address::PaymentAddress, payment_method_data, payments,
+=======
+
+use crate::{
+    network_tokenization::NetworkTokenNumber, payment_address::PaymentAddress, payment_method_data,
+    payments,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 #[cfg(feature = "v2")]
 use crate::{
@@ -24,7 +35,11 @@ use crate::{
     router_flow_types, router_request_types, router_response_types,
 };
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize)]
+=======
+#[derive(Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct RouterData<Flow, Request, Response> {
     pub flow: PhantomData<Flow>,
     pub merchant_id: id_type::MerchantId,
@@ -38,7 +53,10 @@ pub struct RouterData<Flow, Request, Response> {
     pub tenant_id: id_type::TenantId,
     pub status: common_enums::enums::AttemptStatus,
     pub payment_method: common_enums::enums::PaymentMethod,
+<<<<<<< HEAD
     pub payment_method_type: Option<common_enums::enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub connector_auth_type: ConnectorAuthType,
     pub description: Option<String>,
     pub address: PaymentAddress,
@@ -94,9 +112,12 @@ pub struct RouterData<Flow, Request, Response> {
     pub minor_amount_captured: Option<MinorUnit>,
     pub minor_amount_capturable: Option<MinorUnit>,
 
+<<<<<<< HEAD
     // stores the authorized amount in case of partial authorization
     pub authorized_amount: Option<MinorUnit>,
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub integrity_check: Result<(), IntegrityCheckError>,
 
     pub additional_merchant_data: Option<api_models::admin::AdditionalMerchantData>,
@@ -105,7 +126,11 @@ pub struct RouterData<Flow, Request, Response> {
 
     pub connector_mandate_request_reference_id: Option<String>,
 
+<<<<<<< HEAD
     pub l2_l3_data: Option<Box<L2L3Data>>,
+=======
+    pub l2_l3_data: Option<L2L3Data>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     pub authentication_id: Option<id_type::AuthenticationId>,
     /// Contains the type of sca exemption required for the transaction
@@ -119,7 +144,11 @@ pub struct RouterData<Flow, Request, Response> {
     pub is_payment_id_from_merchant: Option<bool>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+=======
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct L2L3Data {
     pub order_date: Option<time::PrimitiveDateTime>,
     pub tax_status: Option<common_enums::TaxStatus>,
@@ -132,6 +161,7 @@ pub struct L2L3Data {
     pub order_tax_amount: Option<MinorUnit>,
     pub merchant_order_reference_id: Option<String>,
     pub customer_id: Option<id_type::CustomerId>,
+<<<<<<< HEAD
     pub billing_address_city: Option<String>,
     pub merchant_tax_registration_id: Option<Secret<String>>,
     pub customer_email: Option<common_utils::pii::Email>,
@@ -187,6 +217,17 @@ impl L2L3Data {
 
 // Different patterns of authentication.
 #[derive(Default, Debug, Clone, Deserialize, Serialize)]
+=======
+    pub shipping_origin_zip: Option<Secret<String>>,
+    pub shipping_state: Option<Secret<String>>,
+    pub shipping_country: Option<common_enums::CountryAlpha2>,
+    pub shipping_destination_zip: Option<Secret<String>>,
+    pub billing_address_city: Option<String>,
+}
+
+// Different patterns of authentication.
+#[derive(Default, Debug, Clone, serde::Deserialize, serde::Serialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(tag = "auth_type")]
 pub enum ConnectorAuthType {
     TemporaryAuth,
@@ -309,19 +350,31 @@ impl ConnectorAuthType {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Deserialize, Serialize, Debug, Clone)]
+=======
+#[derive(serde::Deserialize, serde::Serialize, Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct AccessTokenAuthenticationResponse {
     pub code: Secret<String>,
     pub expires: i64,
 }
 
+<<<<<<< HEAD
 #[derive(Deserialize, Serialize, Debug, Clone)]
+=======
+#[derive(serde::Deserialize, serde::Serialize, Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct AccessToken {
     pub token: Secret<String>,
     pub expires: i64,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum PaymentMethodToken {
     Token(Secret<String>),
     ApplePayDecrypt(Box<common_payment_types::ApplePayPredecryptData>),
@@ -329,7 +382,11 @@ pub enum PaymentMethodToken {
     PazeDecrypt(Box<PazeDecryptedData>),
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct ApplePayPredecryptDataInternal {
     pub application_primary_account_number: cards::CardNumber,
@@ -341,7 +398,11 @@ pub struct ApplePayPredecryptDataInternal {
     pub payment_data: ApplePayCryptogramDataInternal,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct ApplePayCryptogramDataInternal {
     pub online_payment_cryptogram: Secret<String>,
@@ -411,7 +472,11 @@ impl ApplePayPredecryptDataInternal {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct GooglePayPredecryptDataInternal {
     pub message_expiration: String,
@@ -421,7 +486,11 @@ pub struct GooglePayPredecryptDataInternal {
     pub payment_method_details: GooglePayPaymentMethodDetails,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct GooglePayPaymentMethodDetails {
     pub auth_method: common_enums::enums::GooglePayAuthMethod,
@@ -433,7 +502,11 @@ pub struct GooglePayPaymentMethodDetails {
     pub card_network: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct PazeDecryptedData {
     pub client_id: Secret<String>,
@@ -446,7 +519,11 @@ pub struct PazeDecryptedData {
     pub eci: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct PazeToken {
     pub payment_token: NetworkTokenNumber,
@@ -455,7 +532,11 @@ pub struct PazeToken {
     pub payment_account_reference: Secret<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct PazeDynamicData {
     pub dynamic_data_value: Option<Secret<String>>,
@@ -463,7 +544,11 @@ pub struct PazeDynamicData {
     pub dynamic_data_expiration: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct PazeAddress {
     pub name: Option<Secret<String>>,
@@ -476,7 +561,11 @@ pub struct PazeAddress {
     pub country_code: Option<common_enums::enums::CountryAlpha2>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct PazeConsumer {
     // This is consumer data not customer data.
@@ -489,14 +578,22 @@ pub struct PazeConsumer {
     pub language_code: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Clone, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "camelCase")]
 pub struct PazePhoneNumber {
     pub country_code: Secret<String>,
     pub phone_number: Secret<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Default, Clone, Serialize)]
+=======
+#[derive(Debug, Default, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct RecurringMandatePaymentData {
     pub payment_method_type: Option<common_enums::enums::PaymentMethodType>, //required for making recurring payment using saved payment method through stripe
     pub original_payment_authorized_amount: Option<i64>,
@@ -504,17 +601,28 @@ pub struct RecurringMandatePaymentData {
     pub mandate_metadata: Option<common_utils::pii::SecretSerdeValue>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize)]
+=======
+#[derive(Debug, Clone)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct PaymentMethodBalance {
     pub amount: MinorUnit,
     pub currency: common_enums::enums::Currency,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ConnectorResponseData {
     pub additional_payment_method_data: Option<AdditionalPaymentMethodConnectorResponse>,
     extended_authorization_response_data: Option<ExtendedAuthorizationResponseData>,
     is_overcapture_enabled: Option<primitive_wrappers::OvercaptureEnabledBool>,
+=======
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct ConnectorResponseData {
+    pub additional_payment_method_data: Option<AdditionalPaymentMethodConnectorResponse>,
+    extended_authorization_response_data: Option<ExtendedAuthorizationResponseData>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl ConnectorResponseData {
@@ -524,6 +632,7 @@ impl ConnectorResponseData {
         Self {
             additional_payment_method_data: Some(additional_payment_method_data),
             extended_authorization_response_data: None,
+<<<<<<< HEAD
             is_overcapture_enabled: None,
         }
     }
@@ -539,11 +648,16 @@ impl ConnectorResponseData {
         }
     }
 
+=======
+        }
+    }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fn get_extended_authorization_response_data(
         &self,
     ) -> Option<&ExtendedAuthorizationResponseData> {
         self.extended_authorization_response_data.as_ref()
     }
+<<<<<<< HEAD
 
     pub fn is_overcapture_enabled(&self) -> Option<primitive_wrappers::OvercaptureEnabledBool> {
         self.is_overcapture_enabled
@@ -551,6 +665,11 @@ impl ConnectorResponseData {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+=======
+}
+
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum AdditionalPaymentMethodConnectorResponse {
     Card {
         /// Details regarding the authentication details of the connector, if this is a 3ds payment.
@@ -567,19 +686,31 @@ pub enum AdditionalPaymentMethodConnectorResponse {
     },
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize)]
+=======
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ExtendedAuthorizationResponseData {
     pub extended_authentication_applied:
         Option<primitive_wrappers::ExtendedAuthorizationAppliedBool>,
     pub capture_before: Option<time::PrimitiveDateTime>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize)]
+=======
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct KlarnaSdkResponse {
     pub payment_type: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Clone, Debug, Serialize)]
+=======
+#[derive(Clone, Debug, serde::Serialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ErrorResponse {
     pub code: String,
     pub message: String,
@@ -849,6 +980,7 @@ impl
 
     fn get_attempt_status_for_db_update(
         &self,
+<<<<<<< HEAD
         payment_data: &payments::PaymentConfirmData<router_flow_types::Authorize>,
     ) -> common_enums::AttemptStatus {
         match self.status {
@@ -866,6 +998,13 @@ impl
             }
             _ => self.status,
         }
+=======
+        _payment_data: &payments::PaymentConfirmData<router_flow_types::Authorize>,
+    ) -> common_enums::AttemptStatus {
+        // For this step, consider whatever status was given by the connector module
+        // We do not need to check for amount captured or amount capturable here because we are authorizing the whole amount
+        self.status
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_amount_capturable(
@@ -874,7 +1013,11 @@ impl
     ) -> Option<MinorUnit> {
         // Based on the status of the response, we can determine the amount capturable
         let intent_status = common_enums::IntentStatus::from(self.status);
+<<<<<<< HEAD
         let amount_capturable_from_intent_status = match intent_status {
+=======
+        match intent_status {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // If the status is already succeeded / failed we cannot capture any more amount
             // So set the amount capturable to zero
             common_enums::IntentStatus::Succeeded
@@ -901,10 +1044,14 @@ impl
             // Invalid statues for this flow, after doing authorization this state is invalid
             common_enums::IntentStatus::PartiallyCaptured
             | common_enums::IntentStatus::PartiallyCapturedAndCapturable => None,
+<<<<<<< HEAD
         };
         self.minor_amount_capturable
             .or(amount_capturable_from_intent_status)
             .or(Some(payment_data.payment_attempt.get_total_amount()))
+=======
+        }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_captured_amount(
@@ -913,7 +1060,11 @@ impl
     ) -> Option<MinorUnit> {
         // Based on the status of the response, we can determine the amount that was captured
         let intent_status = common_enums::IntentStatus::from(self.status);
+<<<<<<< HEAD
         let amount_captured_from_intent_status = match intent_status {
+=======
+        match intent_status {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // If the status is succeeded then we have captured the whole amount
             // we need not check for `amount_to_capture` here because passing `amount_to_capture` when authorizing is not supported
             common_enums::IntentStatus::Succeeded | common_enums::IntentStatus::Conflicted => {
@@ -940,12 +1091,19 @@ impl
             // Invalid statues for this flow
             common_enums::IntentStatus::PartiallyCaptured
             | common_enums::IntentStatus::PartiallyCapturedAndCapturable => None,
+<<<<<<< HEAD
         };
         self.minor_amount_captured
             .or(amount_captured_from_intent_status)
             .or(Some(payment_data.payment_attempt.get_total_amount()))
     }
 }
+=======
+        }
+    }
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 impl
     TrackerPostUpdateObjects<
@@ -1341,7 +1499,11 @@ impl
 
         // Based on the status of the response, we can determine the amount capturable
         let intent_status = common_enums::IntentStatus::from(self.status);
+<<<<<<< HEAD
         let amount_capturable_from_intent_status = match intent_status {
+=======
+        match intent_status {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // If the status is already succeeded / failed we cannot capture any more amount
             common_enums::IntentStatus::Succeeded
             | common_enums::IntentStatus::Failed
@@ -1357,16 +1519,26 @@ impl
             common_enums::IntentStatus::RequiresPaymentMethod
             | common_enums::IntentStatus::RequiresConfirmation => None,
             common_enums::IntentStatus::RequiresCapture
+<<<<<<< HEAD
             | common_enums::IntentStatus::PartiallyAuthorizedAndRequiresCapture
             | common_enums::IntentStatus::PartiallyCaptured => {
+=======
+            | common_enums::IntentStatus::PartiallyAuthorizedAndRequiresCapture => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 let total_amount = payment_attempt.amount_details.get_net_amount();
                 Some(total_amount)
             }
             // Invalid statues for this flow
+<<<<<<< HEAD
             common_enums::IntentStatus::PartiallyCapturedAndCapturable => None,
         };
         self.minor_amount_capturable
             .or(amount_capturable_from_intent_status)
+=======
+            common_enums::IntentStatus::PartiallyCaptured
+            | common_enums::IntentStatus::PartiallyCapturedAndCapturable => None,
+        }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_captured_amount(
@@ -1377,7 +1549,11 @@ impl
 
         // Based on the status of the response, we can determine the amount capturable
         let intent_status = common_enums::IntentStatus::from(self.status);
+<<<<<<< HEAD
         let amount_captured_from_intent_status = match intent_status {
+=======
+        match intent_status {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // If the status is succeeded then we have captured the whole amount or amount_to_capture
             common_enums::IntentStatus::Succeeded | common_enums::IntentStatus::Conflicted => {
                 let amount_to_capture = payment_attempt.amount_details.get_amount_to_capture();
@@ -1407,10 +1583,14 @@ impl
             // Invalid statues for this flow
             common_enums::IntentStatus::PartiallyCaptured
             | common_enums::IntentStatus::PartiallyCapturedAndCapturable => None,
+<<<<<<< HEAD
         };
         self.minor_amount_captured
             .or(amount_captured_from_intent_status)
             .or(Some(payment_data.payment_attempt.get_total_amount()))
+=======
+        }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -1886,6 +2066,7 @@ impl
         }
     }
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v2")]
 impl
@@ -2003,3 +2184,5 @@ impl
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

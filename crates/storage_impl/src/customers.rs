@@ -10,8 +10,14 @@ use hyperswitch_domain_models::{
 use masking::PeekInterface;
 use router_env::{instrument, tracing};
 
+<<<<<<< HEAD
 use crate::{
     diesel_error_to_data_error,
+=======
+#[cfg(feature = "v1")]
+use crate::diesel_error_to_data_error;
+use crate::{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     errors::StorageError,
     kv_router_store,
     redis::kv_store::{decide_storage_scheme, KvStorePartition, Op, PartitionKey},
@@ -289,6 +295,7 @@ impl<T: DatabaseStore> domain::CustomerInterface for kv_router_store::KVRouterSt
             .await
     }
 
+<<<<<<< HEAD
     #[instrument(skip_all)]
     async fn list_customers_by_merchant_id_with_count(
         &self,
@@ -302,6 +309,8 @@ impl<T: DatabaseStore> domain::CustomerInterface for kv_router_store::KVRouterSt
             .await
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "v2")]
     #[instrument(skip_all)]
     async fn insert_customer(
@@ -673,16 +682,21 @@ impl<T: DatabaseStore> domain::CustomerInterface for RouterStore<T> {
         self.find_resources(
             state,
             key_store,
+<<<<<<< HEAD
             customers::Customer::list_customers_by_merchant_id_and_constraints(
                 &conn,
                 merchant_id,
                 customer_list_constraints,
             ),
+=======
+            customers::Customer::list_by_merchant_id(&conn, merchant_id, customer_list_constraints),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )
         .await
     }
 
     #[instrument(skip_all)]
+<<<<<<< HEAD
     async fn list_customers_by_merchant_id_with_count(
         &self,
         state: &KeyManagerState,
@@ -724,6 +738,8 @@ impl<T: DatabaseStore> domain::CustomerInterface for RouterStore<T> {
     }
 
     #[instrument(skip_all)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn insert_customer(
         &self,
         customer_data: domain::Customer,
@@ -879,6 +895,7 @@ impl domain::CustomerInterface for MockDb {
         Ok(customers)
     }
 
+<<<<<<< HEAD
     async fn list_customers_by_merchant_id_with_count(
         &self,
         state: &KeyManagerState,
@@ -914,6 +931,8 @@ impl domain::CustomerInterface for MockDb {
         Ok((customers_list, total_count))
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "v1")]
     #[instrument(skip_all)]
     async fn update_customer_by_customer_id_merchant_id(

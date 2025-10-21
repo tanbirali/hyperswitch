@@ -169,7 +169,11 @@ impl TryFrom<&RazorpayRouterData<&types::PaymentsAuthorizeRouterData>> for Razor
                         },
                     )
                 }
+<<<<<<< HEAD
                 UpiData::UpiIntent(_) | UpiData::UpiQr(_) => {
+=======
+                UpiData::UpiIntent(_upi_intent_data) => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     Err(errors::ConnectorError::NotImplemented(
                         get_unimplemented_payment_method_error_message("razorpay"),
                     ))?

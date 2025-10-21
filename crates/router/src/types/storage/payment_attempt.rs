@@ -228,9 +228,12 @@ mod tests {
             routing_approach: Default::default(),
             connector_request_reference_id: Default::default(),
             network_transaction_id: Default::default(),
+<<<<<<< HEAD
             network_details: Default::default(),
             is_stored_credential: None,
             authorized_amount: Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let store = state
@@ -324,9 +327,12 @@ mod tests {
             routing_approach: Default::default(),
             connector_request_reference_id: Default::default(),
             network_transaction_id: Default::default(),
+<<<<<<< HEAD
             network_details: Default::default(),
             is_stored_credential: Default::default(),
             authorized_amount: Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let store = state
             .stores
@@ -433,9 +439,12 @@ mod tests {
             routing_approach: Default::default(),
             connector_request_reference_id: Default::default(),
             network_transaction_id: Default::default(),
+<<<<<<< HEAD
             network_details: Default::default(),
             is_stored_credential: Default::default(),
             authorized_amount: Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         let store = state
             .stores

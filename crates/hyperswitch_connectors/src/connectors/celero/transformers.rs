@@ -1,5 +1,9 @@
 use common_enums::{enums, Currency};
+<<<<<<< HEAD
 use common_utils::{id_type::CustomerId, pii::Email, types::MinorUnit};
+=======
+use common_utils::{pii::Email, types::MinorUnit};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use hyperswitch_domain_models::{
     address::Address as DomainAddress,
     payment_method_data::PaymentMethodData,
@@ -12,24 +16,36 @@ use hyperswitch_domain_models::{
         refunds::{Execute, RSync},
     },
     router_request_types::{PaymentsCaptureData, ResponseId},
+<<<<<<< HEAD
     router_response_types::{MandateReference, PaymentsResponseData, RefundsResponseData},
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, PaymentsSyncRouterData,
         RefundSyncRouterData, RefundsRouterData,
     },
 };
+<<<<<<< HEAD
 use hyperswitch_interfaces::{
     consts,
     errors::{self},
 };
+=======
+use hyperswitch_interfaces::{consts, errors};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use masking::{PeekInterface, Secret};
 use serde::{Deserialize, Serialize};
 
 use crate::{
     types::{RefundsResponseRouterData, ResponseRouterData},
     utils::{
+<<<<<<< HEAD
         get_unimplemented_payment_method_error_message, AddressDetailsData,
         PaymentsAuthorizeRequestData, RefundsRequestData, RouterData as _,
+=======
+        AddressDetailsData, PaymentsAuthorizeRequestData, RefundsRequestData, RouterData as _,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 
@@ -91,6 +107,7 @@ pub struct CeleroPaymentsRequest {
     shipping_address: Option<CeleroAddress>,
     #[serde(skip_serializing_if = "Option::is_none")]
     create_vault_record: Option<bool>,
+<<<<<<< HEAD
     // CIT/MIT fields
     #[serde(skip_serializing_if = "Option::is_none")]
     card_on_file_indicator: Option<CardOnFileIndicator>,
@@ -102,6 +119,8 @@ pub struct CeleroPaymentsRequest {
     stored_credential_indicator: Option<StoredCredentialIndicator>,
     #[serde(skip_serializing_if = "Option::is_none")]
     billing_method: Option<BillingMethod>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, PartialEq)]
@@ -150,6 +169,7 @@ impl TryFrom<&DomainAddress> for CeleroAddress {
 #[serde(rename_all = "lowercase")]
 pub enum CeleroPaymentMethod {
     Card(CeleroCard),
+<<<<<<< HEAD
     Customer(CeleroCustomer),
 }
 
@@ -158,6 +178,10 @@ pub struct CeleroCustomer {
     id: Option<CustomerId>,
     payment_method_id: Option<String>,
 }
+=======
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize, PartialEq, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 pub enum CeleroEntryType {
@@ -254,14 +278,20 @@ impl TryFrom<&CeleroRouterData<&PaymentsAuthorizeRouterData>> for CeleroPayments
             .get_optional_shipping()
             .and_then(|address| address.try_into().ok());
 
+<<<<<<< HEAD
         // Determine CIT/MIT fields based on mandate data
         let (mandate_fields, payment_method) = determine_cit_mit_fields(item.router_data)?;
+=======
+        // Check if 3DS is requested
+        let is_three_ds = item.router_data.is_three_ds();
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         let request = Self {
             idempotency_key: item.router_data.connector_request_reference_id.clone(),
             transaction_type,
             amount: item.amount,
             currency: item.router_data.request.currency,
+<<<<<<< HEAD
             payment_method,
             billing_address,
             shipping_address,
@@ -271,12 +301,22 @@ impl TryFrom<&CeleroRouterData<&PaymentsAuthorizeRouterData>> for CeleroPayments
             initial_transaction_id: mandate_fields.initial_transaction_id,
             stored_credential_indicator: mandate_fields.stored_credential_indicator,
             billing_method: mandate_fields.billing_method,
+=======
+            payment_method: CeleroPaymentMethod::try_from((
+                &item.router_data.request.payment_method_data,
+                is_three_ds,
+            ))?,
+            billing_address,
+            shipping_address,
+            create_vault_record: Some(false),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         Ok(request)
     }
 }
 
+<<<<<<< HEAD
 // Define a struct to hold CIT/MIT fields to avoid complex tuple return type
 #[derive(Debug, Default)]
 pub struct CeleroMandateFields {
@@ -350,6 +390,8 @@ fn determine_cit_mit_fields(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 // Auth Struct for CeleroCommerce API key authentication
 pub struct CeleroAuthType {
     pub(super) api_key: Secret<String>,
@@ -422,6 +464,7 @@ pub enum TransactionType {
     Sale,
     Authorize,
 }
+<<<<<<< HEAD
 
 // CIT/MIT related enums
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -454,6 +497,8 @@ pub enum BillingMethod {
     InitialRecurring,
     Recurring,
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 #[serde_with::skip_serializing_none]
 pub struct CeleroTransactionResponseData {
@@ -465,6 +510,7 @@ pub struct CeleroTransactionResponseData {
     pub response: CeleroPaymentMethodResponse,
     pub billing_address: Option<CeleroAddressResponse>,
     pub shipping_address: Option<CeleroAddressResponse>,
+<<<<<<< HEAD
     // Additional fields from the sample response
     pub status: Option<String>,
     pub response_code: Option<i32>,
@@ -485,6 +531,8 @@ impl CeleroTransactionResponseData {
             Box::new(None)
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
@@ -559,11 +607,17 @@ impl<F, T> TryFrom<ResponseRouterData<F, CeleroPaymentsResponse, T, PaymentsResp
                             Ok(Self {
                                 status: final_status,
                                 response: Ok(PaymentsResponseData::TransactionResponse {
+<<<<<<< HEAD
                                     resource_id: ResponseId::ConnectorTransactionId(
                                         data.id.clone(),
                                     ),
                                     redirection_data: Box::new(None),
                                     mandate_reference: data.get_mandate_reference(),
+=======
+                                    resource_id: ResponseId::ConnectorTransactionId(data.id),
+                                    redirection_data: Box::new(None),
+                                    mandate_reference: Box::new(None),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                     connector_metadata: None,
                                     network_txn_id: None,
                                     connector_response_reference_id: response.auth_code.clone(),
@@ -577,7 +631,10 @@ impl<F, T> TryFrom<ResponseRouterData<F, CeleroPaymentsResponse, T, PaymentsResp
                     }
                 } else {
                     // No transaction data in successful response
+<<<<<<< HEAD
                     // We don't have a transaction ID in this case
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     Ok(Self {
                         status: common_enums::AttemptStatus::Failure,
                         response: Err(hyperswitch_domain_models::router_data::ErrorResponse {
@@ -601,10 +658,13 @@ impl<F, T> TryFrom<ResponseRouterData<F, CeleroPaymentsResponse, T, PaymentsResp
                 let error_details =
                     CeleroErrorDetails::from_top_level_error(item.response.msg.clone());
 
+<<<<<<< HEAD
                 // Extract transaction ID from the top-level data if available
                 let connector_transaction_id =
                     item.response.data.as_ref().map(|data| data.id.clone());
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 Ok(Self {
                     status: common_enums::AttemptStatus::Failure,
                     response: Err(hyperswitch_domain_models::router_data::ErrorResponse {
@@ -615,7 +675,11 @@ impl<F, T> TryFrom<ResponseRouterData<F, CeleroPaymentsResponse, T, PaymentsResp
                         reason: error_details.decline_reason,
                         status_code: item.http_code,
                         attempt_status: None,
+<<<<<<< HEAD
                         connector_transaction_id,
+=======
+                        connector_transaction_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         network_decline_code: None,
                         network_advice_code: None,
                         network_error_message: None,

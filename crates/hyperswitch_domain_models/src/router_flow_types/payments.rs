@@ -51,9 +51,12 @@ pub struct PreProcessing;
 pub struct IncrementalAuthorization;
 
 #[derive(Debug, Clone)]
+<<<<<<< HEAD
 pub struct ExtendAuthorization;
 
 #[derive(Debug, Clone)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct PostProcessing;
 
 #[derive(Debug, Clone)]
@@ -88,6 +91,9 @@ pub struct PaymentGetListAttempts;
 
 #[derive(Debug, Clone)]
 pub struct ExternalVaultProxy;
+<<<<<<< HEAD
 
 #[derive(Debug, Clone)]
 pub struct GiftCardBalanceCheck;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

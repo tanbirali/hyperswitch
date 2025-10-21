@@ -566,7 +566,11 @@ pub async fn get_token_from_tokenization_service(
         card_type: None,
         card_issuing_country: None,
         bank_code: None,
+<<<<<<< HEAD
         eci: token_response.eci,
+=======
+        eci: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
     Ok(network_token_data)
 }
@@ -778,17 +782,27 @@ pub async fn check_token_status_with_tokenization_service(
         .parse_struct("Delete Network Tokenization Response")
         .change_context(errors::NetworkTokenizationError::ResponseDeserializationFailed)?;
 
+<<<<<<< HEAD
     match check_token_status_response.token_status {
         pm_types::TokenStatus::Active => Ok((
             Some(check_token_status_response.token_expiry_month),
             Some(check_token_status_response.token_expiry_year),
         )),
         _ => Ok((None, None)),
+=======
+    match check_token_status_response.payload.token_status {
+        pm_types::TokenStatus::Active => Ok((
+            Some(check_token_status_response.payload.token_expiry_month),
+            Some(check_token_status_response.payload.token_expiry_year),
+        )),
+        pm_types::TokenStatus::Inactive => Ok((None, None)),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
 #[cfg(feature = "v2")]
 pub async fn check_token_status_with_tokenization_service(
+<<<<<<< HEAD
     state: &routes::SessionState,
     customer_id: &id_type::GlobalCustomerId,
     network_token_requestor_reference_id: String,
@@ -897,6 +911,15 @@ pub async fn do_status_check_for_network_token(
         Err(errors::NetworkTokenizationError::FetchNetworkTokenFailed)
             .attach_printable("Check network token status failed")?
     }
+=======
+    _state: &routes::SessionState,
+    _customer_id: &id_type::GlobalCustomerId,
+    _network_token_requestor_reference_id: String,
+    _tokenization_service: &settings::NetworkTokenizationService,
+) -> CustomResult<(Option<Secret<String>>, Option<Secret<String>>), errors::NetworkTokenizationError>
+{
+    todo!()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]

@@ -306,11 +306,21 @@ impl<F: Clone + Send + Sync> Domain<F, PaymentsSessionRequest, payments::Payment
                 .into_iter()
                 .filter_map(
                     |(merchant_connector_account, payment_method_type, payment_method)| {
+<<<<<<< HEAD
                         match helpers::get_connector_data_with_token(
                             state,
                             merchant_connector_account.connector_name.to_string(),
                             Some(merchant_connector_account.get_id()),
                             payment_method_type,
+=======
+                        let connector_type = api::GetToken::from(payment_method_type);
+
+                        match api::ConnectorData::get_connector_by_name(
+                            &state.conf.connectors,
+                            &merchant_connector_account.connector_name.to_string(),
+                            connector_type,
+                            Some(merchant_connector_account.get_id()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         ) {
                             Ok(connector_data) => Some(api::SessionConnectorData::new(
                                 payment_method_type,
@@ -384,3 +394,19 @@ impl<F: Clone + Send + Sync> Domain<F, PaymentsSessionRequest, payments::Payment
         Ok(false)
     }
 }
+<<<<<<< HEAD
+=======
+
+impl From<api_models::enums::PaymentMethodType> for api::GetToken {
+    fn from(value: api_models::enums::PaymentMethodType) -> Self {
+        match value {
+            api_models::enums::PaymentMethodType::GooglePay => Self::GpayMetadata,
+            api_models::enums::PaymentMethodType::ApplePay => Self::ApplePayMetadata,
+            api_models::enums::PaymentMethodType::SamsungPay => Self::SamsungPayMetadata,
+            api_models::enums::PaymentMethodType::Paypal => Self::PaypalSdkMetadata,
+            api_models::enums::PaymentMethodType::Paze => Self::PazeMetadata,
+            _ => Self::Connector,
+        }
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

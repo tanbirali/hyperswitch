@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 use api_models::user::dashboard_metadata::{self as api, GetMultipleMetaDataPayload};
 #[cfg(feature = "email")]
 use common_enums::EntityType;
+=======
+use std::str::FromStr;
+
+use api_models::user::dashboard_metadata::{self as api, GetMultipleMetaDataPayload};
+#[cfg(feature = "email")]
+use common_enums::EntityType;
+use common_utils::pii;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use diesel_models::{
     enums::DashboardMetadata as DBEnum, user::dashboard_metadata::DashboardMetadata,
 };
@@ -8,7 +17,11 @@ use error_stack::{report, ResultExt};
 use hyperswitch_interfaces::crm::CrmPayload;
 #[cfg(feature = "email")]
 use masking::ExposeInterface;
+<<<<<<< HEAD
 use masking::{PeekInterface, Secret};
+=======
+use masking::PeekInterface;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use router_env::logger;
 
 use crate::{
@@ -453,6 +466,14 @@ async fn insert_metadata(
             metadata
         }
         types::MetaData::ProdIntent(data) => {
+<<<<<<< HEAD
+=======
+            if let Some(poc_email) = &data.poc_email {
+                let inner_poc_email = poc_email.peek().as_str();
+                pii::Email::from_str(inner_poc_email)
+                    .change_context(UserErrors::EmailParsingError)?;
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let mut metadata = utils::insert_merchant_scoped_metadata_to_db(
                 state,
                 user.user_id.clone(),
@@ -515,6 +536,7 @@ async fn insert_metadata(
             let hubspot_body = state
                 .crm_client
                 .make_body(CrmPayload {
+<<<<<<< HEAD
                     legal_business_name: data.legal_business_name.map(|s| s.into_inner()),
                     business_label: data.business_label.map(|s| s.into_inner()),
                     business_location: data.business_location,
@@ -532,6 +554,21 @@ async fn insert_metadata(
                     comments: data.comments.map(|s| s.into_inner()),
                     is_completed: data.is_completed,
                     business_country_name: data.business_country_name.map(|s| s.into_inner()),
+=======
+                    legal_business_name: data.legal_business_name,
+                    business_label: data.business_label,
+                    business_location: data.business_location,
+                    display_name: data.display_name,
+                    poc_email: data.poc_email,
+                    business_type: data.business_type,
+                    business_identifier: data.business_identifier,
+                    business_website: data.business_website,
+                    poc_name: data.poc_name,
+                    poc_contact: data.poc_contact,
+                    comments: data.comments,
+                    is_completed: data.is_completed,
+                    business_country_name: data.business_country_name,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 })
                 .await;
             let base_url = user_utils::get_base_url(state);

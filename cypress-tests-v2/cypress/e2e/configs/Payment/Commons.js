@@ -5,7 +5,11 @@ import { getCustomExchange } from "./_Reusable";
 const successfulNo3DSCardDetails = {
   card_number: "4111111111111111",
   card_exp_month: "08",
+<<<<<<< HEAD
   card_exp_year: "28",
+=======
+  card_exp_year: "25",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   card_holder_name: "joseph Doe",
   card_cvc: "999",
 };
@@ -13,7 +17,11 @@ const successfulNo3DSCardDetails = {
 const successfulThreeDSTestCardDetails = {
   card_number: "4111111111111111",
   card_exp_month: "10",
+<<<<<<< HEAD
   card_exp_year: "28",
+=======
+  card_exp_year: "25",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   card_holder_name: "morino",
   card_cvc: "999",
 };
@@ -52,6 +60,7 @@ const multiUseMandateData = {
   },
 };
 
+<<<<<<< HEAD
 const billingAddress = {
   address: {
     line1: "1467",
@@ -82,6 +91,8 @@ const shippingAddress = {
   email: "example@example.com",
 };
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 export const payment_methods_enabled = [
   {
     payment_method_type: "bank_debit",
@@ -398,7 +409,23 @@ export const connectorDetails = {
             pix: {},
           },
         },
+<<<<<<< HEAD
         billing: billingAddress,
+=======
+        billing: {
+          address: {
+            line1: "1467",
+            line2: "Harrison Street",
+            line3: "Harrison Street",
+            city: "San Fransico",
+            state: "California",
+            zip: "94122",
+            country: "BR",
+            first_name: "john",
+            last_name: "doe",
+          },
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         currency: "BRL",
       },
     }),
@@ -427,7 +454,23 @@ export const connectorDetails = {
             },
           },
         },
+<<<<<<< HEAD
         billing: billingAddress,
+=======
+        billing: {
+          address: {
+            line1: "1467",
+            line2: "Harrison Street",
+            line3: "Harrison Street",
+            city: "San Fransico",
+            state: "California",
+            zip: "94122",
+            country: "NL",
+            first_name: "john",
+            last_name: "doe",
+          },
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
     Giropay: getCustomExchange({
@@ -445,7 +488,23 @@ export const connectorDetails = {
             },
           },
         },
+<<<<<<< HEAD
         billing: billingAddress,
+=======
+        billing: {
+          address: {
+            line1: "1467",
+            line2: "Harrison Street",
+            line3: "Harrison Street",
+            city: "San Fransico",
+            state: "California",
+            zip: "94122",
+            country: "DE",
+            first_name: "john",
+            last_name: "doe",
+          },
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
     Sofort: getCustomExchange({
@@ -460,7 +519,23 @@ export const connectorDetails = {
             },
           },
         },
+<<<<<<< HEAD
         billing: billingAddress,
+=======
+        billing: {
+          address: {
+            line1: "1467",
+            line2: "Harrison Street",
+            line3: "Harrison Street",
+            city: "San Fransico",
+            state: "California",
+            zip: "94122",
+            country: "DE",
+            first_name: "john",
+            last_name: "doe",
+          },
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
     Eps: getCustomExchange({
@@ -474,7 +549,23 @@ export const connectorDetails = {
             },
           },
         },
+<<<<<<< HEAD
         billing: billingAddress,
+=======
+        billing: {
+          address: {
+            line1: "1467",
+            line2: "Harrison Street",
+            line3: "Harrison Street",
+            city: "San Fransico",
+            state: "California",
+            zip: "94122",
+            country: "AT",
+            first_name: "john",
+            last_name: "doe",
+          },
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
     Przelewy24: getCustomExchange({
@@ -515,19 +606,39 @@ export const connectorDetails = {
             },
           },
         },
+<<<<<<< HEAD
         billing: billingAddress,
+=======
+        billing: {
+          address: {
+            line1: "1467",
+            line2: "Harrison Street",
+            line3: "Harrison Street",
+            city: "San Fransico",
+            state: "California",
+            zip: "94122",
+            country: "PL",
+            first_name: "john",
+            last_name: "doe",
+          },
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
   },
   card_pm: {
     PaymentIntent: getCustomExchange({
       Request: {
+<<<<<<< HEAD
         amount_details: {
           order_amount: 1001,
           currency: "USD",
         },
         billing: billingAddress,
         shipping: shippingAddress,
+=======
+        currency: "USD",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
       Response: {
         status: 200,
@@ -536,7 +647,10 @@ export const connectorDetails = {
         },
       },
     }),
+<<<<<<< HEAD
     
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     PaymentIntentOffSession: getCustomExchange({
       Request: {
         currency: "USD",
@@ -572,6 +686,7 @@ export const connectorDetails = {
     }),
     No3DSManualCapture: getCustomExchange({
       Request: {
+<<<<<<< HEAD
         payment_method_data: {
           card: successfulNo3DSCardDetails,
         },
@@ -585,10 +700,20 @@ export const connectorDetails = {
         body: {
           status: "requires_capture",
         },
+=======
+        payment_method: "card",
+        payment_method_data: {
+          card: successfulNo3DSCardDetails,
+        },
+        currency: "USD",
+        customer_acceptance: null,
+        setup_future_usage: "on_session",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
     No3DSAutoCapture: getCustomExchange({
       Request: {
+<<<<<<< HEAD
         payment_method_data: {
           card: successfulNo3DSCardDetails,
         },
@@ -602,6 +727,15 @@ export const connectorDetails = {
         body: {
           status: "succeeded",
         },
+=======
+        payment_method: "card",
+        payment_method_data: {
+          card: successfulNo3DSCardDetails,
+        },
+        currency: "USD",
+        customer_acceptance: null,
+        setup_future_usage: "on_session",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       },
     }),
     Capture: getCustomExchange({
@@ -610,12 +744,19 @@ export const connectorDetails = {
         payment_method_data: {
           card: successfulNo3DSCardDetails,
         },
+<<<<<<< HEAD
         customer_acceptance: null,
       },
     }),
     Overcapture: getCustomExchange({
       Request: {},
     }),
+=======
+        currency: "USD",
+        customer_acceptance: null,
+      },
+    }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     PartialCapture: getCustomExchange({
       Request: {},
     }),
@@ -634,6 +775,7 @@ export const connectorDetails = {
           error: {
             type: "invalid_request",
             message:
+<<<<<<< HEAD
               "This Payment could not be PaymentsCancel because it has a status of requires_payment_method. The expected state is requires_capture, partially_captured_and_capturable, partially_authorized_and_requires_capture",
             code: "IR_14",
           },
@@ -656,6 +798,10 @@ export const connectorDetails = {
             message:
               "This Payment could not be PaymentsCancel because it has a status of succeeded. The expected state is requires_capture, partially_captured_and_capturable, partially_authorized_and_requires_capture",
             code: "IR_14",
+=======
+              "You cannot cancel this payment because it has status succeeded",
+            code: "IR_16",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           },
         },
       },
@@ -666,6 +812,10 @@ export const connectorDetails = {
         payment_method_data: {
           card: successfulNo3DSCardDetails,
         },
+<<<<<<< HEAD
+=======
+        currency: "USD",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         customer_acceptance: null,
       },
       ResponseCustom: {
@@ -964,7 +1114,11 @@ export const connectorDetails = {
           error: {
             error_type: "invalid_request",
             message: "Json deserialize error: invalid card number length",
+<<<<<<< HEAD
             code: "IR_06",
+=======
+            code: "IR_06"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           },
         },
       },
@@ -1071,9 +1225,14 @@ export const connectorDetails = {
         body: {
           error: {
             error_type: "invalid_request",
+<<<<<<< HEAD
             message:
               "Json deserialize error: unknown variant `United`, expected one of `AED`, `AFN`, `ALL`, `AMD`, `ANG`, `AOA`, `ARS`, `AUD`, `AWG`, `AZN`, `BAM`, `BBD`, `BDT`, `BGN`, `BHD`, `BIF`, `BMD`, `BND`, `BOB`, `BRL`, `BSD`, `BTN`, `BWP`, `BYN`, `BZD`, `CAD`, `CDF`, `CHF`, `CLP`, `CNY`, `COP`, `CRC`, `CUP`, `CVE`, `CZK`, `DJF`, `DKK`, `DOP`, `DZD`, `EGP`, `ERN`, `ETB`, `EUR`, `FJD`, `FKP`, `GBP`, `GEL`, `GHS`, `GIP`, `GMD`, `GNF`, `GTQ`, `GYD`, `HKD`, `HNL`, `HRK`, `HTG`, `HUF`, `IDR`, `ILS`, `INR`, `IQD`, `IRR`, `ISK`, `JMD`, `JOD`, `JPY`, `KES`, `KGS`, `KHR`, `KMF`, `KPW`, `KRW`, `KWD`, `KYD`, `KZT`, `LAK`, `LBP`, `LKR`, `LRD`, `LSL`, `LYD`, `MAD`, `MDL`, `MGA`, `MKD`, `MMK`, `MNT`, `MOP`, `MRU`, `MUR`, `MVR`, `MWK`, `MXN`, `MYR`, `MZN`, `NAD`, `NGN`, `NIO`, `NOK`, `NPR`, `NZD`, `OMR`, `PAB`, `PEN`, `PGK`, `PHP`, `PKR`, `PLN`, `PYG`, `QAR`, `RON`, `RSD`, `RUB`, `RWF`, `SAR`, `SBD`, `SCR`, `SDG`, `SEK`, `SGD`, `SHP`, `SLE`, `SLL`, `SOS`, `SRD`, `SSP`, `STN`, `SVC`, `SYP`, `SZL`, `THB`, `TJS`, `TMT`, `TND`, `TOP`, `TRY`, `TTD`, `TWD`, `TZS`, `UAH`, `UGX`, `USD`, `UYU`, `UZS`, `VES`, `VND`, `VUV`, `WST`, `XAF`, `XCD`, `XOF`, `XPF`, `YER`, `ZAR`, `ZMW`, `ZWL`",
             code: "IR_06",
+=======
+            message: "Json deserialize error: unknown variant `United`, expected one of `AED`, `AFN`, `ALL`, `AMD`, `ANG`, `AOA`, `ARS`, `AUD`, `AWG`, `AZN`, `BAM`, `BBD`, `BDT`, `BGN`, `BHD`, `BIF`, `BMD`, `BND`, `BOB`, `BRL`, `BSD`, `BTN`, `BWP`, `BYN`, `BZD`, `CAD`, `CDF`, `CHF`, `CLP`, `CNY`, `COP`, `CRC`, `CUP`, `CVE`, `CZK`, `DJF`, `DKK`, `DOP`, `DZD`, `EGP`, `ERN`, `ETB`, `EUR`, `FJD`, `FKP`, `GBP`, `GEL`, `GHS`, `GIP`, `GMD`, `GNF`, `GTQ`, `GYD`, `HKD`, `HNL`, `HRK`, `HTG`, `HUF`, `IDR`, `ILS`, `INR`, `IQD`, `IRR`, `ISK`, `JMD`, `JOD`, `JPY`, `KES`, `KGS`, `KHR`, `KMF`, `KPW`, `KRW`, `KWD`, `KYD`, `KZT`, `LAK`, `LBP`, `LKR`, `LRD`, `LSL`, `LYD`, `MAD`, `MDL`, `MGA`, `MKD`, `MMK`, `MNT`, `MOP`, `MRU`, `MUR`, `MVR`, `MWK`, `MXN`, `MYR`, `MZN`, `NAD`, `NGN`, `NIO`, `NOK`, `NPR`, `NZD`, `OMR`, `PAB`, `PEN`, `PGK`, `PHP`, `PKR`, `PLN`, `PYG`, `QAR`, `RON`, `RSD`, `RUB`, `RWF`, `SAR`, `SBD`, `SCR`, `SDG`, `SEK`, `SGD`, `SHP`, `SLE`, `SLL`, `SOS`, `SRD`, `SSP`, `STN`, `SVC`, `SYP`, `SZL`, `THB`, `TJS`, `TMT`, `TND`, `TOP`, `TRY`, `TTD`, `TWD`, `TZS`, `UAH`, `UGX`, `USD`, `UYU`, `UZS`, `VES`, `VND`, `VUV`, `WST`, `XAF`, `XCD`, `XOF`, `XPF`, `YER`, `ZAR`, `ZMW`, `ZWL`",
+            code: "IR_06"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           },
         },
       },
@@ -1100,9 +1259,14 @@ export const connectorDetails = {
         body: {
           error: {
             error_type: "invalid_request",
+<<<<<<< HEAD
             message:
               "Json deserialize error: unknown variant `auto`, expected one of `automatic`, `manual`, `manual_multiple`, `scheduled`",
             code: "IR_06",
+=======
+            message: "Json deserialize error: unknown variant `auto`, expected one of `automatic`, `manual`, `manual_multiple`, `scheduled`",
+            code: "IR_06"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           },
         },
       },
@@ -1128,9 +1292,14 @@ export const connectorDetails = {
         body: {
           error: {
             error_type: "invalid_request",
+<<<<<<< HEAD
             message:
               "Json deserialize error: unknown variant `this_supposed_to_be_a_card`, expected one of `card`, `card_redirect`, `pay_later`, `wallet`, `bank_redirect`, `bank_transfer`, `crypto`, `bank_debit`, `reward`, `real_time_payment`, `upi`, `voucher`, `gift_card`, `open_banking`, `mobile_payment`",
             code: "IR_06",
+=======
+            message: "Json deserialize error: unknown variant `this_supposed_to_be_a_card`, expected one of `card`, `card_redirect`, `pay_later`, `wallet`, `bank_redirect`, `bank_transfer`, `crypto`, `bank_debit`, `reward`, `real_time_payment`, `upi`, `voucher`, `gift_card`, `open_banking`, `mobile_payment`",
+            code: "IR_06"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           },
         },
       },
@@ -1199,8 +1368,12 @@ export const connectorDetails = {
         body: {
           error: {
             type: "invalid_request",
+<<<<<<< HEAD
             message:
               "A payment token or payment method data or ctp service details is required",
+=======
+            message: "A payment token or payment method data or ctp service details is required",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             code: "IR_06",
           },
         },

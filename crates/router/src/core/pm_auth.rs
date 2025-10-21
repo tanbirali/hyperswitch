@@ -529,7 +529,10 @@ async fn store_bank_details_in_payment_methods(
                 network_token_requestor_reference_id: None,
                 network_token_locker_id: None,
                 network_token_payment_method_data: None,
+<<<<<<< HEAD
                 vault_source_details: Default::default(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             };
 
             new_entries.push(pm_new);

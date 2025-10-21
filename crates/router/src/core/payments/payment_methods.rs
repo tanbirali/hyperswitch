@@ -78,7 +78,10 @@ pub async fn list_payment_methods(
                 &req,
                 &payment_intent,
             ).await?
+<<<<<<< HEAD
             .store_gift_card_mca_in_redis(&payment_id, db, &profile).await
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .merge_and_transform()
             .get_required_fields(RequiredFieldsInput::new(state.conf.required_fields.clone(), payment_intent.setup_future_usage))
             .perform_surcharge_calculation()
@@ -190,6 +193,7 @@ impl FilteredPaymentMethodsEnabled {
             .collect();
         MergedEnabledPaymentMethodTypes(values)
     }
+<<<<<<< HEAD
     async fn store_gift_card_mca_in_redis(
         self,
         payment_id: &id_type::GlobalPaymentId,
@@ -234,6 +238,8 @@ impl FilteredPaymentMethodsEnabled {
 
         self
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 /// Element container to hold the filtered payment methods with payment_experience and connectors merged for a pm_subtype
@@ -592,9 +598,15 @@ fn filter_country_based(
     address: Option<&hyperswitch_domain_models::address::AddressDetails>,
     pm: &common_types::payment_methods::RequestPaymentMethodTypes,
 ) -> bool {
+<<<<<<< HEAD
     address.is_none_or(|address| {
         address.country.as_ref().is_none_or(|country| {
             pm.accepted_countries.as_ref().is_none_or(|ac| match ac {
+=======
+    address.map_or(true, |address| {
+        address.country.as_ref().map_or(true, |country| {
+            pm.accepted_countries.as_ref().map_or(true, |ac| match ac {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 common_types::payment_methods::AcceptedCountries::EnableOnly(acc) => {
                     acc.contains(country)
                 }
@@ -613,7 +625,11 @@ fn filter_currency_based(
     currency: common_enums::Currency,
     pm: &common_types::payment_methods::RequestPaymentMethodTypes,
 ) -> bool {
+<<<<<<< HEAD
     pm.accepted_currencies.as_ref().is_none_or(|ac| match ac {
+=======
+    pm.accepted_currencies.as_ref().map_or(true, |ac| match ac {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         common_types::payment_methods::AcceptedCurrencies::EnableOnly(acc) => {
             acc.contains(&currency)
         }
@@ -686,7 +702,13 @@ fn filter_recurring_based(
     payment_method: &common_types::payment_methods::RequestPaymentMethodTypes,
     recurring_enabled: Option<bool>,
 ) -> bool {
+<<<<<<< HEAD
     recurring_enabled.is_none_or(|enabled| payment_method.recurring_enabled == Some(enabled))
+=======
+    recurring_enabled.map_or(true, |enabled| {
+        payment_method.recurring_enabled == Some(enabled)
+    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 // filter based on valid amount range of payment method type
@@ -747,7 +769,11 @@ fn filter_allowed_payment_method_types_based(
     allowed_types: Option<&Vec<api_models::enums::PaymentMethodType>>,
     payment_method_type: api_models::enums::PaymentMethodType,
 ) -> bool {
+<<<<<<< HEAD
     allowed_types.is_none_or(|pm| pm.contains(&payment_method_type))
+=======
+    allowed_types.map_or(true, |pm| pm.contains(&payment_method_type))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 // filter based on card networks

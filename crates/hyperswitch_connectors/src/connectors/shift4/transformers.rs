@@ -43,7 +43,10 @@ trait Shift4AuthorizePreprocessingCommon {
     fn get_email_optional(&self) -> Option<pii::Email>;
     fn get_complete_authorize_url(&self) -> Option<String>;
     fn get_currency_required(&self) -> Result<enums::Currency, Error>;
+<<<<<<< HEAD
     fn get_metadata(&self) -> Result<Option<serde_json::Value>, Error>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_payment_method_data_required(&self) -> Result<PaymentMethodData, Error>;
 }
 
@@ -89,12 +92,15 @@ impl Shift4AuthorizePreprocessingCommon for PaymentsAuthorizeData {
     fn get_router_return_url(&self) -> Option<String> {
         self.router_return_url.clone()
     }
+<<<<<<< HEAD
 
     fn get_metadata(
         &self,
     ) -> Result<Option<serde_json::Value>, error_stack::Report<errors::ConnectorError>> {
         Ok(self.metadata.clone())
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl Shift4AuthorizePreprocessingCommon for PaymentsPreProcessingData {
@@ -124,18 +130,24 @@ impl Shift4AuthorizePreprocessingCommon for PaymentsPreProcessingData {
     fn get_router_return_url(&self) -> Option<String> {
         self.router_return_url.clone()
     }
+<<<<<<< HEAD
     fn get_metadata(
         &self,
     ) -> Result<Option<serde_json::Value>, error_stack::Report<errors::ConnectorError>> {
         Ok(None)
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 #[derive(Debug, Serialize)]
 pub struct Shift4PaymentsRequest {
     amount: MinorUnit,
     currency: enums::Currency,
     captured: bool,
+<<<<<<< HEAD
     metadata: Option<serde_json::Value>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[serde(flatten)]
     payment_method: Shift4PaymentMethod,
 }
@@ -288,13 +300,19 @@ where
         let submit_for_settlement = item.router_data.request.is_automatic_capture()?;
         let amount = item.amount.to_owned();
         let currency = item.router_data.request.get_currency_required()?;
+<<<<<<< HEAD
         let metadata = item.router_data.request.get_metadata()?;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let payment_method = Shift4PaymentMethod::try_from(item.router_data)?;
         Ok(Self {
             amount,
             currency,
             captured: submit_for_settlement,
+<<<<<<< HEAD
             metadata,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_method,
         })
     }
@@ -394,7 +412,10 @@ impl TryFrom<&WalletData> for PaymentMethodType {
             WalletData::Paysera(_) => Ok(Self::Paysera),
             WalletData::Skrill(_) => Ok(Self::Skrill),
             WalletData::AliPayQr(_)
+<<<<<<< HEAD
             | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | WalletData::AliPayHkRedirect(_)
             | WalletData::AmazonPayRedirect(_)
             | WalletData::MomoRedirect(_)
@@ -656,11 +677,17 @@ impl<T> TryFrom<&Shift4RouterData<&RouterData<T, CompleteAuthorizeData, Payments
             Some(PaymentMethodData::Card(_)) => {
                 let card_token: Shift4CardToken =
                     to_connector_meta(item.router_data.request.connector_meta.clone())?;
+<<<<<<< HEAD
                 let metadata = item.router_data.request.metadata.clone();
                 Ok(Self {
                     amount: item.amount.to_owned(),
                     currency: item.router_data.request.currency,
                     metadata,
+=======
+                Ok(Self {
+                    amount: item.amount.to_owned(),
+                    currency: item.router_data.request.currency,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     payment_method: Shift4PaymentMethod::CardsNon3DSRequest(Box::new(
                         CardsNon3DSRequest {
                             card: CardPayment::CardToken(card_token.id),

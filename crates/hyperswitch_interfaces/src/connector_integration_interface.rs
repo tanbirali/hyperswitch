@@ -416,6 +416,7 @@ impl IncomingWebhook for ConnectorEnum {
             Self::New(connector) => connector.get_revenue_recovery_attempt_details(request),
         }
     }
+<<<<<<< HEAD
     fn get_subscription_mit_payment_data(
         &self,
         request: &IncomingWebhookRequestDetails<'_>,
@@ -428,6 +429,8 @@ impl IncomingWebhook for ConnectorEnum {
             Self::New(connector) => connector.get_subscription_mit_payment_data(request),
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl ConnectorRedirectResponse for ConnectorEnum {
@@ -539,6 +542,7 @@ impl ConnectorSpecifications for ConnectorEnum {
         }
     }
 
+<<<<<<< HEAD
     /// If connector supports session token generation
     fn is_sdk_client_token_generation_enabled(&self) -> bool {
         match self {
@@ -574,6 +578,8 @@ impl ConnectorSpecifications for ConnectorEnum {
         }
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "v1")]
     fn generate_connector_request_reference_id(
         &self,
@@ -611,6 +617,7 @@ impl ConnectorSpecifications for ConnectorEnum {
             }
         }
     }
+<<<<<<< HEAD
 
     /// Check if connector requires create customer call
     fn should_call_connector_customer(
@@ -622,6 +629,8 @@ impl ConnectorSpecifications for ConnectorEnum {
             Self::New(connector) => connector.should_call_connector_customer(payment_attempt),
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl ConnectorCommon for ConnectorEnum {

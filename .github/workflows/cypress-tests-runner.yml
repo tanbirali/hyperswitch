@@ -655,7 +655,10 @@ jobs:
         env:
           CYPRESS_BASEURL: "http://localhost:8080"
           ROUTER__SERVER__WORKERS: 4
+<<<<<<< HEAD
           PAYMENTS_CONNECTORS: ${{ env.PAYMENTS_CONNECTORS }}
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         shell: bash -leuo pipefail {0}
         continue-on-error: true
         # We aren't specifying `command` and `jobs` arguments currently

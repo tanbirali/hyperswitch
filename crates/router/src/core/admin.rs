@@ -23,7 +23,10 @@ use masking::{ExposeInterface, PeekInterface, Secret};
 use pm_auth::types as pm_auth_types;
 use uuid::Uuid;
 
+<<<<<<< HEAD
 use super::routing::helpers::redact_cgraph_cache;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(any(feature = "v1", feature = "v2"))]
 use crate::types::transformers::ForeignFrom;
 use crate::{
@@ -1221,6 +1224,28 @@ pub async fn merchant_account_delete(
         is_deleted = is_merchant_account_deleted && is_merchant_key_store_deleted;
     }
 
+<<<<<<< HEAD
+=======
+    // Call to DE here
+    #[cfg(all(feature = "dynamic_routing", feature = "v1"))]
+    {
+        if state.conf.open_router.dynamic_routing_enabled && is_deleted {
+            merchant_account
+                .default_profile
+                .as_ref()
+                .async_map(|profile_id| {
+                    routing::helpers::delete_decision_engine_merchant(&state, profile_id)
+                })
+                .await
+                .transpose()
+                .map_err(|err| {
+                    logger::error!("Failed to delete merchant in Decision Engine {err:?}");
+                })
+                .ok();
+        }
+    }
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let state = state.clone();
     authentication::decision::spawn_tracked_job(
         async move {
@@ -2578,9 +2603,12 @@ pub async fn create_connector(
             },
         )?;
 
+<<<<<<< HEAD
     // redact cgraph cache on new connector creation
     redact_cgraph_cache(&state, merchant_id, business_profile.get_id()).await?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "v1")]
     disputes::schedule_dispute_sync_task(&state, &business_profile, &mca).await?;
 
@@ -2873,7 +2901,11 @@ pub async fn update_connector(
     let updated_mca = db
         .update_merchant_connector_account(
             key_manager_state,
+<<<<<<< HEAD
             mca.clone(),
+=======
+            mca,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             payment_connector.into(),
             &key_store,
         )
@@ -2891,6 +2923,7 @@ pub async fn update_connector(
             )
         })?;
 
+<<<<<<< HEAD
     // redact cgraph cache on connector updation
     redact_cgraph_cache(&state, merchant_id, &profile_id).await?;
 
@@ -2922,6 +2955,8 @@ pub async fn update_connector(
             .await?;
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let response = updated_mca.foreign_try_into()?;
 
     Ok(service_api::ApplicationResponse::Json(response))
@@ -2991,8 +3026,11 @@ pub async fn delete_connector(
         .retrieve_and_delete_from_default_fallback_routing_algorithm_if_routable_connector_exists()
         .await?;
 
+<<<<<<< HEAD
     // redact cgraph cache on connector deletion
     redact_cgraph_cache(&state, &merchant_id, &mca.profile_id).await?;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let response = api::MerchantConnectorDeleteResponse {
         merchant_id,
         merchant_connector_id,
@@ -3513,6 +3551,7 @@ impl ProfileCreateBridge for api::ProfileCreate {
             merchant_category_code: self.merchant_category_code,
             merchant_country_code: self.merchant_country_code,
             dispute_polling_interval: self.dispute_polling_interval,
+<<<<<<< HEAD
             is_manual_retry_enabled: self.is_manual_retry_enabled,
             always_enable_overcapture: self.always_enable_overcapture,
             external_vault_details: domain::ExternalVaultDetails::try_from((
@@ -3524,6 +3563,8 @@ impl ProfileCreateBridge for api::ProfileCreate {
             .attach_printable("error while generating external vault details")?,
             billing_processor_id: self.billing_processor_id,
             is_l2_l3_enabled: self.is_l2_l3_enabled.unwrap_or(false),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }))
     }
 
@@ -3674,8 +3715,11 @@ impl ProfileCreateBridge for api::ProfileCreate {
                 .map(ForeignInto::foreign_into),
             merchant_category_code: self.merchant_category_code,
             merchant_country_code: self.merchant_country_code,
+<<<<<<< HEAD
             split_txns_enabled: self.split_txns_enabled.unwrap_or_default(),
             billing_processor_id: self.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }))
     }
 }
@@ -3999,7 +4043,10 @@ impl ProfileUpdateBridge for api::ProfileUpdate {
                     .always_collect_billing_details_from_wallet_connector,
                 always_collect_shipping_details_from_wallet_connector: self
                     .always_collect_shipping_details_from_wallet_connector,
+<<<<<<< HEAD
                 always_request_extended_authorization: self.always_request_extended_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 tax_connector_id: self.tax_connector_id,
                 is_tax_connector_enabled: self.is_tax_connector_enabled,
                 dynamic_routing_algorithm: dynamic_routing_algo_ref,
@@ -4013,7 +4060,11 @@ impl ProfileUpdateBridge for api::ProfileUpdate {
                     .map(ForeignInto::foreign_into),
                 card_testing_secret_key,
                 is_clear_pan_retries_enabled: self.is_clear_pan_retries_enabled,
+<<<<<<< HEAD
                 force_3ds_challenge: self.force_3ds_challenge,
+=======
+                force_3ds_challenge: self.force_3ds_challenge, //
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 is_debit_routing_enabled: self.is_debit_routing_enabled,
                 merchant_business_country: self.merchant_business_country,
                 is_iframe_redirection_enabled: self.is_iframe_redirection_enabled,
@@ -4021,6 +4072,7 @@ impl ProfileUpdateBridge for api::ProfileUpdate {
                 merchant_category_code: self.merchant_category_code,
                 merchant_country_code: self.merchant_country_code,
                 dispute_polling_interval: self.dispute_polling_interval,
+<<<<<<< HEAD
                 is_manual_retry_enabled: self.is_manual_retry_enabled,
                 always_enable_overcapture: self.always_enable_overcapture,
                 is_external_vault_enabled: self.is_external_vault_enabled,
@@ -4029,6 +4081,8 @@ impl ProfileUpdateBridge for api::ProfileUpdate {
                     .map(ForeignInto::foreign_into),
                 billing_processor_id: self.billing_processor_id,
                 is_l2_l3_enabled: self.is_l2_l3_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         )))
     }
@@ -4173,8 +4227,11 @@ impl ProfileUpdateBridge for api::ProfileUpdate {
                 merchant_category_code: self.merchant_category_code,
                 merchant_country_code: self.merchant_country_code,
                 revenue_recovery_retry_algorithm_type,
+<<<<<<< HEAD
                 split_txns_enabled: self.split_txns_enabled,
                 billing_processor_id: self.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         )))
     }

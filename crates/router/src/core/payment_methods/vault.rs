@@ -9,11 +9,18 @@ use common_utils::{
 };
 use error_stack::{report, ResultExt};
 #[cfg(feature = "v2")]
+<<<<<<< HEAD
 use hyperswitch_domain_models::router_flow_types::{
     ExternalVaultDeleteFlow, ExternalVaultRetrieveFlow,
 };
 use hyperswitch_domain_models::{
     router_data_v2::flow_common_types::VaultConnectorFlowData, types::VaultRouterData,
+=======
+use hyperswitch_domain_models::{
+    router_data_v2::flow_common_types::VaultConnectorFlowData,
+    router_flow_types::{ExternalVaultDeleteFlow, ExternalVaultRetrieveFlow},
+    types::VaultRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use masking::PeekInterface;
 use router_env::{instrument, tracing};
@@ -23,6 +30,7 @@ use scheduler::{types::process_data, utils as process_tracker_utils};
 use crate::types::api::payouts;
 use crate::{
     consts,
+<<<<<<< HEAD
     core::{
         errors::{self, ConnectorErrorExt, CustomResult, RouterResult},
         payments, utils as core_utils,
@@ -32,6 +40,13 @@ use crate::{
     services::{self, connector_integration_interface::RouterDataConversion},
     types::{
         self, api, domain,
+=======
+    core::errors::{self, CustomResult, RouterResult},
+    db, logger,
+    routes::{self, metrics},
+    types::{
+        api, domain,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         storage::{self, enums},
     },
     utils::StringExt,
@@ -39,12 +54,25 @@ use crate::{
 #[cfg(feature = "v2")]
 use crate::{
     core::{
+<<<<<<< HEAD
         errors::StorageErrorExt,
         payment_methods::{transformers as pm_transforms, utils},
         payments::{self as payments_core, helpers as payment_helpers},
     },
     headers, settings,
     types::payment_methods as pm_types,
+=======
+        errors::ConnectorErrorExt,
+        errors::StorageErrorExt,
+        payment_methods::{transformers as pm_transforms, utils},
+        payments::{self as payments_core, helpers as payment_helpers},
+        utils as core_utils,
+    },
+    headers,
+    services::{self, connector_integration_interface::RouterDataConversion},
+    settings,
+    types::{self, payment_methods as pm_types},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     utils::{ext_traits::OptionExt, ConnectorResponseExt},
 };
 
@@ -551,10 +579,13 @@ pub struct TokenizedWalletSensitiveValues {
     pub telephone_number: Option<masking::Secret<String>>,
     pub wallet_id: Option<masking::Secret<String>>,
     pub wallet_type: PaymentMethodType,
+<<<<<<< HEAD
     pub dpan: Option<cards::CardNumber>,
     pub expiry_month: Option<masking::Secret<String>>,
     pub expiry_year: Option<masking::Secret<String>>,
     pub card_holder_name: Option<masking::Secret<String>>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
@@ -574,16 +605,20 @@ impl Vaultable for api::WalletPayout {
                 telephone_number: paypal_data.telephone_number.clone(),
                 wallet_id: paypal_data.paypal_id.clone(),
                 wallet_type: PaymentMethodType::Paypal,
+<<<<<<< HEAD
                 dpan: None,
                 expiry_month: None,
                 expiry_year: None,
                 card_holder_name: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             Self::Venmo(venmo_data) => TokenizedWalletSensitiveValues {
                 email: None,
                 telephone_number: venmo_data.telephone_number.clone(),
                 wallet_id: None,
                 wallet_type: PaymentMethodType::Venmo,
+<<<<<<< HEAD
                 dpan: None,
                 expiry_month: None,
                 expiry_year: None,
@@ -598,6 +633,8 @@ impl Vaultable for api::WalletPayout {
                 expiry_month: Some(apple_pay_decrypt_data.expiry_month.clone()),
                 expiry_year: Some(apple_pay_decrypt_data.expiry_year.clone()),
                 card_holder_name: apple_pay_decrypt_data.card_holder_name.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         };
 
@@ -642,6 +679,7 @@ impl Vaultable for api::WalletPayout {
             PaymentMethodType::Venmo => Self::Venmo(api_models::payouts::Venmo {
                 telephone_number: value1.telephone_number,
             }),
+<<<<<<< HEAD
             PaymentMethodType::ApplePay => {
                 match (value1.dpan, value1.expiry_month, value1.expiry_year) {
                     (Some(dpan), Some(expiry_month), Some(expiry_year)) => {
@@ -655,6 +693,8 @@ impl Vaultable for api::WalletPayout {
                     _ => Err(errors::VaultError::ResponseDeserializationFailed)?,
                 }
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             _ => Err(errors::VaultError::PayoutMethodNotSupported)?,
         };
         let supp_data = SupplementaryVaultData {
@@ -859,7 +899,10 @@ pub enum VaultPayoutMethod {
     Card(String),
     Bank(String),
     Wallet(String),
+<<<<<<< HEAD
     BankRedirect(String),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "payouts")]
@@ -872,9 +915,12 @@ impl Vaultable for api::PayoutMethodData {
             Self::Card(card) => VaultPayoutMethod::Card(card.get_value1(customer_id)?),
             Self::Bank(bank) => VaultPayoutMethod::Bank(bank.get_value1(customer_id)?),
             Self::Wallet(wallet) => VaultPayoutMethod::Wallet(wallet.get_value1(customer_id)?),
+<<<<<<< HEAD
             Self::BankRedirect(bank_redirect) => {
                 VaultPayoutMethod::BankRedirect(bank_redirect.get_value1(customer_id)?)
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         value1
@@ -891,9 +937,12 @@ impl Vaultable for api::PayoutMethodData {
             Self::Card(card) => VaultPayoutMethod::Card(card.get_value2(customer_id)?),
             Self::Bank(bank) => VaultPayoutMethod::Bank(bank.get_value2(customer_id)?),
             Self::Wallet(wallet) => VaultPayoutMethod::Wallet(wallet.get_value2(customer_id)?),
+<<<<<<< HEAD
             Self::BankRedirect(bank_redirect) => {
                 VaultPayoutMethod::BankRedirect(bank_redirect.get_value2(customer_id)?)
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         value2
@@ -929,6 +978,7 @@ impl Vaultable for api::PayoutMethodData {
                 let (wallet, supp_data) = api::WalletPayout::from_values(mvalue1, mvalue2)?;
                 Ok((Self::Wallet(wallet), supp_data))
             }
+<<<<<<< HEAD
             (
                 VaultPayoutMethod::BankRedirect(mvalue1),
                 VaultPayoutMethod::BankRedirect(mvalue2),
@@ -937,12 +987,15 @@ impl Vaultable for api::PayoutMethodData {
                     api::BankRedirectPayout::from_values(mvalue1, mvalue2)?;
                 Ok((Self::BankRedirect(bank_redirect), supp_data))
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             _ => Err(errors::VaultError::PayoutMethodNotSupported)
                 .attach_printable("Payout method not supported"),
         }
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 impl Vaultable for api::BankRedirectPayout {
     fn get_value1(
@@ -1018,6 +1071,8 @@ pub struct TokenizedBankRedirectInsensitiveValues {
     pub customer_id: Option<id_type::CustomerId>,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct MockTokenizeDBValue {
     pub value1: String,
@@ -1522,6 +1577,7 @@ pub async fn retrieve_payment_method_from_vault_external(
         .clone()
         .map(|id| id.get_string_repr().to_owned());
 
+<<<<<<< HEAD
     let merchant_connector_account = match &merchant_connector_account {
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorAccount(mca) => {
             Ok(mca.as_ref())
@@ -1536,6 +1592,12 @@ pub async fn retrieve_payment_method_from_vault_external(
         state,
         merchant_account.get_id(),
         merchant_connector_account,
+=======
+    let router_data = core_utils::construct_vault_router_data(
+        state,
+        merchant_account,
+        &merchant_connector_account,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         None,
         connector_vault_id,
         None,
@@ -1548,6 +1610,7 @@ pub async fn retrieve_payment_method_from_vault_external(
             "Cannot construct router data for making the external vault retrieve api call",
         )?;
 
+<<<<<<< HEAD
     let connector_name = merchant_connector_account.get_connector_name_as_string(); // always get the connector name from this call
 
     let connector_data = api::ConnectorData::get_external_vault_connector_by_name(
@@ -1555,6 +1618,18 @@ pub async fn retrieve_payment_method_from_vault_external(
         connector_name,
         api::GetToken::Connector,
         Some(merchant_connector_account.get_id()),
+=======
+    let connector_name = merchant_connector_account
+        .get_connector_name()
+        .ok_or(errors::ApiErrorResponse::InternalServerError)
+        .attach_printable("Connector name not present for external vault")?; // always get the connector name from this call
+
+    let connector_data = api::ConnectorData::get_external_vault_connector_by_name(
+        &state.conf.connectors,
+        &connector_name,
+        api::GetToken::Connector,
+        merchant_connector_account.get_mca_id(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     )
     .change_context(errors::ApiErrorResponse::InternalServerError)
     .attach_printable("Failed to get the connector data")?;
@@ -1877,6 +1952,7 @@ pub async fn delete_payment_method_data_from_vault_external(
 ) -> RouterResult<pm_types::VaultDeleteResponse> {
     let connector_vault_id = vault_id.get_string_repr().to_owned();
 
+<<<<<<< HEAD
     // Extract MerchantConnectorAccount from the enum
     let merchant_connector_account = match &merchant_connector_account {
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorAccount(mca) => {
@@ -1892,6 +1968,12 @@ pub async fn delete_payment_method_data_from_vault_external(
         state,
         merchant_account.get_id(),
         merchant_connector_account,
+=======
+    let router_data = core_utils::construct_vault_router_data(
+        state,
+        merchant_account,
+        &merchant_connector_account,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         None,
         Some(connector_vault_id),
         None,
@@ -1904,6 +1986,7 @@ pub async fn delete_payment_method_data_from_vault_external(
             "Cannot construct router data for making the external vault delete api call",
         )?;
 
+<<<<<<< HEAD
     let connector_name = merchant_connector_account.get_connector_name_as_string(); // always get the connector name from this call
 
     let connector_data = api::ConnectorData::get_external_vault_connector_by_name(
@@ -1911,6 +1994,18 @@ pub async fn delete_payment_method_data_from_vault_external(
         connector_name,
         api::GetToken::Connector,
         Some(merchant_connector_account.get_id()),
+=======
+    let connector_name = merchant_connector_account
+        .get_connector_name()
+        .ok_or(errors::ApiErrorResponse::InternalServerError)
+        .attach_printable("Connector name not present for external vault")?; // always get the connector name from this call
+
+    let connector_data = api::ConnectorData::get_external_vault_connector_by_name(
+        &state.conf.connectors,
+        &connector_name,
+        api::GetToken::Connector,
+        merchant_connector_account.get_mca_id(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     )
     .change_context(errors::ApiErrorResponse::InternalServerError)
     .attach_printable("Failed to get the connector data")?;
@@ -2016,6 +2111,7 @@ pub async fn delete_payment_method_data_from_vault(
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 #[instrument(skip_all)]
 pub async fn retrieve_payment_method_from_vault_external_v1(
@@ -2099,6 +2195,8 @@ pub fn get_vault_response_for_retrieve_payment_method_data_v1<F>(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 // ********************************************** PROCESS TRACKER **********************************************
 
 pub async fn add_delete_tokenized_data_task(

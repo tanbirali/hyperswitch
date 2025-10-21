@@ -25,7 +25,10 @@ import { connectorDetails as dlocalConnectorDetails } from "./Dlocal.js";
 import { connectorDetails as elavonConnectorDetails } from "./Elavon.js";
 import { connectorDetails as facilitapayConnectorDetails } from "./Facilitapay.js";
 import { connectorDetails as fiservConnectorDetails } from "./Fiserv.js";
+<<<<<<< HEAD
 import { connectorDetails as finixConnectorDetails } from "./Finix.js";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 import { connectorDetails as fiservemeaConnectorDetails } from "./Fiservemea.js";
 import { connectorDetails as fiuuConnectorDetails } from "./Fiuu.js";
 import { connectorDetails as forteConnectorDetails } from "./Forte.js";
@@ -46,9 +49,13 @@ import { connectorDetails as nuveiConnectorDetails } from "./Nuvei.js";
 import { connectorDetails as payboxConnectorDetails } from "./Paybox.js";
 import { connectorDetails as payloadConnectorDetails } from "./Payload.js";
 import { connectorDetails as paypalConnectorDetails } from "./Paypal.js";
+<<<<<<< HEAD
 import { connectorDetails as paysafeConnectorDetails } from "./Paysafe.js";
 import { connectorDetails as payuConnectorDetails } from "./Payu.js";
 import { connectorDetails as peachpaymentsConnectorDetails } from "./Peachpayments.js";
+=======
+import { connectorDetails as payuConnectorDetails } from "./Payu.js";
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 import { connectorDetails as powertranzConnectorDetails } from "./PowerTranz.js";
 import { connectorDetails as redsysConnectorDetails } from "./Redsys.js";
 import { connectorDetails as shift4ConnectorDetails } from "./Shift4.js";
@@ -57,8 +64,11 @@ import { connectorDetails as squareConnectorDetails } from "./Square.js";
 import { connectorDetails as staxConnectorDetails } from "./Stax.js";
 import { connectorDetails as stripeConnectorDetails } from "./Stripe.js";
 import { connectorDetails as trustpayConnectorDetails } from "./Trustpay.js";
+<<<<<<< HEAD
 import { connectorDetails as tesouroConnectorDetails } from "./Tesouro.js";
 import { connectorDetails as trustpaymentsConnectorDetails } from "./TrustPayments.js";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 import { connectorDetails as tsysConnectorDetails } from "./Tsys.js";
 import { connectorDetails as wellsfargoConnectorDetails } from "./WellsFargo.js";
 import { connectorDetails as worldpayConnectorDetails } from "./WorldPay.js";
@@ -93,7 +103,10 @@ const connectorDetails = {
   fiserv: fiservConnectorDetails,
   fiservemea: fiservemeaConnectorDetails,
   fiuu: fiuuConnectorDetails,
+<<<<<<< HEAD
   finix: finixConnectorDetails,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   forte: forteConnectorDetails,
   getnet: getnetConnectorDetails,
   globalpay: globalpayConnectorDetails,
@@ -112,9 +125,13 @@ const connectorDetails = {
   paybox: payboxConnectorDetails,
   payload: payloadConnectorDetails,
   paypal: paypalConnectorDetails,
+<<<<<<< HEAD
   paysafe: paysafeConnectorDetails,
   payu: payuConnectorDetails,
   peachpayments: peachpaymentsConnectorDetails,
+=======
+  payu: payuConnectorDetails,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   powertranz: powertranzConnectorDetails,
   redsys: redsysConnectorDetails,
   shift4: shift4ConnectorDetails,
@@ -123,8 +140,11 @@ const connectorDetails = {
   stax: staxConnectorDetails,
   stripe: stripeConnectorDetails,
   trustpay: trustpayConnectorDetails,
+<<<<<<< HEAD
   tesouro: tesouroConnectorDetails,
   trustpayments: trustpaymentsConnectorDetails,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   tsys: tsysConnectorDetails,
   wellsfargo: wellsfargoConnectorDetails,
   worldpay: worldpayConnectorDetails,
@@ -411,7 +431,11 @@ export const CONNECTOR_LISTS = {
 
   // Inclusion lists (only run for these connectors)
   INCLUDE: {
+<<<<<<< HEAD
     MANDATES_USING_NTID_PROXY: ["cybersource", "checkout"],
+=======
+    MANDATES_USING_NTID_PROXY: ["cybersource"],
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     INCREMENTAL_AUTH: [
       "archipel",
       // "cybersource",    // issues with MULTIPLE_CONNECTORS handling
@@ -419,10 +443,13 @@ export const CONNECTOR_LISTS = {
       // "stripe",
     ],
     DDC_RACE_CONDITION: ["worldpay"],
+<<<<<<< HEAD
     // ucs connectors
     UCS_CONNECTORS: ["authorizedotnet"],
     OVERCAPTURE: ["adyen"],
     MANUAL_RETRY: ["cybersource"],
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // Add more inclusion lists
   },
 };

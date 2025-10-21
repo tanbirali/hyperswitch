@@ -13,7 +13,6 @@ pub enum BankDebitAdditionalData {
     Bacs(Box<BacsBankDebitAdditionalData>),
     Becs(Box<BecsBankDebitAdditionalData>),
     Sepa(Box<SepaBankDebitAdditionalData>),
-    SepaGuarenteedDebit(Box<SepaBankDebitAdditionalData>),
 }
 
 #[derive(Eq, PartialEq, Clone, Debug, serde::Deserialize, serde::Serialize, ToSchema)]
@@ -224,8 +223,6 @@ pub enum UpiAdditionalData {
     UpiCollect(Box<UpiCollectAdditionalData>),
     #[schema(value_type = UpiIntentData)]
     UpiIntent(Box<super::UpiIntentData>),
-    #[schema(value_type = UpiQrData)]
-    UpiQr(Box<super::UpiQrData>),
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, serde::Deserialize, serde::Serialize, ToSchema)]

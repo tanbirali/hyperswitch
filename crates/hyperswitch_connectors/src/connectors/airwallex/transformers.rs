@@ -308,7 +308,12 @@ pub struct KlarnaData {
 #[derive(Debug, Serialize)]
 pub struct KlarnaDetails {
     country_code: enums::CountryAlpha2,
+<<<<<<< HEAD
     billing: Option<Billing>,
+=======
+    language: Option<String>,
+    billing: Billing,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -318,7 +323,11 @@ pub struct Billing {
     first_name: Option<Secret<String>>,
     last_name: Option<Secret<String>>,
     phone_number: Option<Secret<String>>,
+<<<<<<< HEAD
     address: Option<AddressAirwallex>,
+=======
+    address: AddressAirwallex,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -642,19 +651,36 @@ fn get_paylater_details(
                             field_name: "country_code",
                         }
                     })?,
+<<<<<<< HEAD
                     billing: Some(Billing {
+=======
+                    language: item
+                        .router_data
+                        .request
+                        .get_optional_language_from_browser_info(),
+                    billing: Billing {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         date_of_birth: None,
                         first_name: item.router_data.get_optional_billing_first_name(),
                         last_name: item.router_data.get_optional_billing_last_name(),
                         email: item.router_data.get_optional_billing_email(),
                         phone_number: item.router_data.get_optional_billing_phone_number(),
+<<<<<<< HEAD
                         address: Some(AddressAirwallex {
+=======
+                        address: AddressAirwallex {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             country_code: item.router_data.get_optional_billing_country(),
                             city: item.router_data.get_optional_billing_city(),
                             street: item.router_data.get_optional_billing_line1(),
                             postcode: item.router_data.get_optional_billing_zip(),
+<<<<<<< HEAD
                         }),
                     }),
+=======
+                        },
+                    },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 },
                 payment_method_type: AirwallexPaymentType::Klarna,
             })))
@@ -717,9 +743,17 @@ fn get_bankredirect_details(
                 payment_method_type: AirwallexPaymentType::Blik,
             }))
         }
+<<<<<<< HEAD
         BankRedirectData::Ideal { .. } => {
             AirwallexPaymentMethod::BankRedirect(AirwallexBankRedirectData::Ideal(IdealData {
                 ideal: IdealDetails { bank_name: None },
+=======
+        BankRedirectData::Ideal { bank_name } => {
+            AirwallexPaymentMethod::BankRedirect(AirwallexBankRedirectData::Ideal(IdealData {
+                ideal: IdealDetails {
+                    bank_name: *bank_name,
+                },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 payment_method_type: AirwallexPaymentType::Ideal,
             }))
         }
@@ -809,7 +843,10 @@ fn get_wallet_details(
         | WalletData::KakaoPayRedirect(_)
         | WalletData::GoPayRedirect(_)
         | WalletData::GcashRedirect(_)
+<<<<<<< HEAD
         | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         | WalletData::ApplePay(_)
         | WalletData::BluecodeRedirect {}
         | WalletData::ApplePayRedirect(_)

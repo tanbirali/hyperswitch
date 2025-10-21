@@ -12,9 +12,13 @@ use common_utils::{
 };
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
+<<<<<<< HEAD
     payment_method_data::{
         BankDebitData, PaymentMethodData, WalletData as WalletDataPaymentMethod,
     },
+=======
+    payment_method_data::{PaymentMethodData, WalletData as WalletDataPaymentMethod},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     router_data::{ConnectorAuthType, ErrorResponse, RouterData},
     router_flow_types::refunds::{Execute, RSync},
     router_request_types::{PaymentsCancelData, PaymentsCaptureData, PaymentsSyncData, ResponseId},
@@ -73,10 +77,13 @@ pub enum NovalNetPaymentTypes {
     PAYPAL,
     GOOGLEPAY,
     APPLEPAY,
+<<<<<<< HEAD
     #[serde(rename = "DIRECT_DEBIT_SEPA")]
     DirectDebitSepa,
     #[serde(rename = "GUARANTEED_DIRECT_DEBIT_SEPA")]
     GuaranteedDirectDebitSepa,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Default, Debug, Serialize, Clone)]
@@ -102,7 +109,10 @@ pub struct NovalnetPaymentsRequestCustomer {
     mobile: Option<Secret<String>>,
     billing: Option<NovalnetPaymentsRequestBilling>,
     no_nc: i64,
+<<<<<<< HEAD
     birth_date: Option<String>, // Mandatory for SEPA Guarentee Payment
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 #[derive(Default, Debug, Clone, Serialize, Deserialize)]
 pub struct NovalnetCard {
@@ -118,7 +128,10 @@ pub struct NovalnetRawCardDetails {
     card_number: CardNumber,
     card_expiry_month: Secret<String>,
     card_expiry_year: Secret<String>,
+<<<<<<< HEAD
     scheme_tid: Secret<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -126,6 +139,7 @@ pub struct NovalnetMandate {
     token: Secret<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct NovalnetSepaDebit {
     account_holder: Secret<String>,
@@ -133,6 +147,8 @@ pub struct NovalnetSepaDebit {
     birth_date: Option<String>, // Mandatory for SEPA Guarantee Payment
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Default, Debug, Clone, Serialize, Deserialize)]
 pub struct NovalnetGooglePay {
     wallet_data: Secret<String>,
@@ -151,7 +167,10 @@ pub enum NovalNetPaymentData {
     GooglePay(NovalnetGooglePay),
     ApplePay(NovalnetApplePay),
     MandatePayment(NovalnetMandate),
+<<<<<<< HEAD
     Sepa(NovalnetSepaDebit),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Default, Debug, Serialize, Clone)]
@@ -179,6 +198,10 @@ pub struct NovalnetPaymentsRequestTransaction {
     error_return_url: Option<String>,
     enforce_3d: Option<i8>, //NOTE: Needed for CREDITCARD, GOOGLEPAY
     create_token: Option<i8>,
+<<<<<<< HEAD
+=======
+    scheme_tid: Option<Secret<String>>, // Card network's transaction ID
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, Clone)]
@@ -199,6 +222,7 @@ impl TryFrom<&api_enums::PaymentMethodType> for NovalNetPaymentTypes {
             }
             api_enums::PaymentMethodType::GooglePay => Ok(Self::GOOGLEPAY),
             api_enums::PaymentMethodType::Paypal => Ok(Self::PAYPAL),
+<<<<<<< HEAD
             api_enums::PaymentMethodType::Sepa => Ok(Self::DirectDebitSepa),
             api_enums::PaymentMethodType::SepaGuarenteedDebit => {
                 Ok(Self::GuaranteedDirectDebitSepa)
@@ -207,6 +231,11 @@ impl TryFrom<&api_enums::PaymentMethodType> for NovalNetPaymentTypes {
                 utils::get_unimplemented_payment_method_error_message("Novalnet"),
             )
             .into()),
+=======
+            _ => Err(errors::ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Novalnet"),
+            ))?,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -251,7 +280,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
             billing: Some(billing),
             // no_nc is used to indicate if minimal customer data is passed or not
             no_nc: MINIMAL_CUSTOMER_DATA_PASSED,
+<<<<<<< HEAD
             birth_date: Some(String::from("1992-06-10")),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let lang = item
@@ -275,7 +307,11 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
             .clone()
             .and_then(|mandate_id| mandate_id.mandate_reference_id)
         {
+<<<<<<< HEAD
             None => match &item.router_data.request.payment_method_data {
+=======
+            None => match item.router_data.request.payment_method_data {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 PaymentMethodData::Card(ref req_card) => {
                     let novalnet_card = NovalNetPaymentData::Card(NovalnetCard {
                         card_number: req_card.card_number.clone(),
@@ -297,6 +333,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                         payment_data: Some(novalnet_card),
                         enforce_3d,
                         create_token,
+<<<<<<< HEAD
+=======
+                        scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     };
 
                     Ok(Self {
@@ -336,6 +376,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                             payment_data: Some(novalnet_google_pay),
                             enforce_3d,
                             create_token,
+<<<<<<< HEAD
+=======
+                            scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         };
 
                         Ok(Self {
@@ -361,6 +405,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                             })),
                             enforce_3d: None,
                             create_token,
+<<<<<<< HEAD
+=======
+                            scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         };
 
                         Ok(Self {
@@ -373,7 +421,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                     WalletDataPaymentMethod::AliPayQr(_)
                     | WalletDataPaymentMethod::AliPayRedirect(_)
                     | WalletDataPaymentMethod::AliPayHkRedirect(_)
+<<<<<<< HEAD
                     | WalletDataPaymentMethod::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     | WalletDataPaymentMethod::AmazonPayRedirect(_)
                     | WalletDataPaymentMethod::Paysera(_)
                     | WalletDataPaymentMethod::Skrill(_)
@@ -408,6 +459,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                             payment_data: None,
                             enforce_3d: None,
                             create_token,
+<<<<<<< HEAD
+=======
+                            scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         };
                         Ok(Self {
                             merchant,
@@ -433,6 +488,7 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                         .into())
                     }
                 },
+<<<<<<< HEAD
                 PaymentMethodData::BankDebit(bank_debit_data) => {
                     let payment_type = NovalNetPaymentTypes::try_from(
                         &item
@@ -496,6 +552,8 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                         custom,
                     })
                 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 _ => Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("novalnet"),
                 )
@@ -529,6 +587,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                     payment_data: Some(novalnet_mandate_data),
                     enforce_3d,
                     create_token: None,
+<<<<<<< HEAD
+=======
+                    scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 };
 
                 Ok(Self {
@@ -547,7 +609,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                             card_number: raw_card_details.card_number.clone(),
                             card_expiry_month: raw_card_details.card_exp_month.clone(),
                             card_expiry_year: raw_card_details.card_exp_year.clone(),
+<<<<<<< HEAD
                             scheme_tid: network_transaction_id.into(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         });
 
                     let transaction = NovalnetPaymentsRequestTransaction {
@@ -562,6 +627,10 @@ impl TryFrom<&NovalnetRouterData<&PaymentsAuthorizeRouterData>> for NovalnetPaym
                         payment_data: Some(novalnet_card),
                         enforce_3d,
                         create_token,
+<<<<<<< HEAD
+=======
+                        scheme_tid: Some(network_transaction_id.into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     };
 
                     Ok(Self {
@@ -771,6 +840,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, NovalnetPaymentsResponse, T, PaymentsRe
                             }
                         })),
                         connector_metadata: None,
+<<<<<<< HEAD
                         network_txn_id: item.response.transaction.and_then(|data| {
                             data.payment_data
                                 .and_then(|payment_data| match payment_data {
@@ -780,6 +850,9 @@ impl<F, T> TryFrom<ResponseRouterData<F, NovalnetPaymentsResponse, T, PaymentsRe
                                     NovalnetResponsePaymentData::Paypal(_) => None,
                                 })
                         }),
+=======
+                        network_txn_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         connector_response_reference_id: transaction_id.clone(),
                         incremental_authorization_allowed: None,
                         charges: None,
@@ -870,7 +943,10 @@ pub struct NovalnetResponseCard {
     pub cc_3d: Option<Secret<u8>>,
     pub last_four: Option<Secret<String>>,
     pub token: Option<Secret<String>>,
+<<<<<<< HEAD
     pub scheme_tid: Option<Secret<String>>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -1046,12 +1122,16 @@ impl TryFrom<RefundsResponseRouterData<Execute, NovalnetRefundResponse>>
                     .response
                     .transaction
                     .clone()
+<<<<<<< HEAD
                     .and_then(|data| {
                         data.refund
                             .tid
                             .or(data.tid)
                             .map(|tid| tid.expose().to_string())
                     })
+=======
+                    .and_then(|data| data.refund.tid.map(|tid| tid.expose().to_string()))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     .ok_or(errors::ConnectorError::ResponseHandlingFailed)?;
 
                 let transaction_status = item
@@ -1187,6 +1267,7 @@ impl<F>
                             }
                         })),
                         connector_metadata: None,
+<<<<<<< HEAD
                         network_txn_id: item.response.transaction.and_then(|data| {
                             data.payment_data
                                 .and_then(|payment_data| match payment_data {
@@ -1196,6 +1277,9 @@ impl<F>
                                     NovalnetResponsePaymentData::Paypal(_) => None,
                                 })
                         }),
+=======
+                        network_txn_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         connector_response_reference_id: transaction_id.clone(),
                         incremental_authorization_allowed: None,
                         charges: None,
@@ -1217,6 +1301,7 @@ impl<F>
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NovalnetCaptureTransactionData {
     pub amount: Option<MinorUnit>,
+<<<<<<< HEAD
     pub capture: Option<CaptureData>, // only for credit card and paypal it is sent back in response
     pub currency: Option<common_enums::Currency>,
     pub order_no: Option<String>,
@@ -1225,6 +1310,16 @@ pub struct NovalnetCaptureTransactionData {
     pub status_code: Option<u64>,
     pub test_mode: Option<u8>,
     pub tid: Option<Secret<i64>>, // mandatory in docs but not being sent back in sepa response -> need to double check
+=======
+    pub capture: CaptureData,
+    pub currency: Option<common_enums::Currency>,
+    pub order_no: Option<String>,
+    pub payment_type: String,
+    pub status: NovalnetTransactionStatus,
+    pub status_code: Option<u64>,
+    pub test_mode: Option<u8>,
+    pub tid: Secret<i64>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -1262,17 +1357,28 @@ impl<F>
                     .response
                     .transaction
                     .clone()
+<<<<<<< HEAD
                     .and_then(|data| data.tid.map(|tid| tid.expose().to_string()));
+=======
+                    .map(|data| data.tid.expose().to_string());
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 let transaction_status = item
                     .response
                     .transaction
                     .map(|transaction_data| transaction_data.status)
+<<<<<<< HEAD
                     .unwrap_or(Some(NovalnetTransactionStatus::Pending));
 
                 Ok(Self {
                     status: transaction_status
                         .map(common_enums::AttemptStatus::from)
                         .unwrap_or(common_enums::AttemptStatus::Pending),
+=======
+                    .unwrap_or(NovalnetTransactionStatus::Pending);
+
+                Ok(Self {
+                    status: common_enums::AttemptStatus::from(transaction_status),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     response: Ok(PaymentsResponseData::TransactionResponse {
                         resource_id: transaction_id
                             .clone()
@@ -1613,7 +1719,10 @@ impl TryFrom<&SetupMandateRouterData> for NovalnetPaymentsRequest {
             billing: Some(billing),
             // no_nc is used to indicate if minimal customer data is passed or not
             no_nc: MINIMAL_CUSTOMER_DATA_PASSED,
+<<<<<<< HEAD
             birth_date: Some(String::from("1992-06-10")),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let lang = item
@@ -1648,6 +1757,10 @@ impl TryFrom<&SetupMandateRouterData> for NovalnetPaymentsRequest {
                     payment_data: Some(novalnet_card),
                     enforce_3d,
                     create_token,
+<<<<<<< HEAD
+=======
+                    scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 };
 
                 Ok(Self {
@@ -1685,6 +1798,10 @@ impl TryFrom<&SetupMandateRouterData> for NovalnetPaymentsRequest {
                         payment_data: Some(novalnet_google_pay),
                         enforce_3d,
                         create_token,
+<<<<<<< HEAD
+=======
+                        scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     };
 
                     Ok(Self {
@@ -1709,6 +1826,10 @@ impl TryFrom<&SetupMandateRouterData> for NovalnetPaymentsRequest {
                         })),
                         enforce_3d: None,
                         create_token,
+<<<<<<< HEAD
+=======
+                        scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     };
 
                     Ok(Self {
@@ -1721,7 +1842,10 @@ impl TryFrom<&SetupMandateRouterData> for NovalnetPaymentsRequest {
                 WalletDataPaymentMethod::AliPayQr(_)
                 | WalletDataPaymentMethod::AliPayRedirect(_)
                 | WalletDataPaymentMethod::AliPayHkRedirect(_)
+<<<<<<< HEAD
                 | WalletDataPaymentMethod::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletDataPaymentMethod::AmazonPayRedirect(_)
                 | WalletDataPaymentMethod::Paysera(_)
                 | WalletDataPaymentMethod::Skrill(_)
@@ -1755,6 +1879,10 @@ impl TryFrom<&SetupMandateRouterData> for NovalnetPaymentsRequest {
                         payment_data: None,
                         enforce_3d: None,
                         create_token,
+<<<<<<< HEAD
+=======
+                        scheme_tid: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     };
 
                     Ok(Self {

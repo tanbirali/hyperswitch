@@ -11,8 +11,12 @@ key1 = "MerchantId"
 api_secret = "Secondary key"
 
 [amazonpay]
+<<<<<<< HEAD
 api_key="Private Key"
 key1="Public Key"
+=======
+api_key="API Key"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 [archipel]
 api_key="CA Certificate PEM"
@@ -364,6 +368,7 @@ key1="Client Secret"
 [payload]
 api_key="API Key"
 
+<<<<<<< HEAD
 [calida]
 api_key="EOrder Token"
 
@@ -380,3 +385,7 @@ api_key = "Username"
 key1 = "Merchant Id"
 key2 = "Merchant Identity Id"
 api_secret = "Password"
+=======
+[bluecode]
+api_key="EOrder Token"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -1,6 +1,9 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::sync::LazyLock;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use base64::Engine;
 use common_enums::{enums, PaymentAction};
 use common_utils::{
@@ -27,10 +30,14 @@ use hyperswitch_domain_models::{
         PaymentsCancelData, PaymentsCaptureData, PaymentsPreProcessingData, PaymentsSessionData,
         PaymentsSyncData, RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
         SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsPreProcessingRouterData, PaymentsSyncRouterData,
         RefreshTokenRouterData, RefundSyncRouterData, RefundsRouterData,
@@ -1156,6 +1163,7 @@ impl utils::ConnectorErrorTypeMapping for Trustpay {
     }
 }
 
+<<<<<<< HEAD
 static TRUSTPAY_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
     LazyLock::new(|| {
         let supported_capture_methods = vec![
@@ -1374,3 +1382,6 @@ impl ConnectorSpecifications for Trustpay {
         uuid::Uuid::now_v7().simple().to_string()
     }
 }
+=======
+impl ConnectorSpecifications for Trustpay {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -13,7 +13,10 @@ use crate::{
 pub struct ChallengeParams {
     pub acs_url: Option<url::Url>,
     pub challenge_request: Option<String>,
+<<<<<<< HEAD
     pub challenge_request_key: Option<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub acs_reference_number: Option<String>,
     pub acs_trans_id: Option<String>,
     pub three_dsserver_trans_id: Option<String>,
@@ -41,6 +44,7 @@ impl AuthNFlowType {
             None
         }
     }
+<<<<<<< HEAD
     pub fn get_challenge_request_key(&self) -> Option<String> {
         if let Self::Challenge(challenge_params) = self {
             challenge_params.challenge_request_key.clone()
@@ -48,6 +52,8 @@ impl AuthNFlowType {
             None
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fn get_acs_reference_number(&self) -> Option<String> {
         if let Self::Challenge(challenge_params) = self {
             challenge_params.acs_reference_number.clone()

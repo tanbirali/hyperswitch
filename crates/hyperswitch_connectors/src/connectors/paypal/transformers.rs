@@ -12,19 +12,29 @@ use hyperswitch_domain_models::{
         BankDebitData, BankRedirectData, BankTransferData, CardRedirectData, GiftCardData,
         PayLaterData, PaymentMethodData, VoucherData, WalletData,
     },
+<<<<<<< HEAD
     router_data::{
         AccessToken, ConnectorAuthType, ConnectorResponseData, ErrorResponse,
         ExtendedAuthorizationResponseData, RouterData,
     },
+=======
+    router_data::{AccessToken, ConnectorAuthType, RouterData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     router_flow_types::{
         payments::{Authorize, PostSessionTokens},
         refunds::{Execute, RSync},
         VerifyWebhookSource,
     },
     router_request_types::{
+<<<<<<< HEAD
         CompleteAuthorizeData, PaymentsAuthorizeData, PaymentsExtendAuthorizationData,
         PaymentsIncrementalAuthorizationData, PaymentsPostSessionTokensData, PaymentsSyncData,
         ResponseId, VerifyWebhookSourceRequestData,
+=======
+        CompleteAuthorizeData, PaymentsAuthorizeData, PaymentsIncrementalAuthorizationData,
+        PaymentsPostSessionTokensData, PaymentsSyncData, ResponseId,
+        VerifyWebhookSourceRequestData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     router_response_types::{
         MandateReference, PaymentsResponseData, RedirectForm, RefundsResponseData,
@@ -32,9 +42,15 @@ use hyperswitch_domain_models::{
     },
     types::{
         PaymentsAuthorizeRouterData, PaymentsCaptureRouterData,
+<<<<<<< HEAD
         PaymentsExtendAuthorizationRouterData, PaymentsIncrementalAuthorizationRouterData,
         PaymentsPostSessionTokensRouterData, RefreshTokenRouterData, RefundsRouterData,
         SdkSessionUpdateRouterData, SetupMandateRouterData, VerifyWebhookSourceRouterData,
+=======
+        PaymentsIncrementalAuthorizationRouterData, PaymentsPostSessionTokensRouterData,
+        RefreshTokenRouterData, RefundsRouterData, SdkSessionUpdateRouterData,
+        SetupMandateRouterData, VerifyWebhookSourceRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 #[cfg(feature = "payouts")]
@@ -54,9 +70,15 @@ use crate::{constants, types::PayoutsResponseRouterData};
 use crate::{
     types::{PaymentsCaptureResponseRouterData, RefundsResponseRouterData, ResponseRouterData},
     utils::{
+<<<<<<< HEAD
         self, is_payment_failure, missing_field_err, to_connector_meta, AccessTokenRequestInfo,
         AddressDetailsData, CardData, PaymentsAuthorizeRequestData,
         PaymentsPostSessionTokensRequestData, RouterData as OtherRouterData,
+=======
+        self, missing_field_err, to_connector_meta, AccessTokenRequestInfo, AddressDetailsData,
+        CardData, PaymentsAuthorizeRequestData, PaymentsPostSessionTokensRequestData,
+        RouterData as OtherRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 
@@ -913,6 +935,7 @@ impl TryFrom<&PaypalRouterData<&SdkSessionUpdateRouterData>> for PaypalUpdateOrd
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize)]
 pub struct PaypalExtendAuthorizationRequest {
     amount: OrderAmount,
@@ -933,6 +956,8 @@ impl TryFrom<&PaypalRouterData<&PaymentsExtendAuthorizationRouterData>>
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<&PaypalRouterData<&PaymentsAuthorizeRouterData>> for PaypalPaymentsRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
@@ -1099,7 +1124,10 @@ impl TryFrom<&PaypalRouterData<&PaymentsAuthorizeRouterData>> for PaypalPayments
                 | WalletData::KakaoPayRedirect(_)
                 | WalletData::GoPayRedirect(_)
                 | WalletData::GcashRedirect(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::ApplePay(_)
                 | WalletData::ApplePayRedirect(_)
                 | WalletData::ApplePayThirdPartySdk(_)
@@ -1265,7 +1293,10 @@ impl TryFrom<&PaypalRouterData<&PaymentsAuthorizeRouterData>> for PaypalPayments
                     | enums::PaymentMethodType::RedPagos
                     | enums::PaymentMethodType::SamsungPay
                     | enums::PaymentMethodType::Sepa
+<<<<<<< HEAD
                     | enums::PaymentMethodType::SepaGuarenteedDebit
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     | enums::PaymentMethodType::SepaBankTransfer
                     | enums::PaymentMethodType::Sofort
                     | enums::PaymentMethodType::Swish
@@ -1294,8 +1325,12 @@ impl TryFrom<&PaypalRouterData<&PaymentsAuthorizeRouterData>> for PaypalPayments
                     | enums::PaymentMethodType::IndonesianBankTransfer
                     | enums::PaymentMethodType::Flexiti
                     | enums::PaymentMethodType::RevolutPay
+<<<<<<< HEAD
                     | enums::PaymentMethodType::Breadpay
                     | enums::PaymentMethodType::UpiQr => {
+=======
+                    | enums::PaymentMethodType::Breadpay => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         Err(errors::ConnectorError::NotImplemented(
                             utils::get_unimplemented_payment_method_error_message("paypal"),
                         ))
@@ -1369,6 +1404,7 @@ impl TryFrom<&BankDebitData> for PaypalPaymentsRequest {
             BankDebitData::AchBankDebit { .. }
             | BankDebitData::SepaBankDebit { .. }
             | BankDebitData::BecsBankDebit { .. }
+<<<<<<< HEAD
             | BankDebitData::BacsBankDebit { .. }
             | BankDebitData::SepaGuarenteedBankDebit { .. } => {
                 Err(errors::ConnectorError::NotImplemented(
@@ -1376,6 +1412,12 @@ impl TryFrom<&BankDebitData> for PaypalPaymentsRequest {
                 )
                 .into())
             }
+=======
+            | BankDebitData::BacsBankDebit { .. } => Err(errors::ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Paypal"),
+            )
+            .into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1514,6 +1556,7 @@ impl TryFrom<&PaypalRouterData<&PaymentsIncrementalAuthorizationRouterData>>
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+<<<<<<< HEAD
 #[serde(rename_all = "snake_case")]
 pub struct PaypalExtendedAuthResponse {
     status: PaypalIncrementalStatus,
@@ -1526,6 +1569,8 @@ pub struct PaypalExtendedAuthResponse {
 }
 
 #[derive(Debug, Deserialize, Serialize)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct PaypalIncrementalAuthResponse {
     status: PaypalIncrementalStatus,
     status_details: PaypalIncrementalAuthStatusDetails,
@@ -1544,7 +1589,11 @@ pub struct PaypalIncrementalAuthResponse {
     message: Option<String>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Deserialize, Serialize)]
+=======
+#[derive(Debug, Deserialize, Serialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum PaypalIncrementalStatus {
     CREATED,
@@ -1562,10 +1611,17 @@ pub struct PaypalNetworkTransactionReference {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PaypalIncrementalAuthStatusDetails {
+<<<<<<< HEAD
     reason: Option<PaypalStatusPendingReason>,
 }
 
 #[derive(Debug, Deserialize, Serialize, strum::Display)]
+=======
+    reason: PaypalStatusPendingReason,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum PaypalStatusPendingReason {
     PENDINGREVIEW,
@@ -1584,6 +1640,7 @@ impl From<PaypalIncrementalStatus> for common_enums::AuthorizationStatus {
     }
 }
 
+<<<<<<< HEAD
 impl From<PaypalIncrementalStatus> for common_enums::AttemptStatus {
     fn from(item: PaypalIncrementalStatus) -> Self {
         match item {
@@ -1612,6 +1669,8 @@ fn is_extend_authorization_applied(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<F>
     TryFrom<
         ResponseRouterData<
@@ -1644,6 +1703,7 @@ impl<F>
     }
 }
 
+<<<<<<< HEAD
 impl<F>
     TryFrom<
         ResponseRouterData<
@@ -1721,6 +1781,8 @@ impl<F>
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug)]
 pub enum PaypalAuthType {
     TemporaryAuth,
@@ -2688,10 +2750,13 @@ impl TryFrom<&PaypalRouterData<&PayoutsRouterData<PoFulfill>>> for PaypalPayoutI
                         receiver,
                     }
                 }
+<<<<<<< HEAD
                 WalletPayout::ApplePayDecrypt(_) => Err(errors::ConnectorError::NotSupported {
                     message: "ApplePayDecrypt PayoutMethodType is not supported".to_string(),
                     connector: "Paypal",
                 })?,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             _ => Err(errors::ConnectorError::NotSupported {
                 message: "PayoutMethodType is not supported".to_string(),
@@ -2780,7 +2845,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, PaypalFulfillResponse>> for Payouts
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })
@@ -2801,7 +2869,10 @@ impl<F> TryFrom<PayoutsResponseRouterData<F, PaypalPayoutSyncResponse>> for Payo
                 should_add_next_step_to_process_tracker: false,
                 error_code: None,
                 error_message: None,
+<<<<<<< HEAD
                 payout_connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }),
             ..item.data
         })

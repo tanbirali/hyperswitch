@@ -47,6 +47,7 @@ pub async fn pg_connection_write<T: DatabaseStore>(
         .change_context(StorageError::DatabaseConnectionError)
 }
 
+<<<<<<< HEAD
 pub async fn pg_accounts_connection_read<T: DatabaseStore>(
     store: &T,
 ) -> error_stack::Result<
@@ -87,6 +88,8 @@ pub async fn pg_accounts_connection_write<T: DatabaseStore>(
         .change_context(StorageError::DatabaseConnectionError)
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub async fn try_redis_get_else_try_database_get<F, RFut, DFut, T>(
     redis_fut: RFut,
     database_call_closure: F,
@@ -155,7 +158,11 @@ where
     let limit_satisfies = |len: usize, limit: i64| {
         TryInto::try_into(limit)
             .ok()
+<<<<<<< HEAD
             .is_none_or(|val: usize| len >= val)
+=======
+            .map_or(true, |val: usize| len >= val)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     let redis_output = redis_fut.await;

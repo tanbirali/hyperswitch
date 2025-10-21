@@ -3,7 +3,11 @@ pub mod core {
 
     use async_trait::async_trait;
     use common_utils::request::{Method, RequestBuilder, RequestContent};
+<<<<<<< HEAD
     use error_stack::{self, ResultExt};
+=======
+    use error_stack::ResultExt;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     use masking::{self, ExposeInterface};
     use nom::{
         bytes::complete::{tag, take_while1},
@@ -16,10 +20,14 @@ pub mod core {
     use thiserror::Error;
 
     use crate as injector_types;
+<<<<<<< HEAD
     use crate::{
         types::{ContentType, InjectorRequest, InjectorResponse, IntoInjectorResponse},
         vault_metadata::VaultMetadataExtractorExt,
     };
+=======
+    use crate::{ContentType, InjectorRequest, InjectorResponse};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     impl From<injector_types::HttpMethod> for Method {
         fn from(method: injector_types::HttpMethod) -> Self {
@@ -58,6 +66,7 @@ pub mod core {
         }
     }
 
+<<<<<<< HEAD
     /// Create HTTP client using the proven external_services create_client logic
     fn create_client(
         proxy_config: &Proxy,
@@ -243,12 +252,17 @@ pub mod core {
     }
 
     /// Simplified HTTP client for injector using the proven external_services create_client logic
+=======
+    /// Simplified HTTP client for injector (copied from external_services to make injector standalone)
+    /// This is a minimal implementation that covers the essential functionality needed by injector
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[instrument(skip_all)]
     pub async fn send_request(
         client_proxy: &Proxy,
         request: common_utils::request::Request,
         _option_timeout_secs: Option<u64>,
     ) -> error_stack::Result<reqwest::Response, InjectorError> {
+<<<<<<< HEAD
         logger::info!(
             has_client_cert = request.certificate.is_some(),
             has_client_key = request.certificate_key.is_some(),
@@ -263,6 +277,34 @@ pub mod core {
             request.certificate_key.clone(),
             request.ca_certificate.clone(),
         )?;
+=======
+        logger::info!("Making HTTP request using standalone injector HTTP client");
+
+        // Create reqwest client with proxy configuration
+        let mut client_builder = reqwest::Client::builder();
+
+        // Configure proxy if provided
+        if let Some(proxy_url) = &client_proxy.https_url {
+            let proxy = reqwest::Proxy::https(proxy_url).map_err(|e| {
+                logger::error!("Failed to configure HTTPS proxy: {}", e);
+                error_stack::Report::new(InjectorError::HttpRequestFailed)
+            })?;
+            client_builder = client_builder.proxy(proxy);
+        }
+
+        if let Some(proxy_url) = &client_proxy.http_url {
+            let proxy = reqwest::Proxy::http(proxy_url).map_err(|e| {
+                logger::error!("Failed to configure HTTP proxy: {}", e);
+                error_stack::Report::new(InjectorError::HttpRequestFailed)
+            })?;
+            client_builder = client_builder.proxy(proxy);
+        }
+
+        let client = client_builder.build().map_err(|e| {
+            logger::error!("Failed to build HTTP client: {}", e);
+            error_stack::Report::new(InjectorError::HttpRequestFailed)
+        })?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         // Build the request
         let method = match request.method {
@@ -303,6 +345,7 @@ pub mod core {
         }
 
         // Send the request
+<<<<<<< HEAD
         let response = req_builder
             .send()
             .await
@@ -312,6 +355,12 @@ pub mod core {
             status_code = response.status().as_u16(),
             "HTTP request completed successfully"
         );
+=======
+        let response = req_builder.send().await.map_err(|e| {
+            logger::error!("HTTP request failed: {}", e);
+            error_stack::Report::new(InjectorError::HttpRequestFailed)
+        })?;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(response)
     }
@@ -339,7 +388,11 @@ pub mod core {
 
     /// Represents a token reference found in a template string
     #[derive(Debug)]
+<<<<<<< HEAD
     struct TokenReference {
+=======
+    pub struct TokenReference {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         /// The field name to be replaced (without the {{$}} wrapper)
         pub field: String,
     }
@@ -348,7 +401,11 @@ pub mod core {
     ///
     /// Expects tokens in the format `{{$field_name}}` where field_name contains
     /// only alphanumeric characters and underscores.
+<<<<<<< HEAD
     fn parse_token(input: &str) -> IResult<&str, TokenReference> {
+=======
+    pub fn parse_token(input: &str) -> IResult<&str, TokenReference> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let (input, field) = delimited(
             tag("{{"),
             preceded(
@@ -375,7 +432,11 @@ pub mod core {
     ///
     /// Scans through the entire input string and extracts all valid token references.
     /// Returns a vector of TokenReference structs containing the field names.
+<<<<<<< HEAD
     fn find_all_tokens(input: &str) -> Vec<TokenReference> {
+=======
+    pub fn find_all_tokens(input: &str) -> Vec<TokenReference> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let mut tokens = Vec::new();
         let mut current_input = input;
 
@@ -400,7 +461,11 @@ pub mod core {
     ///
     /// Performs a depth-first search through the JSON object hierarchy to find
     /// a field with the specified name. Returns the first matching value found.
+<<<<<<< HEAD
     fn find_field_recursively_in_vault_data(
+=======
+    pub fn find_field_recursively_in_vault_data(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         obj: &serde_json::Map<String, Value>,
         field_name: &str,
     ) -> Option<Value> {
@@ -418,7 +483,11 @@ pub mod core {
     }
 
     #[async_trait]
+<<<<<<< HEAD
     trait TokenInjector {
+=======
+    pub trait TokenInjector {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         async fn injector_core(
             &self,
             request: InjectorRequest,
@@ -434,7 +503,11 @@ pub mod core {
 
         /// Processes a string template and replaces token references with vault data
         #[instrument(skip_all)]
+<<<<<<< HEAD
         fn interpolate_string_template_with_vault_data(
+=======
+        pub fn interpolate_string_template_with_vault_data(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             &self,
             template: String,
             vault_data: &Value,
@@ -464,7 +537,11 @@ pub mod core {
         }
 
         #[instrument(skip_all)]
+<<<<<<< HEAD
         fn interpolate_token_references_with_vault_data(
+=======
+        pub fn interpolate_token_references_with_vault_data(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             &self,
             value: Value,
             vault_data: &Value,
@@ -551,6 +628,7 @@ pub mod core {
         #[instrument(skip_all)]
         async fn make_http_request(
             &self,
+<<<<<<< HEAD
             config: &injector_types::ConnectionConfig,
             payload: &str,
             content_type: &ContentType,
@@ -558,12 +636,23 @@ pub mod core {
             logger::info!(
                 method = ?config.http_method,
                 endpoint = %config.endpoint,
+=======
+            config: &injector_types::DomainConnectionConfig,
+            payload: &str,
+            content_type: &ContentType,
+        ) -> error_stack::Result<Value, InjectorError> {
+            logger::info!(
+                method = ?config.http_method,
+                base_url = %config.base_url,
+                endpoint = %config.endpoint_path,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 content_type = ?content_type,
                 payload_length = payload.len(),
                 headers_count = config.headers.len(),
                 "Making HTTP request to connector"
             );
             // Validate inputs first
+<<<<<<< HEAD
             if config.endpoint.is_empty() {
                 logger::error!("Endpoint URL is empty");
                 Err(error_stack::Report::new(InjectorError::InvalidTemplate(
@@ -576,6 +665,20 @@ pub mod core {
                 logger::error!("Failed to parse endpoint URL: {}", e);
                 error_stack::Report::new(InjectorError::InvalidTemplate(format!(
                     "Invalid endpoint URL: {e}"
+=======
+            if config.endpoint_path.is_empty() {
+                logger::error!("Endpoint path is empty");
+                Err(error_stack::Report::new(InjectorError::InvalidTemplate(
+                    "Endpoint path cannot be empty".to_string(),
+                )))?;
+            }
+
+            // Construct URL safely by joining base URL with endpoint path
+            let url = config.base_url.join(&config.endpoint_path).map_err(|e| {
+                logger::error!("Failed to join base URL with endpoint path: {}", e);
+                error_stack::Report::new(InjectorError::InvalidTemplate(format!(
+                    "Invalid URL construction: {e}"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 )))
             })?;
 
@@ -623,6 +726,7 @@ pub mod core {
                 }
             };
 
+<<<<<<< HEAD
             // Extract vault metadata directly from headers using existing functions
 
             let (vault_proxy_url, vault_ca_cert) = if config
@@ -645,6 +749,9 @@ pub mod core {
             };
 
             // Build request safely with certificate configuration
+=======
+            // Build request safely
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let mut request_builder = RequestBuilder::new()
                 .method(method)
                 .url(url.as_str())
@@ -654,15 +761,33 @@ pub mod core {
                 request_builder = request_builder.set_body(content);
             }
 
+<<<<<<< HEAD
             // Create final config with vault CA certificate if available
             let mut final_config = config.clone();
             let has_vault_ca_cert = vault_ca_cert.is_some();
             if has_vault_ca_cert {
                 final_config.ca_cert = vault_ca_cert;
+=======
+            // Add certificate configuration if provided
+            if let Some(cert_content) = &config.client_cert {
+                logger::debug!("Adding client certificate content");
+                request_builder = request_builder.add_certificate(Some(cert_content.clone()));
+            }
+
+            if let Some(key_content) = &config.client_key {
+                logger::debug!("Adding client private key content");
+                request_builder = request_builder.add_certificate_key(Some(key_content.clone()));
+            }
+
+            if let Some(ca_content) = &config.ca_cert {
+                logger::debug!("Adding CA certificate content");
+                request_builder = request_builder.add_ca_certificate_pem(Some(ca_content.clone()));
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
 
             // Log certificate configuration (but not the actual content)
             logger::info!(
+<<<<<<< HEAD
                 has_client_cert = final_config.client_cert.is_some(),
                 has_client_key = final_config.client_key.is_some(),
                 has_ca_cert = final_config.ca_cert.is_some(),
@@ -689,10 +814,43 @@ pub mod core {
                     bypass_proxy_hosts: None,
                 }
             } else {
+=======
+                has_client_cert = config.client_cert.is_some(),
+                has_client_key = config.client_key.is_some(),
+                has_ca_cert = config.ca_cert.is_some(),
+                insecure = config.insecure.unwrap_or(false),
+                cert_format = ?config.cert_format,
+                "Certificate configuration applied"
+            );
+
+            let request = request_builder.build();
+
+            let proxy = if let Some(proxy_url) = &config.proxy_url {
+                logger::debug!("Using proxy: {}", proxy_url);
+                // Determine if it's HTTP or HTTPS proxy based on URL scheme
+                if proxy_url.scheme() == "https" {
+                    Proxy {
+                        http_url: None,
+                        https_url: Some(proxy_url.to_string()),
+                        idle_pool_connection_timeout: Some(90),
+                        bypass_proxy_hosts: None,
+                    }
+                } else {
+                    Proxy {
+                        http_url: Some(proxy_url.to_string()),
+                        https_url: None,
+                        idle_pool_connection_timeout: Some(90),
+                        bypass_proxy_hosts: None,
+                    }
+                }
+            } else {
+                logger::debug!("No proxy configured, using direct connection");
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 Proxy::default()
             };
 
             // Send request using local standalone http client
+<<<<<<< HEAD
             let response = send_request(&proxy, request, None).await?;
 
             // Convert reqwest::Response to InjectorResponse using trait
@@ -700,6 +858,40 @@ pub mod core {
                 .into_injector_response()
                 .await
                 .map_err(|e| error_stack::Report::new(e))
+=======
+            logger::debug!("Sending HTTP request to connector");
+            let response = send_request(&proxy, request, None).await?;
+
+            logger::info!(
+                status_code = response.status().as_u16(),
+                "Received response from connector"
+            );
+
+            let response_text = response
+                .text()
+                .await
+                .change_context(InjectorError::HttpRequestFailed)?;
+
+            logger::debug!(
+                response_length = response_text.len(),
+                "Processing connector response"
+            );
+
+            // Try to parse as JSON, fallback to string value with error logging
+            match serde_json::from_str::<Value>(&response_text) {
+                Ok(json) => {
+                    logger::debug!("Successfully parsed response as JSON");
+                    Ok(json)
+                }
+                Err(e) => {
+                    logger::debug!(
+                        "Failed to parse response as JSON: {}, returning as string",
+                        e
+                    );
+                    Ok(Value::String(response_text))
+                }
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 
@@ -716,6 +908,7 @@ pub mod core {
             &self,
             request: InjectorRequest,
         ) -> error_stack::Result<InjectorResponse, InjectorError> {
+<<<<<<< HEAD
             let start_time = std::time::Instant::now();
 
             // Extract token data from SecretSerdeValue for vault data lookup
@@ -724,14 +917,39 @@ pub mod core {
             logger::debug!(
                 template_length = request.connector_payload.template.len(),
                 vault_connector = ?request.token_data.vault_connector,
+=======
+            logger::info!("Starting token injection process");
+
+            let start_time = std::time::Instant::now();
+
+            // Convert API model to domain model
+            let domain_request: injector_types::DomainInjectorRequest = request.into();
+
+            // Extract token data from SecretSerdeValue for vault data lookup
+            let vault_data = domain_request
+                .token_data
+                .specific_token_data
+                .expose()
+                .clone();
+
+            logger::debug!(
+                template_length = domain_request.connector_payload.template.len(),
+                vault_connector = ?domain_request.token_data.vault_connector,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 "Processing token injection request"
             );
 
             // Process template string directly with vault-specific logic
             let processed_payload = self.interpolate_string_template_with_vault_data(
+<<<<<<< HEAD
                 request.connector_payload.template,
                 &vault_data,
                 &request.token_data.vault_connector,
+=======
+                domain_request.connector_payload.template,
+                &vault_data,
+                &domain_request.token_data.vault_connector,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )?;
 
             logger::debug!(
@@ -740,7 +958,11 @@ pub mod core {
             );
 
             // Determine content type from headers or default to form-urlencoded
+<<<<<<< HEAD
             let content_type = request
+=======
+            let content_type = domain_request
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .connection_config
                 .headers
                 .get("Content-Type")
@@ -756,10 +978,17 @@ pub mod core {
                 })
                 .unwrap_or(ContentType::ApplicationXWwwFormUrlencoded);
 
+<<<<<<< HEAD
             // Make HTTP request to connector and return enhanced response
             let response = self
                 .make_http_request(
                     &request.connection_config,
+=======
+            // Make HTTP request to connector and return raw response
+            let response_data = self
+                .make_http_request(
+                    &domain_request.connection_config,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     &processed_payload,
                     &content_type,
                 )
@@ -768,6 +997,7 @@ pub mod core {
             let elapsed = start_time.elapsed();
             logger::info!(
                 duration_ms = elapsed.as_millis(),
+<<<<<<< HEAD
                 status_code = response.status_code,
                 response_size = serde_json::to_string(&response.response)
                     .map(|s| s.len())
@@ -777,6 +1007,16 @@ pub mod core {
             );
 
             Ok(response)
+=======
+                response_size = serde_json::to_string(&response_data)
+                    .map(|s| s.len())
+                    .unwrap_or(0),
+                "Token injection completed successfully"
+            );
+
+            // Return the raw connector response for connector-agnostic handling
+            Ok(response_data)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -787,6 +1027,7 @@ pub use core::*;
 #[cfg(test)]
 #[allow(clippy::unwrap_used)]
 mod tests {
+<<<<<<< HEAD
     use std::collections::HashMap;
 
     use router_env::logger;
@@ -796,6 +1037,102 @@ mod tests {
     #[tokio::test]
     #[ignore = "Integration test that requires network access"]
     async fn test_injector_core_integration() {
+=======
+    use router_env::logger;
+
+    use super::core::*;
+    use crate::*;
+
+    #[test]
+    fn test_token_parsing() {
+        let result = parse_token("{{$card_number}}");
+        assert!(result.is_ok());
+        let (_, token_ref) = result.unwrap();
+        assert_eq!(token_ref.field, "card_number");
+    }
+
+    #[test]
+    fn test_token_interpolation() {
+        let injector = Injector::new();
+        let template = serde_json::Value::String("card_number={{$card_number}}&cvv={{$cvv}}&expiry={{$exp_month}}/{{$exp_year}}&amount=50&currency=USD&transaction_type=purchase".to_string());
+
+        let vault_data = serde_json::json!({
+            "card_number": "TEST_card123",
+            "cvv": "TEST_cvv456",
+            "exp_month": "TEST_12",
+            "exp_year": "TEST_2026"
+        });
+
+        // Test with VGS vault (direct replacement)
+        let vault_connector = VaultConnectors::VGS;
+        let result = injector
+            .interpolate_token_references_with_vault_data(template, &vault_data, &vault_connector)
+            .unwrap();
+        assert_eq!(result, serde_json::Value::String("card_number=TEST_card123&cvv=TEST_cvv456&expiry=TEST_12/TEST_2026&amount=50&currency=USD&transaction_type=purchase".to_string()));
+    }
+
+    #[test]
+    fn test_field_not_found() {
+        let injector = Injector::new();
+        let template = serde_json::Value::String("{{$unknown_field}}".to_string());
+
+        let vault_data = serde_json::json!({
+            "card_number": "TEST_CARD_NUMBER"
+        });
+
+        let vault_connector = VaultConnectors::VGS;
+        let result = injector.interpolate_token_references_with_vault_data(
+            template,
+            &vault_data,
+            &vault_connector,
+        );
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_recursive_field_search() {
+        let vault_data = serde_json::json!({
+            "payment_method": {
+                "card": {
+                    "number": "TEST_CARD_NUMBER"
+                }
+            }
+        });
+
+        let obj = vault_data.as_object().unwrap();
+        let result = find_field_recursively_in_vault_data(obj, "number");
+        assert_eq!(
+            result,
+            Some(serde_json::Value::String("TEST_CARD_NUMBER".to_string()))
+        );
+    }
+
+    #[test]
+    fn test_vault_specific_token_handling() {
+        let injector = Injector::new();
+        let template = serde_json::Value::String("{{$card_number}}".to_string());
+
+        let vault_data = serde_json::json!({
+            "card_number": "TOKEN"
+        });
+
+        // Test VGS vault - direct replacement
+        let vgs_result = injector
+            .interpolate_token_references_with_vault_data(
+                template.clone(),
+                &vault_data,
+                &VaultConnectors::VGS,
+            )
+            .unwrap();
+        assert_eq!(vgs_result, serde_json::Value::String("TOKEN".to_string()));
+    }
+
+    #[tokio::test]
+    #[ignore = "Integration test that requires network access"]
+    async fn test_injector_core_integration() {
+        use std::collections::HashMap;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         // Create test request
         let mut headers = HashMap::new();
         headers.insert(
@@ -823,11 +1160,19 @@ mod tests {
                 specific_token_data,
             },
             connection_config: ConnectionConfig {
+<<<<<<< HEAD
                 endpoint: "https://api.stripe.com/v1/payment_intents".to_string(),
                 http_method: HttpMethod::POST,
                 headers,
                 proxy_url: None, // Remove proxy that was causing issues
                 backup_proxy_url: None,
+=======
+                base_url: "https://api.stripe.com".parse().unwrap(),
+                endpoint_path: "/v1/payment_intents".to_string(),
+                http_method: HttpMethod::POST,
+                headers,
+                proxy_url: None, // Remove proxy that was causing issues
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 // Certificate fields (None for basic test)
                 client_cert: None,
                 client_key: None,
@@ -861,6 +1206,7 @@ mod tests {
         );
         logger::info!("=======================================");
 
+<<<<<<< HEAD
         // Response should have a proper status code and response data
         assert!(
             response.status_code >= 200 && response.status_code < 300,
@@ -871,11 +1217,24 @@ mod tests {
         assert!(
             response.response.is_object() || response.response.is_string(),
             "Response data should be JSON object or string"
+=======
+        // Response should be a JSON value from httpbin.org
+        assert!(
+            response.is_object() || response.is_string(),
+            "Response should be JSON object or string"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         );
     }
 
     #[tokio::test]
+<<<<<<< HEAD
     async fn test_certificate_configuration() {
+=======
+    #[ignore = "Integration test that requires network access"]
+    async fn test_certificate_configuration() {
+        use std::collections::HashMap;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let mut headers = HashMap::new();
         headers.insert(
             "Content-Type".to_string(),
@@ -883,11 +1242,19 @@ mod tests {
         );
         headers.insert(
             "Authorization".to_string(),
+<<<<<<< HEAD
             masking::Secret::new("Bearer TEST".to_string()),
         );
 
         let specific_token_data = common_utils::pii::SecretSerdeValue::new(serde_json::json!({
             "card_number": "4242429789164242",
+=======
+            masking::Secret::new("Bearer API_KEY".to_string()),
+        );
+
+        let specific_token_data = common_utils::pii::SecretSerdeValue::new(serde_json::json!({
+            "card_number": "TOKEN",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             "cvv": "123",
             "exp_month": "12",
             "exp_year": "25"
@@ -903,6 +1270,7 @@ mod tests {
                 specific_token_data,
             },
             connection_config: ConnectionConfig {
+<<<<<<< HEAD
                 endpoint: "https://httpbin.org/post".to_string(),
                 http_method: HttpMethod::POST,
                 headers,
@@ -916,6 +1284,21 @@ mod tests {
                 cert_password: None,
                 cert_format: None,
                 max_response_size: None,
+=======
+                base_url: "https://api.stripe.com".parse().unwrap(),
+                endpoint_path: "/v1/payment_intents".to_string(),
+                http_method: HttpMethod::POST,
+                headers,
+                proxy_url: Some("https://proxy.example.com:8443".parse().unwrap()),
+                // Certificate configuration - using insecure for testing
+                client_cert: None,
+                client_key: None,
+                ca_cert: Some(masking::Secret::new("CERT".to_string())),
+                insecure: None, // This allows testing with self-signed certs
+                cert_password: None,
+                cert_format: None,
+                max_response_size: None, // Use default
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         };
 
@@ -937,6 +1320,7 @@ mod tests {
         );
         logger::info!("================================");
 
+<<<<<<< HEAD
         // Should succeed with proper status code
         assert!(
             response.status_code >= 200 && response.status_code < 300,
@@ -957,6 +1341,24 @@ mod tests {
             tokens_replaced,
             "Response should contain replaced tokens (card_number, cvv, expiry): {}",
             serde_json::to_string_pretty(&response.response).unwrap_or_default()
+=======
+        // Verify the token was replaced in the JSON
+        // httpbin.org returns the request data in the 'data' or 'json' field
+        let response_contains_token = if let Some(response_str) = response.as_str() {
+            response_str.contains("TOKEN")
+        } else if response.is_object() {
+            // Check if the response contains our token in the request data
+            let response_str = serde_json::to_string(&response).unwrap_or_default();
+            response_str.contains("TOKEN")
+        } else {
+            false
+        };
+
+        assert!(
+            response_contains_token,
+            "Response should contain replaced token: {}",
+            serde_json::to_string_pretty(&response).unwrap_or_default()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         );
     }
 }

@@ -258,6 +258,14 @@ pub struct EventLinks {
     pub events: Option<String>,
 }
 
+<<<<<<< HEAD
+=======
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+pub struct PaymentLink {
+    pub href: String,
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub fn get_resource_id<T, F>(
     response: WorldpayPaymentsResponse,
     connector_transaction_id: Option<String>,
@@ -450,5 +458,22 @@ pub struct WorldpayWebhookEventType {
     pub event_details: EventDetails,
 }
 
+<<<<<<< HEAD
+=======
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub enum WorldpayWebhookStatus {
+    SentForSettlement,
+    Authorized,
+    SentForAuthorization,
+    Cancelled,
+    Error,
+    Expired,
+    Refused,
+    SentForRefund,
+    RefundFailed,
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Worldpay's unique reference ID for a request
 pub(super) const WP_CORRELATION_ID: &str = "WP-CorrelationId";

@@ -460,12 +460,15 @@ impl<F: Send + Clone + Sync> GetTracker<F, PaymentData<F>, api::PaymentsRequest>
             .enable_partial_authorization
             .or(payment_intent.enable_partial_authorization);
 
+<<<<<<< HEAD
         helpers::validate_overcapture_request(
             &request.enable_overcapture,
             &payment_attempt.capture_method,
         )?;
         payment_intent.enable_overcapture = request.enable_overcapture;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let payment_data = PaymentData {
             flow: PhantomData,
             payment_intent,
@@ -521,8 +524,11 @@ impl<F: Send + Clone + Sync> GetTracker<F, PaymentData<F>, api::PaymentsRequest>
             vault_operation: None,
             threeds_method_comp_ind: None,
             whole_connector_response: None,
+<<<<<<< HEAD
             is_manual_retry_enabled: None,
             is_l2_l3_enabled: business_profile.is_l2_l3_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let get_trackers_response = operations::GetTrackerResponse {
@@ -976,7 +982,10 @@ impl<F: Clone + Sync> UpdateTracker<F, PaymentData<F>, api::PaymentsRequest> for
                     enable_partial_authorization: payment_data
                         .payment_intent
                         .enable_partial_authorization,
+<<<<<<< HEAD
                     enable_overcapture: payment_data.payment_intent.enable_overcapture,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 })),
                 key_store,
                 storage_scheme,
@@ -1063,6 +1072,10 @@ impl<F: Send + Clone + Sync> ValidateRequest<F, api::PaymentsRequest, PaymentDat
             &request.payment_token,
             &request.mandate_id,
         )?;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let _request_straight_through: Option<api::routing::StraightThroughAlgorithm> = request
             .routing
             .clone()

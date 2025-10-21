@@ -756,6 +756,7 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Wise {}
 
 impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Wise {}
 
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 fn is_setup_webhook_event(request: &IncomingWebhookRequestDetails<'_>) -> bool {
     let test_webhook_header = request
@@ -812,6 +813,10 @@ impl IncomingWebhook for Wise {
         }
     }
 
+=======
+#[async_trait::async_trait]
+impl IncomingWebhook for Wise {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_webhook_object_reference_id(
         &self,
         #[cfg(feature = "payouts")] request: &IncomingWebhookRequestDetails<'_>,
@@ -843,10 +848,13 @@ impl IncomingWebhook for Wise {
     ) -> CustomResult<IncomingWebhookEvent, ConnectorError> {
         #[cfg(feature = "payouts")]
         {
+<<<<<<< HEAD
             if is_setup_webhook_event(request) {
                 return Ok(IncomingWebhookEvent::SetupWebhook);
             }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let payload: wise::WisePayoutsWebhookBody = request
                 .body
                 .parse_struct("WisePayoutsWebhookBody")

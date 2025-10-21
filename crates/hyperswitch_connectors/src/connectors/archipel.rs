@@ -1,5 +1,3 @@
-use std::sync::LazyLock;
-
 use api_models::webhooks::{IncomingWebhookEvent, ObjectReferenceId};
 use common_enums::enums;
 use common_utils::{
@@ -23,10 +21,7 @@ use hyperswitch_domain_models::{
         PaymentsCancelData, PaymentsCaptureData, PaymentsIncrementalAuthorizationData,
         PaymentsSessionData, PaymentsSyncData, RefundsData, SetupMandateRequestData,
     },
-    router_response_types::{
-        ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
-        SupportedPaymentMethods, SupportedPaymentMethodsExt,
-    },
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         PaymentsIncrementalAuthorizationRouterData, PaymentsSyncRouterData, RefundSyncRouterData,
@@ -34,10 +29,7 @@ use hyperswitch_domain_models::{
     },
 };
 use hyperswitch_interfaces::{
-    api::{
-        self, ConnectorCommon, ConnectorCommonExt, ConnectorIntegration, ConnectorSpecifications,
-        ConnectorValidation,
-    },
+    api::{self, ConnectorCommon, ConnectorCommonExt, ConnectorIntegration, ConnectorValidation},
     configs::Connectors,
     consts::NO_ERROR_MESSAGE,
     errors,
@@ -53,6 +45,7 @@ use transformers::{
 };
 
 use crate::{
+    capture_method_not_supported,
     constants::headers,
     types::ResponseRouterData,
     utils::{is_mandate_supported, PaymentMethodDataType, PaymentsAuthorizeRequestData},
@@ -86,6 +79,7 @@ impl api::RefundExecute for Archipel {}
 impl api::RefundSync for Archipel {}
 impl api::Payment for Archipel {}
 impl api::PaymentIncrementalAuthorization for Archipel {}
+impl api::ConnectorSpecifications for Archipel {}
 
 fn build_env_specific_endpoint(
     base_url: &str,
@@ -186,6 +180,34 @@ impl ConnectorCommon for Archipel {
 }
 
 impl ConnectorValidation for Archipel {
+    fn validate_connector_against_payment_request(
+        &self,
+        capture_method: Option<common_enums::CaptureMethod>,
+        _payment_method: common_enums::PaymentMethod,
+        pmt: Option<common_enums::PaymentMethodType>,
+    ) -> CustomResult<(), errors::ConnectorError> {
+        let capture_method = capture_method.unwrap_or_default();
+
+        match capture_method {
+            enums::CaptureMethod::Automatic
+            | enums::CaptureMethod::SequentialAutomatic
+            | enums::CaptureMethod::Manual => Ok(()),
+            enums::CaptureMethod::ManualMultiple | enums::CaptureMethod::Scheduled => {
+                let connector = self.id();
+                match pmt {
+                    Some(payment_method_type) => {
+                        capture_method_not_supported!(
+                            connector,
+                            capture_method,
+                            payment_method_type
+                        )
+                    }
+                    None => capture_method_not_supported!(connector, capture_method),
+                }
+            }
+        }
+    }
+
     fn validate_mandate_payment(
         &self,
         pm_type: Option<enums::PaymentMethodType>,
@@ -1062,6 +1084,7 @@ impl IncomingWebhook for Archipel {
         Err(report!(errors::ConnectorError::WebhooksNotImplemented))
     }
 }
+<<<<<<< HEAD
 
 static ARCHIPEL_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
     LazyLock::new(|| {
@@ -1156,3 +1179,5 @@ impl ConnectorSpecifications for Archipel {
         Some(&ARCHIPEL_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

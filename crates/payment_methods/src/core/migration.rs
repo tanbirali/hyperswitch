@@ -77,10 +77,17 @@ pub struct PaymentMethodsMigrateForm {
     pub merchant_connector_ids: Option<text::Text<String>>,
 }
 
+<<<<<<< HEAD
 pub struct MerchantConnectorValidator;
 
 impl MerchantConnectorValidator {
     pub fn parse_comma_separated_ids(
+=======
+struct MerchantConnectorValidator;
+
+impl MerchantConnectorValidator {
+    fn parse_comma_separated_ids(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ids_string: &str,
     ) -> Result<Vec<common_utils::id_type::MerchantConnectorAccountId>, errors::ApiErrorResponse>
     {

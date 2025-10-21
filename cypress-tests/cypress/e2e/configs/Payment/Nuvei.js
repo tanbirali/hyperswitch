@@ -38,7 +38,11 @@ const multiUseMandateData = {
 // Payment method data objects for responses
 const payment_method_data_no3ds = {
   card: {
+<<<<<<< HEAD
     authentication_data: { challengePreferenceReason: "12" },
+=======
+    authentication_data: {},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     last4: "1111",
     card_type: "CREDIT",
     card_network: "Visa",

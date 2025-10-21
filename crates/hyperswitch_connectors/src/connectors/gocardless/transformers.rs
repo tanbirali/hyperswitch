@@ -13,9 +13,13 @@ use hyperswitch_domain_models::{
         ConnectorCustomerData, PaymentMethodTokenizationData, PaymentsAuthorizeData,
         PaymentsSyncData, ResponseId, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorCustomerResponseData, MandateReference, PaymentsResponseData, RefundsResponseData,
     },
+=======
+    router_response_types::{MandateReference, PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types,
 };
 use hyperswitch_interfaces::errors;
@@ -154,11 +158,17 @@ impl<F>
         >,
     ) -> Result<Self, Self::Error> {
         Ok(Self {
+<<<<<<< HEAD
             response: Ok(PaymentsResponseData::ConnectorCustomerResponse(
                 ConnectorCustomerResponseData::new_with_customer_id(
                     item.response.customers.id.expose(),
                 ),
             )),
+=======
+            response: Ok(PaymentsResponseData::ConnectorCustomerResponse {
+                connector_customer_id: item.response.customers.id.expose(),
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }
@@ -315,12 +325,19 @@ impl TryFrom<(&BankDebitData, &types::TokenizationRouterData)> for CustomerBankA
                 };
                 Ok(Self::InternationalBankAccount(international_bank_account))
             }
+<<<<<<< HEAD
             BankDebitData::BacsBankDebit { .. } | BankDebitData::SepaGuarenteedBankDebit { .. } => {
                 Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("Gocardless"),
                 )
                 .into())
             }
+=======
+            BankDebitData::BacsBankDebit { .. } => Err(errors::ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Gocardless"),
+            )
+            .into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -472,7 +489,10 @@ fn get_ip_if_required(
     match bank_debit_data {
         BankDebitData::AchBankDebit { .. } => Ok(Some(ip_address)),
         BankDebitData::SepaBankDebit { .. }
+<<<<<<< HEAD
         | BankDebitData::SepaGuarenteedBankDebit { .. }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         | BankDebitData::BecsBankDebit { .. }
         | BankDebitData::BacsBankDebit { .. } => Ok(None),
     }
@@ -485,12 +505,19 @@ impl TryFrom<&BankDebitData> for GocardlessScheme {
             BankDebitData::AchBankDebit { .. } => Ok(Self::Ach),
             BankDebitData::SepaBankDebit { .. } => Ok(Self::SepaCore),
             BankDebitData::BecsBankDebit { .. } => Ok(Self::Becs),
+<<<<<<< HEAD
             BankDebitData::BacsBankDebit { .. } | BankDebitData::SepaGuarenteedBankDebit { .. } => {
                 Err(errors::ConnectorError::NotImplemented(
                     "Setup Mandate flow for selected payment method through Gocardless".to_string(),
                 )
                 .into())
             }
+=======
+            BankDebitData::BacsBankDebit { .. } => Err(errors::ConnectorError::NotImplemented(
+                "Setup Mandate flow for selected payment method through Gocardless".to_string(),
+            )
+            .into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

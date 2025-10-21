@@ -195,9 +195,12 @@ impl IntoDirValue for (api_enums::PaymentMethodType, api_enums::PaymentMethod) {
             },
             api_enums::PaymentMethodType::Becs => Ok(dirval!(BankDebitType = Becs)),
             api_enums::PaymentMethodType::Sepa => Ok(dirval!(BankDebitType = Sepa)),
+<<<<<<< HEAD
             api_enums::PaymentMethodType::SepaGuarenteedDebit => {
                 Ok(dirval!(BankDebitType = SepaGuarenteedDebit))
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::PaymentMethodType::SepaBankTransfer => {
                 Ok(dirval!(BankTransferType = SepaBankTransfer))
             }
@@ -239,7 +242,10 @@ impl IntoDirValue for (api_enums::PaymentMethodType, api_enums::PaymentMethod) {
             api_enums::PaymentMethodType::Evoucher => Ok(dirval!(RewardType = Evoucher)),
             api_enums::PaymentMethodType::UpiCollect => Ok(dirval!(UpiType = UpiCollect)),
             api_enums::PaymentMethodType::UpiIntent => Ok(dirval!(UpiType = UpiIntent)),
+<<<<<<< HEAD
             api_enums::PaymentMethodType::UpiQr => Ok(dirval!(UpiType = UpiQr)),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::PaymentMethodType::SamsungPay => Ok(dirval!(WalletType = SamsungPay)),
             api_enums::PaymentMethodType::GoPay => Ok(dirval!(WalletType = GoPay)),
             api_enums::PaymentMethodType::KakaoPay => Ok(dirval!(WalletType = KakaoPay)),

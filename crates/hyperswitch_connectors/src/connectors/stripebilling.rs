@@ -2,7 +2,10 @@ pub mod transformers;
 
 use std::collections::HashMap;
 
+<<<<<<< HEAD
 use common_enums::enums;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{
     errors::CustomResult,
     ext_traits::BytesExt,
@@ -12,35 +15,61 @@ use common_utils::{
 use error_stack::{report, ResultExt};
 #[cfg(all(feature = "v2", feature = "revenue_recovery"))]
 use hyperswitch_domain_models::revenue_recovery;
+<<<<<<< HEAD
 #[cfg(all(feature = "v2", feature = "revenue_recovery"))]
 use hyperswitch_domain_models::types as recovery_router_data_types;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use hyperswitch_domain_models::{
     router_data::{AccessToken, ConnectorAuthType, ErrorResponse, RouterData},
     router_flow_types::{
         access_token_auth::AccessTokenAuth,
         payments::{Authorize, Capture, PSync, PaymentMethodToken, Session, SetupMandate, Void},
         refunds::{Execute, RSync},
+<<<<<<< HEAD
         revenue_recovery as recovery_router_flows, subscriptions as subscription_flow_types,
     },
     router_request_types::{
         revenue_recovery as recovery_request_types, subscriptions as subscription_request_types,
+=======
+    },
+    router_request_types::{
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         AccessTokenRequestData, PaymentMethodTokenizationData, PaymentsAuthorizeData,
         PaymentsCancelData, PaymentsCaptureData, PaymentsSessionData, PaymentsSyncData,
         RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         revenue_recovery as recovery_response_types, subscriptions as subscription_response_types,
         ConnectorInfo, PaymentsResponseData, RefundsResponseData,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, PaymentsSyncRouterData,
         RefundSyncRouterData, RefundsRouterData,
     },
 };
+<<<<<<< HEAD
 use hyperswitch_interfaces::{
     api::{
         self, subscriptions as subscriptions_api, ConnectorCommon, ConnectorCommonExt,
         ConnectorIntegration, ConnectorSpecifications, ConnectorValidation,
+=======
+#[cfg(all(feature = "v2", feature = "revenue_recovery"))]
+use hyperswitch_domain_models::{
+    router_flow_types::revenue_recovery as recovery_router_flows,
+    router_request_types::revenue_recovery as recovery_request_types,
+    router_response_types::revenue_recovery as recovery_response_types,
+    types as recovery_router_data_types,
+};
+use hyperswitch_interfaces::{
+    api::{
+        self, ConnectorCommon, ConnectorCommonExt, ConnectorIntegration, ConnectorSpecifications,
+        ConnectorValidation,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     configs::Connectors,
     errors,
@@ -90,6 +119,7 @@ impl ConnectorIntegration<PaymentMethodToken, PaymentMethodTokenizationData, Pay
     // Not Implemented (R)
 }
 
+<<<<<<< HEAD
 impl subscriptions_api::Subscriptions for Stripebilling {}
 impl subscriptions_api::GetSubscriptionPlansFlow for Stripebilling {}
 impl subscriptions_api::SubscriptionRecordBackFlow for Stripebilling {}
@@ -129,6 +159,8 @@ impl
 {
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<Flow, Request, Response> ConnectorCommonExt<Flow, Request, Response> for Stripebilling
 where
     Self: ConnectorIntegration<Flow, Request, Response>,
@@ -699,6 +731,7 @@ impl
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 impl
     ConnectorIntegration<
@@ -715,11 +748,23 @@ impl
         recovery_router_flows::InvoiceRecordBack,
         recovery_request_types::InvoiceRecordBackRequest,
         recovery_response_types::InvoiceRecordBackResponse,
+=======
+#[cfg(all(feature = "v2", feature = "revenue_recovery"))]
+impl
+    ConnectorIntegration<
+        recovery_router_flows::RecoveryRecordBack,
+        recovery_request_types::RevenueRecoveryRecordBackRequest,
+        recovery_response_types::RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     > for Stripebilling
 {
     fn get_headers(
         &self,
+<<<<<<< HEAD
         req: &recovery_router_data_types::InvoiceRecordBackRouterData,
+=======
+        req: &recovery_router_data_types::RevenueRecoveryRecordBackRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connectors: &Connectors,
     ) -> CustomResult<Vec<(String, masking::Maskable<String>)>, errors::ConnectorError> {
         self.build_headers(req, connectors)
@@ -731,7 +776,11 @@ impl
 
     fn get_url(
         &self,
+<<<<<<< HEAD
         req: &recovery_router_data_types::InvoiceRecordBackRouterData,
+=======
+        req: &recovery_router_data_types::RevenueRecoveryRecordBackRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
         let invoice_id = req
@@ -754,17 +803,29 @@ impl
 
     fn build_request(
         &self,
+<<<<<<< HEAD
         req: &recovery_router_data_types::InvoiceRecordBackRouterData,
+=======
+        req: &recovery_router_data_types::RevenueRecoveryRecordBackRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connectors: &Connectors,
     ) -> CustomResult<Option<Request>, errors::ConnectorError> {
         Ok(Some(
             RequestBuilder::new()
                 .method(Method::Post)
+<<<<<<< HEAD
                 .url(&types::InvoiceRecordBackType::get_url(
                     self, req, connectors,
                 )?)
                 .attach_default_headers()
                 .headers(types::InvoiceRecordBackType::get_headers(
+=======
+                .url(&types::RevenueRecoveryRecordBackType::get_url(
+                    self, req, connectors,
+                )?)
+                .attach_default_headers()
+                .headers(types::RevenueRecoveryRecordBackType::get_headers(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     self, req, connectors,
                 )?)
                 .build(),
@@ -773,11 +834,21 @@ impl
 
     fn handle_response(
         &self,
+<<<<<<< HEAD
         data: &recovery_router_data_types::InvoiceRecordBackRouterData,
         event_builder: Option<&mut ConnectorEvent>,
         res: Response,
     ) -> CustomResult<recovery_router_data_types::InvoiceRecordBackRouterData, errors::ConnectorError>
     {
+=======
+        data: &recovery_router_data_types::RevenueRecoveryRecordBackRouterData,
+        event_builder: Option<&mut ConnectorEvent>,
+        res: Response,
+    ) -> CustomResult<
+        recovery_router_data_types::RevenueRecoveryRecordBackRouterData,
+        errors::ConnectorError,
+    > {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let response = res
             .response
             .parse_struct::<stripebilling::StripebillingRecordBackResponse>(
@@ -786,11 +857,21 @@ impl
             .change_context(errors::ConnectorError::ResponseDeserializationFailed)?;
         event_builder.map(|i| i.set_response_body(&response));
         router_env::logger::info!(connector_response=?response);
+<<<<<<< HEAD
         recovery_router_data_types::InvoiceRecordBackRouterData::try_from(ResponseRouterData {
             response,
             data: data.clone(),
             http_code: res.status_code,
         })
+=======
+        recovery_router_data_types::RevenueRecoveryRecordBackRouterData::try_from(
+            ResponseRouterData {
+                response,
+                data: data.clone(),
+                http_code: res.status_code,
+            },
+        )
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_error_response(
@@ -957,6 +1038,7 @@ fn get_signature_elements_from_header(
     Ok(header_hashmap)
 }
 
+<<<<<<< HEAD
 static STRIPEBILLING_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
     display_name: "Stripebilling",
     description: "Stripe Billing manages subscriptions, recurring payments, and invoicing. It supports trials, usage-based billing, coupons, and automated retries.",
@@ -976,3 +1058,6 @@ impl ConnectorSpecifications for Stripebilling {
         Some(&STRIPEBILLING_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Stripebilling {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

@@ -316,6 +316,7 @@ pub struct RecurlyRecordBackResponse {
 impl
     TryFrom<
         ResponseRouterDataV2<
+<<<<<<< HEAD
             recovery_router_flows::InvoiceRecordBack,
             RecurlyRecordBackResponse,
             recovery_flow_common_types::InvoiceRecordBackData,
@@ -323,20 +324,41 @@ impl
             recovery_response_types::InvoiceRecordBackResponse,
         >,
     > for recovery_router_data_types::InvoiceRecordBackRouterDataV2
+=======
+            recovery_router_flows::RecoveryRecordBack,
+            RecurlyRecordBackResponse,
+            recovery_flow_common_types::RevenueRecoveryRecordBackData,
+            recovery_request_types::RevenueRecoveryRecordBackRequest,
+            recovery_response_types::RevenueRecoveryRecordBackResponse,
+        >,
+    > for recovery_router_data_types::RevenueRecoveryRecordBackRouterDataV2
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: ResponseRouterDataV2<
+<<<<<<< HEAD
             recovery_router_flows::InvoiceRecordBack,
             RecurlyRecordBackResponse,
             recovery_flow_common_types::InvoiceRecordBackData,
             recovery_request_types::InvoiceRecordBackRequest,
             recovery_response_types::InvoiceRecordBackResponse,
+=======
+            recovery_router_flows::RecoveryRecordBack,
+            RecurlyRecordBackResponse,
+            recovery_flow_common_types::RevenueRecoveryRecordBackData,
+            recovery_request_types::RevenueRecoveryRecordBackRequest,
+            recovery_response_types::RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         >,
     ) -> Result<Self, Self::Error> {
         let merchant_reference_id = item.response.id;
         Ok(Self {
+<<<<<<< HEAD
             response: Ok(recovery_response_types::InvoiceRecordBackResponse {
+=======
+            response: Ok(recovery_response_types::RevenueRecoveryRecordBackResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 merchant_reference_id,
             }),
             ..item.data

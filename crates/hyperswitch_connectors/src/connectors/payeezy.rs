@@ -1,9 +1,16 @@
 pub mod transformers;
+<<<<<<< HEAD
 use std::sync::LazyLock;
 
 use api_models::webhooks::IncomingWebhookEvent;
 use base64::Engine;
 use common_enums::enums;
+=======
+
+use api_models::webhooks::IncomingWebhookEvent;
+use base64::Engine;
+use common_enums::{CaptureMethod, PaymentMethod, PaymentMethodType};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{
     errors::CustomResult,
     ext_traits::ByteSliceExt,
@@ -22,10 +29,14 @@ use hyperswitch_domain_models::{
         PaymentsCancelData, PaymentsCaptureData, PaymentsSessionData, PaymentsSyncData,
         RefundsData, SetupMandateRequestData,
     },
+<<<<<<< HEAD
     router_response_types::{
         ConnectorInfo, PaymentMethodDetails, PaymentsResponseData, RefundsResponseData,
         SupportedPaymentMethods, SupportedPaymentMethodsExt,
     },
+=======
+    router_response_types::{PaymentsResponseData, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         RefundsRouterData,
@@ -49,7 +60,13 @@ use rand::distributions::DistString;
 use ring::hmac;
 use transformers as payeezy;
 
+<<<<<<< HEAD
 use crate::{constants::headers, types::ResponseRouterData};
+=======
+use crate::{
+    constants::headers, types::ResponseRouterData, utils::construct_not_implemented_error_report,
+};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[derive(Debug, Clone)]
 pub struct Payeezy;
@@ -156,7 +173,28 @@ impl ConnectorCommon for Payeezy {
     }
 }
 
+<<<<<<< HEAD
 impl ConnectorValidation for Payeezy {}
+=======
+impl ConnectorValidation for Payeezy {
+    fn validate_connector_against_payment_request(
+        &self,
+        capture_method: Option<CaptureMethod>,
+        _payment_method: PaymentMethod,
+        _pmt: Option<PaymentMethodType>,
+    ) -> CustomResult<(), errors::ConnectorError> {
+        let capture_method = capture_method.unwrap_or_default();
+        match capture_method {
+            CaptureMethod::Automatic
+            | CaptureMethod::Manual
+            | CaptureMethod::SequentialAutomatic => Ok(()),
+            CaptureMethod::ManualMultiple | CaptureMethod::Scheduled => Err(
+                construct_not_implemented_error_report(capture_method, self.id()),
+            ),
+        }
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl api::Payment for Payeezy {}
 
@@ -581,6 +619,7 @@ impl IncomingWebhook for Payeezy {
     }
 }
 
+<<<<<<< HEAD
 static PAYEEZY_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -641,3 +680,6 @@ impl ConnectorSpecifications for Payeezy {
         Some(&PAYEEZY_SUPPORTED_WEBHOOK_FLOWS)
     }
 }
+=======
+impl ConnectorSpecifications for Payeezy {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

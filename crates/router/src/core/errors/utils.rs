@@ -90,6 +90,10 @@ pub trait ConnectorErrorExt<T> {
     #[cfg(feature = "payouts")]
     #[track_caller]
     fn to_payout_failed_response(self) -> error_stack::Result<T, errors::ApiErrorResponse>;
+<<<<<<< HEAD
+=======
+    #[cfg(feature = "v2")]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[track_caller]
     fn to_vault_failed_response(self) -> error_stack::Result<T, errors::ApiErrorResponse>;
 
@@ -520,6 +524,10 @@ impl<T> ConnectorErrorExt<T> for error_stack::Result<T, errors::ConnectorError> 
         })
     }
 
+<<<<<<< HEAD
+=======
+    #[cfg(feature = "v2")]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn to_vault_failed_response(self) -> error_stack::Result<T, errors::ApiErrorResponse> {
         self.map_err(|err| {
             let error = match err.current_context() {

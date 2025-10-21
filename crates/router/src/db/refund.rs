@@ -1405,13 +1405,21 @@ impl RefundInterface for MockDb {
                 refund_details
                     .payment_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.payment_id)
+=======
+                    .map_or(true, |id| id == refund.payment_id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund_details
                     .refund_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.refund_id)
+=======
+                    .map_or(true, |id| id == refund.refund_id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund.profile_id.as_ref().is_some_and(|profile_id| {
@@ -1432,11 +1440,23 @@ impl RefundInterface for MockDb {
                             })
             })
             .filter(|refund| {
+<<<<<<< HEAD
                 refund_details.amount_filter.as_ref().is_none_or(|amount| {
                     refund.refund_amount >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
                         && refund.refund_amount
                             <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
                 })
+=======
+                refund_details
+                    .amount_filter
+                    .as_ref()
+                    .map_or(true, |amount| {
+                        refund.refund_amount
+                            >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
+                            && refund.refund_amount
+                                <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
+                    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 unique_connectors.is_empty() || unique_connectors.contains(&refund.connector)
@@ -1509,13 +1529,21 @@ impl RefundInterface for MockDb {
                 refund_details
                     .payment_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.payment_id)
+=======
+                    .map_or(true, |id| id == refund.payment_id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund_details
                     .refund_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.id)
+=======
+                    .map_or(true, |id| id == refund.id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund
@@ -1537,11 +1565,23 @@ impl RefundInterface for MockDb {
                             })
             })
             .filter(|refund| {
+<<<<<<< HEAD
                 refund_details.amount_filter.as_ref().is_none_or(|amount| {
                     refund.refund_amount >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
                         && refund.refund_amount
                             <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
                 })
+=======
+                refund_details
+                    .amount_filter
+                    .as_ref()
+                    .map_or(true, |amount| {
+                        refund.refund_amount
+                            >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
+                            && refund.refund_amount
+                                <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
+                    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 unique_connectors.is_empty() || unique_connectors.contains(&refund.connector)
@@ -1712,13 +1752,21 @@ impl RefundInterface for MockDb {
                 refund_details
                     .payment_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.payment_id)
+=======
+                    .map_or(true, |id| id == refund.payment_id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund_details
                     .refund_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.refund_id)
+=======
+                    .map_or(true, |id| id == refund.refund_id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund.profile_id.as_ref().is_some_and(|profile_id| {
@@ -1739,11 +1787,23 @@ impl RefundInterface for MockDb {
                             })
             })
             .filter(|refund| {
+<<<<<<< HEAD
                 refund_details.amount_filter.as_ref().is_none_or(|amount| {
                     refund.refund_amount >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
                         && refund.refund_amount
                             <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
                 })
+=======
+                refund_details
+                    .amount_filter
+                    .as_ref()
+                    .map_or(true, |amount| {
+                        refund.refund_amount
+                            >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
+                            && refund.refund_amount
+                                <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
+                    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 unique_connectors.is_empty() || unique_connectors.contains(&refund.connector)
@@ -1814,13 +1874,21 @@ impl RefundInterface for MockDb {
                 refund_details
                     .payment_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.payment_id)
+=======
+                    .map_or(true, |id| id == refund.payment_id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund_details
                     .refund_id
                     .clone()
+<<<<<<< HEAD
                     .is_none_or(|id| id == refund.id)
+=======
+                    .map_or(true, |id| id == refund.id)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 refund
@@ -1842,11 +1910,23 @@ impl RefundInterface for MockDb {
                             })
             })
             .filter(|refund| {
+<<<<<<< HEAD
                 refund_details.amount_filter.as_ref().is_none_or(|amount| {
                     refund.refund_amount >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
                         && refund.refund_amount
                             <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
                 })
+=======
+                refund_details
+                    .amount_filter
+                    .as_ref()
+                    .map_or(true, |amount| {
+                        refund.refund_amount
+                            >= MinorUnit::new(amount.start_amount.unwrap_or(i64::MIN))
+                            && refund.refund_amount
+                                <= MinorUnit::new(amount.end_amount.unwrap_or(i64::MAX))
+                    })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .filter(|refund| {
                 unique_connectors.is_empty() || unique_connectors.contains(&refund.connector)

@@ -4075,15 +4075,22 @@ Cypress.Commands.add("setConfigs", (globalState, key, value, requestType) => {
         expect(response.body).to.have.property("key").to.equal(key);
         expect(response.body).to.have.property("value").to.equal(value);
       } else {
+<<<<<<< HEAD
         Cypress.log({
           name: "setConfigs",
           message: `Failed for key: ${key} → status ${response.status}, message: ${response.body?.error?.message}`,
         });
+=======
+        throw new Error(
+          `Failed to set configs with status ${response.status} and message ${response.body.error.message}`
+        );
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
       }
     });
   });
 });
 
+<<<<<<< HEAD
 Cypress.Commands.add("setupConfigs", (globalState, key, value) => {
   cy.setConfigs(globalState, key, value, "DELETE");
   cy.setConfigs(globalState, key, value, "CREATE");
@@ -4120,6 +4127,8 @@ Cypress.Commands.add("cleanupUCSConfigs", (globalState, connector) => {
   cy.setConfigs(globalState, "ucs_enabled", "true", "DELETE");
 });
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 // DDC Race Condition Test Commands
 Cypress.Commands.add(
   "ddcServerSideRaceConditionTest",

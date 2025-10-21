@@ -629,8 +629,11 @@ impl<F: Send + Clone + Sync> GetTracker<F, PaymentData<F>, api::PaymentsRequest>
             vault_operation: None,
             threeds_method_comp_ind: None,
             whole_connector_response: None,
+<<<<<<< HEAD
             is_manual_retry_enabled: None,
             is_l2_l3_enabled: business_profile.is_l2_l3_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let get_trackers_response = operations::GetTrackerResponse {
@@ -885,12 +888,16 @@ impl<F: Clone + Sync> UpdateTracker<F, PaymentData<F>, api::PaymentsRequest> for
             .map(|surcharge_details| surcharge_details.tax_on_surcharge_amount);
 
         let routing_approach = payment_data.payment_attempt.routing_approach.clone();
+<<<<<<< HEAD
         let is_stored_credential = helpers::is_stored_credential(
             &payment_data.recurring_details,
             &payment_data.pm_token,
             payment_data.mandate_id.is_some(),
             payment_data.payment_attempt.is_stored_credential,
         );
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         payment_data.payment_attempt = state
             .store
             .update_payment_attempt_with_attempt_id(
@@ -908,7 +915,10 @@ impl<F: Clone + Sync> UpdateTracker<F, PaymentData<F>, api::PaymentsRequest> for
                     updated_by: storage_scheme.to_string(),
                     merchant_connector_id,
                     routing_approach,
+<<<<<<< HEAD
                     is_stored_credential,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 },
                 storage_scheme,
             )
@@ -1030,6 +1040,7 @@ impl<F: Send + Clone + Sync> ValidateRequest<F, api::PaymentsRequest, PaymentDat
             &request.mandate_id,
         )?;
 
+<<<<<<< HEAD
         request.validate_stored_credential().change_context(
             errors::ApiErrorResponse::InvalidRequestData {
                 message:
@@ -1050,6 +1061,8 @@ impl<F: Send + Clone + Sync> ValidateRequest<F, api::PaymentsRequest, PaymentDat
             },
         )?;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         if request.confirm.unwrap_or(false) {
             helpers::validate_pm_or_token_given(
                 &request.payment_method,
@@ -1294,7 +1307,10 @@ impl PaymentCreate {
         let payment_method_type = Option::<enums::PaymentMethodType>::foreign_from((
             payment_method_type,
             additional_pm_data.as_ref(),
+<<<<<<< HEAD
             payment_method,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ));
 
         // TODO: remove once https://github.com/juspay/hyperswitch/issues/7421 is fixed
@@ -1335,12 +1351,15 @@ impl PaymentCreate {
             address_id => address_id,
         };
 
+<<<<<<< HEAD
         let is_stored_credential = helpers::is_stored_credential(
             &request.recurring_details,
             &request.payment_token,
             request.mandate_id.is_some(),
             request.is_stored_credential,
         );
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok((
             storage::PaymentAttemptNew {
                 payment_id: payment_id.to_owned(),
@@ -1422,9 +1441,12 @@ impl PaymentCreate {
                 routing_approach: Some(common_enums::RoutingApproach::default()),
                 connector_request_reference_id: None,
                 network_transaction_id:None,
+<<<<<<< HEAD
                 network_details:None,
                 is_stored_credential,
                 authorized_amount: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             additional_pm_data,
 
@@ -1668,8 +1690,11 @@ impl PaymentCreate {
             tax_status: request.tax_status,
             shipping_amount_tax: request.shipping_amount_tax,
             enable_partial_authorization: request.enable_partial_authorization,
+<<<<<<< HEAD
             enable_overcapture: request.enable_overcapture,
             mit_category: request.mit_category,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 

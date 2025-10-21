@@ -3,7 +3,10 @@ use std::vec::IntoIter;
 use common_utils::{ext_traits::Encode, types::MinorUnit};
 use diesel_models::enums as storage_enums;
 use error_stack::ResultExt;
+<<<<<<< HEAD
 use hyperswitch_domain_models::ext_traits::OptionExt;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use router_env::{
     logger,
     tracing::{self, instrument},
@@ -26,13 +29,21 @@ use crate::{
         metrics,
     },
     services,
+<<<<<<< HEAD
     types::{self, api, domain, storage, transformers::ForeignFrom},
+=======
+    types::{self, api, domain, storage},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 #[instrument(skip_all)]
 #[allow(clippy::too_many_arguments)]
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 pub async fn do_gsm_actions<'a, F, ApiRequest, FData, D>(
+=======
+pub async fn do_gsm_actions<F, ApiRequest, FData, D>(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     state: &app::SessionState,
     req_state: ReqState,
     payment_data: &mut D,
@@ -48,8 +59,13 @@ pub async fn do_gsm_actions<'a, F, ApiRequest, FData, D>(
     business_profile: &domain::Profile,
 ) -> RouterResult<types::RouterData<F, FData, types::PaymentsResponseData>>
 where
+<<<<<<< HEAD
     F: Clone + Send + Sync + 'static,
     FData: Send + Sync + types::Capturable + Clone + 'static + serde::Serialize,
+=======
+    F: Clone + Send + Sync,
+    FData: Send + Sync + types::Capturable,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     payments::PaymentResponse: operations::Operation<F, FData>,
     D: payments::OperationSessionGetters<F>
         + payments::OperationSessionSetters<F>
@@ -160,6 +176,7 @@ where
                         && clear_pan_possible
                         && business_profile.is_clear_pan_retries_enabled;
 
+<<<<<<< HEAD
                     // Currently we are taking off_session as a source of truth to identify MIT payments.
                     let is_mit_payment = payment_data
                         .get_payment_intent()
@@ -185,6 +202,9 @@ where
                         });
                         (connector_routing_data.connector_data, None)
                     } else if should_retry_with_pan {
+=======
+                    let (connector, routing_decision) = if should_retry_with_pan {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         // If should_retry_with_pan is true, it indicates that we are retrying with PAN using the same connector.
                         (original_connector_data.clone(), None)
                     } else {
@@ -338,6 +358,7 @@ fn get_flow_name<F>() -> RouterResult<String> {
 #[cfg(feature = "v1")]
 #[allow(clippy::too_many_arguments)]
 #[instrument(skip_all)]
+<<<<<<< HEAD
 pub async fn do_retry<'a, F, ApiRequest, FData, D>(
     state: &'a routes::SessionState,
     req_state: ReqState,
@@ -346,6 +367,16 @@ pub async fn do_retry<'a, F, ApiRequest, FData, D>(
     customer: &'a Option<domain::Customer>,
     merchant_context: &domain::MerchantContext,
     payment_data: &'a mut D,
+=======
+pub async fn do_retry<F, ApiRequest, FData, D>(
+    state: &routes::SessionState,
+    req_state: ReqState,
+    connector: &api::ConnectorData,
+    operation: &operations::BoxedOperation<'_, F, ApiRequest, D>,
+    customer: &Option<domain::Customer>,
+    merchant_context: &domain::MerchantContext,
+    payment_data: &mut D,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     router_data: types::RouterData<F, FData, types::PaymentsResponseData>,
     validate_result: &operations::ValidateResult,
     schedule_time: Option<time::PrimitiveDateTime>,
@@ -356,8 +387,13 @@ pub async fn do_retry<'a, F, ApiRequest, FData, D>(
     routing_decision: Option<routing_helpers::RoutingDecisionData>,
 ) -> RouterResult<types::RouterData<F, FData, types::PaymentsResponseData>>
 where
+<<<<<<< HEAD
     F: Clone + Send + Sync + 'static,
     FData: Send + Sync + types::Capturable + Clone + 'static + serde::Serialize,
+=======
+    F: Clone + Send + Sync,
+    FData: Send + Sync + types::Capturable,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     payments::PaymentResponse: operations::Operation<F, FData>,
     D: payments::OperationSessionGetters<F>
         + payments::OperationSessionSetters<F>
@@ -546,8 +582,11 @@ where
                     .get_payment_attempt()
                     .network_transaction_id
                     .clone(),
+<<<<<<< HEAD
                 is_overcapture_enabled: None,
                 authorized_amount: router_data.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             };
 
             #[cfg(feature = "v1")]
@@ -599,7 +638,10 @@ where
                 authentication_type: auth_update,
                 issuer_error_code: error_response.network_decline_code.clone(),
                 issuer_error_message: error_response.network_error_message.clone(),
+<<<<<<< HEAD
                 network_details: Some(ForeignFrom::foreign_from(error_response)),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             };
 
             #[cfg(feature = "v1")]
@@ -748,9 +790,12 @@ pub fn make_new_payment_attempt(
         routing_approach: old_payment_attempt.routing_approach,
         connector_request_reference_id: Default::default(),
         network_transaction_id: old_payment_attempt.network_transaction_id,
+<<<<<<< HEAD
         network_details: Default::default(),
         is_stored_credential: old_payment_attempt.is_stored_credential,
         authorized_amount: old_payment_attempt.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 

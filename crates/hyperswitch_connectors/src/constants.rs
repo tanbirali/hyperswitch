@@ -10,8 +10,11 @@ pub(crate) mod headers {
     pub(crate) const IDEMPOTENCY_KEY: &str = "Idempotency-Key";
     pub(crate) const MESSAGE_SIGNATURE: &str = "Message-Signature";
     pub(crate) const MERCHANT_ID: &str = "Merchant-ID";
+<<<<<<< HEAD
     pub(crate) const MERCHANTID: &str = "MerchantID";
     pub(crate) const MERCHANT_TOKEN: &str = "MerchantToken";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub(crate) const REQUEST_ID: &str = "request-id";
     pub(crate) const NONCE: &str = "nonce";
     pub(crate) const TIMESTAMP: &str = "Timestamp";
@@ -58,5 +61,8 @@ pub(crate) const CANNOT_CONTINUE_AUTH: &str =
 
 #[cfg(feature = "payouts")]
 pub(crate) const DEFAULT_NOTIFICATION_SCRIPT_LANGUAGE: &str = "en-US";
+<<<<<<< HEAD
 
 pub(crate) const PLAN_ITEM_TYPE: &str = "plan";
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

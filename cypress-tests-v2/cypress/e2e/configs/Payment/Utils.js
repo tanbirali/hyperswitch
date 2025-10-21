@@ -5,7 +5,11 @@ const connectorDetails = {
 };
 
 export default function getConnectorDetails(connectorId) {
+<<<<<<< HEAD
   const x = mergeDetails(connectorId);
+=======
+  let x = mergeDetails(connectorId);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   return x;
 }
 
@@ -61,9 +65,15 @@ export const should_continue_further = (res_data) => {
   }
 
   if (
+<<<<<<< HEAD
     res_data.Response.body.error !== undefined ||
     res_data.Response.body.error_code !== undefined ||
     res_data.Response.body.error_message !== undefined
+=======
+    res_data.body.error !== undefined ||
+    res_data.body.error_code !== undefined ||
+    res_data.body.error_message !== undefined
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   ) {
     return false;
   } else {
@@ -89,12 +99,18 @@ export function defaultErrorHandler(response, response_data) {
   if (typeof response.body.error === "object") {
     for (const key in response_data.body.error) {
       // Check if the error message is a Json deserialize error
+<<<<<<< HEAD
       const apiResponseContent = response.body.error[key];
       const expectedContent = response_data.body.error[key];
       if (
         typeof apiResponseContent === "string" &&
         apiResponseContent.includes("Json deserialize error")
       ) {
+=======
+      let apiResponseContent = response.body.error[key];
+      let expectedContent = response_data.body.error[key];
+      if (typeof apiResponseContent === "string" && apiResponseContent.includes("Json deserialize error")) {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         expect(apiResponseContent).to.include(expectedContent);
       } else {
         expect(apiResponseContent).to.equal(expectedContent);

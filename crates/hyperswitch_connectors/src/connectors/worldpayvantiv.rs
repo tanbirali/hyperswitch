@@ -1648,6 +1648,7 @@ static WORLDPAYVANTIV_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethod
             },
         );
 
+<<<<<<< HEAD
         #[cfg(feature = "v2")]
         worldpayvantiv_supported_payment_methods.add(
             common_enums::PaymentMethod::Card,
@@ -1668,6 +1669,8 @@ static WORLDPAYVANTIV_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethod
             },
         );
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         worldpayvantiv_supported_payment_methods.add(
             common_enums::PaymentMethod::Wallet,
             common_enums::PaymentMethodType::ApplePay,

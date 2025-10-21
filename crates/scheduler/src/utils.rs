@@ -386,6 +386,7 @@ pub fn get_pcr_payments_retry_schedule_time(
     }
 }
 
+<<<<<<< HEAD
 pub fn get_subscription_invoice_sync_retry_schedule_time(
     mapping: process_data::SubscriptionInvoiceSyncPTMapping,
     merchant_id: &common_utils::id_type::MerchantId,
@@ -403,6 +404,8 @@ pub fn get_subscription_invoice_sync_retry_schedule_time(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Get the delay based on the retry count
 pub fn get_delay<'a>(
     retry_count: i32,

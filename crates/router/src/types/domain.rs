@@ -10,13 +10,17 @@ mod merchant_account {
     pub use hyperswitch_domain_models::merchant_account::*;
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 mod business_profile {
     pub use hyperswitch_domain_models::business_profile::{
         Profile, ProfileGeneralUpdate, ProfileSetter, ProfileUpdate,
     };
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v1")]
 mod business_profile {
     pub use hyperswitch_domain_models::business_profile::{
@@ -24,6 +28,8 @@ mod business_profile {
     };
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod merchant_context {
     pub use hyperswitch_domain_models::merchant_context::{Context, MerchantContext};
 }

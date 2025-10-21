@@ -36,11 +36,14 @@ impl GlobalPaymentId {
     ) -> String {
         format!("{runner}_{task}_{}", self.get_string_repr())
     }
+<<<<<<< HEAD
 
     /// Generate a key for gift card connector
     pub fn get_gift_card_connector_key(&self) -> String {
         format!("gift_mca_{}", self.get_string_repr())
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 // TODO: refactor the macro to include this id use case as well

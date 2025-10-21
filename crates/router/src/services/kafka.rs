@@ -1,6 +1,10 @@
 use std::{collections::HashMap, sync::Arc};
 
+<<<<<<< HEAD
 use common_utils::{errors::CustomResult, types::TenantConfig};
+=======
+use common_utils::errors::CustomResult;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use error_stack::{report, ResultExt};
 use events::{EventsError, Message, MessagingInterface};
 use num_traits::ToPrimitive;
@@ -10,6 +14,10 @@ use rdkafka::{
     producer::{BaseRecord, DefaultProducerContext, Producer, ThreadedProducer},
 };
 use serde_json::Value;
+<<<<<<< HEAD
+=======
+use storage_impl::config::TenantConfig;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "payouts")]
 pub mod payout;
 use diesel_models::fraud_check::FraudCheck;

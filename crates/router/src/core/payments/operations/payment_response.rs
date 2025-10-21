@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 use std::{collections::HashMap, ops::Deref};
+=======
+use std::collections::HashMap;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use api_models::payments::{ConnectorMandateReferenceId, MandateReferenceId};
 #[cfg(feature = "dynamic_routing")]
@@ -61,7 +65,11 @@ use crate::{
 #[derive(Debug, Clone, Copy, router_derive::PaymentOperation)]
 #[operation(
     operations = "post_update_tracker",
+<<<<<<< HEAD
     flow = "sync_data, cancel_data, authorize_data, capture_data, complete_authorize_data, approve_data, reject_data, setup_mandate_data, session_data,incremental_authorization_data, sdk_session_update_data, post_session_tokens_data, update_metadata_data, cancel_post_capture_data, extend_authorization_data"
+=======
+    flow = "sync_data, cancel_data, authorize_data, capture_data, complete_authorize_data, approve_data, reject_data, setup_mandate_data, session_data,incremental_authorization_data, sdk_session_update_data, post_session_tokens_data, update_metadata_data, cancel_post_capture_data"
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 )]
 pub struct PaymentResponse;
 
@@ -421,8 +429,12 @@ impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsIncrementalAu
                         Some(
                             storage::PaymentAttemptUpdate::IncrementalAuthorizationAmountUpdate {
                                 net_amount: hyperswitch_domain_models::payments::payment_attempt::NetAmount::new(
+<<<<<<< HEAD
                                     // Internally, `NetAmount` is computed as (order_amount + additional_amount), so we subtract here to avoid double-counting.
                                     incremental_authorization_details.total_amount - payment_data.payment_attempt.net_amount.get_additional_amount(),
+=======
+                                    incremental_authorization_details.total_amount,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                     None,
                                     None,
                                     None,
@@ -433,7 +445,11 @@ impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsIncrementalAu
                         ),
                         Some(
                             storage::PaymentIntentUpdate::IncrementalAuthorizationAmountUpdate {
+<<<<<<< HEAD
                                 amount: incremental_authorization_details.total_amount - payment_data.payment_attempt.net_amount.get_additional_amount(),
+=======
+                                amount: incremental_authorization_details.total_amount,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             },
                         ),
                     )
@@ -1069,6 +1085,7 @@ impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsCancelPostCap
 
 #[cfg(feature = "v1")]
 #[async_trait]
+<<<<<<< HEAD
 impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsExtendAuthorizationData>
     for PaymentResponse
 {
@@ -1112,6 +1129,8 @@ impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsExtendAuthori
 
 #[cfg(feature = "v1")]
 #[async_trait]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsApproveData>
     for PaymentResponse
 {
@@ -1185,6 +1204,10 @@ impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::PaymentsRejectData> f
         Ok(payment_data)
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v1")]
 #[async_trait]
 impl<F: Clone> PostUpdateTracker<F, PaymentData<F>, types::SetupMandateRequestData>
@@ -1451,6 +1474,7 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
     // This is for details like whether 3ds was upgraded and which version of 3ds was used
     // also some connectors might send card network details in the response, which is captured and stored
 
+<<<<<<< HEAD
     let additional_payment_data = payment_data.payment_attempt.get_payment_method_data();
 
     let additional_payment_method_data = match payment_data.payment_method_data.clone() {
@@ -1474,6 +1498,47 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                 .transpose()?
                 .flatten()
         }
+=======
+    let additional_payment_method_data = match payment_data.payment_method_data.clone() {
+        Some(payment_method_data) => match payment_method_data {
+            hyperswitch_domain_models::payment_method_data::PaymentMethodData::Card(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::CardRedirect(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::Wallet(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::PayLater(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::BankRedirect(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::BankDebit(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::BankTransfer(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::Crypto(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::MandatePayment
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::Reward
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::RealTimePayment(
+                _,
+            )
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::MobilePayment(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::Upi(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::Voucher(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::GiftCard(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::CardToken(_)
+            | hyperswitch_domain_models::payment_method_data::PaymentMethodData::OpenBanking(_) => {
+                update_additional_payment_data_with_connector_response_pm_data(
+                    payment_data.payment_attempt.payment_method_data.clone(),
+                    router_data
+                        .connector_response
+                        .as_ref()
+                        .and_then(|connector_response| {
+                            connector_response.additional_payment_method_data.clone()
+                        }),
+                )?
+            }
+            hyperswitch_domain_models::payment_method_data::PaymentMethodData::NetworkToken(_) => {
+                payment_data.payment_attempt.payment_method_data.clone()
+            }
+            hyperswitch_domain_models::payment_method_data::PaymentMethodData::CardDetailsForNetworkTransactionId(_) => {
+                payment_data.payment_attempt.payment_method_data.clone()
+            }
+        },
+        None => None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     router_data.payment_method_status.and_then(|status| {
@@ -1570,9 +1635,15 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                             // Use the status sent by connector in error_response if it's present
                             Some(status) => status,
                             None =>
+<<<<<<< HEAD
                             // mark previous attempt status for technical failures in PSync and ExtendAuthorization flow
                             {
                                 if flow_name == "PSync" || flow_name == "ExtendAuthorization" {
+=======
+                            // mark previous attempt status for technical failures in PSync flow
+                            {
+                                if flow_name == "PSync" {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                     match err.status_code {
                                         // marking failure for 2xx because this is genuine payment failure
                                         200..=299 => enums::AttemptStatus::Failure,
@@ -1598,9 +1669,15 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                             Some(storage::PaymentAttemptUpdate::ErrorUpdate {
                                 connector: None,
                                 status,
+<<<<<<< HEAD
                                 error_message: Some(Some(err.message.clone())),
                                 error_code: Some(Some(err.code.clone())),
                                 error_reason: Some(err.reason.clone()),
+=======
+                                error_message: Some(Some(err.message)),
+                                error_code: Some(Some(err.code)),
+                                error_reason: Some(err.reason),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                 amount_capturable: router_data
                                     .request
                                     .get_amount_capturable(
@@ -1614,12 +1691,20 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                                 updated_by: storage_scheme.to_string(),
                                 unified_code: Some(Some(unified_code)),
                                 unified_message: Some(unified_translated_message),
+<<<<<<< HEAD
                                 connector_transaction_id: err.connector_transaction_id.clone(),
                                 payment_method_data: additional_payment_method_data,
                                 authentication_type: auth_update,
                                 issuer_error_code: err.network_decline_code.clone(),
                                 issuer_error_message: err.network_error_message.clone(),
                                 network_details: Some(ForeignFrom::foreign_from(&err)),
+=======
+                                connector_transaction_id: err.connector_transaction_id,
+                                payment_method_data: additional_payment_method_data,
+                                authentication_type: auth_update,
+                                issuer_error_code: err.network_decline_code,
+                                issuer_error_message: err.network_error_message,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             }),
                             option_gsm.and_then(|option_gsm| option_gsm.error_category),
                         )
@@ -1660,7 +1745,10 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                             authentication_type: auth_update,
                             issuer_error_code: None,
                             issuer_error_message: None,
+<<<<<<< HEAD
                             network_details: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         }),
                         None,
                     )
@@ -1879,6 +1967,7 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                                 payment_data.payment_attempt.connector.clone(),
                                 payment_data.payment_attempt.merchant_id.clone(),
                             );
+<<<<<<< HEAD
                             let is_overcapture_enabled = router_data
                                 .connector_response
                                 .as_ref()
@@ -1891,6 +1980,8 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                                                     .map(|enable_overcapture| common_types::primitive_wrappers::OvercaptureEnabledBool::new(*enable_overcapture.deref()))
                                             });
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             let (capture_before, extended_authorization_applied) = router_data
                                 .connector_response
                                 .as_ref()
@@ -1980,8 +2071,11 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                                             .setup_future_usage_applied,
                                         debit_routing_savings,
                                         network_transaction_id: resp_network_transaction_id,
+<<<<<<< HEAD
                                         is_overcapture_enabled,
                                         authorized_amount: router_data.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                     }),
                                 ),
                             };
@@ -2024,7 +2118,11 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                         types::PaymentsResponseData::TokenizationResponse { .. } => {
                             (None, None, None)
                         }
+<<<<<<< HEAD
                         types::PaymentsResponseData::ConnectorCustomerResponse(..) => {
+=======
+                        types::PaymentsResponseData::ConnectorCustomerResponse { .. } => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             (None, None, None)
                         }
                         types::PaymentsResponseData::ThreeDSEnrollmentResponse { .. } => {
@@ -2074,10 +2172,14 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                 multiple_capture_data.update_capture(updated_capture);
             }
 
+<<<<<<< HEAD
             let authorized_amount = payment_data
                 .payment_attempt
                 .authorized_amount
                 .unwrap_or_else(|| payment_data.payment_attempt.get_total_amount());
+=======
+            let authorized_amount = payment_data.payment_attempt.get_total_amount();
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             payment_attempt_update = Some(storage::PaymentAttemptUpdate::AmountToCaptureUpdate {
                 status: multiple_capture_data.get_attempt_status(authorized_amount),
@@ -2298,6 +2400,7 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                 async move {
                     let should_route_to_open_router =
                         state.conf.open_router.dynamic_routing_enabled;
+<<<<<<< HEAD
                     let is_success_rate_based = matches!(
                         payment_attempt.routing_approach,
                         Some(enums::RoutingApproach::SuccessRateExploitation)
@@ -2305,6 +2408,10 @@ async fn payment_response_update_tracker<F: Clone, T: types::Capturable>(
                     );
 
                     if should_route_to_open_router && is_success_rate_based {
+=======
+
+                    if should_route_to_open_router {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         routing_helpers::update_gateway_score_helper_with_open_router(
                             &state,
                             &payment_attempt,
@@ -3267,6 +3374,7 @@ fn get_total_amount_captured<F: Clone, T: types::Capturable>(
         }
     }
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v2")]
 impl<F: Send + Clone + Sync> Operation<F, types::PaymentsCancelData> for PaymentResponse {
@@ -3347,3 +3455,5 @@ impl<F: Clone + Send + Sync>
         Ok(payment_data)
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

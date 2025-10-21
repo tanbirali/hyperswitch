@@ -239,10 +239,13 @@ impl PaymentAttemptInterface for MockDb {
             connector_request_reference_id: payment_attempt.connector_request_reference_id,
             debit_routing_savings: None,
             network_transaction_id: payment_attempt.network_transaction_id,
+<<<<<<< HEAD
             is_overcapture_enabled: None,
             network_details: payment_attempt.network_details,
             is_stored_credential: payment_attempt.is_stored_credential,
             authorized_amount: payment_attempt.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
         payment_attempts.push(payment_attempt.clone());
         Ok(payment_attempt)

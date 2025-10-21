@@ -11,20 +11,34 @@ use common_utils::{
     pii, type_name,
     types::keymanager,
 };
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use diesel_models::business_profile::RevenueRecoveryAlgorithmData;
 use diesel_models::business_profile::{
     self as storage_types, AuthenticationConnectorDetails, BusinessPaymentLinkConfig,
     BusinessPayoutLinkConfig, CardTestingGuardConfig, ExternalVaultConnectorDetails,
     ProfileUpdateInternal, WebhookDetails,
+=======
+use diesel_models::business_profile::{
+    AuthenticationConnectorDetails, BusinessPaymentLinkConfig, BusinessPayoutLinkConfig,
+    CardTestingGuardConfig, ProfileUpdateInternal, WebhookDetails,
+};
+#[cfg(feature = "v2")]
+use diesel_models::business_profile::{
+    ExternalVaultConnectorDetails, RevenueRecoveryAlgorithmData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use error_stack::ResultExt;
 use masking::{ExposeInterface, PeekInterface, Secret};
 
 use crate::{
+<<<<<<< HEAD
     behaviour::Conversion,
     errors::api_error_response,
     merchant_key_store::MerchantKeyStore,
+=======
+    errors::api_error_response,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     type_encryption::{crypto_operation, AsyncLift, CryptoOperation},
 };
 #[cfg(feature = "v1")]
@@ -62,7 +76,10 @@ pub struct Profile {
     pub always_collect_shipping_details_from_wallet_connector: Option<bool>,
     pub tax_connector_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
     pub is_tax_connector_enabled: bool,
+<<<<<<< HEAD
     pub is_l2_l3_enabled: bool,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub version: common_enums::ApiVersion,
     pub dynamic_routing_algorithm: Option<serde_json::Value>,
     pub is_network_tokenization_enabled: bool,
@@ -86,6 +103,7 @@ pub struct Profile {
     pub merchant_category_code: Option<api_enums::MerchantCategoryCode>,
     pub merchant_country_code: Option<common_types::payments::MerchantCountryCode>,
     pub dispute_polling_interval: Option<primitive_wrappers::DisputePollingIntervalInHours>,
+<<<<<<< HEAD
     pub is_manual_retry_enabled: Option<bool>,
     pub always_enable_overcapture: Option<primitive_wrappers::AlwaysEnableOvercaptureBool>,
     pub external_vault_details: ExternalVaultDetails,
@@ -187,6 +205,8 @@ impl From<ExternalVaultDetails> for (Option<bool>, Option<ExternalVaultConnector
             ExternalVaultDetails::Skip => (Some(false), None),
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -223,7 +243,10 @@ pub struct ProfileSetter {
     pub always_collect_shipping_details_from_wallet_connector: Option<bool>,
     pub tax_connector_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
     pub is_tax_connector_enabled: bool,
+<<<<<<< HEAD
     pub is_l2_l3_enabled: bool,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub dynamic_routing_algorithm: Option<serde_json::Value>,
     pub is_network_tokenization_enabled: bool,
     pub is_auto_retries_enabled: bool,
@@ -244,10 +267,13 @@ pub struct ProfileSetter {
     pub merchant_category_code: Option<api_enums::MerchantCategoryCode>,
     pub merchant_country_code: Option<common_types::payments::MerchantCountryCode>,
     pub dispute_polling_interval: Option<primitive_wrappers::DisputePollingIntervalInHours>,
+<<<<<<< HEAD
     pub is_manual_retry_enabled: Option<bool>,
     pub always_enable_overcapture: Option<primitive_wrappers::AlwaysEnableOvercaptureBool>,
     pub external_vault_details: ExternalVaultDetails,
     pub billing_processor_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -290,7 +316,10 @@ impl From<ProfileSetter> for Profile {
                 .always_collect_shipping_details_from_wallet_connector,
             tax_connector_id: value.tax_connector_id,
             is_tax_connector_enabled: value.is_tax_connector_enabled,
+<<<<<<< HEAD
             is_l2_l3_enabled: value.is_l2_l3_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             version: common_types::consts::API_VERSION,
             dynamic_routing_algorithm: value.dynamic_routing_algorithm,
             is_network_tokenization_enabled: value.is_network_tokenization_enabled,
@@ -312,10 +341,13 @@ impl From<ProfileSetter> for Profile {
             merchant_category_code: value.merchant_category_code,
             merchant_country_code: value.merchant_country_code,
             dispute_polling_interval: value.dispute_polling_interval,
+<<<<<<< HEAD
             is_manual_retry_enabled: value.is_manual_retry_enabled,
             always_enable_overcapture: value.always_enable_overcapture,
             external_vault_details: value.external_vault_details,
             billing_processor_id: value.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -359,11 +391,16 @@ pub struct ProfileGeneralUpdate {
     pub outgoing_webhook_custom_http_headers: OptionalEncryptableValue,
     pub always_collect_billing_details_from_wallet_connector: Option<bool>,
     pub always_collect_shipping_details_from_wallet_connector: Option<bool>,
+<<<<<<< HEAD
     pub always_request_extended_authorization:
         Option<primitive_wrappers::AlwaysRequestExtendedAuthorization>,
     pub tax_connector_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
     pub is_tax_connector_enabled: Option<bool>,
     pub is_l2_l3_enabled: Option<bool>,
+=======
+    pub tax_connector_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
+    pub is_tax_connector_enabled: Option<bool>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub dynamic_routing_algorithm: Option<serde_json::Value>,
     pub is_network_tokenization_enabled: Option<bool>,
     pub is_auto_retries_enabled: Option<bool>,
@@ -382,11 +419,14 @@ pub struct ProfileGeneralUpdate {
     pub merchant_category_code: Option<api_enums::MerchantCategoryCode>,
     pub merchant_country_code: Option<common_types::payments::MerchantCountryCode>,
     pub dispute_polling_interval: Option<primitive_wrappers::DisputePollingIntervalInHours>,
+<<<<<<< HEAD
     pub is_manual_retry_enabled: Option<bool>,
     pub always_enable_overcapture: Option<primitive_wrappers::AlwaysEnableOvercaptureBool>,
     pub is_external_vault_enabled: Option<common_enums::ExternalVaultEnabled>,
     pub external_vault_connector_details: Option<ExternalVaultConnectorDetails>,
     pub billing_processor_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v1")]
@@ -452,7 +492,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     always_collect_shipping_details_from_wallet_connector,
                     tax_connector_id,
                     is_tax_connector_enabled,
+<<<<<<< HEAD
                     is_l2_l3_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     dynamic_routing_algorithm,
                     is_network_tokenization_enabled,
                     is_auto_retries_enabled,
@@ -470,6 +513,7 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     merchant_category_code,
                     merchant_country_code,
                     dispute_polling_interval,
+<<<<<<< HEAD
                     always_request_extended_authorization,
                     is_manual_retry_enabled,
                     always_enable_overcapture,
@@ -486,6 +530,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     None => Some(false),
                 };
 
+=======
+                } = *update;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 Self {
                     profile_name,
                     modified_at: now,
@@ -517,12 +565,19 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     always_collect_shipping_details_from_wallet_connector,
                     tax_connector_id,
                     is_tax_connector_enabled,
+<<<<<<< HEAD
                     is_l2_l3_enabled,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     dynamic_routing_algorithm,
                     is_network_tokenization_enabled,
                     is_auto_retries_enabled,
                     max_auto_retries_enabled,
+<<<<<<< HEAD
                     always_request_extended_authorization,
+=======
+                    always_request_extended_authorization: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     is_click_to_pay_enabled,
                     authentication_product_ids,
                     card_testing_guard_config,
@@ -538,11 +593,14 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     merchant_category_code,
                     merchant_country_code,
                     dispute_polling_interval,
+<<<<<<< HEAD
                     is_manual_retry_enabled,
                     always_enable_overcapture,
                     is_external_vault_enabled,
                     external_vault_connector_details,
                     billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 }
             }
             ProfileUpdate::RoutingAlgorithmUpdate {
@@ -599,12 +657,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::DynamicRoutingAlgorithmUpdate {
                 dynamic_routing_algorithm,
@@ -658,12 +719,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::ExtendedCardInfoUpdate {
                 is_extended_card_info_enabled,
@@ -717,12 +781,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::ConnectorAgnosticMitUpdate {
                 is_connector_agnostic_mit_enabled,
@@ -776,12 +843,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::NetworkTokenizationUpdate {
                 is_network_tokenization_enabled,
@@ -835,12 +905,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::CardTestingSecretKeyUpdate {
                 card_testing_secret_key,
@@ -894,12 +967,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::AcquirerConfigMapUpdate {
                 acquirer_config_map,
@@ -953,12 +1029,15 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 merchant_category_code: None,
                 merchant_country_code: None,
                 dispute_polling_interval: None,
+<<<<<<< HEAD
                 is_manual_retry_enabled: None,
                 always_enable_overcapture: None,
                 is_external_vault_enabled: None,
                 external_vault_connector_details: None,
                 billing_processor_id: None,
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         }
     }
@@ -966,14 +1045,21 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
 
 #[cfg(feature = "v1")]
 #[async_trait::async_trait]
+<<<<<<< HEAD
 impl Conversion for Profile {
+=======
+impl super::behaviour::Conversion for Profile {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     type DstType = diesel_models::business_profile::Profile;
     type NewDstType = diesel_models::business_profile::ProfileNew;
 
     async fn convert(self) -> CustomResult<Self::DstType, ValidationError> {
+<<<<<<< HEAD
         let (is_external_vault_enabled, external_vault_connector_details) =
             self.external_vault_details.into();
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(diesel_models::business_profile::Profile {
             profile_id: self.profile_id.clone(),
             id: Some(self.profile_id),
@@ -1014,7 +1100,10 @@ impl Conversion for Profile {
                 .always_collect_shipping_details_from_wallet_connector,
             tax_connector_id: self.tax_connector_id,
             is_tax_connector_enabled: Some(self.is_tax_connector_enabled),
+<<<<<<< HEAD
             is_l2_l3_enabled: Some(self.is_l2_l3_enabled),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             version: self.version,
             dynamic_routing_algorithm: self.dynamic_routing_algorithm,
             is_network_tokenization_enabled: self.is_network_tokenization_enabled,
@@ -1036,11 +1125,14 @@ impl Conversion for Profile {
             merchant_category_code: self.merchant_category_code,
             merchant_country_code: self.merchant_country_code,
             dispute_polling_interval: self.dispute_polling_interval,
+<<<<<<< HEAD
             is_manual_retry_enabled: self.is_manual_retry_enabled,
             always_enable_overcapture: self.always_enable_overcapture,
             is_external_vault_enabled,
             external_vault_connector_details,
             billing_processor_id: self.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -1053,6 +1145,7 @@ impl Conversion for Profile {
     where
         Self: Sized,
     {
+<<<<<<< HEAD
         // Decrypt encrypted fields first
         let (outgoing_webhook_custom_http_headers, card_testing_secret_key) = async {
             let outgoing_webhook_custom_http_headers = item
@@ -1089,10 +1182,101 @@ impl Conversion for Profile {
                 outgoing_webhook_custom_http_headers,
                 card_testing_secret_key,
             ))
+=======
+        async {
+            Ok::<Self, error_stack::Report<common_utils::errors::CryptoError>>(Self {
+                profile_id: item.profile_id,
+                merchant_id: item.merchant_id,
+                profile_name: item.profile_name,
+                created_at: item.created_at,
+                modified_at: item.modified_at,
+                return_url: item.return_url,
+                enable_payment_response_hash: item.enable_payment_response_hash,
+                payment_response_hash_key: item.payment_response_hash_key,
+                redirect_to_merchant_with_http_post: item.redirect_to_merchant_with_http_post,
+                webhook_details: item.webhook_details,
+                metadata: item.metadata,
+                routing_algorithm: item.routing_algorithm,
+                intent_fulfillment_time: item.intent_fulfillment_time,
+                frm_routing_algorithm: item.frm_routing_algorithm,
+                payout_routing_algorithm: item.payout_routing_algorithm,
+                is_recon_enabled: item.is_recon_enabled,
+                applepay_verified_domains: item.applepay_verified_domains,
+                payment_link_config: item.payment_link_config,
+                session_expiry: item.session_expiry,
+                authentication_connector_details: item.authentication_connector_details,
+                payout_link_config: item.payout_link_config,
+                is_extended_card_info_enabled: item.is_extended_card_info_enabled,
+                extended_card_info_config: item.extended_card_info_config,
+                is_connector_agnostic_mit_enabled: item.is_connector_agnostic_mit_enabled,
+                use_billing_as_payment_method_billing: item.use_billing_as_payment_method_billing,
+                collect_shipping_details_from_wallet_connector: item
+                    .collect_shipping_details_from_wallet_connector,
+                collect_billing_details_from_wallet_connector: item
+                    .collect_billing_details_from_wallet_connector,
+                always_collect_billing_details_from_wallet_connector: item
+                    .always_collect_billing_details_from_wallet_connector,
+                always_collect_shipping_details_from_wallet_connector: item
+                    .always_collect_shipping_details_from_wallet_connector,
+                outgoing_webhook_custom_http_headers: item
+                    .outgoing_webhook_custom_http_headers
+                    .async_lift(|inner| async {
+                        crypto_operation(
+                            state,
+                            type_name!(Self::DstType),
+                            CryptoOperation::DecryptOptional(inner),
+                            key_manager_identifier.clone(),
+                            key.peek(),
+                        )
+                        .await
+                        .and_then(|val| val.try_into_optionaloperation())
+                    })
+                    .await?,
+                tax_connector_id: item.tax_connector_id,
+                is_tax_connector_enabled: item.is_tax_connector_enabled.unwrap_or(false),
+                version: item.version,
+                dynamic_routing_algorithm: item.dynamic_routing_algorithm,
+                is_network_tokenization_enabled: item.is_network_tokenization_enabled,
+                is_auto_retries_enabled: item.is_auto_retries_enabled.unwrap_or(false),
+                max_auto_retries_enabled: item.max_auto_retries_enabled,
+                always_request_extended_authorization: item.always_request_extended_authorization,
+                is_click_to_pay_enabled: item.is_click_to_pay_enabled,
+                authentication_product_ids: item.authentication_product_ids,
+                card_testing_guard_config: item.card_testing_guard_config,
+                card_testing_secret_key: item
+                    .card_testing_secret_key
+                    .async_lift(|inner| async {
+                        crypto_operation(
+                            state,
+                            type_name!(Self::DstType),
+                            CryptoOperation::DecryptOptional(inner),
+                            key_manager_identifier.clone(),
+                            key.peek(),
+                        )
+                        .await
+                        .and_then(|val| val.try_into_optionaloperation())
+                    })
+                    .await?,
+                is_clear_pan_retries_enabled: item.is_clear_pan_retries_enabled,
+                force_3ds_challenge: item.force_3ds_challenge.unwrap_or_default(),
+                is_debit_routing_enabled: item.is_debit_routing_enabled,
+                merchant_business_country: item.merchant_business_country,
+                is_iframe_redirection_enabled: item.is_iframe_redirection_enabled,
+                is_pre_network_tokenization_enabled: item
+                    .is_pre_network_tokenization_enabled
+                    .unwrap_or(false),
+                three_ds_decision_rule_algorithm: item.three_ds_decision_rule_algorithm,
+                acquirer_config_map: item.acquirer_config_map,
+                merchant_category_code: item.merchant_category_code,
+                merchant_country_code: item.merchant_country_code,
+                dispute_polling_interval: item.dispute_polling_interval,
+            })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
         .await
         .change_context(ValidationError::InvalidValue {
             message: "Failed while decrypting business profile data".to_string(),
+<<<<<<< HEAD
         })?;
 
         let external_vault_details = ExternalVaultDetails::try_from((
@@ -1166,13 +1350,18 @@ impl Conversion for Profile {
             always_enable_overcapture: item.always_enable_overcapture,
             external_vault_details,
             billing_processor_id: item.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
     async fn construct_new(self) -> CustomResult<Self::NewDstType, ValidationError> {
+<<<<<<< HEAD
         let (is_external_vault_enabled, external_vault_connector_details) =
             self.external_vault_details.into();
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(diesel_models::business_profile::ProfileNew {
             profile_id: self.profile_id.clone(),
             id: Some(self.profile_id),
@@ -1213,7 +1402,10 @@ impl Conversion for Profile {
                 .always_collect_shipping_details_from_wallet_connector,
             tax_connector_id: self.tax_connector_id,
             is_tax_connector_enabled: Some(self.is_tax_connector_enabled),
+<<<<<<< HEAD
             is_l2_l3_enabled: Some(self.is_l2_l3_enabled),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             version: self.version,
             is_network_tokenization_enabled: self.is_network_tokenization_enabled,
             is_auto_retries_enabled: Some(self.is_auto_retries_enabled),
@@ -1231,10 +1423,13 @@ impl Conversion for Profile {
             merchant_category_code: self.merchant_category_code,
             merchant_country_code: self.merchant_country_code,
             dispute_polling_interval: self.dispute_polling_interval,
+<<<<<<< HEAD
             is_manual_retry_enabled: self.is_manual_retry_enabled,
             is_external_vault_enabled,
             external_vault_connector_details,
             billing_processor_id: self.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -1296,8 +1491,11 @@ pub struct Profile {
     pub external_vault_connector_details: Option<ExternalVaultConnectorDetails>,
     pub merchant_category_code: Option<api_enums::MerchantCategoryCode>,
     pub merchant_country_code: Option<common_types::payments::MerchantCountryCode>,
+<<<<<<< HEAD
     pub split_txns_enabled: common_enums::SplitTxnsEnabled,
     pub billing_processor_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v2")]
@@ -1355,8 +1553,11 @@ pub struct ProfileSetter {
     pub external_vault_connector_details: Option<ExternalVaultConnectorDetails>,
     pub merchant_category_code: Option<api_enums::MerchantCategoryCode>,
     pub merchant_country_code: Option<common_types::payments::MerchantCountryCode>,
+<<<<<<< HEAD
     pub split_txns_enabled: common_enums::SplitTxnsEnabled,
     pub billing_processor_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v2")]
@@ -1419,8 +1620,11 @@ impl From<ProfileSetter> for Profile {
             external_vault_connector_details: value.external_vault_connector_details,
             merchant_category_code: value.merchant_category_code,
             merchant_country_code: value.merchant_country_code,
+<<<<<<< HEAD
             split_txns_enabled: value.split_txns_enabled,
             billing_processor_id: value.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1566,6 +1770,7 @@ impl Profile {
                 Cow::Borrowed(common_types::consts::DEFAULT_PAYOUT_WEBHOOK_TRIGGER_STATUSES)
             })
     }
+<<<<<<< HEAD
 
     pub fn get_billing_processor_id(
         &self,
@@ -1581,6 +1786,8 @@ impl Profile {
                 }
             ))
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v2")]
@@ -1623,8 +1830,11 @@ pub struct ProfileGeneralUpdate {
     pub merchant_category_code: Option<api_enums::MerchantCategoryCode>,
     pub merchant_country_code: Option<common_types::payments::MerchantCountryCode>,
     pub revenue_recovery_retry_algorithm_type: Option<common_enums::RevenueRecoveryAlgorithmType>,
+<<<<<<< HEAD
     pub split_txns_enabled: Option<common_enums::SplitTxnsEnabled>,
     pub billing_processor_id: Option<common_utils::id_type::MerchantConnectorAccountId>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "v2")]
@@ -1706,8 +1916,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     merchant_category_code,
                     merchant_country_code,
                     revenue_recovery_retry_algorithm_type,
+<<<<<<< HEAD
                     split_txns_enabled,
                     billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 } = *update;
                 Self {
                     profile_name,
@@ -1743,7 +1956,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     should_collect_cvv_during_payment: None,
                     tax_connector_id: None,
                     is_tax_connector_enabled: None,
+<<<<<<< HEAD
                     is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     is_network_tokenization_enabled,
                     is_auto_retries_enabled: None,
                     max_auto_retries_enabled: None,
@@ -1762,8 +1978,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                     external_vault_connector_details,
                     merchant_category_code,
                     merchant_country_code,
+<<<<<<< HEAD
                     split_txns_enabled,
                     billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 }
             }
             ProfileUpdate::RoutingAlgorithmUpdate {
@@ -1802,7 +2021,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 should_collect_cvv_during_payment: None,
                 tax_connector_id: None,
                 is_tax_connector_enabled: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 is_network_tokenization_enabled: None,
                 is_auto_retries_enabled: None,
                 max_auto_retries_enabled: None,
@@ -1821,8 +2043,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::ExtendedCardInfoUpdate {
                 is_extended_card_info_enabled,
@@ -1859,7 +2084,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 should_collect_cvv_during_payment: None,
                 tax_connector_id: None,
                 is_tax_connector_enabled: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 is_network_tokenization_enabled: None,
                 is_auto_retries_enabled: None,
                 max_auto_retries_enabled: None,
@@ -1878,8 +2106,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::ConnectorAgnosticMitUpdate {
                 is_connector_agnostic_mit_enabled,
@@ -1895,7 +2126,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 is_recon_enabled: None,
                 applepay_verified_domains: None,
                 payment_link_config: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 session_expiry: None,
                 authentication_connector_details: None,
                 payout_link_config: None,
@@ -1935,8 +2169,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::DefaultRoutingFallbackUpdate {
                 default_fallback_routing,
@@ -1951,7 +2188,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 metadata: None,
                 is_recon_enabled: None,
                 applepay_verified_domains: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 payment_link_config: None,
                 session_expiry: None,
                 authentication_connector_details: None,
@@ -1992,8 +2232,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::NetworkTokenizationUpdate {
                 is_network_tokenization_enabled,
@@ -2002,7 +2245,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 modified_at: now,
                 return_url: None,
                 enable_payment_response_hash: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 payment_response_hash_key: None,
                 redirect_to_merchant_with_http_post: None,
                 webhook_details: None,
@@ -2049,8 +2295,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::CollectCvvDuringPaymentUpdate {
                 should_collect_cvv_during_payment,
@@ -2092,7 +2341,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 max_auto_retries_enabled: None,
                 is_click_to_pay_enabled: None,
                 authentication_product_ids: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 three_ds_decision_manager_config: None,
                 card_testing_guard_config: None,
                 card_testing_secret_key: None,
@@ -2106,8 +2358,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::DecisionManagerRecordUpdate {
                 three_ds_decision_manager_config,
@@ -2152,7 +2407,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 three_ds_decision_manager_config: Some(three_ds_decision_manager_config),
                 card_testing_guard_config: None,
                 card_testing_secret_key: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 is_clear_pan_retries_enabled: None,
                 is_debit_routing_enabled: None,
                 merchant_business_country: None,
@@ -2163,8 +2421,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::CardTestingSecretKeyUpdate {
                 card_testing_secret_key,
@@ -2211,7 +2472,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 card_testing_secret_key: card_testing_secret_key.map(Encryption::from),
                 is_clear_pan_retries_enabled: None,
                 is_debit_routing_enabled: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 merchant_business_country: None,
                 revenue_recovery_retry_algorithm_type: None,
                 revenue_recovery_retry_algorithm_data: None,
@@ -2220,8 +2484,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ProfileUpdate::RevenueRecoveryAlgorithmUpdate {
                 revenue_recovery_retry_algorithm_type,
@@ -2251,7 +2518,10 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 always_collect_billing_details_from_wallet_connector: None,
                 always_collect_shipping_details_from_wallet_connector: None,
                 routing_algorithm_id: None,
+<<<<<<< HEAD
                 is_l2_l3_enabled: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 payout_routing_algorithm_id: None,
                 order_fulfillment_time: None,
                 order_fulfillment_time_origin: None,
@@ -2278,8 +2548,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
                 external_vault_connector_details: None,
                 merchant_category_code: None,
                 merchant_country_code: None,
+<<<<<<< HEAD
                 split_txns_enabled: None,
                 billing_processor_id: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         }
     }
@@ -2287,7 +2560,11 @@ impl From<ProfileUpdate> for ProfileUpdateInternal {
 
 #[cfg(feature = "v2")]
 #[async_trait::async_trait]
+<<<<<<< HEAD
 impl Conversion for Profile {
+=======
+impl super::behaviour::Conversion for Profile {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     type DstType = diesel_models::business_profile::Profile;
     type NewDstType = diesel_models::business_profile::ProfileNew;
 
@@ -2359,11 +2636,14 @@ impl Conversion for Profile {
             merchant_category_code: self.merchant_category_code,
             merchant_country_code: self.merchant_country_code,
             dispute_polling_interval: None,
+<<<<<<< HEAD
             split_txns_enabled: Some(self.split_txns_enabled),
             is_manual_retry_enabled: None,
             is_l2_l3_enabled: None,
             always_enable_overcapture: None,
             billing_processor_id: self.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -2459,8 +2739,11 @@ impl Conversion for Profile {
                 external_vault_connector_details: item.external_vault_connector_details,
                 merchant_category_code: item.merchant_category_code,
                 merchant_country_code: item.merchant_country_code,
+<<<<<<< HEAD
                 split_txns_enabled: item.split_txns_enabled.unwrap_or_default(),
                 billing_processor_id: item.billing_processor_id,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
         }
         .await
@@ -2530,6 +2813,7 @@ impl Conversion for Profile {
             is_external_vault_enabled: self.is_external_vault_enabled,
             external_vault_connector_details: self.external_vault_connector_details,
             merchant_category_code: self.merchant_category_code,
+<<<<<<< HEAD
             is_l2_l3_enabled: None,
             merchant_country_code: self.merchant_country_code,
             split_txns_enabled: Some(self.split_txns_enabled),
@@ -2595,3 +2879,9 @@ where
         merchant_id: &common_utils::id_type::MerchantId,
     ) -> CustomResult<Vec<Profile>, Self::Error>;
 }
+=======
+            merchant_country_code: self.merchant_country_code,
+        })
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

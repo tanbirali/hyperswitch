@@ -14,11 +14,18 @@ pub mod barclaycard;
 pub mod billwerk;
 pub mod bitpay;
 pub mod blackhawknetwork;
+<<<<<<< HEAD
+=======
+pub mod bluecode;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod bluesnap;
 pub mod boku;
 pub mod braintree;
 pub mod breadpay;
+<<<<<<< HEAD
 pub mod calida;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod cashtocode;
 pub mod celero;
 pub mod chargebee;
@@ -40,14 +47,20 @@ pub mod dwolla;
 pub mod ebanx;
 pub mod elavon;
 pub mod facilitapay;
+<<<<<<< HEAD
 pub mod finix;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod fiserv;
 pub mod fiservemea;
 pub mod fiuu;
 pub mod flexiti;
 pub mod forte;
 pub mod getnet;
+<<<<<<< HEAD
 pub mod gigadat;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod globalpay;
 pub mod globepay;
 pub mod gocardless;
@@ -63,7 +76,10 @@ pub mod jpmorgan;
 pub mod juspaythreedsserver;
 pub mod katapult;
 pub mod klarna;
+<<<<<<< HEAD
 pub mod loonio;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod mifinity;
 pub mod mollie;
 pub mod moneris;
@@ -90,7 +106,10 @@ pub mod paysafe;
 pub mod paystack;
 pub mod paytm;
 pub mod payu;
+<<<<<<< HEAD
 pub mod peachpayments;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod phonepe;
 pub mod placetopay;
 pub mod plaid;
@@ -111,10 +130,15 @@ pub mod stax;
 pub mod stripe;
 pub mod stripebilling;
 pub mod taxjar;
+<<<<<<< HEAD
 pub mod tesouro;
 pub mod threedsecureio;
 pub mod thunes;
 pub mod tokenex;
+=======
+pub mod threedsecureio;
+pub mod thunes;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod tokenio;
 pub mod trustpay;
 pub mod trustpayments;
@@ -139,12 +163,18 @@ pub use self::{
     amazonpay::Amazonpay, archipel::Archipel, authipay::Authipay, authorizedotnet::Authorizedotnet,
     bambora::Bambora, bamboraapac::Bamboraapac, bankofamerica::Bankofamerica,
     barclaycard::Barclaycard, billwerk::Billwerk, bitpay::Bitpay,
+<<<<<<< HEAD
     blackhawknetwork::Blackhawknetwork, bluesnap::Bluesnap, boku::Boku, braintree::Braintree,
     breadpay::Breadpay, calida::Calida, cashtocode::Cashtocode, celero::Celero,
+=======
+    blackhawknetwork::Blackhawknetwork, bluecode::Bluecode, bluesnap::Bluesnap, boku::Boku,
+    braintree::Braintree, breadpay::Breadpay, cashtocode::Cashtocode, celero::Celero,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     chargebee::Chargebee, checkbook::Checkbook, checkout::Checkout, coinbase::Coinbase,
     coingate::Coingate, cryptopay::Cryptopay, ctp_mastercard::CtpMastercard,
     custombilling::Custombilling, cybersource::Cybersource, datatrans::Datatrans,
     deutschebank::Deutschebank, digitalvirgo::Digitalvirgo, dlocal::Dlocal, dwolla::Dwolla,
+<<<<<<< HEAD
     ebanx::Ebanx, elavon::Elavon, facilitapay::Facilitapay, finix::Finix, fiserv::Fiserv,
     fiservemea::Fiservemea, fiuu::Fiuu, flexiti::Flexiti, forte::Forte, getnet::Getnet,
     gigadat::Gigadat, globalpay::Globalpay, globepay::Globepay, gocardless::Gocardless,
@@ -162,6 +192,24 @@ pub use self::{
     santander::Santander, shift4::Shift4, sift::Sift, signifyd::Signifyd, silverflow::Silverflow,
     square::Square, stax::Stax, stripe::Stripe, stripebilling::Stripebilling, taxjar::Taxjar,
     tesouro::Tesouro, threedsecureio::Threedsecureio, thunes::Thunes, tokenex::Tokenex,
+=======
+    ebanx::Ebanx, elavon::Elavon, facilitapay::Facilitapay, fiserv::Fiserv, fiservemea::Fiservemea,
+    fiuu::Fiuu, flexiti::Flexiti, forte::Forte, getnet::Getnet, globalpay::Globalpay,
+    globepay::Globepay, gocardless::Gocardless, gpayments::Gpayments, helcim::Helcim, hipay::Hipay,
+    hyperswitch_vault::HyperswitchVault, hyperwallet::Hyperwallet, iatapay::Iatapay,
+    inespay::Inespay, itaubank::Itaubank, jpmorgan::Jpmorgan,
+    juspaythreedsserver::Juspaythreedsserver, katapult::Katapult, klarna::Klarna,
+    mifinity::Mifinity, mollie::Mollie, moneris::Moneris, mpgs::Mpgs, multisafepay::Multisafepay,
+    netcetera::Netcetera, nexinets::Nexinets, nexixpay::Nexixpay, nmi::Nmi, nomupay::Nomupay,
+    noon::Noon, nordea::Nordea, novalnet::Novalnet, nuvei::Nuvei, opayo::Opayo, opennode::Opennode,
+    paybox::Paybox, payeezy::Payeezy, payload::Payload, payme::Payme, payone::Payone,
+    paypal::Paypal, paysafe::Paysafe, paystack::Paystack, paytm::Paytm, payu::Payu,
+    phonepe::Phonepe, placetopay::Placetopay, plaid::Plaid, powertranz::Powertranz,
+    prophetpay::Prophetpay, rapyd::Rapyd, razorpay::Razorpay, recurly::Recurly, redsys::Redsys,
+    riskified::Riskified, santander::Santander, shift4::Shift4, sift::Sift, signifyd::Signifyd,
+    silverflow::Silverflow, square::Square, stax::Stax, stripe::Stripe,
+    stripebilling::Stripebilling, taxjar::Taxjar, threedsecureio::Threedsecureio, thunes::Thunes,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     tokenio::Tokenio, trustpay::Trustpay, trustpayments::Trustpayments, tsys::Tsys,
     unified_authentication_service::UnifiedAuthenticationService, vgs::Vgs, volt::Volt,
     wellsfargo::Wellsfargo, wellsfargopayout::Wellsfargopayout, wise::Wise, worldline::Worldline,

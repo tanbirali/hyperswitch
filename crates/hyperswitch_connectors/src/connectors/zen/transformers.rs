@@ -486,7 +486,10 @@ impl
             ),
             WalletData::WeChatPayRedirect(_)
             | WalletData::PaypalRedirect(_)
+<<<<<<< HEAD
             | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | WalletData::ApplePay(_)
             | WalletData::GooglePay(_)
             | WalletData::BluecodeRedirect {}
@@ -784,6 +787,7 @@ impl TryFrom<&BankDebitData> for ZenPaymentsRequest {
             BankDebitData::AchBankDebit { .. }
             | BankDebitData::SepaBankDebit { .. }
             | BankDebitData::BecsBankDebit { .. }
+<<<<<<< HEAD
             | BankDebitData::BacsBankDebit { .. }
             | BankDebitData::SepaGuarenteedBankDebit { .. } => {
                 Err(errors::ConnectorError::NotImplemented(
@@ -791,6 +795,12 @@ impl TryFrom<&BankDebitData> for ZenPaymentsRequest {
                 )
                 .into())
             }
+=======
+            | BankDebitData::BacsBankDebit { .. } => Err(errors::ConnectorError::NotImplemented(
+                utils::get_unimplemented_payment_method_error_message("Zen"),
+            )
+            .into()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

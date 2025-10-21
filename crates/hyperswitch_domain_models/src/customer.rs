@@ -6,7 +6,10 @@ use common_utils::{
     date_time,
     encryption::Encryption,
     errors::{CustomResult, ValidationError},
+<<<<<<< HEAD
     ext_traits::ValueExt,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     id_type, pii,
     types::{
         keymanager::{self, KeyManagerState, ToEncryptable},
@@ -17,8 +20,12 @@ use diesel_models::{
     customers as storage_types, customers::CustomerUpdateInternal, query::customers as query,
 };
 use error_stack::ResultExt;
+<<<<<<< HEAD
 use masking::{ExposeOptionInterface, PeekInterface, Secret, SwitchStrategy};
 use router_env::{instrument, tracing};
+=======
+use masking::{PeekInterface, Secret, SwitchStrategy};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use rustc_hash::FxHashMap;
 use time::PrimitiveDateTime;
 
@@ -94,6 +101,7 @@ impl Customer {
 
     /// Get the connector customer ID for the specified connector label, if present
     #[cfg(feature = "v1")]
+<<<<<<< HEAD
     pub fn get_connector_customer_map(
         &self,
     ) -> FxHashMap<id_type::MerchantConnectorAccountId, String> {
@@ -111,6 +119,8 @@ impl Customer {
 
     /// Get the connector customer ID for the specified connector label, if present
     #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fn get_connector_customer_id(&self, connector_label: &str) -> Option<&str> {
         use masking::PeekInterface;
 
@@ -557,8 +567,11 @@ impl From<CustomerUpdate> for CustomerUpdateInternal {
 pub struct CustomerListConstraints {
     pub limit: u16,
     pub offset: Option<u32>,
+<<<<<<< HEAD
     pub customer_id: Option<id_type::CustomerId>,
     pub time_range: Option<common_utils::types::TimeRange>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<CustomerListConstraints> for query::CustomerListConstraints {
@@ -566,8 +579,11 @@ impl From<CustomerListConstraints> for query::CustomerListConstraints {
         Self {
             limit: i64::from(value.limit),
             offset: value.offset.map(i64::from),
+<<<<<<< HEAD
             customer_id: value.customer_id,
             time_range: value.time_range,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -659,6 +675,7 @@ where
         constraints: CustomerListConstraints,
     ) -> CustomResult<Vec<Customer>, Self::Error>;
 
+<<<<<<< HEAD
     async fn list_customers_by_merchant_id_with_count(
         &self,
         state: &KeyManagerState,
@@ -667,6 +684,8 @@ where
         constraints: CustomerListConstraints,
     ) -> CustomResult<(Vec<Customer>, usize), Self::Error>;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     async fn insert_customer(
         &self,
         customer_data: Customer,
@@ -696,6 +715,7 @@ where
         storage_scheme: MerchantStorageScheme,
     ) -> CustomResult<Customer, Self::Error>;
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v1")]
 #[instrument]
@@ -750,3 +770,5 @@ pub async fn update_connector_customer_in_customers(
         }
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

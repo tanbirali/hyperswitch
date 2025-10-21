@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 pub use hyperswitch_domain_models::customer::update_connector_customer_in_customers;
 use hyperswitch_interfaces::api::ConnectorSpecifications;
+=======
+use common_utils::pii;
+use masking::ExposeOptionInterface;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use router_env::{instrument, tracing};
 
 use crate::{
@@ -10,7 +15,11 @@ use crate::{
     logger,
     routes::{metrics, SessionState},
     services,
+<<<<<<< HEAD
     types::{self, api, domain},
+=======
+    types::{self, api, domain, storage},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 #[instrument(skip_all)]
@@ -60,9 +69,15 @@ pub async fn create_connector_customer<F: Clone, T: Clone>(
 
     let connector_customer_id = match resp.response {
         Ok(response) => match response {
+<<<<<<< HEAD
             types::PaymentsResponseData::ConnectorCustomerResponse(customer_data) => {
                 Some(customer_data.connector_customer_id)
             }
+=======
+            types::PaymentsResponseData::ConnectorCustomerResponse {
+                connector_customer_id,
+            } => Some(connector_customer_id),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             _ => None,
         },
         Err(err) => {
@@ -76,6 +91,7 @@ pub async fn create_connector_customer<F: Clone, T: Clone>(
 
 #[cfg(feature = "v1")]
 pub fn should_call_connector_create_customer<'a>(
+<<<<<<< HEAD
     connector: &api::ConnectorData,
     customer: &'a Option<domain::Customer>,
     payment_attempt: &hyperswitch_domain_models::payments::payment_attempt::PaymentAttempt,
@@ -85,6 +101,19 @@ pub fn should_call_connector_create_customer<'a>(
     let connector_needs_customer = connector
         .connector
         .should_call_connector_customer(payment_attempt);
+=======
+    state: &SessionState,
+    connector: &api::ConnectorData,
+    customer: &'a Option<domain::Customer>,
+    connector_label: &str,
+) -> (bool, Option<&'a str>) {
+    // Check if create customer is required for the connector
+    let connector_needs_customer = state
+        .conf
+        .connector_customer
+        .connector_list
+        .contains(&connector.connector_name);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let connector_customer_details = customer
         .as_ref()
         .and_then(|customer| customer.get_connector_customer_id(connector_label));
@@ -100,17 +129,31 @@ pub fn should_call_connector_create_customer<'a>(
 
 #[cfg(feature = "v2")]
 pub fn should_call_connector_create_customer<'a>(
+<<<<<<< HEAD
     connector: &api::ConnectorData,
     customer: &'a Option<domain::Customer>,
     payment_attempt: &hyperswitch_domain_models::payments::payment_attempt::PaymentAttempt,
+=======
+    state: &SessionState,
+    connector: &api::ConnectorData,
+    customer: &'a Option<domain::Customer>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
 ) -> (bool, Option<&'a str>) {
     // Check if create customer is required for the connector
     match merchant_connector_account {
         domain::MerchantConnectorAccountTypeDetails::MerchantConnectorAccount(_) => {
+<<<<<<< HEAD
             let connector_needs_customer = connector
                 .connector
                 .should_call_connector_customer(payment_attempt);
+=======
+            let connector_needs_customer = state
+                .conf
+                .connector_customer
+                .connector_list
+                .contains(&connector.connector_name);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
             if connector_needs_customer {
                 let connector_customer_details = customer
@@ -129,3 +172,60 @@ pub fn should_call_connector_create_customer<'a>(
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+#[cfg(feature = "v1")]
+#[instrument]
+pub async fn update_connector_customer_in_customers(
+    connector_label: &str,
+    customer: Option<&domain::Customer>,
+    connector_customer_id: Option<String>,
+) -> Option<storage::CustomerUpdate> {
+    let mut connector_customer_map = customer
+        .and_then(|customer| customer.connector_customer.clone().expose_option())
+        .and_then(|connector_customer| connector_customer.as_object().cloned())
+        .unwrap_or_default();
+
+    let updated_connector_customer_map = connector_customer_id.map(|connector_customer_id| {
+        let connector_customer_value = serde_json::Value::String(connector_customer_id);
+        connector_customer_map.insert(connector_label.to_string(), connector_customer_value);
+        connector_customer_map
+    });
+
+    updated_connector_customer_map
+        .map(serde_json::Value::Object)
+        .map(
+            |connector_customer_value| storage::CustomerUpdate::ConnectorCustomer {
+                connector_customer: Some(pii::SecretSerdeValue::new(connector_customer_value)),
+            },
+        )
+}
+
+#[cfg(feature = "v2")]
+#[instrument]
+pub async fn update_connector_customer_in_customers(
+    merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
+    customer: Option<&domain::Customer>,
+    connector_customer_id: Option<String>,
+) -> Option<storage::CustomerUpdate> {
+    match merchant_connector_account {
+        domain::MerchantConnectorAccountTypeDetails::MerchantConnectorAccount(account) => {
+            connector_customer_id.map(|new_conn_cust_id| {
+                let connector_account_id = account.get_id().clone();
+                let mut connector_customer_map = customer
+                    .and_then(|customer| customer.connector_customer.clone())
+                    .unwrap_or_default();
+                connector_customer_map.insert(connector_account_id, new_conn_cust_id);
+                storage::CustomerUpdate::ConnectorCustomer {
+                    connector_customer: Some(connector_customer_map),
+                }
+            })
+        }
+        // TODO: Construct connector_customer for MerchantConnectorDetails if required by connector.
+        domain::MerchantConnectorAccountTypeDetails::MerchantConnectorDetails(_) => {
+            todo!("Handle connector_customer construction for MerchantConnectorDetails");
+        }
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

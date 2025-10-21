@@ -6,17 +6,31 @@ use api_models::{
     payment_methods::{self},
     payments::{additional_info as payment_additional_types, ExtendedCardInfo},
 };
+<<<<<<< HEAD
 use common_enums::{enums as api_enums, GooglePayCardFundingSource};
 use common_utils::{
     ext_traits::{OptionExt, StringExt},
+=======
+use common_enums::enums as api_enums;
+#[cfg(feature = "v2")]
+use common_utils::ext_traits::OptionExt;
+use common_utils::{
+    ext_traits::StringExt,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     id_type,
     new_type::{
         MaskedBankAccount, MaskedIban, MaskedRoutingNumber, MaskedSortCode, MaskedUpiVpaId,
     },
+<<<<<<< HEAD
     payout_method_utils,
     pii::{self, Email},
 };
 use masking::{ExposeInterface, PeekInterface, Secret};
+=======
+    pii::{self, Email},
+};
+use masking::{PeekInterface, Secret};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use serde::{Deserialize, Serialize};
 use time::Date;
 
@@ -51,7 +65,11 @@ pub enum ExternalVaultPaymentMethodData {
     VaultToken(VaultToken),
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
+=======
+#[derive(Debug, Clone, PartialEq, Eq)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub enum ApplePayFlow {
     Simplified(api_models::payments::PaymentProcessingDetails),
     Manual,
@@ -280,7 +298,10 @@ pub enum WalletData {
     AliPayQr(Box<AliPayQr>),
     AliPayRedirect(AliPayRedirection),
     AliPayHkRedirect(AliPayHkRedirection),
+<<<<<<< HEAD
     AmazonPay(AmazonPayWalletData),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     AmazonPayRedirect(Box<AmazonPayRedirect>),
     BluecodeRedirect {},
     Paysera(Box<PayseraData>),
@@ -400,6 +421,7 @@ pub struct RevolutPayData {}
 pub struct GooglePayRedirectData {}
 
 #[derive(Eq, PartialEq, Clone, Debug, serde::Deserialize, serde::Serialize)]
+<<<<<<< HEAD
 pub struct GooglePayThirdPartySdkData {
     pub token: Option<Secret<String>>,
 }
@@ -408,6 +430,12 @@ pub struct GooglePayThirdPartySdkData {
 pub struct ApplePayThirdPartySdkData {
     pub token: Option<Secret<String>>,
 }
+=======
+pub struct GooglePayThirdPartySdkData {}
+
+#[derive(Eq, PartialEq, Clone, Debug, serde::Deserialize, serde::Serialize)]
+pub struct ApplePayThirdPartySdkData {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[derive(Eq, PartialEq, Clone, Debug, serde::Deserialize, serde::Serialize)]
 pub struct WeChatPayRedirection {}
@@ -472,10 +500,15 @@ pub struct GooglePayPaymentMethodInfo {
     pub card_network: String,
     /// The details of the card
     pub card_details: String,
+<<<<<<< HEAD
     /// assurance_details of the card
     pub assurance_details: Option<GooglePayAssuranceDetails>,
     /// Card funding source for the selected payment method
     pub card_funding_source: Option<GooglePayCardFundingSource>,
+=======
+    //assurance_details of the card
+    pub assurance_details: Option<GooglePayAssuranceDetails>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Eq, PartialEq, Clone, Debug, serde::Deserialize, serde::Serialize)]
@@ -536,11 +569,14 @@ pub struct ApplepayPaymentMethod {
     pub pm_type: String,
 }
 
+<<<<<<< HEAD
 #[derive(Eq, PartialEq, Clone, Default, Debug, serde::Deserialize, serde::Serialize)]
 pub struct AmazonPayWalletData {
     pub checkout_session_id: String,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 pub enum RealTimePaymentData {
     DuitNow {},
@@ -633,7 +669,10 @@ pub struct CryptoData {
 pub enum UpiData {
     UpiCollect(UpiCollectData),
     UpiIntent(UpiIntentData),
+<<<<<<< HEAD
     UpiQr(UpiQrData),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -645,9 +684,12 @@ pub struct UpiCollectData {
 #[derive(Debug, Clone, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UpiIntentData {}
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UpiQrData {}
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum VoucherData {
@@ -671,6 +713,7 @@ pub enum VoucherData {
 pub struct BoletoVoucherData {
     /// The shopper's social security number
     pub social_security_number: Option<Secret<String>>,
+<<<<<<< HEAD
     /// The bank number associated with the boleto
     pub bank_number: Option<Secret<String>>,
     /// The type of document (e.g., CPF, CNPJ)
@@ -687,6 +730,8 @@ pub struct BoletoVoucherData {
     pub messages: Option<Vec<String>>,
     /// The date upon which the boleto is due and is of format: "YYYY-MM-DD"
     pub due_date: Option<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -754,10 +799,13 @@ pub enum BankDebitData {
         iban: Secret<String>,
         bank_account_holder_name: Option<Secret<String>>,
     },
+<<<<<<< HEAD
     SepaGuarenteedBankDebit {
         iban: Secret<String>,
         bank_account_holder_name: Option<Secret<String>>,
     },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     BecsBankDebit {
         account_number: Secret<String>,
         bsb_number: Secret<String>,
@@ -1177,9 +1225,12 @@ impl From<api_models::payments::WalletData> for WalletData {
             api_models::payments::WalletData::AliPayHkRedirect(_) => {
                 Self::AliPayHkRedirect(AliPayHkRedirection {})
             }
+<<<<<<< HEAD
             api_models::payments::WalletData::AmazonPay(amazon_pay_data) => {
                 Self::AmazonPay(AmazonPayWalletData::from(amazon_pay_data))
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_models::payments::WalletData::AmazonPayRedirect(_) => {
                 Self::AmazonPayRedirect(Box::new(AmazonPayRedirect {}))
             }
@@ -1203,10 +1254,15 @@ impl From<api_models::payments::WalletData> for WalletData {
             api_models::payments::WalletData::ApplePayRedirect(_) => {
                 Self::ApplePayRedirect(Box::new(ApplePayRedirectData {}))
             }
+<<<<<<< HEAD
             api_models::payments::WalletData::ApplePayThirdPartySdk(apple_pay_sdk_data) => {
                 Self::ApplePayThirdPartySdk(Box::new(ApplePayThirdPartySdkData {
                     token: apple_pay_sdk_data.token,
                 }))
+=======
+            api_models::payments::WalletData::ApplePayThirdPartySdk(_) => {
+                Self::ApplePayThirdPartySdk(Box::new(ApplePayThirdPartySdkData {}))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
             api_models::payments::WalletData::DanaRedirect {} => Self::DanaRedirect {},
             api_models::payments::WalletData::GooglePay(google_pay_data) => {
@@ -1215,10 +1271,15 @@ impl From<api_models::payments::WalletData> for WalletData {
             api_models::payments::WalletData::GooglePayRedirect(_) => {
                 Self::GooglePayRedirect(Box::new(GooglePayRedirectData {}))
             }
+<<<<<<< HEAD
             api_models::payments::WalletData::GooglePayThirdPartySdk(google_pay_sdk_data) => {
                 Self::GooglePayThirdPartySdk(Box::new(GooglePayThirdPartySdkData {
                     token: google_pay_sdk_data.token,
                 }))
+=======
+            api_models::payments::WalletData::GooglePayThirdPartySdk(_) => {
+                Self::GooglePayThirdPartySdk(Box::new(GooglePayThirdPartySdkData {}))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
             api_models::payments::WalletData::MbWayRedirect(..) => {
                 Self::MbWayRedirect(Box::new(MbWayRedirection {}))
@@ -1283,7 +1344,10 @@ impl From<api_models::payments::GooglePayWalletData> for GooglePayWalletData {
                         account_verified: info.account_verified,
                     }
                 }),
+<<<<<<< HEAD
                 card_funding_source: value.info.card_funding_source,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             tokenization_data: value.tokenization_data,
         }
@@ -1304,6 +1368,7 @@ impl From<api_models::payments::ApplePayWalletData> for ApplePayWalletData {
     }
 }
 
+<<<<<<< HEAD
 impl From<api_models::payments::AmazonPayWalletData> for AmazonPayWalletData {
     fn from(value: api_models::payments::AmazonPayWalletData) -> Self {
         Self {
@@ -1312,6 +1377,8 @@ impl From<api_models::payments::AmazonPayWalletData> for AmazonPayWalletData {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl From<api_models::payments::SamsungPayTokenData> for SamsungPayTokenData {
     fn from(samsung_pay_token_data: api_models::payments::SamsungPayTokenData) -> Self {
         Self {
@@ -1492,7 +1559,10 @@ impl From<api_models::payments::UpiData> for UpiData {
                 Self::UpiCollect(UpiCollectData { vpa_id: upi.vpa_id })
             }
             api_models::payments::UpiData::UpiIntent(_) => Self::UpiIntent(UpiIntentData {}),
+<<<<<<< HEAD
             api_models::payments::UpiData::UpiQr(_) => Self::UpiQr(UpiQrData {}),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1508,7 +1578,10 @@ impl From<UpiData> for api_models::payments::additional_info::UpiAdditionalData 
             UpiData::UpiIntent(_) => {
                 Self::UpiIntent(Box::new(api_models::payments::UpiIntentData {}))
             }
+<<<<<<< HEAD
             UpiData::UpiQr(_) => Self::UpiQr(Box::new(api_models::payments::UpiQrData {})),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -1519,6 +1592,7 @@ impl From<api_models::payments::VoucherData> for VoucherData {
             api_models::payments::VoucherData::Boleto(boleto_data) => {
                 Self::Boleto(Box::new(BoletoVoucherData {
                     social_security_number: boleto_data.social_security_number,
+<<<<<<< HEAD
                     bank_number: boleto_data.bank_number,
                     document_type: boleto_data.document_type,
                     fine_percentage: boleto_data.fine_percentage,
@@ -1527,6 +1601,8 @@ impl From<api_models::payments::VoucherData> for VoucherData {
                     write_off_quantity_days: boleto_data.write_off_quantity_days,
                     messages: boleto_data.messages,
                     due_date: boleto_data.due_date,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 }))
             }
             api_models::payments::VoucherData::Alfamart(_) => {
@@ -1556,6 +1632,7 @@ impl From<Box<BoletoVoucherData>> for Box<api_models::payments::BoletoVoucherDat
     fn from(value: Box<BoletoVoucherData>) -> Self {
         Self::new(api_models::payments::BoletoVoucherData {
             social_security_number: value.social_security_number,
+<<<<<<< HEAD
             bank_number: value.bank_number,
             document_type: value.document_type,
             fine_percentage: value.fine_percentage,
@@ -1564,6 +1641,8 @@ impl From<Box<BoletoVoucherData>> for Box<api_models::payments::BoletoVoucherDat
             write_off_quantity_days: value.write_off_quantity_days,
             messages: value.messages,
             due_date: value.due_date,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -1715,6 +1794,7 @@ impl From<api_models::payments::BankDebitData> for BankDebitData {
                 iban,
                 bank_account_holder_name,
             },
+<<<<<<< HEAD
             api_models::payments::BankDebitData::SepaGuarenteedBankDebit {
                 iban,
                 bank_account_holder_name,
@@ -1723,6 +1803,8 @@ impl From<api_models::payments::BankDebitData> for BankDebitData {
                 iban,
                 bank_account_holder_name,
             },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_models::payments::BankDebitData::BecsBankDebit {
                 account_number,
                 bsb_number,
@@ -1778,6 +1860,7 @@ impl From<BankDebitData> for api_models::payments::additional_info::BankDebitAdd
                     bank_account_holder_name,
                 },
             )),
+<<<<<<< HEAD
             BankDebitData::SepaGuarenteedBankDebit {
                 iban,
                 bank_account_holder_name,
@@ -1787,6 +1870,8 @@ impl From<BankDebitData> for api_models::payments::additional_info::BankDebitAdd
                     bank_account_holder_name,
                 },
             )),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             BankDebitData::BecsBankDebit {
                 account_number,
                 bsb_number,
@@ -2079,7 +2164,10 @@ impl GetPaymentMethodType for WalletData {
             Self::KakaoPayRedirect(_) => api_enums::PaymentMethodType::KakaoPay,
             Self::GoPayRedirect(_) => api_enums::PaymentMethodType::GoPay,
             Self::GcashRedirect(_) => api_enums::PaymentMethodType::Gcash,
+<<<<<<< HEAD
             Self::AmazonPay(_) => api_enums::PaymentMethodType::AmazonPay,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self::ApplePay(_) | Self::ApplePayRedirect(_) | Self::ApplePayThirdPartySdk(_) => {
                 api_enums::PaymentMethodType::ApplePay
             }
@@ -2161,9 +2249,12 @@ impl GetPaymentMethodType for BankDebitData {
         match self {
             Self::AchBankDebit { .. } => api_enums::PaymentMethodType::Ach,
             Self::SepaBankDebit { .. } => api_enums::PaymentMethodType::Sepa,
+<<<<<<< HEAD
             Self::SepaGuarenteedBankDebit { .. } => {
                 api_enums::PaymentMethodType::SepaGuarenteedDebit
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self::BecsBankDebit { .. } => api_enums::PaymentMethodType::Becs,
             Self::BacsBankDebit { .. } => api_enums::PaymentMethodType::Bacs,
         }
@@ -2223,7 +2314,10 @@ impl GetPaymentMethodType for UpiData {
         match self {
             Self::UpiCollect(_) => api_enums::PaymentMethodType::UpiCollect,
             Self::UpiIntent(_) => api_enums::PaymentMethodType::UpiIntent,
+<<<<<<< HEAD
             Self::UpiQr(_) => api_enums::PaymentMethodType::UpiQr,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -2340,6 +2434,7 @@ impl PaymentMethodsData {
     pub fn get_co_badged_card_data(&self) -> Option<payment_methods::CoBadgedCardData> {
         todo!()
     }
+<<<<<<< HEAD
 
     #[cfg(feature = "v1")]
     pub fn get_additional_payout_method_data(
@@ -2374,6 +2469,8 @@ impl PaymentMethodsData {
             None
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2606,6 +2703,7 @@ impl From<NetworkTokenData> for payment_methods::CardDetail {
         }
     }
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v1")]
 impl
@@ -2731,3 +2829,5 @@ impl
         })
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

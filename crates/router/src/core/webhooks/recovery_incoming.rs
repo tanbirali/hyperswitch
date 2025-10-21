@@ -520,15 +520,21 @@ impl RevenueRecoveryAttempt {
         payment_intent: &domain_payments::PaymentIntent,
         revenue_recovery_metadata: &api_payments::PaymentRevenueRecoveryMetadata,
         billing_connector_account: &domain::MerchantConnectorAccount,
+<<<<<<< HEAD
         card_info: api_payments::AdditionalCardInfo,
         payment_processor_token: &str,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> CustomResult<Self, errors::RevenueRecoveryError> {
         let revenue_recovery_data = payment_intent
             .create_revenue_recovery_attempt_data(
                 revenue_recovery_metadata.clone(),
                 billing_connector_account,
+<<<<<<< HEAD
                 card_info,
                 payment_processor_token,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
             .change_context(errors::RevenueRecoveryError::RevenueRecoveryAttemptDataCreateFailed)
             .attach_printable("Failed to build recovery attempt data")?;
@@ -756,6 +762,7 @@ impl RevenueRecoveryAttempt {
             })
             .await
             .flatten();
+<<<<<<< HEAD
         let payment_method_data = api_models::payments::RecordAttemptPaymentMethodDataRequest {
             payment_method_data: api_models::payments::AdditionalPaymentData::Card(Box::new(
                 revenue_recovery_attempt_data.card_info.clone(),
@@ -764,6 +771,10 @@ impl RevenueRecoveryAttempt {
         };
 
         let card_issuer = revenue_recovery_attempt_data.card_info.card_issuer.clone();
+=======
+
+        let card_issuer = card_info.and_then(|info| info.card_issuer);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         let error =
             Option::<api_payments::RecordAttemptErrorDetails>::from(revenue_recovery_attempt_data);
@@ -782,7 +793,11 @@ impl RevenueRecoveryAttempt {
             payment_method_type: revenue_recovery_attempt_data.payment_method_type,
             billing_connector_id: billing_merchant_connector_account_id.clone(),
             payment_method_subtype: revenue_recovery_attempt_data.payment_method_sub_type,
+<<<<<<< HEAD
             payment_method_data: Some(payment_method_data),
+=======
+            payment_method_data: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             metadata: None,
             feature_metadata: Some(feature_metadata),
             transaction_created_at: revenue_recovery_attempt_data.transaction_created_at,
@@ -900,6 +915,85 @@ impl RevenueRecoveryAttempt {
         Ok(payment_attempt_with_recovery_intent)
     }
 
+<<<<<<< HEAD
+=======
+    #[allow(clippy::too_many_arguments)]
+    async fn insert_execute_pcr_task(
+        billing_mca_id: &id_type::MerchantConnectorAccountId,
+        db: &dyn StorageInterface,
+        merchant_id: id_type::MerchantId,
+        payment_intent: revenue_recovery::RecoveryPaymentIntent,
+        profile_id: id_type::ProfileId,
+        intent_retry_count: u16,
+        payment_attempt_id: Option<id_type::GlobalAttemptId>,
+        runner: storage::ProcessTrackerRunner,
+        revenue_recovery_retry: api_enums::RevenueRecoveryAlgorithmType,
+    ) -> CustomResult<webhooks::WebhookResponseTracker, errors::RevenueRecoveryError> {
+        let task = "EXECUTE_WORKFLOW";
+
+        let payment_id = payment_intent.payment_id.clone();
+
+        let process_tracker_id = format!("{runner}_{task}_{}", payment_id.get_string_repr());
+
+        let schedule_time = revenue_recovery_flow::get_schedule_time_to_retry_mit_payments(
+            db,
+            &merchant_id,
+            (intent_retry_count + 1).into(),
+        )
+        .await
+        .map_or_else(
+            || {
+                Err(errors::RevenueRecoveryError::ScheduleTimeFetchFailed)
+                    .attach_printable("Failed to get schedule time for pcr workflow")
+            },
+            Ok, // Simply returns `time` wrapped in `Ok`
+        )?;
+
+        let payment_attempt_id = payment_attempt_id
+            .ok_or(report!(
+                errors::RevenueRecoveryError::PaymentAttemptIdNotFound
+            ))
+            .attach_printable("payment attempt id is required for pcr workflow tracking")?;
+
+        let execute_workflow_tracking_data =
+            storage_revenue_recovery::RevenueRecoveryWorkflowTrackingData {
+                billing_mca_id: billing_mca_id.clone(),
+                global_payment_id: payment_id.clone(),
+                merchant_id,
+                profile_id,
+                payment_attempt_id,
+                revenue_recovery_retry,
+                invoice_scheduled_time: Some(schedule_time),
+            };
+
+        let tag = ["PCR"];
+
+        let process_tracker_entry = storage::ProcessTrackerNew::new(
+            process_tracker_id,
+            task,
+            runner,
+            tag,
+            execute_workflow_tracking_data,
+            Some(intent_retry_count.into()),
+            schedule_time,
+            common_enums::ApiVersion::V2,
+        )
+        .change_context(errors::RevenueRecoveryError::ProcessTrackerCreationError)
+        .attach_printable("Failed to construct process tracker entry")?;
+
+        db.insert_process(process_tracker_entry)
+            .await
+            .change_context(errors::RevenueRecoveryError::ProcessTrackerResponseError)
+            .attach_printable("Failed to enter process_tracker_entry in DB")?;
+        metrics::TASKS_ADDED_COUNT.add(1, router_env::metric_attributes!(("flow", "ExecutePCR")));
+
+        Ok(webhooks::WebhookResponseTracker::Payment {
+            payment_id,
+            status: payment_intent.status,
+        })
+    }
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     /// Store payment processor tokens in Redis for retry management
     async fn store_payment_processor_tokens_in_redis(
         &self,
@@ -1446,8 +1540,11 @@ impl RecoveryAction {
             | webhooks::IncomingWebhookEvent::MandateActive
             | webhooks::IncomingWebhookEvent::MandateRevoked
             | webhooks::IncomingWebhookEvent::EndpointVerification
+<<<<<<< HEAD
             | webhooks::IncomingWebhookEvent::PaymentIntentExtendAuthorizationSuccess
             | webhooks::IncomingWebhookEvent::PaymentIntentExtendAuthorizationFailure
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | webhooks::IncomingWebhookEvent::ExternalAuthenticationARes
             | webhooks::IncomingWebhookEvent::FrmApproved
             | webhooks::IncomingWebhookEvent::FrmRejected
@@ -1457,9 +1554,13 @@ impl RecoveryAction {
             | webhooks::IncomingWebhookEvent::PayoutCancelled
             | webhooks::IncomingWebhookEvent::PayoutCreated
             | webhooks::IncomingWebhookEvent::PayoutExpired
+<<<<<<< HEAD
             | webhooks::IncomingWebhookEvent::PayoutReversed
             | webhooks::IncomingWebhookEvent::InvoiceGenerated
             | webhooks::IncomingWebhookEvent::SetupWebhook => {
+=======
+            | webhooks::IncomingWebhookEvent::PayoutReversed => {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 common_types::payments::RecoveryAction::InvalidAction
             }
             webhooks::IncomingWebhookEvent::RecoveryPaymentFailure => match attempt_triggered_by {

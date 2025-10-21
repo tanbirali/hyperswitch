@@ -30,8 +30,11 @@ pub mod payment_update;
 #[cfg(feature = "v1")]
 pub mod payment_update_metadata;
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 pub mod payments_extend_authorization;
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub mod payments_incremental_authorization;
 #[cfg(feature = "v1")]
 pub mod tax_calculation;
@@ -60,9 +63,12 @@ pub mod payment_get;
 #[cfg(feature = "v2")]
 pub mod payment_capture_v2;
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 pub mod payment_cancel_v2;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use api_models::enums::FrmSuggestion;
 #[cfg(all(feature = "v1", feature = "dynamic_routing"))]
 use api_models::routing::RoutableConnectorChoice;
@@ -87,7 +93,10 @@ pub use self::{
     payment_post_session_tokens::PaymentPostSessionTokens, payment_reject::PaymentReject,
     payment_session::PaymentSession, payment_start::PaymentStart, payment_status::PaymentStatus,
     payment_update::PaymentUpdate, payment_update_metadata::PaymentUpdateMetadata,
+<<<<<<< HEAD
     payments_extend_authorization::PaymentExtendAuthorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     payments_incremental_authorization::PaymentIncrementalAuthorization,
     tax_calculation::PaymentSessionUpdate,
 };
@@ -97,8 +106,11 @@ pub use self::{
     payment_session_intent::PaymentSessionIntent,
 };
 use super::{helpers, CustomerDetails, OperationSessionGetters, OperationSessionSetters};
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 use crate::core::payments;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::{
     core::errors::{self, CustomResult, RouterResult},
     routes::{app::ReqState, SessionState},
@@ -363,6 +375,10 @@ pub trait Domain<F: Clone, R, D>: Send + Sync {
         _business_profile: &domain::Profile,
         _key_store: &domain::MerchantKeyStore,
         _mandate_type: Option<api_models::payments::MandateTransactionType>,
+<<<<<<< HEAD
+=======
+        _do_authorization_confirmation: &bool,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> CustomResult<(), errors::ApiErrorResponse> {
         Ok(())
     }
@@ -431,6 +447,7 @@ pub trait Domain<F: Clone, R, D>: Send + Sync {
         Ok(())
     }
 
+<<<<<<< HEAD
     /// Get connector tokenization action
     #[cfg(feature = "v2")]
     async fn get_connector_tokenization_action<'a>(
@@ -441,6 +458,8 @@ pub trait Domain<F: Clone, R, D>: Send + Sync {
         Ok(payments::TokenizationAction::SkipConnectorTokenization)
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // #[cfg(feature = "v2")]
     // async fn call_connector<'a, RouterDataReq>(
     //     &'a self,

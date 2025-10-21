@@ -13,7 +13,11 @@ impl utils::Connector for PowertranzTest {
     fn get_data(&self) -> types::api::ConnectorData {
         use router::connector::Powertranz;
         utils::construct_connector_data_old(
+<<<<<<< HEAD
             Box::new(Powertranz::new()),
+=======
+            Box::new(&Powertranz),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             types::Connector::Powertranz,
             types::api::GetToken::Connector,
             None,

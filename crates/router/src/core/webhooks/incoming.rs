@@ -3,11 +3,15 @@ use std::{str::FromStr, time::Instant};
 use actix_web::FromRequest;
 #[cfg(feature = "payouts")]
 use api_models::payouts as payout_models;
+<<<<<<< HEAD
 use api_models::{
     enums::Connector,
     webhooks::{self, WebhookResponseTracker},
 };
 pub use common_enums::{connector_enums::InvoiceStatus, enums::ProcessTrackerRunner};
+=======
+use api_models::webhooks::{self, WebhookResponseTracker};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use common_utils::{
     errors::ReportSwitchExt,
     events::ApiEventsType,
@@ -230,7 +234,11 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
 
     // Determine webhook processing path (UCS vs non-UCS) and handle event type extraction
     let webhook_processing_result =
+<<<<<<< HEAD
         match if unified_connector_service::should_call_unified_connector_service_for_webhooks(
+=======
+        if unified_connector_service::should_call_unified_connector_service_for_webhooks(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             &state,
             &merchant_context,
             &connector_name,
@@ -249,7 +257,11 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
                 &request_details,
                 merchant_connector_account.as_ref(),
             )
+<<<<<<< HEAD
             .await
+=======
+            .await?
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         } else {
             // NON-UCS PATH: Need to decode body first
             let decoded_body = connector
@@ -257,7 +269,10 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
                     &request_details,
                     merchant_context.get_merchant_account().get_id(),
                     merchant_connector_account
+<<<<<<< HEAD
                         .clone()
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         .and_then(|mca| mca.connector_webhook_details.clone()),
                     &connector_name,
                 )
@@ -273,6 +288,7 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
                 decoded_body.into(),
                 &request_details,
             )
+<<<<<<< HEAD
             .await
         } {
             Ok(result) => result,
@@ -302,6 +318,11 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
         ));
     }
 
+=======
+            .await?
+        };
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // Update request_details with the appropriate body (decoded for non-UCS, raw for UCS)
     let final_request_details = match &webhook_processing_result.decoded_body {
         Some(decoded_body) => IncomingWebhookRequestDetails {
@@ -367,7 +388,10 @@ async fn incoming_webhooks_core<W: types::OutgoingWebhookType>(
                         &connector,
                         connector_name.as_str(),
                         &final_request_details,
+<<<<<<< HEAD
                         merchant_context.get_merchant_account().get_id(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     );
                     match error_result {
                         Ok((_, webhook_tracker, _)) => webhook_tracker,
@@ -536,7 +560,11 @@ async fn process_webhook_business_logic(
         .get_webhook_object_reference_id(request_details)
         .switch()
         .attach_printable("Could not find object reference id in incoming webhook body")?;
+<<<<<<< HEAD
     let connector_enum = Connector::from_str(connector_name)
+=======
+    let connector_enum = api_models::enums::Connector::from_str(connector_name)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         .change_context(errors::ApiErrorResponse::InvalidDataValue {
             field_name: "connector",
         })
@@ -553,6 +581,7 @@ async fn process_webhook_business_logic(
     {
         Ok(mca) => mca,
         Err(error) => {
+<<<<<<< HEAD
             let result = handle_incoming_webhook_error(
                 error,
                 connector,
@@ -560,6 +589,10 @@ async fn process_webhook_business_logic(
                 request_details,
                 merchant_context.get_merchant_account().get_id(),
             );
+=======
+            let result =
+                handle_incoming_webhook_error(error, connector, connector_name, request_details);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             match result {
                 Ok((_, webhook_tracker, _)) => return Ok(webhook_tracker),
                 Err(e) => return Err(e),
@@ -732,7 +765,10 @@ async fn process_webhook_business_logic(
                 connector,
                 request_details,
                 event_type,
+<<<<<<< HEAD
                 webhook_transform_data,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ))
             .await
             .attach_printable("Incoming webhook flow for payments failed"),
@@ -826,6 +862,7 @@ async fn process_webhook_business_logic(
             .await
             .attach_printable("Incoming webhook flow for payouts failed"),
 
+<<<<<<< HEAD
             api::WebhookFlow::Subscription => {
                 Box::pin(subscriptions::webhooks::incoming_webhook_flow(
                     state.clone().into(),
@@ -842,6 +879,8 @@ async fn process_webhook_business_logic(
                 .attach_printable("Incoming webhook flow for subscription failed")
             }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             _ => Err(errors::ApiErrorResponse::InternalServerError)
                 .attach_printable("Unsupported Flow Type received in incoming webhooks"),
         }
@@ -850,6 +889,7 @@ async fn process_webhook_business_logic(
     match result_response {
         Ok(response) => Ok(response),
         Err(error) => {
+<<<<<<< HEAD
             let result = handle_incoming_webhook_error(
                 error,
                 connector,
@@ -857,6 +897,10 @@ async fn process_webhook_business_logic(
                 request_details,
                 merchant_context.get_merchant_account().get_id(),
             );
+=======
+            let result =
+                handle_incoming_webhook_error(error, connector, connector_name, request_details);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             match result {
                 Ok((_, webhook_tracker, _)) => Ok(webhook_tracker),
                 Err(e) => Err(e),
@@ -870,7 +914,10 @@ fn handle_incoming_webhook_error(
     connector: &ConnectorEnum,
     connector_name: &str,
     request_details: &IncomingWebhookRequestDetails<'_>,
+<<<<<<< HEAD
     merchant_id: &common_utils::id_type::MerchantId,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ) -> errors::RouterResult<(
     services::ApplicationResponse<serde_json::Value>,
     WebhookResponseTracker,
@@ -879,7 +926,11 @@ fn handle_incoming_webhook_error(
     logger::error!(?error, "Incoming webhook flow failed");
 
     // fetch the connector enum from the connector name
+<<<<<<< HEAD
     let connector_enum = Connector::from_str(connector_name)
+=======
+    let connector_enum = api_models::connector_enums::Connector::from_str(connector_name)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         .change_context(errors::ApiErrorResponse::InvalidDataValue {
             field_name: "connector",
         })
@@ -887,6 +938,7 @@ fn handle_incoming_webhook_error(
 
     // get the error response from the connector
     if connector_enum.should_acknowledge_webhook_for_resource_not_found_errors() {
+<<<<<<< HEAD
         metrics::WEBHOOK_FLOW_FAILED_BUT_ACKNOWLEDGED.add(
             1,
             router_env::metric_attributes!(
@@ -894,6 +946,8 @@ fn handle_incoming_webhook_error(
                 ("merchant_id", merchant_id.get_string_repr().to_string())
             ),
         );
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let response = connector
             .get_webhook_api_response(
                 request_details,
@@ -998,6 +1052,7 @@ async fn payments_incoming_webhook_flow(
     connector: &ConnectorEnum,
     request_details: &IncomingWebhookRequestDetails<'_>,
     event_type: webhooks::IncomingWebhookEvent,
+<<<<<<< HEAD
     webhook_transform_data: &Option<Box<unified_connector_service::WebhookTransformData>>,
 ) -> CustomResult<WebhookResponseTracker, errors::ApiErrorResponse> {
     let consume_or_trigger_flow = if source_verified {
@@ -1014,6 +1069,11 @@ async fn payments_incoming_webhook_flow(
             }
             None => payments::CallConnectorAction::HandleResponse(resource_object),
         }
+=======
+) -> CustomResult<WebhookResponseTracker, errors::ApiErrorResponse> {
+    let consume_or_trigger_flow = if source_verified {
+        payments::CallConnectorAction::HandleResponse(webhook_details.resource_object)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     } else {
         payments::CallConnectorAction::Trigger
     };
@@ -1216,7 +1276,10 @@ async fn payouts_incoming_webhook_flow(
             is_eligible: payout_attempt.is_eligible,
             unified_code: None,
             unified_message: None,
+<<<<<<< HEAD
             payout_connector_metadata: payout_attempt.payout_connector_metadata.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let action_req =
@@ -1224,7 +1287,11 @@ async fn payouts_incoming_webhook_flow(
                 payout_id: payouts.payout_id.clone(),
             });
 
+<<<<<<< HEAD
         let mut payout_data = Box::pin(payouts::make_payout_data(
+=======
+        let payout_data = Box::pin(payouts::make_payout_data(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             &state,
             &merchant_context,
             None,
@@ -1248,9 +1315,14 @@ async fn payouts_incoming_webhook_flow(
                     payout_attempt.payout_attempt_id
                 )
             })?;
+<<<<<<< HEAD
         payout_data.payout_attempt = updated_payout_attempt;
 
         let event_type: Option<enums::EventType> = payout_data.payout_attempt.status.into();
+=======
+
+        let event_type: Option<enums::EventType> = updated_payout_attempt.status.into();
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         // If event is NOT an UnsupportedEvent, trigger Outgoing Webhook
         if let Some(outgoing_event_type) = event_type {
@@ -1263,21 +1335,34 @@ async fn payouts_incoming_webhook_flow(
                 business_profile,
                 outgoing_event_type,
                 enums::EventClass::Payouts,
+<<<<<<< HEAD
                 payout_data
                     .payout_attempt
+=======
+                updated_payout_attempt
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     .payout_id
                     .get_string_repr()
                     .to_string(),
                 enums::EventObjectType::PayoutDetails,
                 api::OutgoingWebhookContent::PayoutDetails(Box::new(payout_create_response)),
+<<<<<<< HEAD
                 Some(payout_data.payout_attempt.created_at),
+=======
+                Some(updated_payout_attempt.created_at),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ))
             .await?;
         }
 
         Ok(WebhookResponseTracker::Payout {
+<<<<<<< HEAD
             payout_id: payout_data.payout_attempt.payout_id,
             status: payout_data.payout_attempt.status,
+=======
+            payout_id: updated_payout_attempt.payout_id,
+            status: updated_payout_attempt.status,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     } else {
         metrics::INCOMING_PAYOUT_WEBHOOK_SIGNATURE_FAILURE_METRIC.add(1, &[]);
@@ -1510,7 +1595,10 @@ async fn relay_incoming_webhook_flow(
         | webhooks::WebhookFlow::ReturnResponse
         | webhooks::WebhookFlow::BankTransfer
         | webhooks::WebhookFlow::Mandate
+<<<<<<< HEAD
         | webhooks::WebhookFlow::Setup
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         | webhooks::WebhookFlow::ExternalAuthentication
         | webhooks::WebhookFlow::FraudCheck => Err(errors::ApiErrorResponse::NotSupported {
             message: "Relay webhook flow types not supported".to_string(),
@@ -2441,7 +2529,11 @@ async fn update_connector_mandate_details(
                         .clone()
                         .get_required_value("merchant_connector_id")?;
 
+<<<<<<< HEAD
                     if mandate_details.payments.as_ref().is_none_or(|payments| {
+=======
+                    if mandate_details.payments.as_ref().map_or(true, |payments| {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         !payments.0.contains_key(&merchant_connector_account_id)
                     }) {
                         // Update the payment attempt to maintain consistency across tables.

@@ -16,11 +16,15 @@ pub use super::fraud_check_v2::{
     FraudCheckTransactionV2, FraudCheckV2,
 };
 use super::{ConnectorData, SessionConnectorDatas};
+<<<<<<< HEAD
 use crate::{
     connector,
     core::{errors, payments::ActionType},
     services::connector_integration_interface::ConnectorEnum,
 };
+=======
+use crate::{connector, core::errors, services::connector_integration_interface::ConnectorEnum};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[derive(Clone)]
 pub struct FraudCheckConnectorData {
@@ -37,8 +41,11 @@ pub enum ConnectorCallType {
 pub struct ConnectorRoutingData {
     pub connector_data: ConnectorData,
     pub network: Option<common_enums::CardNetwork>,
+<<<<<<< HEAD
     // action_type is used for mandates currently
     pub action_type: Option<ActionType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl FraudCheckConnectorData {

@@ -28,7 +28,11 @@ pub struct Connectors {
     pub billwerk: ConnectorParams,
     pub bitpay: ConnectorParams,
     pub blackhawknetwork: ConnectorParams,
+<<<<<<< HEAD
     pub calida: ConnectorParams,
+=======
+    pub bluecode: ConnectorParams,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub bluesnap: ConnectorParamsWithSecondaryBaseUrl,
     pub boku: ConnectorParams,
     pub braintree: ConnectorParams,
@@ -55,14 +59,20 @@ pub struct Connectors {
     pub ebanx: ConnectorParams,
     pub elavon: ConnectorParams,
     pub facilitapay: ConnectorParams,
+<<<<<<< HEAD
     pub finix: ConnectorParams,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fiserv: ConnectorParams,
     pub fiservemea: ConnectorParams,
     pub fiuu: ConnectorParamsWithThreeUrls,
     pub flexiti: ConnectorParams,
     pub forte: ConnectorParams,
     pub getnet: ConnectorParams,
+<<<<<<< HEAD
     pub gigadat: ConnectorParams,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub globalpay: ConnectorParams,
     pub globepay: ConnectorParams,
     pub gocardless: ConnectorParams,
@@ -76,10 +86,15 @@ pub struct Connectors {
     pub itaubank: ConnectorParams,
     pub jpmorgan: ConnectorParams,
     pub juspaythreedsserver: ConnectorParams,
+<<<<<<< HEAD
     pub cardinal: NoParams,
     pub katapult: ConnectorParams,
     pub klarna: ConnectorParams,
     pub loonio: ConnectorParams,
+=======
+    pub katapult: ConnectorParams,
+    pub klarna: ConnectorParams,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub mifinity: ConnectorParams,
     pub mollie: ConnectorParams,
     pub moneris: ConnectorParams,
@@ -106,7 +121,10 @@ pub struct Connectors {
     pub paystack: ConnectorParams,
     pub paytm: ConnectorParams,
     pub payu: ConnectorParams,
+<<<<<<< HEAD
     pub peachpayments: ConnectorParams,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub phonepe: ConnectorParams,
     pub placetopay: ConnectorParams,
     pub plaid: ConnectorParams,
@@ -127,10 +145,15 @@ pub struct Connectors {
     pub stripe: ConnectorParamsWithFileUploadUrl,
     pub stripebilling: ConnectorParams,
     pub taxjar: ConnectorParams,
+<<<<<<< HEAD
     pub tesouro: ConnectorParams,
     pub threedsecureio: ConnectorParams,
     pub thunes: ConnectorParams,
     pub tokenex: ConnectorParams,
+=======
+    pub threedsecureio: ConnectorParams,
+    pub thunes: ConnectorParams,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub tokenio: ConnectorParams,
     pub trustpay: ConnectorParamsWithMoreUrls,
     pub trustpayments: ConnectorParams,

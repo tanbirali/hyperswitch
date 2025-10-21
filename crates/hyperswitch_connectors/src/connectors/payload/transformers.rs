@@ -5,6 +5,7 @@ use common_enums::enums;
 use common_utils::{ext_traits::ValueExt, types::StringMajorUnit};
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
+<<<<<<< HEAD
     address::AddressDetails,
     payment_method_data::PaymentMethodData,
     router_data::{ConnectorAuthType, ErrorResponse, RouterData},
@@ -15,6 +16,14 @@ use hyperswitch_domain_models::{
         PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, RefundsRouterData,
         SetupMandateRouterData,
     },
+=======
+    payment_method_data::PaymentMethodData,
+    router_data::{ConnectorAuthType, ErrorResponse, RouterData},
+    router_flow_types::refunds::{Execute, RSync},
+    router_request_types::{PaymentsAuthorizeData, ResponseId},
+    router_response_types::{MandateReference, PaymentsResponseData, RefundsResponseData},
+    types::{PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, RefundsRouterData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use hyperswitch_interfaces::{
     consts::{NO_ERROR_CODE, NO_ERROR_MESSAGE},
@@ -27,14 +36,19 @@ use super::{requests, responses};
 use crate::{
     types::{RefundsResponseRouterData, ResponseRouterData},
     utils::{
+<<<<<<< HEAD
         get_unimplemented_payment_method_error_message, is_manual_capture, AddressDetailsData,
         CardData, PaymentsAuthorizeRequestData, PaymentsSetupMandateRequestData,
+=======
+        is_manual_capture, AddressDetailsData, CardData, PaymentsAuthorizeRequestData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         RouterData as OtherRouterData,
     },
 };
 
 type Error = error_stack::Report<errors::ConnectorError>;
 
+<<<<<<< HEAD
 fn build_payload_cards_request_data(
     payment_method_data: &PaymentMethodData,
     connector_auth_type: &ConnectorAuthType,
@@ -98,6 +112,11 @@ fn build_payload_cards_request_data(
 
 pub struct PayloadRouterData<T> {
     pub amount: StringMajorUnit,
+=======
+//TODO: Fill the struct with respective fields
+pub struct PayloadRouterData<T> {
+    pub amount: StringMajorUnit, // The type of amount that a connector accepts, for example, String, i64, f64, etc.
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub router_data: T,
 }
 
@@ -169,6 +188,7 @@ impl TryFrom<&ConnectorAuthType> for PayloadAuthType {
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&SetupMandateRouterData> for requests::PayloadCardsRequestData {
     type Error = Error;
     fn try_from(item: &SetupMandateRouterData) -> Result<Self, Self::Error> {
@@ -196,6 +216,8 @@ impl TryFrom<&SetupMandateRouterData> for requests::PayloadCardsRequestData {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<&PayloadRouterData<&PaymentsAuthorizeRouterData>>
     for requests::PayloadPaymentsRequest
 {
@@ -211,6 +233,7 @@ impl TryFrom<&PayloadRouterData<&PaymentsAuthorizeRouterData>>
         }
 
         match item.router_data.request.payment_method_data.clone() {
+<<<<<<< HEAD
             PaymentMethodData::Card(_) => {
                 let billing_address = item.router_data.get_billing_address()?;
                 let is_mandate = item.router_data.request.is_mandate_payment();
@@ -226,6 +249,57 @@ impl TryFrom<&PayloadRouterData<&PaymentsAuthorizeRouterData>>
                 )?;
 
                 Ok(Self::PayloadCardsRequest(Box::new(cards_data)))
+=======
+            PaymentMethodData::Card(req_card) => {
+                let payload_auth = PayloadAuth::try_from((
+                    &item.router_data.connector_auth_type,
+                    item.router_data.request.currency,
+                ))?;
+                let card = requests::PayloadCard {
+                    number: req_card.clone().card_number,
+                    expiry: req_card
+                        .clone()
+                        .get_card_expiry_month_year_2_digit_with_delimiter("/".to_owned())?,
+                    cvc: req_card.card_cvc,
+                };
+                let is_mandate = item.router_data.request.is_mandate_payment();
+                let address = item.router_data.get_billing_address()?;
+
+                // Check for required fields and fail if they're missing
+                let city = address.get_city()?.to_owned();
+                let country = address.get_country()?.to_owned();
+                let postal_code = address.get_zip()?.to_owned();
+                let state_province = address.get_state()?.to_owned();
+                let street_address = address.get_line1()?.to_owned();
+
+                let billing_address = requests::BillingAddress {
+                    city,
+                    country,
+                    postal_code,
+                    state_province,
+                    street_address,
+                };
+
+                // For manual capture, set status to "authorized"
+                let status = if is_manual_capture(item.router_data.request.capture_method) {
+                    Some(responses::PayloadPaymentStatus::Authorized)
+                } else {
+                    None
+                };
+
+                Ok(Self::PayloadCardsRequest(Box::new(
+                    requests::PayloadCardsRequestData {
+                        amount: item.amount.clone(),
+                        card,
+                        transaction_types: requests::TransactionTypes::Payment,
+                        payment_method_type: "card".to_string(),
+                        status,
+                        billing_address,
+                        processing_id: payload_auth.processing_account_id,
+                        keep_active: is_mandate,
+                    },
+                )))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
             PaymentMethodData::MandatePayment => {
                 // For manual capture, set status to "authorized"
@@ -264,7 +338,11 @@ impl From<responses::PayloadPaymentStatus> for common_enums::AttemptStatus {
     }
 }
 
+<<<<<<< HEAD
 impl<F: 'static, T>
+=======
+impl<F, T>
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     TryFrom<ResponseRouterData<F, responses::PayloadPaymentsResponse, T, PaymentsResponseData>>
     for RouterData<F, T, PaymentsResponseData>
 where
@@ -278,6 +356,7 @@ where
             responses::PayloadPaymentsResponse::PayloadCardsResponse(response) => {
                 let status = enums::AttemptStatus::from(response.status);
 
+<<<<<<< HEAD
                 let router_data: &dyn std::any::Any = &item.data;
                 let is_mandate_payment = router_data
                     .downcast_ref::<PaymentsAuthorizeRouterData>()
@@ -285,6 +364,12 @@ where
                     || router_data
                         .downcast_ref::<SetupMandateRouterData>()
                         .is_some();
+=======
+                let request_any: &dyn std::any::Any = &item.data.request;
+                let is_mandate_payment = request_any
+                    .downcast_ref::<PaymentsAuthorizeData>()
+                    .is_some_and(|req| req.is_mandate_payment());
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
                 let mandate_reference = if is_mandate_payment {
                     let connector_payment_method_id =

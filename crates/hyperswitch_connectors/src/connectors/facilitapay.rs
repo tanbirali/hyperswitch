@@ -961,6 +961,7 @@ impl ConnectorSpecifications for Facilitapay {
     fn get_supported_webhook_flows(&self) -> Option<&'static [enums::EventClass]> {
         Some(&*FACILITAPAY_SUPPORTED_WEBHOOK_FLOWS)
     }
+<<<<<<< HEAD
 
     fn should_call_connector_customer(
         &self,
@@ -968,4 +969,6 @@ impl ConnectorSpecifications for Facilitapay {
     ) -> bool {
         true
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

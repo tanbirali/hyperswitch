@@ -22,10 +22,13 @@ use crate::{
     core::{
         errors::{self, StorageErrorExt},
         payment_methods::{cards, network_tokenization},
+<<<<<<< HEAD
         utils::{
             self,
             customer_validation::{CUSTOMER_LIST_LOWER_LIMIT, CUSTOMER_LIST_UPPER_LIMIT},
         },
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     db::StorageInterface,
     pii::PeekInterface,
@@ -594,8 +597,11 @@ pub async fn list_customers(
             .limit
             .unwrap_or(crate::consts::DEFAULT_LIST_API_LIMIT),
         offset: request.offset,
+<<<<<<< HEAD
         customer_id: request.customer_id,
         time_range: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     };
 
     let domain_customers = db
@@ -623,6 +629,7 @@ pub async fn list_customers(
     Ok(services::ApplicationResponse::Json(customers))
 }
 
+<<<<<<< HEAD
 #[instrument(skip(state))]
 pub async fn list_customers_with_count(
     state: SessionState,
@@ -678,6 +685,8 @@ pub async fn list_customers_with_count(
     ))
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v2")]
 #[instrument(skip_all)]
 pub async fn delete_customer(

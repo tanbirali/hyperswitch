@@ -1,6 +1,7 @@
 //! Payments V2 interface
 
 use hyperswitch_domain_models::{
+<<<<<<< HEAD
     router_data_v2::{flow_common_types::GiftCardBalanceCheckFlowData, PaymentFlowData},
     router_flow_types::{
         payments::{
@@ -26,6 +27,25 @@ use hyperswitch_domain_models::{
     router_response_types::{
         GiftCardBalanceCheckResponseData, PaymentsResponseData, TaxCalculationResponseData,
     },
+=======
+    router_data_v2::PaymentFlowData,
+    router_flow_types::payments::{
+        Approve, Authorize, AuthorizeSessionToken, CalculateTax, Capture, CompleteAuthorize,
+        CreateConnectorCustomer, CreateOrder, ExternalVaultProxy, IncrementalAuthorization, PSync,
+        PaymentMethodToken, PostCaptureVoid, PostProcessing, PostSessionTokens, PreProcessing,
+        Reject, SdkSessionUpdate, Session, SetupMandate, UpdateMetadata, Void,
+    },
+    router_request_types::{
+        AuthorizeSessionTokenData, CompleteAuthorizeData, ConnectorCustomerData,
+        CreateOrderRequestData, ExternalVaultProxyPaymentsData, PaymentMethodTokenizationData,
+        PaymentsApproveData, PaymentsAuthorizeData, PaymentsCancelData,
+        PaymentsCancelPostCaptureData, PaymentsCaptureData, PaymentsIncrementalAuthorizationData,
+        PaymentsPostProcessingData, PaymentsPostSessionTokensData, PaymentsPreProcessingData,
+        PaymentsRejectData, PaymentsSessionData, PaymentsSyncData, PaymentsTaxCalculationData,
+        PaymentsUpdateMetadataData, SdkPaymentsSessionUpdateData, SetupMandateRequestData,
+    },
+    router_response_types::{PaymentsResponseData, TaxCalculationResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 use crate::api::{
@@ -113,6 +133,7 @@ pub trait PaymentIncrementalAuthorizationV2:
 {
 }
 
+<<<<<<< HEAD
 /// trait PaymentExtendAuthorizationV2
 pub trait PaymentExtendAuthorizationV2:
     ConnectorIntegrationV2<
@@ -124,6 +145,8 @@ pub trait PaymentExtendAuthorizationV2:
 {
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 ///trait TaxCalculationV2
 pub trait TaxCalculationV2:
     ConnectorIntegrationV2<
@@ -218,6 +241,7 @@ pub trait PaymentsPreProcessingV2:
 {
 }
 
+<<<<<<< HEAD
 /// trait PaymentsGiftCardBalanceCheckV2
 pub trait PaymentsGiftCardBalanceCheckV2:
     ConnectorIntegrationV2<
@@ -261,6 +285,8 @@ pub trait PaymentsPostAuthenticateV2:
 >
 {
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// trait PaymentsPostProcessingV2
 pub trait PaymentsPostProcessingV2:
     ConnectorIntegrationV2<
@@ -304,13 +330,19 @@ pub trait PaymentV2:
     + PaymentsPostProcessingV2
     + ConnectorCustomerV2
     + PaymentIncrementalAuthorizationV2
+<<<<<<< HEAD
     + PaymentExtendAuthorizationV2
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     + TaxCalculationV2
     + PaymentSessionUpdateV2
     + PaymentPostSessionTokensV2
     + PaymentUpdateMetadataV2
     + PaymentCreateOrderV2
     + ExternalVaultProxyPaymentsCreate
+<<<<<<< HEAD
     + PaymentsGiftCardBalanceCheckV2
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 {
 }

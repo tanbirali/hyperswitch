@@ -263,6 +263,7 @@ impl DisputeInterface for MockDb {
                     && dispute_constraints
                         .dispute_id
                         .as_ref()
+<<<<<<< HEAD
                         .is_none_or(|id| &dispute.dispute_id == id)
                     && dispute_constraints
                         .payment_id
@@ -276,10 +277,26 @@ impl DisputeInterface for MockDb {
                                 .profile_id
                                 .as_ref()
                                 .is_none_or(|id| profile_ids.contains(id))
+=======
+                        .map_or(true, |id| &dispute.dispute_id == id)
+                    && dispute_constraints
+                        .payment_id
+                        .as_ref()
+                        .map_or(true, |id| &dispute.payment_id == id)
+                    && dispute_constraints
+                        .profile_id
+                        .as_ref()
+                        .map_or(true, |profile_ids| {
+                            dispute
+                                .profile_id
+                                .as_ref()
+                                .map_or(true, |id| profile_ids.contains(id))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         })
                     && dispute_constraints
                         .dispute_status
                         .as_ref()
+<<<<<<< HEAD
                         .is_none_or(|statuses| statuses.contains(&dispute.dispute_status))
                     && dispute_constraints
                         .dispute_stage
@@ -290,11 +307,27 @@ impl DisputeInterface for MockDb {
                             .connector_reason
                             .as_ref()
                             .is_none_or(|d_reason| d_reason == reason)
+=======
+                        .map_or(true, |statuses| statuses.contains(&dispute.dispute_status))
+                    && dispute_constraints
+                        .dispute_stage
+                        .as_ref()
+                        .map_or(true, |stages| stages.contains(&dispute.dispute_stage))
+                    && dispute_constraints.reason.as_ref().map_or(true, |reason| {
+                        dispute
+                            .connector_reason
+                            .as_ref()
+                            .map_or(true, |d_reason| d_reason == reason)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     })
                     && dispute_constraints
                         .connector
                         .as_ref()
+<<<<<<< HEAD
                         .is_none_or(|connectors| {
+=======
+                        .map_or(true, |connectors| {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             connectors
                                 .iter()
                                 .any(|connector| dispute.connector.as_str() == *connector)
@@ -302,11 +335,21 @@ impl DisputeInterface for MockDb {
                     && dispute_constraints
                         .merchant_connector_id
                         .as_ref()
+<<<<<<< HEAD
                         .is_none_or(|id| dispute.merchant_connector_id.as_ref() == Some(id))
                     && dispute_constraints
                         .currency
                         .as_ref()
                         .is_none_or(|currencies| {
+=======
+                        .map_or(true, |id| {
+                            dispute.merchant_connector_id.as_ref() == Some(id)
+                        })
+                    && dispute_constraints
+                        .currency
+                        .as_ref()
+                        .map_or(true, |currencies| {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                             currencies.iter().any(|currency| {
                                 dispute
                                     .dispute_currency
@@ -314,6 +357,7 @@ impl DisputeInterface for MockDb {
                                     .unwrap_or(dispute.currency.as_str() == currency.to_string())
                             })
                         })
+<<<<<<< HEAD
                     && dispute_constraints.time_range.as_ref().is_none_or(|range| {
                         let dispute_time = dispute.created_at;
                         dispute_time >= range.start_time
@@ -321,6 +365,18 @@ impl DisputeInterface for MockDb {
                                 .end_time
                                 .is_none_or(|end_time| dispute_time <= end_time)
                     })
+=======
+                    && dispute_constraints
+                        .time_range
+                        .as_ref()
+                        .map_or(true, |range| {
+                            let dispute_time = dispute.created_at;
+                            dispute_time >= range.start_time
+                                && range
+                                    .end_time
+                                    .map_or(true, |end_time| dispute_time <= end_time)
+                        })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .skip(offset_usize)
             .take(limit_usize)
@@ -423,6 +479,7 @@ impl DisputeInterface for MockDb {
                     && time_range
                         .end_time
                         .as_ref()
+<<<<<<< HEAD
                         .is_none_or(|received_end_time| received_end_time >= &d.created_at)
                     && profile_id_list
                         .as_ref()
@@ -430,6 +487,17 @@ impl DisputeInterface for MockDb {
                         .is_none_or(|(received_profile_list, received_profile_id)| {
                             received_profile_list.contains(received_profile_id)
                         })
+=======
+                        .map(|received_end_time| received_end_time >= &d.created_at)
+                        .unwrap_or(true)
+                    && profile_id_list
+                        .as_ref()
+                        .zip(d.profile_id.as_ref())
+                        .map(|(received_profile_list, received_profile_id)| {
+                            received_profile_list.contains(received_profile_id)
+                        })
+                        .unwrap_or(true)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
             .cloned()
             .collect::<Vec<storage::Dispute>>();

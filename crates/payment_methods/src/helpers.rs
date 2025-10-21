@@ -178,7 +178,10 @@ pub fn validate_payment_method_type_against_payment_method(
             payment_method_type,
             api_enums::PaymentMethodType::Ach
                 | api_enums::PaymentMethodType::Sepa
+<<<<<<< HEAD
                 | api_enums::PaymentMethodType::SepaGuarenteedDebit
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | api_enums::PaymentMethodType::Bacs
                 | api_enums::PaymentMethodType::Becs
         ),
@@ -199,9 +202,13 @@ pub fn validate_payment_method_type_against_payment_method(
         ),
         api_enums::PaymentMethod::Upi => matches!(
             payment_method_type,
+<<<<<<< HEAD
             api_enums::PaymentMethodType::UpiCollect
                 | api_enums::PaymentMethodType::UpiIntent
                 | api_enums::PaymentMethodType::UpiQr
+=======
+            api_enums::PaymentMethodType::UpiCollect | api_enums::PaymentMethodType::UpiIntent
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ),
         api_enums::PaymentMethod::Voucher => matches!(
             payment_method_type,

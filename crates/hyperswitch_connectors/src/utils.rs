@@ -13,6 +13,7 @@ use common_enums::{
     enums,
     enums::{
         AlbaniaStatesAbbreviation, AndorraStatesAbbreviation, AttemptStatus,
+<<<<<<< HEAD
         AustraliaStatesAbbreviation, AustriaStatesAbbreviation, BelarusStatesAbbreviation,
         BelgiumStatesAbbreviation, BosniaAndHerzegovinaStatesAbbreviation,
         BrazilStatesAbbreviation, BulgariaStatesAbbreviation, CanadaStatesAbbreviation,
@@ -31,6 +32,23 @@ use common_enums::{
         SpainStatesAbbreviation, SwedenStatesAbbreviation, SwitzerlandStatesAbbreviation,
         ThailandStatesAbbreviation, UkraineStatesAbbreviation, UnitedKingdomStatesAbbreviation,
         UsStatesAbbreviation,
+=======
+        AustriaStatesAbbreviation, BelarusStatesAbbreviation, BelgiumStatesAbbreviation,
+        BosniaAndHerzegovinaStatesAbbreviation, BrazilStatesAbbreviation,
+        BulgariaStatesAbbreviation, CanadaStatesAbbreviation, CroatiaStatesAbbreviation,
+        CzechRepublicStatesAbbreviation, DenmarkStatesAbbreviation, FinlandStatesAbbreviation,
+        FranceStatesAbbreviation, FutureUsage, GermanyStatesAbbreviation, GreeceStatesAbbreviation,
+        HungaryStatesAbbreviation, IcelandStatesAbbreviation, IrelandStatesAbbreviation,
+        ItalyStatesAbbreviation, LatviaStatesAbbreviation, LiechtensteinStatesAbbreviation,
+        LithuaniaStatesAbbreviation, LuxembourgStatesAbbreviation, MaltaStatesAbbreviation,
+        MoldovaStatesAbbreviation, MonacoStatesAbbreviation, MontenegroStatesAbbreviation,
+        NetherlandsStatesAbbreviation, NorthMacedoniaStatesAbbreviation, NorwayStatesAbbreviation,
+        PolandStatesAbbreviation, PortugalStatesAbbreviation, RomaniaStatesAbbreviation,
+        RussiaStatesAbbreviation, SanMarinoStatesAbbreviation, SerbiaStatesAbbreviation,
+        SlovakiaStatesAbbreviation, SloveniaStatesAbbreviation, SpainStatesAbbreviation,
+        SwedenStatesAbbreviation, SwitzerlandStatesAbbreviation, UkraineStatesAbbreviation,
+        UnitedKingdomStatesAbbreviation, UsStatesAbbreviation,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 use common_utils::{
@@ -51,10 +69,14 @@ use hyperswitch_domain_models::{
     address::{Address, AddressDetails, PhoneDetails},
     mandates,
     network_tokenization::NetworkTokenNumber,
+<<<<<<< HEAD
     payment_method_data::{
         self, Card, CardDetailsForNetworkTransactionId, GooglePayPaymentMethodInfo,
         PaymentMethodData,
     },
+=======
+    payment_method_data::{self, Card, CardDetailsForNetworkTransactionId, PaymentMethodData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     router_data::{
         ErrorResponse, L2L3Data, PaymentMethodToken, RecurringMandatePaymentData,
         RouterData as ConnectorRouterData,
@@ -241,6 +263,16 @@ pub struct GooglePayWalletData {
     pub tokenization_data: common_types::payments::GpayTokenizationData,
 }
 
+<<<<<<< HEAD
+=======
+#[derive(Clone, Debug, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GooglePayPaymentMethodInfo {
+    pub card_network: String,
+    pub card_details: String,
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 pub struct CardMandateInfo {
     pub card_exp_month: Secret<String>,
@@ -273,8 +305,11 @@ impl TryFrom<payment_method_data::GooglePayWalletData> for GooglePayWalletData {
             info: GooglePayPaymentMethodInfo {
                 card_network: data.info.card_network,
                 card_details: data.info.card_details,
+<<<<<<< HEAD
                 assurance_details: data.info.assurance_details,
                 card_funding_source: data.info.card_funding_source,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             tokenization_data,
         })
@@ -392,6 +427,7 @@ where
     json.parse_value(std::any::type_name::<T>()).switch()
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 pub(crate) fn to_payout_connector_meta<T>(connector_meta: Option<Value>) -> Result<T, Error>
 where
@@ -401,6 +437,8 @@ where
     json.parse_value(std::any::type_name::<T>()).switch()
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub(crate) fn convert_amount<T>(
     amount_convertor: &dyn AmountConvertor<Output = T>,
     amount: MinorUnit,
@@ -531,6 +569,7 @@ pub trait RouterData {
     fn get_optional_shipping_last_name(&self) -> Option<Secret<String>>;
     fn get_optional_shipping_full_name(&self) -> Option<Secret<String>>;
     fn get_optional_shipping_phone_number(&self) -> Option<Secret<String>>;
+<<<<<<< HEAD
     fn get_optional_shipping_phone_number_without_country_code(&self) -> Option<Secret<String>>;
     fn get_optional_shipping_email(&self) -> Option<Email>;
 
@@ -541,6 +580,10 @@ pub trait RouterData {
     fn get_required_shipping_zip(&self) -> Result<Secret<String>, Error>;
     fn get_required_shipping_phone_number(&self) -> Result<Secret<String>, Error>;
 
+=======
+    fn get_optional_shipping_email(&self) -> Option<Email>;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_optional_billing_full_name(&self) -> Option<Secret<String>>;
     fn get_optional_billing_line1(&self) -> Option<Secret<String>>;
     fn get_optional_billing_line3(&self) -> Option<Secret<String>>;
@@ -549,13 +592,20 @@ pub trait RouterData {
     fn get_optional_billing_country(&self) -> Option<enums::CountryAlpha2>;
     fn get_optional_billing_zip(&self) -> Option<Secret<String>>;
     fn get_optional_billing_state(&self) -> Option<Secret<String>>;
+<<<<<<< HEAD
     fn get_optional_billing_state_code(&self) -> Option<Secret<String>>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_optional_billing_state_2_digit(&self) -> Option<Secret<String>>;
     fn get_optional_billing_first_name(&self) -> Option<Secret<String>>;
     fn get_optional_billing_last_name(&self) -> Option<Secret<String>>;
     fn get_optional_billing_phone_number(&self) -> Option<Secret<String>>;
     fn get_optional_billing_email(&self) -> Option<Email>;
+<<<<<<< HEAD
     fn get_optional_l2_l3_data(&self) -> Option<Box<L2L3Data>>;
+=======
+    fn get_optional_l2_l3_data(&self) -> Option<L2L3Data>;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<Flow, Request, Response> RouterData
@@ -692,6 +742,7 @@ impl<Flow, Request, Response> RouterData
             .and_then(|phone_details| phone_details.get_number_with_country_code().ok())
     }
 
+<<<<<<< HEAD
     fn get_optional_shipping_phone_number_without_country_code(&self) -> Option<Secret<String>> {
         self.address
             .get_shipping()
@@ -699,6 +750,8 @@ impl<Flow, Request, Response> RouterData
             .and_then(|phone_details| phone_details.get_number().ok())
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_description(&self) -> Result<String, Error> {
         self.description
             .clone()
@@ -941,10 +994,13 @@ impl<Flow, Request, Response> RouterData
         })
     }
 
+<<<<<<< HEAD
     fn get_optional_billing_state_code(&self) -> Option<Secret<String>> {
         self.get_billing_state_code().ok()
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_optional_billing_first_name(&self) -> Option<Secret<String>> {
         self.address
             .get_payment_method_billing()
@@ -1041,6 +1097,7 @@ impl<Flow, Request, Response> RouterData
             .and_then(|billing_address| billing_address.get_optional_full_name())
     }
 
+<<<<<<< HEAD
     fn get_required_shipping_full_name(&self) -> Result<Secret<String>, Error> {
         self.get_optional_shipping_full_name()
             .ok_or_else(missing_field_err(
@@ -1073,6 +1130,8 @@ impl<Flow, Request, Response> RouterData
             .ok_or_else(missing_field_err("shipping.phone.number"))
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(feature = "payouts")]
     fn get_payout_method_data(&self) -> Result<api_models::payouts::PayoutMethodData, Error> {
         self.payout_method_data
@@ -1086,7 +1145,11 @@ impl<Flow, Request, Response> RouterData
             .ok_or_else(missing_field_err("quote_id"))
     }
 
+<<<<<<< HEAD
     fn get_optional_l2_l3_data(&self) -> Option<Box<L2L3Data>> {
+=======
+    fn get_optional_l2_l3_data(&self) -> Option<L2L3Data> {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         self.l2_l3_data.clone()
     }
 
@@ -1119,7 +1182,10 @@ pub enum CardIssuer {
     JCB,
     CarteBlanche,
     CartesBancaires,
+<<<<<<< HEAD
     UnionPay,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub trait CardData {
@@ -1355,6 +1421,7 @@ impl CardData for CardDetailsForNetworkTransactionId {
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "payouts")]
 impl CardData for api_models::payouts::ApplePayDecrypt {
     fn get_card_expiry_year_2_digit(&self) -> Result<Secret<String>, errors::ConnectorError> {
@@ -1464,6 +1531,8 @@ impl CardData for api_models::payouts::ApplePayDecrypt {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[track_caller]
 fn get_card_issuer(card_number: &str) -> Result<CardIssuer, Error> {
     for (k, v) in CARD_REGEX.iter() {
@@ -1487,21 +1556,32 @@ static CARD_REGEX: LazyLock<HashMap<CardIssuer, Result<Regex, regex::Error>>> = 
         map.insert(CardIssuer::Master, Regex::new(r"^5[1-5][0-9]{14}$"));
         map.insert(CardIssuer::AmericanExpress, Regex::new(r"^3[47][0-9]{13}$"));
         map.insert(CardIssuer::Visa, Regex::new(r"^4[0-9]{12}(?:[0-9]{3})?$"));
+<<<<<<< HEAD
         map.insert(CardIssuer::Discover, Regex::new(r"^65[0-9]{14}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$"));
+=======
+        map.insert(CardIssuer::Discover, Regex::new(r"^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$"));
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         map.insert(
             CardIssuer::Maestro,
             Regex::new(r"^(5018|5020|5038|5893|6304|6759|6761|6762|6763)[0-9]{8,15}$"),
         );
         map.insert(
             CardIssuer::DinersClub,
+<<<<<<< HEAD
             Regex::new(r"^3(?:0[0-5][0-9]{11}|[68][0-9][0-9]{11,13})$"),
+=======
+            Regex::new(r"^3(?:0[0-5]|[68][0-9])[0-9]{11}$"),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         );
         map.insert(
             CardIssuer::JCB,
             Regex::new(r"^(3(?:088|096|112|158|337|5(?:2[89]|[3-8][0-9]))\d{12})$"),
         );
         map.insert(CardIssuer::CarteBlanche, Regex::new(r"^389[0-9]{11}$"));
+<<<<<<< HEAD
         map.insert(CardIssuer::UnionPay, Regex::new(r"^(62[0-9]{14,17})$"));
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         map
     },
 );
@@ -1665,9 +1745,12 @@ impl AddressDetailsData for AddressDetails {
             api_models::enums::CountryAlpha2::IT => Ok(Secret::new(
                 ItalyStatesAbbreviation::foreign_try_from(state.peek().to_string())?.to_string(),
             )),
+<<<<<<< HEAD
             api_models::enums::CountryAlpha2::JP => Ok(Secret::new(
                 JapanStatesAbbreviation::foreign_try_from(state.peek().to_string())?.to_string(),
             )),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_models::enums::CountryAlpha2::LI => Ok(Secret::new(
                 LiechtensteinStatesAbbreviation::foreign_try_from(state.peek().to_string())?
                     .to_string(),
@@ -1693,10 +1776,13 @@ impl AddressDetailsData for AddressDetails {
                 NetherlandsStatesAbbreviation::foreign_try_from(state.peek().to_string())?
                     .to_string(),
             )),
+<<<<<<< HEAD
             api_models::enums::CountryAlpha2::NZ => Ok(Secret::new(
                 NewZealandStatesAbbreviation::foreign_try_from(state.peek().to_string())?
                     .to_string(),
             )),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_models::enums::CountryAlpha2::MK => Ok(Secret::new(
                 NorthMacedoniaStatesAbbreviation::foreign_try_from(state.peek().to_string())?
                     .to_string(),
@@ -1721,6 +1807,7 @@ impl AddressDetailsData for AddressDetails {
                 UnitedKingdomStatesAbbreviation::foreign_try_from(state.peek().to_string())?
                     .to_string(),
             )),
+<<<<<<< HEAD
             api_models::enums::CountryAlpha2::BR => Ok(Secret::new(
                 BrazilStatesAbbreviation::foreign_try_from(state.peek().to_string())?.to_string(),
             )),
@@ -1742,6 +1829,8 @@ impl AddressDetailsData for AddressDetails {
             api_models::enums::CountryAlpha2::IN => Ok(Secret::new(
                 IndiaStatesAbbreviation::foreign_try_from(state.peek().to_string())?.to_string(),
             )),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             _ => Ok(state.clone()),
         }
     }
@@ -1906,7 +1995,10 @@ pub trait PaymentsAuthorizeRequestData {
     fn is_card(&self) -> bool;
     fn get_payment_method_type(&self) -> Result<enums::PaymentMethodType, Error>;
     fn get_connector_mandate_id(&self) -> Result<String, Error>;
+<<<<<<< HEAD
     fn get_connector_mandate_data(&self) -> Option<payments::ConnectorMandateReferenceId>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_complete_authorize_url(&self) -> Result<String, Error>;
     fn get_ip_address_as_optional(&self) -> Option<Secret<String, IpAddress>>;
     fn get_ip_address(&self) -> Result<Secret<String, IpAddress>, Error>;
@@ -2025,6 +2117,7 @@ impl PaymentsAuthorizeRequestData for PaymentsAuthorizeData {
         self.connector_mandate_id()
             .ok_or_else(missing_field_err("connector_mandate_id"))
     }
+<<<<<<< HEAD
 
     fn get_connector_mandate_data(&self) -> Option<payments::ConnectorMandateReferenceId> {
         self.mandate_id
@@ -2039,6 +2132,8 @@ impl PaymentsAuthorizeRequestData for PaymentsAuthorizeData {
             })
     }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_ip_address_as_optional(&self) -> Option<Secret<String, IpAddress>> {
         self.browser_info.clone().and_then(|browser_info| {
             browser_info
@@ -2243,8 +2338,11 @@ impl PaymentsCaptureRequestData for PaymentsCaptureData {
 pub trait PaymentsSyncRequestData {
     fn is_auto_capture(&self) -> Result<bool, Error>;
     fn get_connector_transaction_id(&self) -> CustomResult<String, errors::ConnectorError>;
+<<<<<<< HEAD
     fn is_mandate_payment(&self) -> bool;
     fn get_optional_connector_transaction_id(&self) -> Option<String>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl PaymentsSyncRequestData for PaymentsSyncData {
@@ -2269,6 +2367,7 @@ impl PaymentsSyncRequestData for PaymentsSyncData {
             .change_context(errors::ConnectorError::MissingConnectorTransactionID)?,
         }
     }
+<<<<<<< HEAD
     fn is_mandate_payment(&self) -> bool {
         matches!(self.setup_future_usage, Some(FutureUsage::OffSession))
     }
@@ -2279,6 +2378,8 @@ impl PaymentsSyncRequestData for PaymentsSyncData {
             _ => None,
         }
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub trait PaymentsPostSessionTokensRequestData {
@@ -2470,7 +2571,10 @@ pub trait PaymentsCompleteAuthorizeRequestData {
     fn is_cit_mandate_payment(&self) -> bool;
     fn get_browser_info(&self) -> Result<BrowserInformation, Error>;
     fn get_threeds_method_comp_ind(&self) -> Result<payments::ThreeDsCompletionIndicator, Error>;
+<<<<<<< HEAD
     fn get_connector_mandate_id(&self) -> Option<String>;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl PaymentsCompleteAuthorizeRequestData for CompleteAuthorizeData {
@@ -2539,6 +2643,7 @@ impl PaymentsCompleteAuthorizeRequestData for CompleteAuthorizeData {
             .clone()
             .ok_or_else(missing_field_err("threeds_method_comp_ind"))
     }
+<<<<<<< HEAD
     fn get_connector_mandate_id(&self) -> Option<String> {
         self.mandate_id
             .as_ref()
@@ -2551,6 +2656,8 @@ impl PaymentsCompleteAuthorizeRequestData for CompleteAuthorizeData {
                 | Some(payments::MandateReferenceId::NetworkTokenWithNTI(_)) => None,
             })
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 pub trait AddressData {
     fn get_optional_full_name(&self) -> Option<Secret<String>>;
@@ -2605,8 +2712,11 @@ pub trait PaymentsPreProcessingRequestData {
     fn get_browser_info(&self) -> Result<BrowserInformation, Error>;
     fn get_complete_authorize_url(&self) -> Result<String, Error>;
     fn connector_mandate_id(&self) -> Option<String>;
+<<<<<<< HEAD
     fn get_payment_method_data(&self) -> Result<PaymentMethodData, Error>;
     fn is_customer_initiated_mandate_payment(&self) -> bool;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl PaymentsPreProcessingRequestData for PaymentsPreProcessingData {
@@ -2618,11 +2728,14 @@ impl PaymentsPreProcessingRequestData for PaymentsPreProcessingData {
             .to_owned()
             .ok_or_else(missing_field_err("payment_method_type"))
     }
+<<<<<<< HEAD
     fn get_payment_method_data(&self) -> Result<PaymentMethodData, Error> {
         self.payment_method_data
             .to_owned()
             .ok_or_else(missing_field_err("payment_method_data"))
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_currency(&self) -> Result<enums::Currency, Error> {
         self.currency.ok_or_else(missing_field_err("currency"))
     }
@@ -2693,10 +2806,13 @@ impl PaymentsPreProcessingRequestData for PaymentsPreProcessingData {
                 | Some(payments::MandateReferenceId::NetworkTokenWithNTI(_)) => None,
             })
     }
+<<<<<<< HEAD
     fn is_customer_initiated_mandate_payment(&self) -> bool {
         (self.customer_acceptance.is_some() || self.setup_mandate_details.is_some())
             && self.setup_future_usage == Some(FutureUsage::OffSession)
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub trait BrowserInformationData {
@@ -2976,6 +3092,7 @@ impl ForeignTryFrom<String> for CanadaStatesAbbreviation {
     }
 }
 
+<<<<<<< HEAD
 impl ForeignTryFrom<String> for AustraliaStatesAbbreviation {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn foreign_try_from(value: String) -> Result<Self, Self::Error> {
@@ -2998,6 +3115,8 @@ impl ForeignTryFrom<String> for AustraliaStatesAbbreviation {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl ForeignTryFrom<String> for PolandStatesAbbreviation {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn foreign_try_from(value: String) -> Result<Self, Self::Error> {
@@ -3343,6 +3462,7 @@ impl ForeignTryFrom<String> for ItalyStatesAbbreviation {
     }
 }
 
+<<<<<<< HEAD
 impl ForeignTryFrom<String> for JapanStatesAbbreviation {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn foreign_try_from(value: String) -> Result<Self, Self::Error> {
@@ -3494,6 +3614,8 @@ impl ForeignTryFrom<String> for ThailandStatesAbbreviation {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl ForeignTryFrom<String> for NorwayStatesAbbreviation {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn foreign_try_from(value: String) -> Result<Self, Self::Error> {
@@ -3936,6 +4058,7 @@ impl ForeignTryFrom<String> for NetherlandsStatesAbbreviation {
     }
 }
 
+<<<<<<< HEAD
 impl ForeignTryFrom<String> for NewZealandStatesAbbreviation {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn foreign_try_from(value: String) -> Result<Self, Self::Error> {
@@ -4154,6 +4277,8 @@ impl ForeignTryFrom<String> for IndiaStatesAbbreviation {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl ForeignTryFrom<String> for MoldovaStatesAbbreviation {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn foreign_try_from(value: String) -> Result<Self, Self::Error> {
@@ -6113,7 +6238,10 @@ pub enum PaymentMethodDataType {
     AliPayQr,
     AliPayRedirect,
     AliPayHkRedirect,
+<<<<<<< HEAD
     AmazonPay,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     AmazonPayRedirect,
     Skrill,
     Paysera,
@@ -6174,7 +6302,10 @@ pub enum PaymentMethodDataType {
     OnlineBankingThailand,
     AchBankDebit,
     SepaBankDebit,
+<<<<<<< HEAD
     SepaGuarenteedDebit,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     BecsBankDebit,
     BacsBankDebit,
     AchBankTransfer,
@@ -6253,7 +6384,10 @@ impl From<PaymentMethodData> for PaymentMethodDataType {
                 payment_method_data::WalletData::KakaoPayRedirect(_) => Self::KakaoPayRedirect,
                 payment_method_data::WalletData::GoPayRedirect(_) => Self::GoPayRedirect,
                 payment_method_data::WalletData::GcashRedirect(_) => Self::GcashRedirect,
+<<<<<<< HEAD
                 payment_method_data::WalletData::AmazonPay(_) => Self::AmazonPay,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 payment_method_data::WalletData::ApplePay(_) => Self::ApplePay,
                 payment_method_data::WalletData::ApplePayRedirect(_) => Self::ApplePayRedirect,
                 payment_method_data::WalletData::ApplePayThirdPartySdk(_) => {
@@ -6336,9 +6470,12 @@ impl From<PaymentMethodData> for PaymentMethodDataType {
             PaymentMethodData::BankDebit(bank_debit_data) => match bank_debit_data {
                 payment_method_data::BankDebitData::AchBankDebit { .. } => Self::AchBankDebit,
                 payment_method_data::BankDebitData::SepaBankDebit { .. } => Self::SepaBankDebit,
+<<<<<<< HEAD
                 payment_method_data::BankDebitData::SepaGuarenteedBankDebit { .. } => {
                     Self::SepaGuarenteedDebit
                 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 payment_method_data::BankDebitData::BecsBankDebit { .. } => Self::BecsBankDebit,
                 payment_method_data::BankDebitData::BacsBankDebit { .. } => Self::BacsBankDebit,
             },
@@ -6555,9 +6692,14 @@ pub trait PayoutsData {
         &self,
     ) -> Result<hyperswitch_domain_models::router_request_types::CustomerDetails, Error>;
     fn get_vendor_details(&self) -> Result<PayoutVendorAccountDetails, Error>;
+<<<<<<< HEAD
     fn get_payout_type(&self) -> Result<enums::PayoutType, Error>;
     fn get_webhook_url(&self) -> Result<String, Error>;
     fn get_browser_info(&self) -> Result<BrowserInformation, Error>;
+=======
+    #[cfg(feature = "payouts")]
+    fn get_payout_type(&self) -> Result<enums::PayoutType, Error>;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[cfg(feature = "payouts")]
@@ -6579,11 +6721,16 @@ impl PayoutsData for hyperswitch_domain_models::router_request_types::PayoutsDat
             .clone()
             .ok_or_else(missing_field_err("vendor_details"))
     }
+<<<<<<< HEAD
+=======
+    #[cfg(feature = "payouts")]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn get_payout_type(&self) -> Result<enums::PayoutType, Error> {
         self.payout_type
             .to_owned()
             .ok_or_else(missing_field_err("payout_type"))
     }
+<<<<<<< HEAD
     fn get_webhook_url(&self) -> Result<String, Error> {
         self.webhook_url
             .to_owned()
@@ -6594,6 +6741,8 @@ impl PayoutsData for hyperswitch_domain_models::router_request_types::PayoutsDat
             .clone()
             .ok_or_else(missing_field_err("browser_info"))
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 pub trait RevokeMandateRequestData {
     fn get_connector_mandate_id(&self) -> Result<String, Error>;
@@ -6924,11 +7073,16 @@ pub(crate) fn convert_setup_mandate_router_data_to_authorize_router_data(
         connector_testing_data: data.request.connector_testing_data.clone(),
         order_id: None,
         locale: None,
+<<<<<<< HEAD
         payment_channel: data.request.payment_channel.clone(),
         enable_partial_authorization: data.request.enable_partial_authorization,
         enable_overcapture: None,
         is_stored_credential: data.request.is_stored_credential,
         mit_category: None,
+=======
+        payment_channel: None,
+        enable_partial_authorization: data.request.enable_partial_authorization,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -6946,7 +7100,10 @@ pub(crate) fn convert_payment_authorize_router_response<F1, F2, T1, T2>(
         tenant_id: data.tenant_id.clone(),
         status: data.status,
         payment_method: data.payment_method,
+<<<<<<< HEAD
         payment_method_type: data.payment_method_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         connector_auth_type: data.connector_auth_type.clone(),
         description: data.description.clone(),
         address: data.address.clone(),
@@ -6991,7 +7148,10 @@ pub(crate) fn convert_payment_authorize_router_response<F1, F2, T1, T2>(
         is_payment_id_from_merchant: data.is_payment_id_from_merchant,
         l2_l3_data: data.l2_l3_data.clone(),
         minor_amount_capturable: data.minor_amount_capturable,
+<<<<<<< HEAD
         authorized_amount: data.authorized_amount,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -7010,6 +7170,7 @@ pub fn normalize_string(value: String) -> Result<String, regex::Error> {
     let normalized = regex.replace_all(&lowercase_value, "").to_string();
     Ok(normalized)
 }
+<<<<<<< HEAD
 
 fn normalize_state(value: String) -> Result<String, error_stack::Report<errors::ConnectorError>> {
     normalize_string(value).map_err(|_e| {
@@ -7036,6 +7197,8 @@ where
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "frm")]
 pub trait FrmTransactionRouterDataRequest {
     fn is_payment_successful(&self) -> Option<bool>;

@@ -4,6 +4,7 @@ use common_enums::enums;
 use common_utils::{id_type, pii::Email, request::Method, types::StringMajorUnit};
 use error_stack::report;
 use hyperswitch_domain_models::{
+<<<<<<< HEAD
     network_tokenization::NetworkTokenNumber,
     payment_method_data::{
         BankRedirectData, Card, NetworkTokenData, PayLaterData, PaymentMethodData, WalletData,
@@ -13,6 +14,12 @@ use hyperswitch_domain_models::{
     router_request_types::{
         PaymentsAuthorizeData, PaymentsCancelData, PaymentsSyncData, ResponseId,
         SetupMandateRequestData,
+=======
+    payment_method_data::{BankRedirectData, Card, PayLaterData, PaymentMethodData, WalletData},
+    router_data::{ConnectorAuthType, RouterData},
+    router_request_types::{
+        PaymentsAuthorizeData, PaymentsCancelData, PaymentsSyncData, ResponseId,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     router_response_types::{
         MandateReference, PaymentsResponseData, RedirectForm, RefundsResponseData,
@@ -30,10 +37,14 @@ use url::Url;
 use super::aci_result_codes::{FAILURE_CODES, PENDING_CODES, SUCCESSFUL_CODES};
 use crate::{
     types::{RefundsResponseRouterData, ResponseRouterData},
+<<<<<<< HEAD
     utils::{
         self, CardData, NetworkTokenData as NetworkTokenDataTrait, PaymentsAuthorizeRequestData,
         PhoneDetailsData, RouterData as _,
     },
+=======
+    utils::{self, PhoneDetailsData, RouterData as _},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 
 type Error = error_stack::Report<errors::ConnectorError>;
@@ -62,8 +73,13 @@ impl GetCaptureMethod for PaymentsCancelData {
 
 #[derive(Debug, Serialize)]
 pub struct AciRouterData<T> {
+<<<<<<< HEAD
     pub amount: StringMajorUnit,
     pub router_data: T,
+=======
+    amount: StringMajorUnit,
+    router_data: T,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<T> From<(StringMajorUnit, T)> for AciRouterData<T> {
@@ -94,6 +110,7 @@ impl TryFrom<&ConnectorAuthType> for AciAuthType {
     }
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum AciRecurringType {
@@ -101,6 +118,8 @@ pub enum AciRecurringType {
     Repeated,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AciPaymentsRequest {
@@ -111,9 +130,12 @@ pub struct AciPaymentsRequest {
     #[serde(flatten)]
     pub instruction: Option<Instruction>,
     pub shopper_result_url: Option<String>,
+<<<<<<< HEAD
     #[serde(rename = "customParameters[3DS2_enrolled]")]
     pub three_ds_two_enrolled: Option<bool>,
     pub recurring_type: Option<AciRecurringType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -132,6 +154,7 @@ pub struct AciCancelRequest {
     pub payment_type: AciPaymentType,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AciMandateRequest {
@@ -151,6 +174,8 @@ pub struct AciMandateResponse {
     pub timestamp: String,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Serialize)]
 #[serde(untagged)]
 pub enum PaymentDetails {
@@ -160,7 +185,10 @@ pub enum PaymentDetails {
     Wallet(Box<WalletPMData>),
     Klarna,
     Mandate,
+<<<<<<< HEAD
     AciNetworkToken(Box<AciNetworkTokenData>),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<(&WalletData, &PaymentsAuthorizeRouterData)> for PaymentDetails {
@@ -187,7 +215,10 @@ impl TryFrom<(&WalletData, &PaymentsAuthorizeRouterData)> for PaymentDetails {
             | WalletData::KakaoPayRedirect(_)
             | WalletData::GoPayRedirect(_)
             | WalletData::GcashRedirect(_)
+<<<<<<< HEAD
             | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | WalletData::ApplePay(_)
             | WalletData::ApplePayThirdPartySdk(_)
             | WalletData::DanaRedirect { .. }
@@ -359,6 +390,7 @@ impl
     }
 }
 
+<<<<<<< HEAD
 fn get_aci_payment_brand(
     card_network: Option<common_enums::CardNetwork>,
     is_network_token_flow: bool,
@@ -389,11 +421,14 @@ fn get_aci_payment_brand(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<(Card, Option<Secret<String>>)> for PaymentDetails {
     type Error = Error;
     fn try_from(
         (card_data, card_holder_name): (Card, Option<Secret<String>>),
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let card_expiry_year = card_data.get_expiry_year_4_digit();
 
         let payment_brand = get_aci_payment_brand(card_data.card_network, false).ok();
@@ -407,10 +442,19 @@ impl TryFrom<(Card, Option<Secret<String>>)> for PaymentDetails {
             card_expiry_year,
             card_cvv: card_data.card_cvc,
             payment_brand,
+=======
+        Ok(Self::AciCard(Box::new(CardDetails {
+            card_number: card_data.card_number,
+            card_holder: card_holder_name.unwrap_or(Secret::new("".to_string())),
+            card_expiry_month: card_data.card_exp_month,
+            card_expiry_year: card_data.card_exp_year,
+            card_cvv: card_data.card_cvc,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })))
     }
 }
 
+<<<<<<< HEAD
 impl
     TryFrom<(
         &AciRouterData<&PaymentsAuthorizeRouterData>,
@@ -467,6 +511,8 @@ pub struct AciNetworkTokenData {
     pub payment_brand: PaymentBrand,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BankRedirectionPMData {
@@ -496,7 +542,11 @@ pub struct WalletPMData {
     account_id: Option<Secret<String>>,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]
+=======
+#[derive(Debug, Clone, Serialize, Deserialize)]
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum PaymentBrand {
     Eps,
@@ -510,6 +560,7 @@ pub enum PaymentBrand {
     Mbway,
     #[serde(rename = "ALIPAY")]
     AliPay,
+<<<<<<< HEAD
     // Card network brands
     #[serde(rename = "VISA")]
     Visa,
@@ -527,6 +578,8 @@ pub enum PaymentBrand {
     UnionPay,
     #[serde(rename = "MAESTRO")]
     Maestro,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, Serialize)]
@@ -541,9 +594,12 @@ pub struct CardDetails {
     pub card_expiry_year: Secret<String>,
     #[serde(rename = "card.cvv")]
     pub card_cvv: Secret<String>,
+<<<<<<< HEAD
     #[serde(rename = "paymentBrand")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payment_brand: Option<PaymentBrand>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -611,9 +667,12 @@ impl TryFrom<&AciRouterData<&PaymentsAuthorizeRouterData>> for AciPaymentsReques
     fn try_from(item: &AciRouterData<&PaymentsAuthorizeRouterData>) -> Result<Self, Self::Error> {
         match item.router_data.request.payment_method_data.clone() {
             PaymentMethodData::Card(ref card_data) => Self::try_from((item, card_data)),
+<<<<<<< HEAD
             PaymentMethodData::NetworkToken(ref network_token_data) => {
                 Self::try_from((item, network_token_data))
             }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             PaymentMethodData::Wallet(ref wallet_data) => Self::try_from((item, wallet_data)),
             PaymentMethodData::PayLater(ref pay_later_data) => {
                 Self::try_from((item, pay_later_data))
@@ -641,6 +700,10 @@ impl TryFrom<&AciRouterData<&PaymentsAuthorizeRouterData>> for AciPaymentsReques
             | PaymentMethodData::Voucher(_)
             | PaymentMethodData::OpenBanking(_)
             | PaymentMethodData::CardToken(_)
+<<<<<<< HEAD
+=======
+            | PaymentMethodData::NetworkToken(_)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             | PaymentMethodData::CardDetailsForNetworkTransactionId(_) => {
                 Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("Aci"),
@@ -664,8 +727,11 @@ impl TryFrom<(&AciRouterData<&PaymentsAuthorizeRouterData>, &WalletData)> for Ac
             payment_method,
             instruction: None,
             shopper_result_url: item.router_data.request.router_return_url.clone(),
+<<<<<<< HEAD
             three_ds_two_enrolled: None,
             recurring_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -692,8 +758,11 @@ impl
             payment_method,
             instruction: None,
             shopper_result_url: item.router_data.request.router_return_url.clone(),
+<<<<<<< HEAD
             three_ds_two_enrolled: None,
             recurring_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -712,8 +781,11 @@ impl TryFrom<(&AciRouterData<&PaymentsAuthorizeRouterData>, &PayLaterData)> for 
             payment_method,
             instruction: None,
             shopper_result_url: item.router_data.request.router_return_url.clone(),
+<<<<<<< HEAD
             three_ds_two_enrolled: None,
             recurring_type: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -728,16 +800,20 @@ impl TryFrom<(&AciRouterData<&PaymentsAuthorizeRouterData>, &Card)> for AciPayme
         let txn_details = get_transaction_details(item)?;
         let payment_method = PaymentDetails::try_from((card_data.clone(), card_holder_name))?;
         let instruction = get_instruction_details(item);
+<<<<<<< HEAD
         let recurring_type = get_recurring_type(item);
         let three_ds_two_enrolled = item
             .router_data
             .is_three_ds()
             .then_some(item.router_data.request.enrolled_for_3ds);
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(Self {
             txn_details,
             payment_method,
             instruction,
+<<<<<<< HEAD
             shopper_result_url: item.router_data.request.router_return_url.clone(),
             three_ds_two_enrolled,
             recurring_type,
@@ -770,6 +846,9 @@ impl
             shopper_result_url: item.router_data.request.router_return_url.clone(),
             three_ds_two_enrolled: None,
             recurring_type: None,
+=======
+            shopper_result_url: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -790,15 +869,21 @@ impl
         let (item, _mandate_data) = value;
         let instruction = get_instruction_details(item);
         let txn_details = get_transaction_details(item)?;
+<<<<<<< HEAD
         let recurring_type = get_recurring_type(item);
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         Ok(Self {
             txn_details,
             payment_method: PaymentDetails::Mandate,
             instruction,
             shopper_result_url: item.router_data.request.router_return_url.clone(),
+<<<<<<< HEAD
             three_ds_two_enrolled: None,
             recurring_type,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 }
@@ -807,25 +892,36 @@ fn get_transaction_details(
     item: &AciRouterData<&PaymentsAuthorizeRouterData>,
 ) -> Result<TransactionDetails, error_stack::Report<errors::ConnectorError>> {
     let auth = AciAuthType::try_from(&item.router_data.connector_auth_type)?;
+<<<<<<< HEAD
     let payment_type = if item.router_data.request.is_auto_capture()? {
         AciPaymentType::Debit
     } else {
         AciPaymentType::Preauthorization
     };
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Ok(TransactionDetails {
         entity_id: auth.entity_id,
         amount: item.amount.to_owned(),
         currency: item.router_data.request.currency.to_string(),
+<<<<<<< HEAD
         payment_type,
+=======
+        payment_type: AciPaymentType::Debit,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     })
 }
 
 fn get_instruction_details(
     item: &AciRouterData<&PaymentsAuthorizeRouterData>,
 ) -> Option<Instruction> {
+<<<<<<< HEAD
     if item.router_data.request.customer_acceptance.is_some()
         && item.router_data.request.setup_future_usage == Some(enums::FutureUsage::OffSession)
     {
+=======
+    if item.router_data.request.setup_mandate_details.is_some() {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         return Some(Instruction {
             mode: InstructionMode::Initial,
             transaction_type: InstructionType::Unscheduled,
@@ -843,6 +939,7 @@ fn get_instruction_details(
     None
 }
 
+<<<<<<< HEAD
 fn get_recurring_type(
     item: &AciRouterData<&PaymentsAuthorizeRouterData>,
 ) -> Option<AciRecurringType> {
@@ -857,6 +954,8 @@ fn get_recurring_type(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<&PaymentsCancelRouterData> for AciCancelRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: &PaymentsCancelRouterData) -> Result<Self, Self::Error> {
@@ -869,6 +968,7 @@ impl TryFrom<&PaymentsCancelRouterData> for AciCancelRequest {
     }
 }
 
+<<<<<<< HEAD
 impl TryFrom<&RouterData<SetupMandate, SetupMandateRequestData, PaymentsResponseData>>
     for AciMandateRequest
 {
@@ -928,6 +1028,8 @@ impl TryFrom<&RouterData<SetupMandate, SetupMandateRequestData, PaymentsResponse
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum AciPaymentStatus {
@@ -952,7 +1054,10 @@ fn map_aci_attempt_status(item: AciPaymentStatus, auto_capture: bool) -> enums::
         AciPaymentStatus::RedirectShopper => enums::AttemptStatus::AuthenticationPending,
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl FromStr for AciPaymentStatus {
     type Err = error_stack::Report<errors::ConnectorError>;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -975,8 +1080,15 @@ impl FromStr for AciPaymentStatus {
 pub struct AciPaymentsResponse {
     id: String,
     registration_id: Option<Secret<String>>,
+<<<<<<< HEAD
     ndc: String,
     timestamp: String,
+=======
+    // ndc is an internal unique identifier for the request.
+    ndc: String,
+    timestamp: String,
+    // Number useful for support purposes.
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     build_number: String,
     pub(super) result: ResultCode,
     pub(super) redirect: Option<AciRedirectionData>,
@@ -994,6 +1106,7 @@ pub struct AciErrorResponse {
 #[derive(Clone, Debug, Deserialize, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AciRedirectionData {
+<<<<<<< HEAD
     pub method: Option<Method>,
     pub parameters: Vec<Parameters>,
     pub url: Url,
@@ -1006,12 +1119,22 @@ pub struct PreconditionData {
     pub method: Option<Method>,
     pub parameters: Vec<Parameters>,
     pub url: Url,
+=======
+    method: Option<Method>,
+    parameters: Vec<Parameters>,
+    url: Url,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Eq, Serialize)]
 pub struct Parameters {
+<<<<<<< HEAD
     pub name: String,
     pub value: String,
+=======
+    name: String,
+    value: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Default, Debug, Clone, Deserialize, PartialEq, Eq, Serialize)]
@@ -1039,12 +1162,17 @@ where
         item: ResponseRouterData<F, AciPaymentsResponse, Req, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
         let redirection_data = item.response.redirect.map(|data| {
+<<<<<<< HEAD
             let mut form_fields = std::collections::HashMap::<_, _>::from_iter(
+=======
+            let form_fields = std::collections::HashMap::<_, _>::from_iter(
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 data.parameters
                     .iter()
                     .map(|parameter| (parameter.name.clone(), parameter.value.clone())),
             );
 
+<<<<<<< HEAD
             if let Some(preconditions) = data.preconditions {
                 if let Some(first_precondition) = preconditions.first() {
                     for param in &first_precondition.parameters {
@@ -1053,6 +1181,8 @@ where
                 }
             }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             // If method is Get, parameters are appended to URL
             // If method is post, we http Post the method to URL
             RedirectForm::Form {
@@ -1064,6 +1194,7 @@ where
             }
         });
 
+<<<<<<< HEAD
         let mandate_reference = item
             .response
             .registration_id
@@ -1074,6 +1205,14 @@ where
                 mandate_metadata: None,
                 connector_mandate_request_reference_id: None,
             });
+=======
+        let mandate_reference = item.response.registration_id.map(|id| MandateReference {
+            connector_mandate_id: Some(id.expose()),
+            payment_method_id: None,
+            mandate_metadata: None,
+            connector_mandate_request_reference_id: None,
+        });
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         let auto_capture = matches!(
             item.data.request.get_capture_method(),
@@ -1089,6 +1228,7 @@ where
             )
         };
 
+<<<<<<< HEAD
         let response = if status == enums::AttemptStatus::Failure {
             Err(ErrorResponse {
                 code: item.response.result.code.clone(),
@@ -1104,6 +1244,11 @@ where
             })
         } else {
             Ok(PaymentsResponseData::TransactionResponse {
+=======
+        Ok(Self {
+            status,
+            response: Ok(PaymentsResponseData::TransactionResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 resource_id: ResponseId::ConnectorTransactionId(item.response.id.clone()),
                 redirection_data: Box::new(redirection_data),
                 mandate_reference: Box::new(mandate_reference),
@@ -1112,12 +1257,16 @@ where
                 connector_response_reference_id: Some(item.response.id),
                 incremental_authorization_allowed: None,
                 charges: None,
+<<<<<<< HEAD
             })
         };
 
         Ok(Self {
             status,
             response,
+=======
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }
@@ -1156,6 +1305,7 @@ pub struct AciCaptureResponse {
     currency: String,
     descriptor: String,
     result: AciCaptureResult,
+<<<<<<< HEAD
     result_details: Option<AciCaptureResultDetails>,
     build_number: String,
     timestamp: String,
@@ -1163,6 +1313,15 @@ pub struct AciCaptureResponse {
     source: Option<Secret<String>>,
     payment_method: Option<String>,
     short_id: Option<String>,
+=======
+    result_details: AciCaptureResultDetails,
+    build_number: String,
+    timestamp: String,
+    ndc: Secret<String>,
+    source: Secret<String>,
+    payment_method: String,
+    short_id: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Default, Clone, Deserialize, PartialEq, Eq, Serialize)]
@@ -1177,6 +1336,7 @@ pub struct AciCaptureResult {
 pub struct AciCaptureResultDetails {
     extended_description: String,
     #[serde(rename = "clearingInstituteName")]
+<<<<<<< HEAD
     clearing_institute_name: Option<String>,
     connector_tx_i_d1: Option<String>,
     connector_tx_i_d3: Option<String>,
@@ -1215,6 +1375,13 @@ fn map_aci_capture_status(item: AciStatus) -> enums::AttemptStatus {
         AciStatus::Failed => enums::AttemptStatus::Failure,
         AciStatus::Pending => enums::AttemptStatus::Pending,
     }
+=======
+    clearing_institute_name: String,
+    connector_tx_id1: String,
+    connector_tx_id3: String,
+    connector_tx_id2: String,
+    acquirer_response: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<F, T> TryFrom<ResponseRouterData<F, AciCaptureResponse, T, PaymentsResponseData>>
@@ -1224,6 +1391,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, AciCaptureResponse, T, PaymentsResponse
     fn try_from(
         item: ResponseRouterData<F, AciCaptureResponse, T, PaymentsResponseData>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let status = map_aci_capture_status(AciStatus::from_str(&item.response.result.code)?);
         let response = if status == enums::AttemptStatus::Failure {
             Err(ErrorResponse {
@@ -1240,11 +1408,21 @@ impl<F, T> TryFrom<ResponseRouterData<F, AciCaptureResponse, T, PaymentsResponse
             })
         } else {
             Ok(PaymentsResponseData::TransactionResponse {
+=======
+        Ok(Self {
+            status: map_aci_attempt_status(
+                AciPaymentStatus::from_str(&item.response.result.code)?,
+                false,
+            ),
+            reference_id: Some(item.response.referenced_id.clone()),
+            response: Ok(PaymentsResponseData::TransactionResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 resource_id: ResponseId::ConnectorTransactionId(item.response.id.clone()),
                 redirection_data: Box::new(None),
                 mandate_reference: Box::new(None),
                 connector_metadata: None,
                 network_txn_id: None,
+<<<<<<< HEAD
                 connector_response_reference_id: Some(item.response.referenced_id.clone()),
                 incremental_authorization_allowed: None,
                 charges: None,
@@ -1317,6 +1495,12 @@ impl<F, T> TryFrom<ResponseRouterData<F, AciVoidResponse, T, PaymentsResponseDat
             status,
             response,
             reference_id: Some(item.response.referenced_id),
+=======
+                connector_response_reference_id: Some(item.response.referenced_id),
+                incremental_authorization_allowed: None,
+                charges: None,
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }
@@ -1388,6 +1572,10 @@ impl From<AciRefundStatus> for enums::RefundStatus {
 #[serde(rename_all = "camelCase")]
 pub struct AciRefundResponse {
     id: String,
+<<<<<<< HEAD
+=======
+    //ndc is an internal unique identifier for the request.
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ndc: String,
     timestamp: String,
     build_number: String,
@@ -1399,6 +1587,7 @@ impl<F> TryFrom<RefundsResponseRouterData<F, AciRefundResponse>> for RefundsRout
     fn try_from(
         item: RefundsResponseRouterData<F, AciRefundResponse>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let refund_status =
             enums::RefundStatus::from(AciRefundStatus::from_str(&item.response.result.code)?);
         let response = if refund_status == enums::RefundStatus::Failure {
@@ -1491,6 +1680,15 @@ impl
         Ok(Self {
             status,
             response,
+=======
+        Ok(Self {
+            response: Ok(RefundsResponseData {
+                connector_refund_id: item.response.id,
+                refund_status: enums::RefundStatus::from(AciRefundStatus::from_str(
+                    &item.response.result.code,
+                )?),
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }

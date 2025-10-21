@@ -11,8 +11,11 @@ use router_env::{env, instrument, logger, tracing, types, Flow};
 
 use super::app::ReqState;
 #[cfg(feature = "v2")]
+<<<<<<< HEAD
 use crate::core::gift_card;
 #[cfg(feature = "v2")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use crate::core::revenue_recovery::api as recovery;
 use crate::{
     self as app,
@@ -78,6 +81,7 @@ pub async fn payments_create(
 
     let locking_action = payload.get_locking_input(flow.clone());
 
+<<<<<<< HEAD
     let auth_type = match env::which() {
         env::Env::Production => {
             &auth::InternalMerchantIdProfileIdAuth(auth::HeaderAuth(auth::ApiKeyAuth {
@@ -97,6 +101,8 @@ pub async fn payments_create(
         ),
     };
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     Box::pin(api::server_wrap(
         flow,
         state,
@@ -117,7 +123,26 @@ pub async fn payments_create(
                 api::AuthFlow::Client,
             )
         },
+<<<<<<< HEAD
         auth_type,
+=======
+        match env::which() {
+            env::Env::Production => &auth::HeaderAuth(auth::ApiKeyAuth {
+                is_connected_allowed: false,
+                is_platform_allowed: true,
+            }),
+            _ => auth::auth_type(
+                &auth::HeaderAuth(auth::ApiKeyAuth {
+                    is_connected_allowed: false,
+                    is_platform_allowed: true,
+                }),
+                &auth::JWTAuth {
+                    permission: Permission::ProfilePaymentWrite,
+                },
+                req.headers(),
+            ),
+        },
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         locking_action,
     ))
     .await
@@ -573,6 +598,7 @@ pub async fn payments_retrieve(
         is_platform_allowed: true,
     };
 
+<<<<<<< HEAD
     let (auth_type, auth_flow) = match auth::check_internal_api_key_auth(
         req.headers(),
         &payload,
@@ -582,6 +608,13 @@ pub async fn payments_retrieve(
         Ok(auth) => auth,
         Err(err) => return api::log_and_return_error_response(report!(err)),
     };
+=======
+    let (auth_type, auth_flow) =
+        match auth::check_client_secret_and_get_auth(req.headers(), &payload, api_auth) {
+            Ok(auth) => auth,
+            Err(err) => return api::log_and_return_error_response(report!(err)),
+        };
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let locking_action = payload.get_locking_input(flow.clone());
 
@@ -727,11 +760,15 @@ pub async fn payments_update(
         is_connected_allowed: false,
         is_platform_allowed: true,
     };
+<<<<<<< HEAD
     let (auth_type, auth_flow) = match auth::check_internal_api_key_auth_no_client_secret(
         req.headers(),
         api_auth,
         state.conf.internal_merchant_id_profile_id_auth.clone(),
     ) {
+=======
+    let (auth_type, auth_flow) = match auth::get_auth_type_and_flow(req.headers(), api_auth) {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(auth) => auth,
         Err(err) => return api::log_and_return_error_response(report!(err)),
     };
@@ -929,6 +966,7 @@ pub async fn payments_confirm(
         is_platform_allowed: true,
     };
 
+<<<<<<< HEAD
     let (auth_type, auth_flow) = match auth::check_internal_api_key_auth(
         req.headers(),
         &payload,
@@ -938,6 +976,13 @@ pub async fn payments_confirm(
         Ok(auth) => auth,
         Err(e) => return api::log_and_return_error_response(e),
     };
+=======
+    let (auth_type, auth_flow) =
+        match auth::check_client_secret_and_get_auth(req.headers(), &payload, api_auth) {
+            Ok(auth) => auth,
+            Err(e) => return api::log_and_return_error_response(e),
+        };
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let locking_action = payload.get_locking_input(flow.clone());
 
@@ -1545,6 +1590,7 @@ pub async fn payments_cancel(
     .await
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "v2")]
 #[instrument(skip_all, fields(flow = ?Flow::PaymentsCancel, payment_id))]
 pub async fn payments_cancel(
@@ -1623,6 +1669,8 @@ pub async fn payments_cancel(
     .await
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v1")]
 #[instrument(skip_all, fields(flow = ?Flow::PaymentsCancelPostCapture, payment_id))]
 pub async fn payments_cancel_post_capture(
@@ -2303,6 +2351,7 @@ pub async fn payments_incremental_authorization(
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 #[instrument(skip_all, fields(flow = ?Flow::PaymentsExtendAuthorization, payment_id))]
 pub async fn payments_extend_authorization(
     state: web::Data<app::AppState>,
@@ -2355,6 +2404,8 @@ pub async fn payments_extend_authorization(
 }
 
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[instrument(skip_all, fields(flow = ?Flow::PaymentsExternalAuthentication, payment_id))]
 pub async fn payments_external_authentication(
     state: web::Data<app::AppState>,
@@ -2505,6 +2556,7 @@ pub async fn retrieve_extended_card_info(
     .await
 }
 
+<<<<<<< HEAD
 #[cfg(all(feature = "oltp", feature = "v1"))]
 #[instrument(skip_all, fields(flow = ?Flow::PaymentsSubmitEligibility, payment_id))]
 pub async fn payments_submit_eligibility(
@@ -2551,6 +2603,8 @@ pub async fn payments_submit_eligibility(
     .await
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "v1")]
 pub fn get_or_generate_payment_id(
     payload: &mut payment_types::PaymentsRequest,
@@ -2828,6 +2882,7 @@ impl GetLockingInput for payment_types::PaymentsCancelPostCaptureRequest {
 }
 
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 impl GetLockingInput for payment_types::PaymentsExtendAuthorizationRequest {
     fn get_locking_input<F>(&self, flow: F) -> api_locking::LockAction
     where
@@ -2845,6 +2900,8 @@ impl GetLockingInput for payment_types::PaymentsExtendAuthorizationRequest {
 }
 
 #[cfg(feature = "v1")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl GetLockingInput for payment_types::PaymentsCaptureRequest {
     fn get_locking_input<F>(&self, flow: F) -> api_locking::LockAction
     where
@@ -3196,6 +3253,7 @@ pub async fn payment_confirm_intent(
 }
 
 #[cfg(feature = "v2")]
+<<<<<<< HEAD
 #[instrument(skip_all, fields(flow = ?Flow::GiftCardBalanceCheck, payment_id))]
 pub async fn payment_check_gift_card_balance(
     state: web::Data<app::AppState>,
@@ -3259,6 +3317,8 @@ pub async fn payment_check_gift_card_balance(
 }
 
 #[cfg(feature = "v2")]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[instrument(skip_all, fields(flow = ?Flow::ProxyConfirmIntent, payment_id))]
 pub async fn proxy_confirm_intent(
     state: web::Data<app::AppState>,

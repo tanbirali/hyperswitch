@@ -5,10 +5,17 @@ use actix_web::{web, Scope};
 use api_models::routing::RoutingRetrieveQuery;
 use api_models::routing::RuleMigrationQuery;
 #[cfg(feature = "olap")]
+<<<<<<< HEAD
 use common_enums::{ExecutionMode, TransactionType};
 #[cfg(feature = "partial-auth")]
 use common_utils::crypto::Blake3;
 use common_utils::{id_type, types::TenantConfig};
+=======
+use common_enums::TransactionType;
+#[cfg(feature = "partial-auth")]
+use common_utils::crypto::Blake3;
+use common_utils::id_type;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(feature = "email")]
 use external_services::email::{
     no_email::NoEmailClient, ses::AwsSes, smtp::SmtpServer, EmailClientConfigs, EmailService,
@@ -17,8 +24,12 @@ use external_services::email::{
 use external_services::grpc_client::revenue_recovery::GrpcRecoveryHeaders;
 use external_services::{
     file_storage::FileStorageInterface,
+<<<<<<< HEAD
     grpc_client::{GrpcClients, GrpcHeaders, GrpcHeadersUcs, GrpcHeadersUcsBuilderInitial},
     superposition::SuperpositionClient,
+=======
+    grpc_client::{GrpcClients, GrpcHeaders},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use hyperswitch_interfaces::{
     crm::CrmInterface,
@@ -27,7 +38,11 @@ use hyperswitch_interfaces::{
 };
 use router_env::tracing_actix_web::RequestId;
 use scheduler::SchedulerInterface;
+<<<<<<< HEAD
 use storage_impl::{redis::RedisStore, MockDb};
+=======
+use storage_impl::{config::TenantConfig, redis::RedisStore, MockDb};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use tokio::sync::oneshot;
 
 use self::settings::Tenant;
@@ -66,9 +81,13 @@ use super::{
     profiles, relay, user, user_role,
 };
 #[cfg(feature = "v1")]
+<<<<<<< HEAD
 use super::{
     apple_pay_certificates_migration, blocklist, payment_link, subscription, webhook_events,
 };
+=======
+use super::{apple_pay_certificates_migration, blocklist, payment_link, webhook_events};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[cfg(any(feature = "olap", feature = "oltp"))]
 use super::{configs::*, customers, payments};
 #[cfg(all(any(feature = "olap", feature = "oltp"), feature = "v1"))]
@@ -138,7 +157,10 @@ pub struct SessionState {
     pub crm_client: Arc<dyn CrmInterface>,
     pub infra_components: Option<serde_json::Value>,
     pub enhancement: Option<HashMap<String, String>>,
+<<<<<<< HEAD
     pub superposition_service: Option<Arc<SuperpositionClient>>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 impl scheduler::SchedulerSessionState for SessionState {
     fn get_db(&self) -> Box<dyn SchedulerInterface> {
@@ -157,6 +179,7 @@ impl SessionState {
             request_id: self.request_id.map(|req_id| (*req_id).to_string()),
         }
     }
+<<<<<<< HEAD
     pub fn get_grpc_headers_ucs(
         &self,
         unified_connector_service_execution_mode: ExecutionMode,
@@ -172,6 +195,8 @@ impl SessionState {
             .request_id(request_id)
             .shadow_mode(Some(shadow_mode))
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     #[cfg(all(feature = "revenue_recovery", feature = "v2"))]
     pub fn get_recovery_grpc_headers(&self) -> GrpcRecoveryHeaders {
         GrpcRecoveryHeaders {
@@ -203,7 +228,11 @@ impl SessionStateInfo for SessionState {
         self.event_handler.clone()
     }
     fn get_request_id(&self) -> Option<String> {
+<<<<<<< HEAD
         self.api_client.get_request_id_str()
+=======
+        self.api_client.get_request_id()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
     fn add_request_id(&mut self, request_id: RequestId) {
         self.api_client.add_request_id(request_id);
@@ -246,6 +275,7 @@ impl SessionStateInfo for SessionState {
     fn session_state(&self) -> SessionState {
         self.clone()
     }
+<<<<<<< HEAD
     fn global_store(&self) -> Box<dyn GlobalStorageInterface> {
         self.global_store.to_owned()
     }
@@ -275,6 +305,12 @@ impl hyperswitch_interfaces::api_client::ApiClientWrapper for SessionState {
         &self.event_handler
     }
 }
+=======
+    fn global_store(&self) -> Box<(dyn GlobalStorageInterface)> {
+        self.global_store.to_owned()
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Clone)]
 pub struct AppState {
     pub flow_name: String,
@@ -299,7 +335,10 @@ pub struct AppState {
     pub crm_client: Arc<dyn CrmInterface>,
     pub infra_components: Option<serde_json::Value>,
     pub enhancement: Option<HashMap<String, String>>,
+<<<<<<< HEAD
     pub superposition_service: Option<Arc<SuperpositionClient>>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 impl scheduler::SchedulerAppState for AppState {
     fn get_tenants(&self) -> Vec<id_type::TenantId> {
@@ -342,7 +381,11 @@ impl AppStateInfo for AppState {
         self.api_client.add_flow_name(flow_name);
     }
     fn get_request_id(&self) -> Option<String> {
+<<<<<<< HEAD
         self.api_client.get_request_id_str()
+=======
+        self.api_client.get_request_id()
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -466,6 +509,7 @@ impl AppState {
             let grpc_client = conf.grpc_client.get_grpc_client_interface().await;
             let infra_component_values = Self::process_env_mappings(conf.infra_values.clone());
             let enhancement = conf.enhancement.clone();
+<<<<<<< HEAD
             let superposition_service = if conf.superposition.get_inner().enabled {
                 match SuperpositionClient::new(conf.superposition.get_inner().clone()).await {
                     Ok(client) => {
@@ -483,6 +527,8 @@ impl AppState {
             } else {
                 None
             };
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             Self {
                 flow_name: String::from("default"),
                 stores,
@@ -505,7 +551,10 @@ impl AppState {
                 crm_client,
                 infra_components: infra_component_values,
                 enhancement,
+<<<<<<< HEAD
                 superposition_service,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
         })
         .await
@@ -602,7 +651,10 @@ impl AppState {
             crm_client: self.crm_client.clone(),
             infra_components: self.infra_components.clone(),
             enhancement: self.enhancement.clone(),
+<<<<<<< HEAD
             superposition_service: self.superposition_service.clone(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         })
     }
 
@@ -797,12 +849,16 @@ impl Payments {
                 )
                 .service(
                     web::resource("/capture").route(web::post().to(payments::payments_capture)),
+<<<<<<< HEAD
                 )
                 .service(
                     web::resource("/check-gift-card-balance")
                         .route(web::post().to(payments::payment_check_gift_card_balance)),
                 )
                 .service(web::resource("/cancel").route(web::post().to(payments::payments_cancel))),
+=======
+                ),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         );
 
         route
@@ -916,10 +972,13 @@ impl Payments {
                         .route(web::post().to(payments::payments_reject)),
                 )
                 .service(
+<<<<<<< HEAD
                     web::resource("/{payment_id}/eligibility")
                         .route(web::post().to(payments::payments_submit_eligibility)),
                 )
                 .service(
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     web::resource("/redirect/{payment_id}/{merchant_id}/{attempt_id}")
                         .route(web::get().to(payments::payments_start)),
                 )
@@ -952,12 +1011,16 @@ impl Payments {
                     web::resource("/{payment_id}/incremental_authorization").route(web::post().to(payments::payments_incremental_authorization)),
                 )
                 .service(
+<<<<<<< HEAD
                     web::resource("/{payment_id}/extend_authorization").route(web::post().to(payments::payments_extend_authorization)),
                 )
                 .service(
                     web::resource("/{payment_id}/{merchant_id}/authorize/{connector}")
                         .route(web::post().to(payments::post_3ds_payments_authorize))
                         .route(web::get().to(payments::post_3ds_payments_authorize))
+=======
+                    web::resource("/{payment_id}/{merchant_id}/authorize/{connector}").route(web::post().to(payments::post_3ds_payments_authorize)),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 )
                 .service(
                     web::resource("/{payment_id}/3ds/authentication").route(web::post().to(payments::payments_external_authentication)),
@@ -1233,6 +1296,7 @@ impl Routing {
     }
 }
 
+<<<<<<< HEAD
 #[cfg(feature = "oltp")]
 pub struct Subscription;
 
@@ -1277,6 +1341,8 @@ impl Subscription {
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct Customers;
 
 #[cfg(all(feature = "v2", any(feature = "olap", feature = "oltp")))]
@@ -1288,10 +1354,13 @@ impl Customers {
             route = route
                 .service(web::resource("/list").route(web::get().to(customers::customers_list)))
                 .service(
+<<<<<<< HEAD
                     web::resource("/list_with_count")
                         .route(web::get().to(customers::customers_list_with_count)),
                 )
                 .service(
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     web::resource("/total-payment-methods")
                         .route(web::get().to(payment_methods::get_total_payment_method_count)),
                 )
@@ -1328,10 +1397,13 @@ impl Customers {
                         .route(web::get().to(customers::get_customer_mandates)),
                 )
                 .service(web::resource("/list").route(web::get().to(customers::customers_list)))
+<<<<<<< HEAD
                 .service(
                     web::resource("/list_with_count")
                         .route(web::get().to(customers::customers_list_with_count)),
                 )
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
 
         #[cfg(feature = "oltp")]
@@ -1502,10 +1574,13 @@ impl PaymentMethods {
                 .service(
                     web::resource("/create-intent")
                         .route(web::post().to(payment_methods::create_payment_method_intent_api)),
+<<<<<<< HEAD
                 )
                 .service(
                     web::resource("/{payment_method_id}/check-network-token-status")
                         .route(web::get().to(payment_methods::network_token_status_check_api)),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 );
 
             route = route.service(
@@ -2473,6 +2548,7 @@ pub struct Chat;
 impl Chat {
     pub fn server(state: AppState) -> Scope {
         let mut route = web::scope("/chat").app_data(web::Data::new(state.clone()));
+<<<<<<< HEAD
         if state.conf.chat.get_inner().enabled {
             route = route.service(
                 web::scope("/ai")
@@ -2483,6 +2559,14 @@ impl Chat {
                     .service(
                         web::resource("/list").route(web::get().to(chat::get_all_conversations)),
                     ),
+=======
+        if state.conf.chat.enabled {
+            route = route.service(
+                web::scope("/ai").service(
+                    web::resource("/data")
+                        .route(web::post().to(chat::get_data_from_hyperswitch_ai_workflow)),
+                ),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             );
         }
         route
@@ -2864,6 +2948,7 @@ impl User {
         }
 
         // Role information
+<<<<<<< HEAD
         route =
             route.service(
                 web::scope("/role")
@@ -2912,6 +2997,53 @@ impl User {
                             .route(web::get().to(user_role::get_parent_info_for_role)),
                     ),
             );
+=======
+        route = route.service(
+            web::scope("/role")
+                .service(
+                    web::resource("")
+                        .route(web::get().to(user_role::get_role_from_token))
+                        // TODO: To be deprecated
+                        .route(web::post().to(user_role::create_role)),
+                )
+                .service(
+                    web::resource("/v2")
+                        .route(web::post().to(user_role::create_role_v2))
+                        .route(
+                            web::get().to(user_role::get_groups_and_resources_for_role_from_token),
+                        ),
+                )
+                // TODO: To be deprecated
+                .service(
+                    web::resource("/v2/list").route(web::get().to(user_role::list_roles_with_info)),
+                )
+                .service(
+                    web::scope("/list")
+                        .service(
+                            web::resource("").route(web::get().to(user_role::list_roles_with_info)),
+                        )
+                        .service(
+                            web::resource("/invite").route(
+                                web::get().to(user_role::list_invitable_roles_at_entity_level),
+                            ),
+                        )
+                        .service(
+                            web::resource("/update").route(
+                                web::get().to(user_role::list_updatable_roles_at_entity_level),
+                            ),
+                        ),
+                )
+                .service(
+                    web::resource("/{role_id}")
+                        .route(web::get().to(user_role::get_role))
+                        .route(web::put().to(user_role::update_role)),
+                )
+                .service(
+                    web::resource("/{role_id}/v2")
+                        .route(web::get().to(user_role::get_parent_info_for_role)),
+                ),
+        );
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
         #[cfg(feature = "dummy_connector")]
         {
@@ -3052,6 +3184,7 @@ impl ProcessTracker {
         web::scope("/v2/process-trackers/revenue-recovery-workflow")
             .app_data(web::Data::new(state.clone()))
             .service(
+<<<<<<< HEAD
                 web::scope("/{revenue_recovery_id}")
                     .service(
                         web::resource("").route(
@@ -3062,6 +3195,10 @@ impl ProcessTracker {
                         web::resource("/resume")
                             .route(web::post().to(revenue_recovery::revenue_recovery_resume_api)),
                     ),
+=======
+                web::resource("/{revenue_recovery_id}")
+                    .route(web::get().to(revenue_recovery::revenue_recovery_pt_retrieve_api)),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
     }
 }
@@ -3083,12 +3220,18 @@ impl Authentication {
                     .route(web::post().to(authentication::authentication_authenticate)),
             )
             .service(
+<<<<<<< HEAD
                 web::resource("{merchant_id}/{authentication_id}/redirect")
                     .route(web::post().to(authentication::authentication_sync_post_update)),
             )
             .service(
                 web::resource("{merchant_id}/{authentication_id}/sync")
                     .route(web::post().to(authentication::authentication_sync)),
+=======
+                web::resource("{merchant_id}/{authentication_id}/sync")
+                    .route(web::post().to(authentication::authentication_sync))
+                    .route(web::get().to(authentication::authentication_sync_post_update)),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             )
     }
 }
@@ -3110,6 +3253,7 @@ impl ProfileAcquirer {
             )
     }
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v2")]
 pub struct RecoveryDataBackfill;
@@ -3141,3 +3285,5 @@ impl RecoveryDataBackfill {
             ))
     }
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

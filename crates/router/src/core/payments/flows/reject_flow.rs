@@ -25,8 +25,11 @@ impl ConstructFlowSpecificData<api::Reject, types::PaymentsRejectData, types::Pa
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
         header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+<<<<<<< HEAD
         _payment_method: Option<common_enums::PaymentMethod>,
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::PaymentsRejectRouterData> {
         Box::pin(transformers::construct_payment_router_data::<
             api::Reject,
@@ -40,8 +43,11 @@ impl ConstructFlowSpecificData<api::Reject, types::PaymentsRejectData, types::Pa
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+<<<<<<< HEAD
             None,
             None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ))
         .await
     }

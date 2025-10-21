@@ -14,7 +14,10 @@ pub struct PaymentFlowData {
     pub merchant_id: common_utils::id_type::MerchantId,
     pub customer_id: Option<common_utils::id_type::CustomerId>,
     pub connector_customer: Option<String>,
+<<<<<<< HEAD
     pub connector: String,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub payment_id: String,
     pub attempt_id: String,
     pub status: common_enums::AttemptStatus,
@@ -149,6 +152,7 @@ pub struct FilesFlowData {
 }
 
 #[derive(Debug, Clone)]
+<<<<<<< HEAD
 pub struct InvoiceRecordBackData {
     pub connector_meta_data: Option<pii::SecretSerdeValue>,
 }
@@ -177,6 +181,9 @@ pub struct GetSubscriptionPlanPricesData {
 pub struct GetSubscriptionEstimateData {
     pub connector_meta_data: Option<pii::SecretSerdeValue>,
 }
+=======
+pub struct RevenueRecoveryRecordBackData;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 #[derive(Debug, Clone)]
 pub struct UasFlowData {
@@ -196,9 +203,12 @@ pub struct VaultConnectorFlowData {
 }
 
 #[derive(Debug, Clone)]
+<<<<<<< HEAD
 pub struct GiftCardBalanceCheckFlowData;
 
 #[derive(Debug, Clone)]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 pub struct ExternalVaultProxyFlowData {
     pub merchant_id: common_utils::id_type::MerchantId,
     pub customer_id: Option<common_utils::id_type::CustomerId>,

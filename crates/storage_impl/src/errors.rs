@@ -288,10 +288,13 @@ pub enum RecoveryError {
     RecordBackToBillingConnectorFailed,
     #[error("Failed to fetch billing connector account id")]
     BillingMerchantConnectorAccountIdNotFound,
+<<<<<<< HEAD
     #[error("Failed to generate payment sync data")]
     PaymentsResponseGenerationFailed,
     #[error("Outgoing Webhook Failed")]
     RevenueRecoveryOutgoingWebhookFailed,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 #[derive(Debug, Clone, thiserror::Error)]
 pub enum HealthCheckDecisionEngineError {

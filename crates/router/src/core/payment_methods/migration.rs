@@ -7,6 +7,7 @@ use hyperswitch_domain_models::{
     api::ApplicationResponse, errors::api_error_response as errors, merchant_context,
     payment_methods::PaymentMethodUpdate,
 };
+<<<<<<< HEAD
 use masking::{ExposeInterface, PeekInterface};
 use payment_methods::core::migration::MerchantConnectorValidator;
 use rdkafka::message::ToBytes;
@@ -16,6 +17,14 @@ use crate::{
     core::{errors::StorageErrorExt, payment_methods::cards::create_encrypted_data},
     routes::SessionState,
 };
+=======
+use masking::PeekInterface;
+use rdkafka::message::ToBytes;
+use router_env::logger;
+
+use crate::{core::errors::StorageErrorExt, routes::SessionState};
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 type PmMigrationResult<T> = CustomResult<ApplicationResponse<T>, errors::ApiErrorResponse>;
 
 #[cfg(feature = "v1")]
@@ -65,8 +74,11 @@ pub async fn update_payment_method_record(
     let payment_method_id = req.payment_method_id.clone();
     let network_transaction_id = req.network_transaction_id.clone();
     let status = req.status;
+<<<<<<< HEAD
     let key_manager_state = state.into();
     let mut updated_card_expiry = false;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     let payment_method = db
         .find_payment_method(
@@ -84,6 +96,7 @@ pub async fn update_payment_method_record(
                 }.into());
     }
 
+<<<<<<< HEAD
     let updated_payment_method_data = match payment_method.payment_method_data.as_ref() {
         Some(data) => {
             match serde_json::from_value::<pm_api::PaymentMethodsData>(
@@ -129,11 +142,25 @@ pub async fn update_payment_method_record(
         let mut cache = HashMap::new();
 
         for merchant_connector_id in parsed_mca_ids {
+=======
+    // Process mandate details when both payment_instrument_id and merchant_connector_id are present
+    let pm_update = match (&req.payment_instrument_id, &req.merchant_connector_id) {
+        (Some(payment_instrument_id), Some(merchant_connector_id)) => {
+            let mandate_details = payment_method
+                .get_common_mandate_reference()
+                .change_context(errors::ApiErrorResponse::InternalServerError)
+                .attach_printable("Failed to deserialize to Payment Mandate Reference ")?;
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             let mca = db
                 .find_by_merchant_connector_account_merchant_id_merchant_connector_id(
                     &state.into(),
                     merchant_context.get_merchant_account().get_id(),
+<<<<<<< HEAD
                     &merchant_connector_id,
+=======
+                    merchant_connector_id,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     merchant_context.get_merchant_key_store(),
                 )
                 .await
@@ -143,6 +170,7 @@ pub async fn update_payment_method_record(
                     },
                 )?;
 
+<<<<<<< HEAD
             cache.insert(merchant_connector_id, mca);
         }
         Some(cache)
@@ -243,6 +271,74 @@ pub async fn update_payment_method_record(
                 } else {
                     mandate_details.payouts
                 },
+=======
+            let updated_connector_mandate_details = match mca.connector_type {
+                enums::ConnectorType::PayoutProcessor => {
+                    // Handle PayoutsMandateReference
+                    let mut existing_payouts_mandate = mandate_details
+                        .payouts
+                        .unwrap_or_else(|| PayoutsMandateReference(HashMap::new()));
+
+                    // Create new payout mandate record
+                    let new_payout_record = PayoutsMandateReferenceRecord {
+                        transfer_method_id: Some(payment_instrument_id.peek().to_string()),
+                    };
+
+                    // Check if record exists for this merchant_connector_id
+                    if let Some(existing_record) =
+                        existing_payouts_mandate.0.get_mut(merchant_connector_id)
+                    {
+                        if let Some(transfer_method_id) = &new_payout_record.transfer_method_id {
+                            existing_record.transfer_method_id = Some(transfer_method_id.clone());
+                        }
+                    } else {
+                        // Insert new record in connector_mandate_details
+                        existing_payouts_mandate
+                            .0
+                            .insert(merchant_connector_id.clone(), new_payout_record);
+                    }
+
+                    // Create updated CommonMandateReference preserving payments section
+                    CommonMandateReference {
+                        payments: mandate_details.payments,
+                        payouts: Some(existing_payouts_mandate),
+                    }
+                }
+                _ => {
+                    // Handle PaymentsMandateReference
+                    let mut existing_payments_mandate = mandate_details
+                        .payments
+                        .unwrap_or_else(|| PaymentsMandateReference(HashMap::new()));
+
+                    // Check if record exists for this merchant_connector_id
+                    if let Some(existing_record) =
+                        existing_payments_mandate.0.get_mut(merchant_connector_id)
+                    {
+                        existing_record.connector_mandate_id =
+                            payment_instrument_id.peek().to_string();
+                    } else {
+                        // Insert new record in connector_mandate_details
+                        existing_payments_mandate.0.insert(
+                            merchant_connector_id.clone(),
+                            PaymentsMandateReferenceRecord {
+                                connector_mandate_id: payment_instrument_id.peek().to_string(),
+                                payment_method_type: None,
+                                original_payment_authorized_amount: None,
+                                original_payment_authorized_currency: None,
+                                mandate_metadata: None,
+                                connector_mandate_status: None,
+                                connector_mandate_request_reference_id: None,
+                            },
+                        );
+                    }
+
+                    // Create updated CommonMandateReference preserving payouts section
+                    CommonMandateReference {
+                        payments: Some(existing_payments_mandate),
+                        payouts: mandate_details.payouts,
+                    }
+                }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             };
 
             let connector_mandate_details_value = updated_connector_mandate_details
@@ -252,12 +348,17 @@ pub async fn update_payment_method_record(
                     errors::ApiErrorResponse::MandateUpdateFailed
                 })?;
 
+<<<<<<< HEAD
             PaymentMethodUpdate::PaymentMethodBatchUpdate {
+=======
+            PaymentMethodUpdate::ConnectorNetworkTransactionIdStatusAndMandateDetailsUpdate {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 connector_mandate_details: Some(pii::SecretSerdeValue::new(
                     connector_mandate_details_value,
                 )),
                 network_transaction_id,
                 status,
+<<<<<<< HEAD
                 payment_method_data: updated_payment_method_data.clone(),
             }
         }
@@ -271,6 +372,15 @@ pub async fn update_payment_method_record(
                     network_transaction_id,
                     status,
                 }
+=======
+            }
+        }
+        _ => {
+            // Update only network_transaction_id and status
+            PaymentMethodUpdate::NetworkTransactionIdAndStatusUpdate {
+                network_transaction_id,
+                status,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
         }
     };
@@ -289,6 +399,7 @@ pub async fn update_payment_method_record(
             "Failed to update payment method for existing pm_id: {payment_method_id:?} in db",
         ))?;
 
+<<<<<<< HEAD
     let connector_customer_response =
         if let (Some(customer_data), Some(customer_update)) = (customer, updated_customer) {
             let updated_customer = db
@@ -309,6 +420,9 @@ pub async fn update_payment_method_record(
         } else {
             None
         };
+=======
+    logger::debug!("Payment method updated in db");
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     Ok(ApplicationResponse::Json(
         pm_api::PaymentMethodRecordUpdateResponse {
@@ -318,8 +432,11 @@ pub async fn update_payment_method_record(
             connector_mandate_details: response
                 .connector_mandate_details
                 .map(pii::SecretSerdeValue::new),
+<<<<<<< HEAD
             updated_payment_method_data: Some(updated_card_expiry),
             connector_customer: connector_customer_response,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
     ))
 }
@@ -358,6 +475,7 @@ impl PaymentMethodsUpdateForm {
         Ok((self.merchant_id.clone(), records))
     }
 }
+<<<<<<< HEAD
 
 #[cfg(feature = "v1")]
 fn build_connector_customer_update(
@@ -406,3 +524,5 @@ fn build_connector_customer_update(
         },
     )
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

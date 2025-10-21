@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use std::str::FromStr;
 
 use async_trait::async_trait;
@@ -7,6 +8,11 @@ use common_utils::{id_type, ucs_types};
 use error_stack::ResultExt;
 use external_services::grpc_client;
 use hyperswitch_domain_models::payments as domain_payments;
+=======
+use async_trait::async_trait;
+use common_types::payments as common_payments_types;
+use error_stack::ResultExt;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use router_env::logger;
 use unified_connector_service_client::payments as payments_grpc;
 
@@ -20,7 +26,11 @@ use crate::{
         },
         unified_connector_service::{
             build_unified_connector_service_auth_metadata,
+<<<<<<< HEAD
             handle_unified_connector_service_response_for_payment_register, ucs_logging_wrapper,
+=======
+            handle_unified_connector_service_response_for_payment_register,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
     },
     routes::SessionState,
@@ -48,9 +58,13 @@ impl
         customer: &Option<domain::Customer>,
         merchant_connector_account: &helpers::MerchantConnectorAccountType,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
         _payment_method: Option<common_enums::PaymentMethod>,
         _payment_method_type: Option<common_enums::PaymentMethodType>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::SetupMandateRouterData> {
         Box::pin(transformers::construct_payment_router_data::<
             api::SetupMandate,
@@ -64,8 +78,11 @@ impl
             merchant_connector_account,
             merchant_recipient_data,
             header_payload,
+<<<<<<< HEAD
             None,
             None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         ))
         .await
     }
@@ -88,7 +105,11 @@ impl
         customer: &Option<domain::Customer>,
         merchant_connector_account: &domain::MerchantConnectorAccountTypeDetails,
         merchant_recipient_data: Option<types::MerchantRecipientData>,
+<<<<<<< HEAD
         header_payload: Option<domain_payments::HeaderPayload>,
+=======
+        header_payload: Option<hyperswitch_domain_models::payments::HeaderPayload>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<types::SetupMandateRouterData> {
         Box::pin(
             transformers::construct_payment_router_data_for_setup_mandate(
@@ -115,7 +136,11 @@ impl Feature<api::SetupMandate, types::SetupMandateRequestData> for types::Setup
         call_connector_action: payments::CallConnectorAction,
         connector_request: Option<services::Request>,
         _business_profile: &domain::Profile,
+<<<<<<< HEAD
         _header_payload: domain_payments::HeaderPayload,
+=======
+        _header_payload: hyperswitch_domain_models::payments::HeaderPayload,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         _return_raw_connector_response: Option<bool>,
     ) -> RouterResult<Self> {
         let connector_integration: services::BoxedPaymentConnectorIntegrationInterface<
@@ -269,13 +294,19 @@ impl Feature<api::SetupMandate, types::SetupMandateRequestData> for types::Setup
     async fn call_unified_connector_service<'a>(
         &mut self,
         state: &SessionState,
+<<<<<<< HEAD
         header_payload: &domain_payments::HeaderPayload,
         lineage_ids: grpc_client::LineageIds,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         #[cfg(feature = "v1")] merchant_connector_account: helpers::MerchantConnectorAccountType,
         #[cfg(feature = "v2")]
         merchant_connector_account: domain::MerchantConnectorAccountTypeDetails,
         merchant_context: &domain::MerchantContext,
+<<<<<<< HEAD
         unified_connector_service_execution_mode: enums::ExecutionMode,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     ) -> RouterResult<()> {
         let client = state
             .grpc_client
@@ -285,7 +316,11 @@ impl Feature<api::SetupMandate, types::SetupMandateRequestData> for types::Setup
             .attach_printable("Failed to fetch Unified Connector Service client")?;
 
         let payment_register_request =
+<<<<<<< HEAD
             payments_grpc::PaymentServiceRegisterRequest::foreign_try_from(&*self)
+=======
+            payments_grpc::PaymentServiceRegisterRequest::foreign_try_from(self)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 .change_context(ApiErrorResponse::InternalServerError)
                 .attach_printable("Failed to construct Payment Setup Mandate Request")?;
 
@@ -295,6 +330,7 @@ impl Feature<api::SetupMandate, types::SetupMandateRequestData> for types::Setup
         )
         .change_context(ApiErrorResponse::InternalServerError)
         .attach_printable("Failed to construct request metadata")?;
+<<<<<<< HEAD
         let merchant_reference_id = header_payload
             .x_reference_id
             .clone()
@@ -348,6 +384,36 @@ impl Feature<api::SetupMandate, types::SetupMandateRequestData> for types::Setup
 
         // Copy back the updated data
         *self = updated_router_data;
+=======
+
+        let response = client
+            .payment_setup_mandate(
+                payment_register_request,
+                connector_auth_metadata,
+                state.get_grpc_headers(),
+            )
+            .await
+            .change_context(ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed to Setup Mandate payment")?;
+
+        let payment_register_response = response.into_inner();
+
+        let (status, router_data_response, status_code) =
+            handle_unified_connector_service_response_for_payment_register(
+                payment_register_response.clone(),
+            )
+            .change_context(ApiErrorResponse::InternalServerError)
+            .attach_printable("Failed to deserialize UCS response")?;
+
+        self.status = status;
+        self.response = router_data_response;
+        self.connector_http_status_code = Some(status_code);
+        // UCS does not return raw connector response for setup mandate right now
+        // self.raw_connector_response = payment_register_response
+        //     .raw_connector_response
+        //     .map(Secret::new);
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         Ok(())
     }
 }

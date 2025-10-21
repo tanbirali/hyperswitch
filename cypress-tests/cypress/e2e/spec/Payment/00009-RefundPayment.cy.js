@@ -362,12 +362,16 @@ describe("Card - Refund flow - No 3DS", () => {
         "card_pm"
       ]["manualPaymentRefund"];
 
+<<<<<<< HEAD
       const newData = {
         ...data,
         Response: data.ResponseCustom || data.Response,
       };
 
       cy.refundCallTest(fixtures.refundBody, newData, globalState);
+=======
+      cy.refundCallTest(fixtures.refundBody, data, globalState);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
       if (shouldContinue) shouldContinue = utils.should_continue_further(data);
     });
@@ -453,12 +457,16 @@ describe("Card - Refund flow - No 3DS", () => {
         "card_pm"
       ]["manualPaymentPartialRefund"];
 
+<<<<<<< HEAD
       const newData = {
         ...data,
         Response: data.ResponseCustom || data.Response,
       };
 
       cy.refundCallTest(fixtures.refundBody, newData, globalState);
+=======
+      cy.refundCallTest(fixtures.refundBody, data, globalState);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
       if (shouldContinue) shouldContinue = utils.should_continue_further(data);
     });
@@ -556,12 +564,16 @@ describe("Card - Refund flow - No 3DS", () => {
         "card_pm"
       ]["manualPaymentPartialRefund"];
 
+<<<<<<< HEAD
       const newData = {
         ...data,
         Response: data.ResponseCustom || data.Response,
       };
 
       cy.refundCallTest(fixtures.refundBody, newData, globalState);
+=======
+      cy.refundCallTest(fixtures.refundBody, data, globalState);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
       if (shouldContinue) shouldContinue = utils.should_continue_further(data);
     });
@@ -647,12 +659,16 @@ describe("Card - Refund flow - No 3DS", () => {
         "card_pm"
       ]["manualPaymentPartialRefund"];
 
+<<<<<<< HEAD
       const newData = {
         ...data,
         Response: data.ResponseCustom || data.Response,
       };
 
       cy.refundCallTest(fixtures.refundBody, newData, globalState);
+=======
+      cy.refundCallTest(fixtures.refundBody, data, globalState);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
       if (shouldContinue) shouldContinue = utils.should_continue_further(data);
     });

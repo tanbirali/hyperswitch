@@ -1,7 +1,11 @@
 use api_models::{payments as api_payments, webhooks};
 use common_enums::enums as common_enums;
+<<<<<<< HEAD
 use common_types::primitive_wrappers;
 use common_utils::{id_type, pii, types as util_types};
+=======
+use common_utils::{id_type, types as util_types};
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use time::PrimitiveDateTime;
 
 use crate::{
@@ -78,10 +82,13 @@ pub struct RevenueRecoveryInvoiceData {
     pub next_billing_at: Option<PrimitiveDateTime>,
     /// Invoice Starting Time
     pub billing_started_at: Option<PrimitiveDateTime>,
+<<<<<<< HEAD
     /// metadata of the merchant
     pub metadata: Option<pii::SecretSerdeValue>,
     /// Allow partial authorization for this payment
     pub enable_partial_authorization: Option<primitive_wrappers::EnablePartialAuthorizationBool>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Clone, Debug)]
@@ -158,7 +165,11 @@ impl From<&RevenueRecoveryInvoiceData> for api_payments::PaymentsCreateIntentReq
             statement_descriptor: None,
             order_details: None,
             allowed_payment_method_types: None,
+<<<<<<< HEAD
             metadata: data.metadata.clone(),
+=======
+            metadata: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_metadata: None,
             feature_metadata: None,
             payment_link_enabled: None,
@@ -169,7 +180,10 @@ impl From<&RevenueRecoveryInvoiceData> for api_payments::PaymentsCreateIntentReq
             request_external_three_ds_authentication: None,
             force_3ds_challenge: None,
             merchant_connector_details: None,
+<<<<<<< HEAD
             enable_partial_authorization: data.enable_partial_authorization,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -184,8 +198,11 @@ impl From<&BillingConnectorInvoiceSyncResponse> for RevenueRecoveryInvoiceData {
             retry_count: data.retry_count,
             next_billing_at: data.ends_at,
             billing_started_at: data.created_at,
+<<<<<<< HEAD
             metadata: None,
             enable_partial_authorization: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

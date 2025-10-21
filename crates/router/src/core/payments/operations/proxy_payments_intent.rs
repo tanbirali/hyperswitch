@@ -269,7 +269,10 @@ impl<F: Send + Clone + Sync> GetTracker<F, PaymentConfirmData<F>, ProxyPaymentsR
             payment_method: None,
             merchant_connector_details: None,
             external_vault_pmd: None,
+<<<<<<< HEAD
             webhook_url: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let get_trackers_response = operations::GetTrackerResponse { payment_data };

@@ -12,7 +12,10 @@ pub enum PaymentMethodVaultingData {
     Card(payment_methods::CardDetail),
     #[cfg(feature = "v2")]
     NetworkToken(payment_method_data::NetworkTokenDetails),
+<<<<<<< HEAD
     CardNumber(cards::CardNumber),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl PaymentMethodVaultingData {
@@ -21,7 +24,10 @@ impl PaymentMethodVaultingData {
             Self::Card(card) => Some(card),
             #[cfg(feature = "v2")]
             Self::NetworkToken(_) => None,
+<<<<<<< HEAD
             Self::CardNumber(_) => None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
     pub fn get_payment_methods_data(&self) -> payment_method_data::PaymentMethodsData {
@@ -37,6 +43,7 @@ impl PaymentMethodVaultingData {
                     ),
                 )
             }
+<<<<<<< HEAD
             Self::CardNumber(_card_number) => payment_method_data::PaymentMethodsData::Card(
                 payment_method_data::CardDetailsPaymentMethod {
                     last4_digits: None,
@@ -54,6 +61,8 @@ impl PaymentMethodVaultingData {
                     co_badged_card_data: None,
                 },
             ),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -68,7 +77,10 @@ impl VaultingDataInterface for PaymentMethodVaultingData {
             Self::Card(card) => card.card_number.to_string(),
             #[cfg(feature = "v2")]
             Self::NetworkToken(network_token) => network_token.network_token.to_string(),
+<<<<<<< HEAD
             Self::CardNumber(card_number) => card_number.to_string(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

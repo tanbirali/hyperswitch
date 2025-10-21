@@ -2,6 +2,7 @@ pub mod transformers;
 
 use std::sync::LazyLock;
 
+<<<<<<< HEAD
 use base64::Engine;
 use common_enums::enums;
 use common_utils::{
@@ -10,6 +11,14 @@ use common_utils::{
     ext_traits::BytesExt,
     request::{Method, Request, RequestBuilder, RequestContent},
     types::{AmountConvertor, MinorUnit, MinorUnitForConnector},
+=======
+use common_enums::enums;
+use common_utils::{
+    errors::CustomResult,
+    ext_traits::BytesExt,
+    request::{Method, Request, RequestBuilder, RequestContent},
+    types::{AmountConvertor, StringMinorUnit, StringMinorUnitForConnector},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 };
 use error_stack::{report, ResultExt};
 use hyperswitch_domain_models::{
@@ -17,6 +26,7 @@ use hyperswitch_domain_models::{
     router_data::{AccessToken, ConnectorAuthType, ErrorResponse, RouterData},
     router_flow_types::{
         access_token_auth::AccessTokenAuth,
+<<<<<<< HEAD
         payments::{
             Authorize, Capture, CompleteAuthorize, CreateConnectorCustomer, PSync,
             PaymentMethodToken, PreProcessing, Session, SetupMandate, Void,
@@ -38,6 +48,22 @@ use hyperswitch_domain_models::{
         PaymentsCaptureRouterData, PaymentsCompleteAuthorizeRouterData,
         PaymentsPreProcessingRouterData, PaymentsSyncRouterData, RefundSyncRouterData,
         RefundsRouterData,
+=======
+        payments::{Authorize, Capture, PSync, PaymentMethodToken, Session, SetupMandate, Void},
+        refunds::{Execute, RSync},
+    },
+    router_request_types::{
+        AccessTokenRequestData, PaymentMethodTokenizationData, PaymentsAuthorizeData,
+        PaymentsCancelData, PaymentsCaptureData, PaymentsSessionData, PaymentsSyncData,
+        RefundsData, SetupMandateRequestData,
+    },
+    router_response_types::{
+        ConnectorInfo, PaymentsResponseData, RefundsResponseData, SupportedPaymentMethods,
+    },
+    types::{
+        PaymentsAuthorizeRouterData, PaymentsCaptureRouterData, PaymentsSyncRouterData,
+        RefundSyncRouterData, RefundsRouterData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 use hyperswitch_interfaces::{
@@ -51,6 +77,7 @@ use hyperswitch_interfaces::{
     types::{self, Response},
     webhooks,
 };
+<<<<<<< HEAD
 use masking::{Mask, PeekInterface};
 use transformers as paysafe;
 
@@ -67,12 +94,26 @@ use crate::{
 #[derive(Clone)]
 pub struct Paysafe {
     amount_converter: &'static (dyn AmountConvertor<Output = MinorUnit> + Sync),
+=======
+use masking::{ExposeInterface, Mask};
+use transformers as paysafe;
+
+use crate::{constants::headers, types::ResponseRouterData, utils};
+
+#[derive(Clone)]
+pub struct Paysafe {
+    amount_converter: &'static (dyn AmountConvertor<Output = StringMinorUnit> + Sync),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl Paysafe {
     pub fn new() -> &'static Self {
         &Self {
+<<<<<<< HEAD
             amount_converter: &MinorUnitForConnector,
+=======
+            amount_converter: &StringMinorUnitForConnector,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }
@@ -89,11 +130,18 @@ impl api::Refund for Paysafe {}
 impl api::RefundExecute for Paysafe {}
 impl api::RefundSync for Paysafe {}
 impl api::PaymentToken for Paysafe {}
+<<<<<<< HEAD
 impl api::ConnectorCustomer for Paysafe {}
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl ConnectorIntegration<PaymentMethodToken, PaymentMethodTokenizationData, PaymentsResponseData>
     for Paysafe
 {
+<<<<<<< HEAD
+=======
+    // Not Implemented (R)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl<Flow, Request, Response> ConnectorCommonExt<Flow, Request, Response> for Paysafe
@@ -138,11 +186,17 @@ impl ConnectorCommon for Paysafe {
     ) -> CustomResult<Vec<(String, masking::Maskable<String>)>, errors::ConnectorError> {
         let auth = paysafe::PaysafeAuthType::try_from(auth_type)
             .change_context(errors::ConnectorError::FailedToObtainAuthType)?;
+<<<<<<< HEAD
         let auth_key = format!("{}:{}", auth.username.peek(), auth.password.peek());
         let auth_header = format!("Basic {}", consts::BASE64_ENGINE.encode(auth_key));
         Ok(vec![(
             headers::AUTHORIZATION.to_string(),
             auth_header.into_masked(),
+=======
+        Ok(vec![(
+            headers::AUTHORIZATION.to_string(),
+            auth.api_key.expose().into_masked(),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         )])
     }
 
@@ -159,6 +213,7 @@ impl ConnectorCommon for Paysafe {
         event_builder.map(|i| i.set_response_body(&response));
         router_env::logger::info!(connector_response=?response);
 
+<<<<<<< HEAD
         let detail_message = response
             .error
             .details
@@ -182,6 +237,13 @@ impl ConnectorCommon for Paysafe {
             code: response.error.code,
             message: response.error.message,
             reason,
+=======
+        Ok(ErrorResponse {
+            status_code: res.status_code,
+            code: response.code,
+            message: response.message,
+            reason: response.reason,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             attempt_status: None,
             connector_transaction_id: None,
             network_advice_code: None,
@@ -193,6 +255,23 @@ impl ConnectorCommon for Paysafe {
 }
 
 impl ConnectorValidation for Paysafe {
+<<<<<<< HEAD
+=======
+    fn validate_mandate_payment(
+        &self,
+        _pm_type: Option<enums::PaymentMethodType>,
+        pm_data: PaymentMethodData,
+    ) -> CustomResult<(), errors::ConnectorError> {
+        match pm_data {
+            PaymentMethodData::Card(_) => Err(errors::ConnectorError::NotImplemented(
+                "validate_mandate_payment does not support cards".to_string(),
+            )
+            .into()),
+            _ => Ok(()),
+        }
+    }
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     fn validate_psync_reference_id(
         &self,
         _data: &PaymentsSyncData,
@@ -202,6 +281,7 @@ impl ConnectorValidation for Paysafe {
     ) -> CustomResult<(), errors::ConnectorError> {
         Ok(())
     }
+<<<<<<< HEAD
     fn validate_mandate_payment(
         &self,
         pm_type: Option<enums::PaymentMethodType>,
@@ -210,6 +290,8 @@ impl ConnectorValidation for Paysafe {
         let mandate_supported_pmd = std::collections::HashSet::from([PaymentMethodDataType::Card]);
         utils::is_mandate_supported(pm_data, pm_type, mandate_supported_pmd, self.id())
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl ConnectorIntegration<Session, PaymentsSessionData, PaymentsResponseData> for Paysafe {
@@ -218,6 +300,7 @@ impl ConnectorIntegration<Session, PaymentsSessionData, PaymentsResponseData> fo
 
 impl ConnectorIntegration<AccessTokenAuth, AccessTokenRequestData, AccessToken> for Paysafe {}
 
+<<<<<<< HEAD
 impl ConnectorIntegration<SetupMandate, SetupMandateRequestData, PaymentsResponseData> for Paysafe {
     // Not Implemented (R)
     fn build_request(
@@ -428,6 +511,9 @@ impl ConnectorIntegration<CreateConnectorCustomer, ConnectorCustomerData, Paymen
         self.build_error_response(res, event_builder)
     }
 }
+=======
+impl ConnectorIntegration<SetupMandate, SetupMandateRequestData, PaymentsResponseData> for Paysafe {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData> for Paysafe {
     fn get_headers(
@@ -444,6 +530,7 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
 
     fn get_url(
         &self,
+<<<<<<< HEAD
         req: &PaymentsAuthorizeRouterData,
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
@@ -458,6 +545,12 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
             }
             _ => Ok(format!("{}v1/paymenthandles", self.base_url(connectors),)),
         }
+=======
+        _req: &PaymentsAuthorizeRouterData,
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_request_body(
@@ -470,6 +563,7 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
             req.request.minor_amount,
             req.request.currency,
         )?;
+<<<<<<< HEAD
         let connector_router_data = paysafe::PaysafeRouterData::from((amount, req));
         match req.payment_method {
             //Card No 3DS
@@ -493,6 +587,12 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
                 Ok(RequestContent::Json(Box::new(connector_req)))
             }
         }
+=======
+
+        let connector_router_data = paysafe::PaysafeRouterData::from((amount, req));
+        let connector_req = paysafe::PaysafePaymentsRequest::try_from(&connector_router_data)?;
+        Ok(RequestContent::Json(Box::new(connector_req)))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -523,6 +623,7 @@ impl ConnectorIntegration<Authorize, PaymentsAuthorizeData, PaymentsResponseData
         event_builder: Option<&mut ConnectorEvent>,
         res: Response,
     ) -> CustomResult<PaymentsAuthorizeRouterData, errors::ConnectorError> {
+<<<<<<< HEAD
         match data.payment_method {
             enums::PaymentMethod::Card if !data.is_three_ds() => {
                 let response: paysafe::PaysafePaymentsResponse = res
@@ -641,19 +742,27 @@ impl ConnectorIntegration<CompleteAuthorize, CompleteAuthorizeData, PaymentsResp
         event_builder: Option<&mut ConnectorEvent>,
         res: Response,
     ) -> CustomResult<PaymentsCompleteAuthorizeRouterData, errors::ConnectorError> {
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let response: paysafe::PaysafePaymentsResponse = res
             .response
             .parse_struct("Paysafe PaymentsAuthorizeResponse")
             .change_context(errors::ConnectorError::ResponseDeserializationFailed)?;
         event_builder.map(|i| i.set_response_body(&response));
         router_env::logger::info!(connector_response=?response);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         RouterData::try_from(ResponseRouterData {
             response,
             data: data.clone(),
             http_code: res.status_code,
         })
+<<<<<<< HEAD
         .change_context(errors::ConnectorError::ResponseHandlingFailed)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_error_response(
@@ -680,6 +789,7 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Pay
 
     fn get_url(
         &self,
+<<<<<<< HEAD
         req: &PaymentsSyncRouterData,
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
@@ -695,6 +805,12 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Pay
         };
 
         Ok(url)
+=======
+        _req: &PaymentsSyncRouterData,
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -718,9 +834,15 @@ impl ConnectorIntegration<PSync, PaymentsSyncData, PaymentsResponseData> for Pay
         event_builder: Option<&mut ConnectorEvent>,
         res: Response,
     ) -> CustomResult<PaymentsSyncRouterData, errors::ConnectorError> {
+<<<<<<< HEAD
         let response: paysafe::PaysafeSyncResponse = res
             .response
             .parse_struct("paysafe PaysafeSyncResponse")
+=======
+        let response: paysafe::PaysafePaymentsResponse = res
+            .response
+            .parse_struct("paysafe PaymentsSyncResponse")
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .change_context(errors::ConnectorError::ResponseDeserializationFailed)?;
         event_builder.map(|i| i.set_response_body(&response));
         router_env::logger::info!(connector_response=?response);
@@ -755,6 +877,7 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
 
     fn get_url(
         &self,
+<<<<<<< HEAD
         req: &PaymentsCaptureRouterData,
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
@@ -764,10 +887,17 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
             self.base_url(connectors),
             connector_payment_id
         ))
+=======
+        _req: &PaymentsCaptureRouterData,
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_request_body(
         &self,
+<<<<<<< HEAD
         req: &PaymentsCaptureRouterData,
         _connectors: &Connectors,
     ) -> CustomResult<RequestContent, errors::ConnectorError> {
@@ -780,6 +910,12 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
         let connector_router_data = paysafe::PaysafeRouterData::from((amount, req));
         let connector_req = paysafe::PaysafeCaptureRequest::try_from(&connector_router_data)?;
         Ok(RequestContent::Json(Box::new(connector_req)))
+=======
+        _req: &PaymentsCaptureRouterData,
+        _connectors: &Connectors,
+    ) -> CustomResult<RequestContent, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_request_body method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -808,9 +944,15 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
         event_builder: Option<&mut ConnectorEvent>,
         res: Response,
     ) -> CustomResult<PaymentsCaptureRouterData, errors::ConnectorError> {
+<<<<<<< HEAD
         let response: paysafe::PaysafeSettlementResponse = res
             .response
             .parse_struct("PaysafeSettlementResponse")
+=======
+        let response: paysafe::PaysafePaymentsResponse = res
+            .response
+            .parse_struct("Paysafe PaymentsCaptureResponse")
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             .change_context(errors::ConnectorError::ResponseDeserializationFailed)?;
         event_builder.map(|i| i.set_response_body(&response));
         router_env::logger::info!(connector_response=?response);
@@ -830,6 +972,7 @@ impl ConnectorIntegration<Capture, PaymentsCaptureData, PaymentsResponseData> fo
     }
 }
 
+<<<<<<< HEAD
 impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Paysafe {
     fn get_headers(
         &self,
@@ -921,6 +1064,9 @@ impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Pa
         self.build_error_response(res, event_builder)
     }
 }
+=======
+impl ConnectorIntegration<Void, PaymentsCancelData, PaymentsResponseData> for Paysafe {}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Paysafe {
     fn get_headers(
@@ -937,6 +1083,7 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Paysafe
 
     fn get_url(
         &self,
+<<<<<<< HEAD
         req: &RefundsRouterData<Execute>,
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
@@ -946,6 +1093,12 @@ impl ConnectorIntegration<Execute, RefundsData, RefundsResponseData> for Paysafe
             self.base_url(connectors),
             connector_payment_id
         ))
+=======
+        _req: &RefundsRouterData<Execute>,
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn get_request_body(
@@ -1026,6 +1179,7 @@ impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Paysafe {
 
     fn get_url(
         &self,
+<<<<<<< HEAD
         req: &RefundSyncRouterData,
         connectors: &Connectors,
     ) -> CustomResult<String, errors::ConnectorError> {
@@ -1035,6 +1189,12 @@ impl ConnectorIntegration<RSync, RefundsData, RefundsResponseData> for Paysafe {
             self.base_url(connectors),
             connector_refund_id
         ))
+=======
+        _req: &RefundSyncRouterData,
+        _connectors: &Connectors,
+    ) -> CustomResult<String, errors::ConnectorError> {
+        Err(errors::ConnectorError::NotImplemented("get_url method".to_string()).into())
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 
     fn build_request(
@@ -1107,6 +1267,7 @@ impl webhooks::IncomingWebhook for Paysafe {
     }
 }
 
+<<<<<<< HEAD
 static PAYSAFE_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = LazyLock::new(|| {
     let supported_capture_methods = vec![
         enums::CaptureMethod::Automatic,
@@ -1216,6 +1377,14 @@ static PAYSAFE_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> = La
 static PAYSAFE_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
     display_name: "Paysafe",
     description: "Paysafe gives ambitious businesses a launchpad with safe, secure online payment solutions, and gives consumers the ability to turn their transactions into meaningful experiences.",
+=======
+static PAYSAFE_SUPPORTED_PAYMENT_METHODS: LazyLock<SupportedPaymentMethods> =
+    LazyLock::new(SupportedPaymentMethods::new);
+
+static PAYSAFE_CONNECTOR_INFO: ConnectorInfo = ConnectorInfo {
+    display_name: "Paysafe",
+    description: "Paysafe connector",
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     connector_type: enums::HyperswitchConnectorCategory::PaymentGateway,
     integration_status: enums::ConnectorIntegrationStatus::Sandbox,
 };
@@ -1234,6 +1403,7 @@ impl ConnectorSpecifications for Paysafe {
     fn get_supported_webhook_flows(&self) -> Option<&'static [enums::EventClass]> {
         Some(&PAYSAFE_SUPPORTED_WEBHOOK_FLOWS)
     }
+<<<<<<< HEAD
 
     #[cfg(feature = "v1")]
     fn should_call_connector_customer(
@@ -1253,4 +1423,6 @@ impl ConnectorSpecifications for Paysafe {
                 Some(enums::AuthenticationType::NoThreeDs) | None
             )
     }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

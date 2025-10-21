@@ -128,7 +128,10 @@ pub async fn update_trackers<F: Clone, Req>(
                     trans_status,
                     acs_url: authn_flow_type.get_acs_url(),
                     challenge_request: authn_flow_type.get_challenge_request(),
+<<<<<<< HEAD
                     challenge_request_key: authn_flow_type.get_challenge_request_key(),
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     acs_reference_number: authn_flow_type.get_acs_reference_number(),
                     acs_trans_id: authn_flow_type.get_acs_trans_id(),
                     acs_signed_content: authn_flow_type.get_acs_signed_content(),
@@ -275,7 +278,10 @@ pub async fn create_new_authentication(
         three_ds_method_url: None,
         acs_url: None,
         challenge_request: None,
+<<<<<<< HEAD
         challenge_request_key: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         acs_reference_number: None,
         acs_trans_id: None,
         acs_signed_content: None,

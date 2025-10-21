@@ -128,6 +128,7 @@ impl AdyenTest {
                         paypal_id: None,
                     }),
                 )),
+<<<<<<< HEAD
                 enums::PayoutType::BankRedirect => {
                     Some(types::api::PayoutMethodData::BankRedirect(
                         types::api::payouts::BankRedirectPayout::Interac(
@@ -138,6 +139,8 @@ impl AdyenTest {
                         ),
                     ))
                 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             ..Default::default()
         })

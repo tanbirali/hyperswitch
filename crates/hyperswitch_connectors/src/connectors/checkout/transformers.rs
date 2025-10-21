@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 use common_enums::{
     enums::{self, AttemptStatus, PaymentChannel},
     CountryAlpha2,
@@ -6,11 +7,19 @@ use common_utils::{
     errors::{CustomResult, ParsingError},
     ext_traits::ByteSliceExt,
     request::{Method, RequestContent},
+=======
+use common_enums::enums::{self, AttemptStatus};
+use common_utils::{
+    errors::{CustomResult, ParsingError},
+    ext_traits::ByteSliceExt,
+    request::Method,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::MinorUnit,
 };
 use error_stack::ResultExt;
 use hyperswitch_domain_models::{
     payment_method_data::{PaymentMethodData, WalletData},
+<<<<<<< HEAD
     payment_methods::storage_enums::MitCategory,
     router_data::{
         AdditionalPaymentMethodConnectorResponse, ConnectorAuthType, ConnectorResponseData,
@@ -21,6 +30,12 @@ use hyperswitch_domain_models::{
     router_response_types::{
         MandateReference, PaymentsResponseData, RedirectForm, RefundsResponseData,
     },
+=======
+    router_data::{ConnectorAuthType, ErrorResponse, PaymentMethodToken, RouterData},
+    router_flow_types::{Execute, RSync},
+    router_request_types::ResponseId,
+    router_response_types::{PaymentsResponseData, RedirectForm, RefundsResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{
         PaymentsAuthorizeRouterData, PaymentsCancelRouterData, PaymentsCaptureRouterData,
         PaymentsSyncRouterData, RefundsRouterData, TokenizationRouterData,
@@ -29,7 +44,10 @@ use hyperswitch_domain_models::{
 use hyperswitch_interfaces::{consts, errors, webhooks};
 use masking::{ExposeInterface, Secret};
 use serde::{Deserialize, Serialize};
+<<<<<<< HEAD
 use serde_with::skip_serializing_none;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 use time::PrimitiveDateTime;
 use url::Url;
 
@@ -41,8 +59,13 @@ use crate::{
     },
     unimplemented_payment_method,
     utils::{
+<<<<<<< HEAD
         self, PaymentsAuthorizeRequestData, PaymentsCaptureRequestData, PaymentsSyncRequestData,
         RouterData as OtherRouterData, WalletData as OtherWalletData,
+=======
+        self, PaymentsCaptureRequestData, RouterData as OtherRouterData,
+        WalletData as OtherWalletData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
 };
 
@@ -118,7 +141,10 @@ impl TryFrom<&TokenizationRouterData> for TokenRequest {
                 WalletData::AliPayQr(_)
                 | WalletData::AliPayRedirect(_)
                 | WalletData::AliPayHkRedirect(_)
+<<<<<<< HEAD
                 | WalletData::AmazonPay(_)
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 | WalletData::AmazonPayRedirect(_)
                 | WalletData::Paysera(_)
                 | WalletData::Skrill(_)
@@ -199,6 +225,7 @@ impl<F, T> TryFrom<ResponseRouterData<F, CheckoutTokenResponse, T, PaymentsRespo
     }
 }
 
+<<<<<<< HEAD
 #[skip_serializing_none]
 #[derive(Debug, Serialize)]
 pub struct CheckoutAddress {
@@ -217,6 +244,8 @@ pub struct CheckoutAccountHolderDetails {
     pub last_name: Option<Secret<String>>,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 pub struct CardSource {
     #[serde(rename = "type")]
@@ -224,9 +253,13 @@ pub struct CardSource {
     pub number: cards::CardNumber,
     pub expiry_month: Secret<String>,
     pub expiry_year: Secret<String>,
+<<<<<<< HEAD
     pub cvv: Option<Secret<String>>,
     pub billing_address: Option<CheckoutAddress>,
     pub account_holder: Option<CheckoutAccountHolderDetails>,
+=======
+    pub cvv: Secret<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -234,6 +267,7 @@ pub struct WalletSource {
     #[serde(rename = "type")]
     pub source_type: CheckoutSourceTypes,
     pub token: Secret<String>,
+<<<<<<< HEAD
     pub billing_address: Option<CheckoutAddress>,
 }
 
@@ -244,6 +278,8 @@ pub struct MandateSource {
     #[serde(rename = "id")]
     pub source_id: Option<String>,
     pub billing_address: Option<CheckoutAddress>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -252,6 +288,7 @@ pub enum PaymentSource {
     Card(CardSource),
     Wallets(WalletSource),
     ApplePayPredecrypt(Box<ApplePayPredecrypt>),
+<<<<<<< HEAD
     MandatePayment(MandateSource),
     GooglePayPredecrypt(Box<GooglePayPredecrypt>),
 }
@@ -267,6 +304,8 @@ pub struct GooglePayPredecrypt {
     eci: String,
     cryptogram: Option<Secret<String>>,
     pub billing_address: Option<CheckoutAddress>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -279,7 +318,10 @@ pub struct ApplePayPredecrypt {
     expiry_year: Secret<String>,
     eci: Option<String>,
     cryptogram: Secret<String>,
+<<<<<<< HEAD
     pub billing_address: Option<CheckoutAddress>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize)]
@@ -287,6 +329,7 @@ pub struct ApplePayPredecrypt {
 pub enum CheckoutSourceTypes {
     Card,
     Token,
+<<<<<<< HEAD
     #[serde(rename = "id")]
     SourceId,
 }
@@ -299,6 +342,8 @@ pub enum CheckoutPaymentType {
     Moto,
     Installment,
     Recurring,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 pub struct CheckoutAuthType {
@@ -313,6 +358,7 @@ pub struct ReturnUrl {
     pub failure_url: Option<String>,
 }
 
+<<<<<<< HEAD
 #[skip_serializing_none]
 #[derive(Debug, Default, Serialize)]
 pub struct CheckoutCustomer {
@@ -363,6 +409,8 @@ pub struct CheckoutLineItem {
 }
 
 #[skip_serializing_none]
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 pub struct PaymentsRequest {
     pub source: PaymentSource,
@@ -376,6 +424,7 @@ pub struct PaymentsRequest {
     pub capture: bool,
     pub reference: String,
     pub metadata: Option<Secret<serde_json::Value>>,
+<<<<<<< HEAD
     pub payment_type: CheckoutPaymentType,
     pub merchant_initiated: Option<bool>,
     pub previous_payment_id: Option<String>,
@@ -393,6 +442,8 @@ pub struct PaymentsRequest {
 #[derive(Debug, Default, Serialize)]
 pub struct CheckoutPartialAuthorization {
     pub enabled: bool,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -406,6 +457,7 @@ pub enum CheckoutPaymentIntent {
     Authorize,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Clone, Serialize, Deserialize, Eq, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum CheckoutChallengeIndicator {
@@ -415,6 +467,8 @@ pub enum CheckoutChallengeIndicator {
     NoChallengeRequested,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Serialize)]
 pub struct CheckoutThreeDS {
     enabled: bool,
@@ -423,7 +477,10 @@ pub struct CheckoutThreeDS {
     cryptogram: Option<Secret<String>>,
     xid: Option<String>,
     version: Option<String>,
+<<<<<<< HEAD
     challenge_indicator: CheckoutChallengeIndicator,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<&ConnectorAuthType> for CheckoutAuthType {
@@ -445,6 +502,7 @@ impl TryFrom<&ConnectorAuthType> for CheckoutAuthType {
         }
     }
 }
+<<<<<<< HEAD
 
 fn split_account_holder_name(
     card_holder_name: Option<Secret<String>>,
@@ -464,11 +522,14 @@ fn split_account_holder_name(
     }
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequest {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(
         item: &CheckoutRouterData<&PaymentsAuthorizeRouterData>,
     ) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let capture = matches!(
             item.router_data.request.capture_method,
             Some(enums::CaptureMethod::Automatic)
@@ -515,10 +576,16 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                 let (first_name, last_name) = split_account_holder_name(ccard.card_holder_name);
 
                 let payment_source = PaymentSource::Card(CardSource {
+=======
+        let source_var = match item.router_data.request.payment_method_data.clone() {
+            PaymentMethodData::Card(ccard) => {
+                let a = PaymentSource::Card(CardSource {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                     source_type: CheckoutSourceTypes::Card,
                     number: ccard.card_number.clone(),
                     expiry_month: ccard.card_exp_month.clone(),
                     expiry_year: ccard.card_exp_year.clone(),
+<<<<<<< HEAD
                     cvv: Some(ccard.card_cvc),
                     billing_address: billing_details,
                     account_holder: Some(CheckoutAccountHolderDetails {
@@ -542,12 +609,24 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                             token,
                             billing_address: billing_details,
                         }),
+=======
+                    cvv: ccard.card_cvc,
+                });
+                Ok(a)
+            }
+            PaymentMethodData::Wallet(wallet_data) => match wallet_data {
+                WalletData::GooglePay(_) => Ok(PaymentSource::Wallets(WalletSource {
+                    source_type: CheckoutSourceTypes::Token,
+                    token: match item.router_data.get_payment_method_token()? {
+                        PaymentMethodToken::Token(token) => token,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         PaymentMethodToken::ApplePayDecrypt(_) => Err(
                             unimplemented_payment_method!("Apple Pay", "Simplified", "Checkout"),
                         )?,
                         PaymentMethodToken::PazeDecrypt(_) => {
                             Err(unimplemented_payment_method!("Paze", "Checkout"))?
                         }
+<<<<<<< HEAD
                         PaymentMethodToken::GooglePayDecrypt(google_pay_decrypted_data) => {
                             let token = google_pay_decrypted_data
                                 .application_primary_account_number
@@ -587,10 +666,18 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                         store_for_future_use,
                     ))
                 }
+=======
+                        PaymentMethodToken::GooglePayDecrypt(_) => {
+                            Err(unimplemented_payment_method!("Google Pay", "Checkout"))?
+                        }
+                    },
+                })),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 WalletData::ApplePay(_) => {
                     let payment_method_token = item.router_data.get_payment_method_token()?;
                     match payment_method_token {
                         PaymentMethodToken::Token(apple_pay_payment_token) => {
+<<<<<<< HEAD
                             let p_source = PaymentSource::Wallets(WalletSource {
                                 source_type: CheckoutSourceTypes::Token,
                                 token: apple_pay_payment_token,
@@ -603,6 +690,12 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                                 payment_type,
                                 store_for_future_use,
                             ))
+=======
+                            Ok(PaymentSource::Wallets(WalletSource {
+                                source_type: CheckoutSourceTypes::Token,
+                                token: apple_pay_payment_token,
+                            }))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         }
                         PaymentMethodToken::ApplePayDecrypt(decrypt_data) => {
                             let exp_month = decrypt_data.get_expiry_month().change_context(
@@ -611,8 +704,13 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                                 },
                             )?;
                             let expiry_year_4_digit = decrypt_data.get_four_digit_expiry_year();
+<<<<<<< HEAD
                             let p_source =
                                 PaymentSource::ApplePayPredecrypt(Box::new(ApplePayPredecrypt {
+=======
+                            Ok(PaymentSource::ApplePayPredecrypt(Box::new(
+                                ApplePayPredecrypt {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                                     token: decrypt_data.application_primary_account_number,
                                     decrypt_type: "network_token".to_string(),
                                     token_type: "applepay".to_string(),
@@ -620,6 +718,7 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                                     expiry_year: expiry_year_4_digit,
                                     eci: decrypt_data.payment_data.eci_indicator,
                                     cryptogram: decrypt_data.payment_data.online_payment_cryptogram,
+<<<<<<< HEAD
                                     billing_address: billing_details,
                                 }));
                             Ok((
@@ -629,6 +728,10 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                                 payment_type,
                                 store_for_future_use,
                             ))
+=======
+                                },
+                            )))
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                         }
                         PaymentMethodToken::PazeDecrypt(_) => {
                             Err(unimplemented_payment_method!("Paze", "Checkout"))?
@@ -638,6 +741,7 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                         }
                     }
                 }
+<<<<<<< HEAD
                 _ => Err(errors::ConnectorError::NotImplemented(
                     utils::get_unimplemented_payment_method_error_message("checkout"),
                 )),
@@ -695,6 +799,64 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
             _ => Err(errors::ConnectorError::NotImplemented(
                 utils::get_unimplemented_payment_method_error_message("checkout"),
             )),
+=======
+                WalletData::AliPayQr(_)
+                | WalletData::AliPayRedirect(_)
+                | WalletData::AliPayHkRedirect(_)
+                | WalletData::AmazonPayRedirect(_)
+                | WalletData::Paysera(_)
+                | WalletData::Skrill(_)
+                | WalletData::BluecodeRedirect {}
+                | WalletData::MomoRedirect(_)
+                | WalletData::KakaoPayRedirect(_)
+                | WalletData::GoPayRedirect(_)
+                | WalletData::GcashRedirect(_)
+                | WalletData::ApplePayRedirect(_)
+                | WalletData::ApplePayThirdPartySdk(_)
+                | WalletData::DanaRedirect {}
+                | WalletData::GooglePayRedirect(_)
+                | WalletData::GooglePayThirdPartySdk(_)
+                | WalletData::MbWayRedirect(_)
+                | WalletData::MobilePayRedirect(_)
+                | WalletData::PaypalRedirect(_)
+                | WalletData::PaypalSdk(_)
+                | WalletData::Paze(_)
+                | WalletData::SamsungPay(_)
+                | WalletData::TwintRedirect {}
+                | WalletData::VippsRedirect {}
+                | WalletData::TouchNGoRedirect(_)
+                | WalletData::WeChatPayRedirect(_)
+                | WalletData::CashappQr(_)
+                | WalletData::SwishQr(_)
+                | WalletData::WeChatPayQr(_)
+                | WalletData::Mifinity(_)
+                | WalletData::RevolutPay(_) => Err(errors::ConnectorError::NotImplemented(
+                    utils::get_unimplemented_payment_method_error_message("checkout"),
+                )),
+            },
+
+            PaymentMethodData::PayLater(_)
+            | PaymentMethodData::BankRedirect(_)
+            | PaymentMethodData::BankDebit(_)
+            | PaymentMethodData::BankTransfer(_)
+            | PaymentMethodData::Crypto(_)
+            | PaymentMethodData::MandatePayment
+            | PaymentMethodData::Reward
+            | PaymentMethodData::RealTimePayment(_)
+            | PaymentMethodData::MobilePayment(_)
+            | PaymentMethodData::Upi(_)
+            | PaymentMethodData::Voucher(_)
+            | PaymentMethodData::CardRedirect(_)
+            | PaymentMethodData::GiftCard(_)
+            | PaymentMethodData::OpenBanking(_)
+            | PaymentMethodData::CardToken(_)
+            | PaymentMethodData::NetworkToken(_)
+            | PaymentMethodData::CardDetailsForNetworkTransactionId(_) => {
+                Err(errors::ConnectorError::NotImplemented(
+                    utils::get_unimplemented_payment_method_error_message("checkout"),
+                ))
+            }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }?;
 
         let authentication_data = item.router_data.request.authentication_data.as_ref();
@@ -712,7 +874,10 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                         .clone()
                         .map(|version| version.to_string())
                 }),
+<<<<<<< HEAD
                 challenge_indicator,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
             enums::AuthenticationType::NoThreeDs => CheckoutThreeDS {
                 enabled: false,
@@ -721,7 +886,10 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                 cryptogram: None,
                 xid: None,
                 version: None,
+<<<<<<< HEAD
                 challenge_indicator: CheckoutChallengeIndicator::NoPreference,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             },
         };
 
@@ -740,10 +908,19 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
                 .map(|return_url| format!("{return_url}?status=failure")),
         };
 
+<<<<<<< HEAD
+=======
+        let capture = matches!(
+            item.router_data.request.capture_method,
+            Some(enums::CaptureMethod::Automatic)
+        );
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         let connector_auth = &item.router_data.connector_auth_type;
         let auth_type: CheckoutAuthType = connector_auth.try_into()?;
         let processing_channel_id = auth_type.processing_channel_id;
         let metadata = item.router_data.request.metadata.clone().map(Into::into);
+<<<<<<< HEAD
         let (customer, processing, shipping, items) = if let Some(l2l3_data) =
             &item.router_data.l2_l3_data
         {
@@ -807,6 +984,9 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
         let payment_ip = item.router_data.request.get_ip_address_as_optional();
 
         let request = Self {
+=======
+        Ok(Self {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             source: source_var,
             amount: item.amount.to_owned(),
             currency: item.router_data.request.currency.to_string(),
@@ -816,6 +996,7 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
             capture,
             reference: item.router_data.connector_request_reference_id.clone(),
             metadata,
+<<<<<<< HEAD
             payment_type,
             merchant_initiated,
             previous_payment_id,
@@ -829,6 +1010,9 @@ impl TryFrom<&CheckoutRouterData<&PaymentsAuthorizeRouterData>> for PaymentsRequ
         };
 
         Ok(request)
+=======
+        })
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
 }
 
@@ -896,21 +1080,35 @@ fn get_attempt_status_cap(
     match status {
         CheckoutPaymentStatus::Authorized => {
             if capture_method == Some(enums::CaptureMethod::Automatic) || capture_method.is_none() {
+<<<<<<< HEAD
                 AttemptStatus::Charged
+=======
+                AttemptStatus::Pending
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             } else {
                 AttemptStatus::Authorized
             }
         }
         CheckoutPaymentStatus::Captured
         | CheckoutPaymentStatus::PartiallyRefunded
+<<<<<<< HEAD
         | CheckoutPaymentStatus::Refunded
         | CheckoutPaymentStatus::CardVerified => AttemptStatus::Charged,
+=======
+        | CheckoutPaymentStatus::Refunded => AttemptStatus::Charged,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         CheckoutPaymentStatus::PartiallyCaptured => AttemptStatus::PartialCharged,
         CheckoutPaymentStatus::Declined
         | CheckoutPaymentStatus::Expired
         | CheckoutPaymentStatus::Canceled => AttemptStatus::Failure,
         CheckoutPaymentStatus::Pending => AttemptStatus::AuthenticationPending,
+<<<<<<< HEAD
         CheckoutPaymentStatus::RetryScheduled => AttemptStatus::Pending,
+=======
+        CheckoutPaymentStatus::CardVerified | CheckoutPaymentStatus::RetryScheduled => {
+            AttemptStatus::Pending
+        }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         CheckoutPaymentStatus::Voided => AttemptStatus::Voided,
     }
 }
@@ -923,21 +1121,35 @@ fn get_attempt_status_intent(
     match status {
         CheckoutPaymentStatus::Authorized => {
             if psync_flow == CheckoutPaymentIntent::Capture {
+<<<<<<< HEAD
                 AttemptStatus::Charged
+=======
+                AttemptStatus::Pending
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             } else {
                 AttemptStatus::Authorized
             }
         }
         CheckoutPaymentStatus::Captured
         | CheckoutPaymentStatus::PartiallyRefunded
+<<<<<<< HEAD
         | CheckoutPaymentStatus::Refunded
         | CheckoutPaymentStatus::CardVerified => AttemptStatus::Charged,
+=======
+        | CheckoutPaymentStatus::Refunded => AttemptStatus::Charged,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         CheckoutPaymentStatus::PartiallyCaptured => AttemptStatus::PartialCharged,
         CheckoutPaymentStatus::Declined
         | CheckoutPaymentStatus::Expired
         | CheckoutPaymentStatus::Canceled => AttemptStatus::Failure,
         CheckoutPaymentStatus::Pending => AttemptStatus::AuthenticationPending,
+<<<<<<< HEAD
         CheckoutPaymentStatus::RetryScheduled => AttemptStatus::Pending,
+=======
+        CheckoutPaymentStatus::CardVerified | CheckoutPaymentStatus::RetryScheduled => {
+            AttemptStatus::Pending
+        }
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         CheckoutPaymentStatus::Voided => AttemptStatus::Voided,
     }
 }
@@ -981,6 +1193,7 @@ pub struct Href {
 pub struct Links {
     redirect: Option<Href>,
 }
+<<<<<<< HEAD
 
 #[derive(Clone, Debug, Default, Eq, PartialEq, Deserialize, Serialize)]
 pub struct Source {
@@ -989,13 +1202,18 @@ pub struct Source {
     cvv_check: Option<String>,
 }
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Clone, Debug, Default, Eq, PartialEq, Deserialize, Serialize)]
 pub struct PaymentsResponse {
     id: String,
     amount: Option<MinorUnit>,
     currency: Option<String>,
+<<<<<<< HEAD
     scheme_id: Option<String>,
     processing: Option<PaymentProcessingDetails>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     action_id: Option<String>,
     status: CheckoutPaymentStatus,
     #[serde(rename = "_links")]
@@ -1006,6 +1224,7 @@ pub struct PaymentsResponse {
     response_summary: Option<String>,
     approved: Option<bool>,
     processed_on: Option<String>,
+<<<<<<< HEAD
     source: Option<Source>,
 }
 
@@ -1016,6 +1235,10 @@ pub struct PaymentProcessingDetails {
     /// The original authorization response code sent by the scheme.
     pub partner_response_code: Option<String>,
 }
+=======
+}
+
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum PaymentsResponseEnum {
@@ -1051,11 +1274,26 @@ fn get_connector_meta(
 impl TryFrom<PaymentsResponseRouterData<PaymentsResponse>> for PaymentsAuthorizeRouterData {
     type Error = error_stack::Report<errors::ConnectorError>;
     fn try_from(item: PaymentsResponseRouterData<PaymentsResponse>) -> Result<Self, Self::Error> {
+<<<<<<< HEAD
         let status =
             get_attempt_status_cap((item.response.status, item.data.request.capture_method));
 
         if status == AttemptStatus::Failure {
             let error_response = ErrorResponse {
+=======
+        let connector_meta =
+            get_connector_meta(item.data.request.capture_method.unwrap_or_default())?;
+
+        let redirection_data = item
+            .response
+            .links
+            .redirect
+            .map(|href| RedirectForm::from((href.redirection_url, Method::Get)));
+        let status =
+            get_attempt_status_cap((item.response.status, item.data.request.capture_method));
+        let error_response = if status == AttemptStatus::Failure {
+            Some(ErrorResponse {
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 status_code: item.http_code,
                 code: item
                     .response
@@ -1073,6 +1311,7 @@ impl TryFrom<PaymentsResponseRouterData<PaymentsResponse>> for PaymentsAuthorize
                 network_decline_code: None,
                 network_error_message: None,
                 connector_metadata: None,
+<<<<<<< HEAD
             };
 
             return Ok(Self {
@@ -1207,10 +1446,13 @@ impl
                 network_decline_code: None,
                 network_error_message: None,
                 connector_metadata: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             })
         } else {
             None
         };
+<<<<<<< HEAD
 
         let mandate_reference = item
             .response
@@ -1230,6 +1472,14 @@ impl
             mandate_reference: Box::new(mandate_reference),
             connector_metadata: Some(connector_meta),
             network_txn_id: item.response.scheme_id.clone(),
+=======
+        let payments_response_data = PaymentsResponseData::TransactionResponse {
+            resource_id: ResponseId::ConnectorTransactionId(item.response.id.clone()),
+            redirection_data: Box::new(redirection_data),
+            mandate_reference: Box::new(None),
+            connector_metadata: Some(connector_meta),
+            network_txn_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_response_reference_id: Some(
                 item.response.reference.unwrap_or(item.response.id),
             ),
@@ -1280,6 +1530,7 @@ impl TryFrom<PaymentsSyncResponseRouterData<PaymentsResponse>> for PaymentsSyncR
         } else {
             None
         };
+<<<<<<< HEAD
 
         let mandate_reference = if item.data.request.is_mandate_payment() {
             item.response
@@ -1306,6 +1557,14 @@ impl TryFrom<PaymentsSyncResponseRouterData<PaymentsResponse>> for PaymentsSyncR
             mandate_reference: Box::new(mandate_reference),
             connector_metadata: None,
             network_txn_id: item.response.scheme_id.clone(),
+=======
+        let payments_response_data = PaymentsResponseData::TransactionResponse {
+            resource_id: ResponseId::ConnectorTransactionId(item.response.id.clone()),
+            redirection_data: Box::new(redirection_data),
+            mandate_reference: Box::new(None),
+            connector_metadata: None,
+            network_txn_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             connector_response_reference_id: Some(
                 item.response.reference.unwrap_or(item.response.id),
             ),
@@ -1315,7 +1574,10 @@ impl TryFrom<PaymentsSyncResponseRouterData<PaymentsResponse>> for PaymentsSyncR
         Ok(Self {
             status,
             response: error_response.map_or_else(|| Ok(payments_response_data), Err),
+<<<<<<< HEAD
             connector_response: additional_information,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }
@@ -1356,7 +1618,10 @@ pub struct PaymentVoidResponse {
     pub(super) status: u16,
     action_id: String,
     reference: String,
+<<<<<<< HEAD
     scheme_id: Option<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl From<&PaymentVoidResponse> for AttemptStatus {
@@ -1381,7 +1646,11 @@ impl TryFrom<PaymentsCancelResponseRouterData<PaymentVoidResponse>> for Payments
                 redirection_data: Box::new(None),
                 mandate_reference: Box::new(None),
                 connector_metadata: None,
+<<<<<<< HEAD
                 network_txn_id: item.response.scheme_id.clone(),
+=======
+                network_txn_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 connector_response_reference_id: None,
                 incremental_authorization_allowed: None,
                 charges: None,
@@ -1447,7 +1716,10 @@ impl TryFrom<&CheckoutRouterData<&PaymentsCaptureRouterData>> for PaymentCapture
 pub struct PaymentCaptureResponse {
     pub action_id: String,
     pub reference: Option<String>,
+<<<<<<< HEAD
     pub scheme_id: Option<String>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl TryFrom<PaymentsCaptureResponseRouterData<PaymentCaptureResponse>>
@@ -1483,7 +1755,11 @@ impl TryFrom<PaymentsCaptureResponseRouterData<PaymentCaptureResponse>>
                 redirection_data: Box::new(None),
                 mandate_reference: Box::new(None),
                 connector_metadata: Some(connector_meta),
+<<<<<<< HEAD
                 network_txn_id: item.response.scheme_id.clone(),
+=======
+                network_txn_id: None,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
                 connector_response_reference_id: item.response.reference,
                 incremental_authorization_allowed: None,
                 charges: None,
@@ -1796,7 +2072,10 @@ pub struct CheckoutWebhookBody {
     pub data: CheckoutWebhookData,
     #[serde(rename = "_links")]
     pub links: Links,
+<<<<<<< HEAD
     pub source: Option<Source>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -1896,6 +2175,7 @@ pub struct CheckoutWebhookObjectResource {
     pub data: serde_json::Value,
 }
 
+<<<<<<< HEAD
 #[derive(Debug, Serialize)]
 pub struct CheckoutFileRequest {
     pub purpose: &'static str,
@@ -1917,6 +2197,12 @@ pub fn construct_file_upload_request(
         file_key: request.file_key.clone(),
         file_type: request.file_type.to_string(),
     };
+=======
+pub fn construct_file_upload_request(
+    file_upload_router_data: UploadFileRouterData,
+) -> CustomResult<reqwest::multipart::Form, errors::ConnectorError> {
+    let request = file_upload_router_data.request;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     let mut multipart = reqwest::multipart::Form::new();
     multipart = multipart.text("purpose", "dispute_evidence");
     let file_data = reqwest::multipart::Part::bytes(request.file)
@@ -1934,10 +2220,14 @@ pub fn construct_file_upload_request(
         .change_context(errors::ConnectorError::RequestEncodingFailed)
         .attach_printable("Failure in constructing file data")?;
     multipart = multipart.part("file", file_data);
+<<<<<<< HEAD
     Ok(RequestContent::FormData((
         multipart,
         Box::new(checkout_file_request),
     )))
+=======
+    Ok(multipart)
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -1981,6 +2271,7 @@ impl TryFrom<&webhooks::IncomingWebhookRequestDetails<'_>> for PaymentsResponse 
             currency: Some(data.currency),
             processed_on: data.processed_on,
             approved: data.approved,
+<<<<<<< HEAD
             source: Some(Source {
                 id: details.source.clone().and_then(|src| src.id),
                 avs_check: details.source.clone().and_then(|src| src.avs_check),
@@ -1988,6 +2279,8 @@ impl TryFrom<&webhooks::IncomingWebhookRequestDetails<'_>> for PaymentsResponse 
             }),
             scheme_id: None,
             processing: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         Ok(psync_struct)
@@ -2048,6 +2341,7 @@ impl From<String> for utils::ErrorCodeAndMessage {
         }
     }
 }
+<<<<<<< HEAD
 
 fn convert_to_additional_payment_method_connector_response(
     source: Option<&Source>,
@@ -2065,3 +2359,5 @@ fn convert_to_additional_payment_method_connector_response(
         }
     })
 }
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

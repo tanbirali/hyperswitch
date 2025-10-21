@@ -1,6 +1,7 @@
 /* eslint-disable cypress/unsafe-to-chain-command */
 
 import jsQR from "jsqr";
+<<<<<<< HEAD
 import { getTimeoutMultiplier } from "../utils/RequestBodyUtils.js";
 
 const timeoutMultiplier = getTimeoutMultiplier();
@@ -8,6 +9,13 @@ const timeoutMultiplier = getTimeoutMultiplier();
 const CONSTANTS = {
   TIMEOUT: Math.round(90000 * timeoutMultiplier), // 90s local, 135s (2.25min) CI
   WAIT_TIME: Math.round(30000 * timeoutMultiplier), // 30s local, 45s CI
+=======
+
+// Define constants for wait times
+const CONSTANTS = {
+  TIMEOUT: 20000, // 20 seconds
+  WAIT_TIME: 10000, // 10 seconds
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
   ERROR_PATTERNS: [
     /^(4|5)\d{2}\s/, // HTTP error status codes
     /\berror occurred\b/i,
@@ -638,6 +646,7 @@ function bankRedirectRedirection(
 }
 
 function threeDsRedirection(redirectionUrl, expectedUrl, connectorId) {
+<<<<<<< HEAD
   let responseContentType = null;
 
   // First check what type of response we get from the redirect URL
@@ -706,6 +715,9 @@ function threeDsRedirection(redirectionUrl, expectedUrl, connectorId) {
     verifyReturnUrl(redirectionUrl, expectedUrl, true);
     return;
   }
+=======
+  cy.visit(redirectionUrl.href);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
   // Special handling for Airwallex which uses multiple domains in 3DS flow
   if (connectorId === "airwallex") {
@@ -900,6 +912,7 @@ function threeDsRedirection(redirectionUrl, expectedUrl, connectorId) {
     connectorId,
     ({ connectorId, constants, expectedUrl }) => {
       switch (connectorId) {
+<<<<<<< HEAD
         case "aci":
           cy.get('form[name="challengeForm"]', {
             timeout: constants.WAIT_TIME,
@@ -912,6 +925,8 @@ function threeDsRedirection(redirectionUrl, expectedUrl, connectorId) {
               cy.get('button[type="submit"]').click();
             });
           break;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         case "adyen":
           cy.get("iframe")
             .its("0.contentDocument.body")
@@ -1203,6 +1218,7 @@ function threeDsRedirection(redirectionUrl, expectedUrl, connectorId) {
     }
   );
 
+<<<<<<< HEAD
   cy.then(() => {
     if (
       responseContentType &&
@@ -1211,6 +1227,10 @@ function threeDsRedirection(redirectionUrl, expectedUrl, connectorId) {
       verifyReturnUrl(redirectionUrl, expectedUrl, true);
     }
   });
+=======
+  // Verify return URL after handling the specific connector
+  verifyReturnUrl(redirectionUrl, expectedUrl, true);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 function upiRedirection(
@@ -1225,7 +1245,10 @@ function upiRedirection(
       case "upi_collect":
         cy.visit(redirectionUrl.href);
         cy.wait(CONSTANTS.TIMEOUT).then(() => {
+<<<<<<< HEAD
           cy.contains("button", "Simulate").should("be.visible").click();
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
           verifyUrl = true;
         });
         break;
@@ -1246,6 +1269,10 @@ function upiRedirection(
         );
     }
   } else {
+<<<<<<< HEAD
+=======
+    // For other connectors, nothing to do
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     return;
   }
 
@@ -1501,6 +1528,7 @@ function handleFlow(
         `No host change detected or potential iframe. Executing callback directly/targeting iframe.`
       );
 
+<<<<<<< HEAD
       // Wait for page to be ready first
       cy.document().should("have.property", "readyState", "complete");
 
@@ -1542,6 +1570,26 @@ function handleFlow(
             });
         }
       });
+=======
+      // For embedded flows using an iframe:
+      cy.get("iframe", { timeout: CONSTANTS.TIMEOUT })
+        .should("be.visible")
+        .should("exist")
+        .then((iframes) => {
+          if (iframes.length === 0) {
+            cy.log(
+              "No host change and no iframe detected, executing callback directly."
+            );
+
+            throw new Error("No iframe found for embedded flow.");
+          }
+          // Execute the callback directly for the embedded flow
+          cy.log(
+            "Iframe detected, executing callback targeting iframe context (implicitly)."
+          );
+          callback(callbackArgs);
+        });
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     }
   });
 }

@@ -693,7 +693,11 @@ fn process_connector_for_networks(
     let matching_networks = find_matching_networks(
         &merchant_debit_networks,
         fee_sorted_debit_networks,
+<<<<<<< HEAD
         connector_data,
+=======
+        &connector_data.connector_data,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         debit_routing_config,
         has_us_local_network,
     );
@@ -715,13 +719,21 @@ fn find_merchant_connector_account(
 fn find_matching_networks(
     merchant_debit_networks: &HashSet<common_enums::CardNetwork>,
     fee_sorted_debit_networks: &[common_enums::CardNetwork],
+<<<<<<< HEAD
     connector_routing_data: &api::ConnectorRoutingData,
+=======
+    connector_data: &api::ConnectorData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     debit_routing_config: &settings::DebitRoutingConfig,
     has_us_local_network: &mut bool,
 ) -> Vec<api::ConnectorRoutingData> {
     let is_routing_enabled = debit_routing_config
         .supported_connectors
+<<<<<<< HEAD
         .contains(&connector_routing_data.connector_data.connector_name.clone());
+=======
+        .contains(&connector_data.connector_name);
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
     fee_sorted_debit_networks
         .iter()
@@ -733,9 +745,14 @@ fn find_matching_networks(
             }
 
             api::ConnectorRoutingData {
+<<<<<<< HEAD
                 connector_data: connector_routing_data.connector_data.clone(),
                 network: Some(network.clone()),
                 action_type: connector_routing_data.action_type.clone(),
+=======
+                connector_data: connector_data.clone(),
+                network: Some(network.clone()),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             }
         })
         .collect()

@@ -12,7 +12,11 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
             api_enums::Connector::Affirm => Self::Affirm,
             api_enums::Connector::Adyenplatform => Self::Adyenplatform,
             api_enums::Connector::Airwallex => Self::Airwallex,
+<<<<<<< HEAD
             api_enums::Connector::Amazonpay => Self::Amazonpay,
+=======
+            // api_enums::Connector::Amazonpay => Self::Amazonpay,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::Connector::Archipel => Self::Archipel,
             api_enums::Connector::Authipay => Self::Authipay,
             api_enums::Connector::Authorizedotnet => Self::Authorizedotnet,
@@ -24,6 +28,7 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
             api_enums::Connector::Bitpay => Self::Bitpay,
             api_enums::Connector::Bluesnap => Self::Bluesnap,
             api_enums::Connector::Blackhawknetwork => Self::Blackhawknetwork,
+<<<<<<< HEAD
             api_enums::Connector::Calida => Self::Calida,
             api_enums::Connector::Boku => Self::Boku,
             api_enums::Connector::Braintree => Self::Braintree,
@@ -33,6 +38,12 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
                     message: "cardinal is not a routable connector".to_string(),
                 })?
             }
+=======
+            api_enums::Connector::Bluecode => Self::Bluecode,
+            api_enums::Connector::Boku => Self::Boku,
+            api_enums::Connector::Braintree => Self::Braintree,
+            api_enums::Connector::Breadpay => Self::Breadpay,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::Connector::Cashtocode => Self::Cashtocode,
             api_enums::Connector::Celero => Self::Celero,
             api_enums::Connector::Chargebee => Self::Chargebee,
@@ -61,14 +72,20 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
             api_enums::Connector::Ebanx => Self::Ebanx,
             api_enums::Connector::Elavon => Self::Elavon,
             api_enums::Connector::Facilitapay => Self::Facilitapay,
+<<<<<<< HEAD
             api_enums::Connector::Finix => Self::Finix,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::Connector::Fiserv => Self::Fiserv,
             api_enums::Connector::Fiservemea => Self::Fiservemea,
             api_enums::Connector::Fiuu => Self::Fiuu,
             api_enums::Connector::Flexiti => Self::Flexiti,
             api_enums::Connector::Forte => Self::Forte,
             api_enums::Connector::Getnet => Self::Getnet,
+<<<<<<< HEAD
             api_enums::Connector::Gigadat => Self::Gigadat,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::Connector::Globalpay => Self::Globalpay,
             api_enums::Connector::Globepay => Self::Globepay,
             api_enums::Connector::Gocardless => Self::Gocardless,
@@ -94,7 +111,10 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
                 })?
             }
             api_enums::Connector::Klarna => Self::Klarna,
+<<<<<<< HEAD
             api_enums::Connector::Loonio => Self::Loonio,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::Connector::Mifinity => Self::Mifinity,
             api_enums::Connector::Mollie => Self::Mollie,
             api_enums::Connector::Moneris => Self::Moneris,
@@ -118,10 +138,15 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
             api_enums::Connector::Payme => Self::Payme,
             api_enums::Connector::Payone => Self::Payone,
             api_enums::Connector::Paypal => Self::Paypal,
+<<<<<<< HEAD
             api_enums::Connector::Paysafe => Self::Paysafe,
             api_enums::Connector::Paystack => Self::Paystack,
             api_enums::Connector::Payu => Self::Payu,
             api_enums::Connector::Peachpayments => Self::Peachpayments,
+=======
+            api_enums::Connector::Paystack => Self::Paystack,
+            api_enums::Connector::Payu => Self::Payu,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_models::enums::Connector::Placetopay => Self::Placetopay,
             api_enums::Connector::Plaid => Self::Plaid,
             api_enums::Connector::Powertranz => Self::Powertranz,
@@ -148,6 +173,7 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
             api_enums::Connector::Stripe => Self::Stripe,
             api_enums::Connector::Stripebilling => Self::Stripebilling,
             // api_enums::Connector::Thunes => Self::Thunes,
+<<<<<<< HEAD
             api_enums::Connector::Tesouro => Self::Tesouro,
             api_enums::Connector::Tokenex => {
                 Err(common_utils::errors::ValidationError::InvalidValue {
@@ -157,6 +183,10 @@ impl ForeignTryFrom<api_enums::Connector> for common_enums::RoutableConnectors {
             api_enums::Connector::Tokenio => Self::Tokenio,
             api_enums::Connector::Trustpay => Self::Trustpay,
             api_enums::Connector::Trustpayments => Self::Trustpayments,
+=======
+            api_enums::Connector::Tokenio => Self::Tokenio,
+            api_enums::Connector::Trustpay => Self::Trustpay,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             api_enums::Connector::Tsys => Self::Tsys,
             // api_enums::Connector::UnifiedAuthenticationService => {
             //     Self::UnifiedAuthenticationService

@@ -36,7 +36,10 @@ pub fn populate_browser_info(
             os_version: None,
             device_model: None,
             accept_language: None,
+<<<<<<< HEAD
             referer: None,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         });
 
     let ip_address = req

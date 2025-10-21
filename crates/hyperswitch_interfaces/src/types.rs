@@ -10,6 +10,7 @@ use hyperswitch_domain_models::{
         mandate_revoke::MandateRevoke,
         payments::{
             Authorize, AuthorizeSessionToken, Balance, CalculateTax, Capture, CompleteAuthorize,
+<<<<<<< HEAD
             CreateConnectorCustomer, CreateOrder, ExtendAuthorization, IncrementalAuthorization,
             InitPayment, PSync, PaymentMethodToken, PostCaptureVoid, PostProcessing,
             PostSessionTokens, PreProcessing, SdkSessionUpdate, Session, SetupMandate,
@@ -21,6 +22,14 @@ use hyperswitch_domain_models::{
             GetSubscriptionEstimate, GetSubscriptionPlanPrices, GetSubscriptionPlans,
             SubscriptionCreate,
         },
+=======
+            CreateConnectorCustomer, CreateOrder, IncrementalAuthorization, InitPayment, PSync,
+            PaymentMethodToken, PostCaptureVoid, PostProcessing, PostSessionTokens, PreProcessing,
+            SdkSessionUpdate, Session, SetupMandate, UpdateMetadata, Void,
+        },
+        refunds::{Execute, RSync},
+        revenue_recovery::{BillingConnectorPaymentsSync, RecoveryRecordBack},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         unified_authentication_service::{
             Authenticate, AuthenticationConfirmation, PostAuthenticate, PreAuthenticate,
         },
@@ -29,16 +38,24 @@ use hyperswitch_domain_models::{
             ExternalVaultRetrieveFlow,
         },
         webhooks::VerifyWebhookSource,
+<<<<<<< HEAD
         AccessTokenAuthentication, BillingConnectorInvoiceSync, GiftCardBalanceCheck,
+=======
+        AccessTokenAuthentication, BillingConnectorInvoiceSync,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     },
     router_request_types::{
         revenue_recovery::{
             BillingConnectorInvoiceSyncRequest, BillingConnectorPaymentsSyncRequest,
+<<<<<<< HEAD
             InvoiceRecordBackRequest,
         },
         subscriptions::{
             GetSubscriptionEstimateRequest, GetSubscriptionPlanPricesRequest,
             GetSubscriptionPlansRequest, SubscriptionCreateRequest,
+=======
+            RevenueRecoveryRecordBackRequest,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         },
         unified_authentication_service::{
             UasAuthenticationRequestData, UasAuthenticationResponseData,
@@ -48,12 +65,19 @@ use hyperswitch_domain_models::{
         AcceptDisputeRequestData, AccessTokenAuthenticationRequestData, AccessTokenRequestData,
         AuthorizeSessionTokenData, CompleteAuthorizeData, ConnectorCustomerData,
         CreateOrderRequestData, DefendDisputeRequestData, DisputeSyncData,
+<<<<<<< HEAD
         FetchDisputesRequestData, GiftCardBalanceCheckRequestData, MandateRevokeRequestData,
         PaymentMethodTokenizationData, PaymentsAuthenticateData, PaymentsAuthorizeData,
         PaymentsCancelData, PaymentsCancelPostCaptureData, PaymentsCaptureData,
         PaymentsExtendAuthorizationData, PaymentsIncrementalAuthorizationData,
         PaymentsPostAuthenticateData, PaymentsPostProcessingData, PaymentsPostSessionTokensData,
         PaymentsPreAuthenticateData, PaymentsPreProcessingData, PaymentsSessionData,
+=======
+        FetchDisputesRequestData, MandateRevokeRequestData, PaymentMethodTokenizationData,
+        PaymentsAuthorizeData, PaymentsCancelData, PaymentsCancelPostCaptureData,
+        PaymentsCaptureData, PaymentsIncrementalAuthorizationData, PaymentsPostProcessingData,
+        PaymentsPostSessionTokensData, PaymentsPreProcessingData, PaymentsSessionData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         PaymentsSyncData, PaymentsTaxCalculationData, PaymentsUpdateMetadataData, RefundsData,
         RetrieveFileRequestData, SdkPaymentsSessionUpdateData, SetupMandateRequestData,
         SubmitEvidenceRequestData, UploadFileRequestData, VaultRequestData,
@@ -62,6 +86,7 @@ use hyperswitch_domain_models::{
     router_response_types::{
         revenue_recovery::{
             BillingConnectorInvoiceSyncResponse, BillingConnectorPaymentsSyncResponse,
+<<<<<<< HEAD
             InvoiceRecordBackResponse,
         },
         subscriptions::{
@@ -72,6 +97,13 @@ use hyperswitch_domain_models::{
         GiftCardBalanceCheckResponseData, MandateRevokeResponseData, PaymentsResponseData,
         RefundsResponseData, RetrieveFileResponse, SubmitEvidenceResponse,
         TaxCalculationResponseData, UploadFileResponse, VaultResponseData,
+=======
+            RevenueRecoveryRecordBackResponse,
+        },
+        AcceptDisputeResponse, DefendDisputeResponse, DisputeSyncResponse, FetchDisputesResponse,
+        MandateRevokeResponseData, PaymentsResponseData, RefundsResponseData, RetrieveFileResponse,
+        SubmitEvidenceResponse, TaxCalculationResponseData, UploadFileResponse, VaultResponseData,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         VerifyWebhookSourceResponseData,
     },
 };
@@ -127,6 +159,7 @@ pub type CreateOrderType =
 /// Type alias for `ConnectorIntegration<PreProcessing, PaymentsPreProcessingData, PaymentsResponseData>`
 pub type PaymentsPreProcessingType =
     dyn ConnectorIntegration<PreProcessing, PaymentsPreProcessingData, PaymentsResponseData>;
+<<<<<<< HEAD
 
 /// Type alias for `ConnectorIntegration<PreAuthenticate, PaymentsPreAuthenticateData, PaymentsResponseData>`
 pub type PaymentsPreAuthenticateType =
@@ -140,6 +173,8 @@ pub type PaymentsAuthenticateType =
 pub type PaymentsPostAuthenticateType =
     dyn ConnectorIntegration<PostAuthenticate, PaymentsPostAuthenticateData, PaymentsResponseData>;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Type alias for `ConnectorIntegration<PostProcessing, PaymentsPostProcessingData, PaymentsResponseData>`
 pub type PaymentsPostProcessingType =
     dyn ConnectorIntegration<PostProcessing, PaymentsPostProcessingData, PaymentsResponseData>;
@@ -152,12 +187,15 @@ pub type PaymentsPreAuthorizeType = dyn ConnectorIntegration<
     AuthorizeSessionTokenData,
     PaymentsResponseData,
 >;
+<<<<<<< HEAD
 /// Type alias for `ConnectorIntegration<GiftCardBalanceCheck, GiftCardBalanceCheckRequestData, GiftCardBalanceCheckResponseData>`
 pub type PaymentsGiftCardBalanceCheckType = dyn ConnectorIntegration<
     GiftCardBalanceCheck,
     GiftCardBalanceCheckRequestData,
     GiftCardBalanceCheckResponseData,
 >;
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Type alias for `ConnectorIntegration<InitPayment, PaymentsAuthorizeData, PaymentsResponseData>`
 pub type PaymentsInitType =
     dyn ConnectorIntegration<InitPayment, PaymentsAuthorizeData, PaymentsResponseData>;
@@ -192,6 +230,7 @@ pub type IncrementalAuthorizationType = dyn ConnectorIntegration<
     PaymentsResponseData,
 >;
 
+<<<<<<< HEAD
 /// Type alias for `ConnectorIntegration<ExtendAuthorization, PaymentsExtendAuthorizationData, PaymentsResponseData>`
 pub type ExtendedAuthorizationType = dyn ConnectorIntegration<
     ExtendAuthorization,
@@ -206,6 +245,8 @@ pub type GetSubscriptionPlanPricesType = dyn ConnectorIntegration<
     GetSubscriptionPlanPricesResponse,
 >;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Type alias for `ConnectorIntegration<CreateConnectorCustomer, ConnectorCustomerData, PaymentsResponseData>`
 pub type ConnectorCustomerType =
     dyn ConnectorIntegration<CreateConnectorCustomer, ConnectorCustomerData, PaymentsResponseData>;
@@ -313,6 +354,7 @@ pub type UasAuthenticationType = dyn ConnectorIntegration<
     UasAuthenticationResponseData,
 >;
 
+<<<<<<< HEAD
 /// Type alias for `ConnectorIntegration<InvoiceRecordBack, InvoiceRecordBackRequest, InvoiceRecordBackResponse>`
 pub type InvoiceRecordBackType = dyn ConnectorIntegration<
     InvoiceRecordBack,
@@ -325,6 +367,13 @@ pub type SubscriptionCreateType = dyn ConnectorIntegration<
     SubscriptionCreate,
     SubscriptionCreateRequest,
     SubscriptionCreateResponse,
+=======
+/// Type alias for `ConnectorIntegration<RecoveryRecordBack, RevenueRecoveryRecordBackRequest, RevenueRecoveryRecordBackResponse>`
+pub type RevenueRecoveryRecordBackType = dyn ConnectorIntegration<
+    RecoveryRecordBack,
+    RevenueRecoveryRecordBackRequest,
+    RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 >;
 
 /// Type alias for `ConnectorIntegration<BillingConnectorPaymentsSync, BillingConnectorPaymentsSyncRequest, BillingConnectorPaymentsSyncResponse>`
@@ -341,12 +390,21 @@ pub type BillingConnectorInvoiceSyncType = dyn ConnectorIntegration<
     BillingConnectorInvoiceSyncResponse,
 >;
 
+<<<<<<< HEAD
 /// Type alias for `ConnectorIntegrationV2<InvoiceRecordBack, InvoiceRecordBackData, InvoiceRecordBackRequest, InvoiceRecordBackResponse>`
 pub type InvoiceRecordBackTypeV2 = dyn ConnectorIntegrationV2<
     InvoiceRecordBack,
     flow_common_types::InvoiceRecordBackData,
     InvoiceRecordBackRequest,
     InvoiceRecordBackResponse,
+=======
+/// Type alias for `ConnectorIntegrationV2<RecoveryRecordBack, RevenueRecoveryRecordBackData, RevenueRecoveryRecordBackRequest, RevenueRecoveryRecordBackResponse>`
+pub type RevenueRecoveryRecordBackTypeV2 = dyn ConnectorIntegrationV2<
+    RecoveryRecordBack,
+    flow_common_types::RevenueRecoveryRecordBackData,
+    RevenueRecoveryRecordBackRequest,
+    RevenueRecoveryRecordBackResponse,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 >;
 
 /// Type alias for `ConnectorIntegrationV2<BillingConnectorPaymentsSync, BillingConnectorPaymentsSyncRequest, BillingConnectorPaymentsSyncResponse>`
@@ -365,6 +423,7 @@ pub type BillingConnectorInvoiceSyncTypeV2 = dyn ConnectorIntegrationV2<
     BillingConnectorInvoiceSyncResponse,
 >;
 
+<<<<<<< HEAD
 /// Type alias for `ConnectorIntegration<GetSubscriptionPlans, GetSubscriptionPlansRequest, GetSubscriptionPlansResponse>`
 pub type GetSubscriptionPlansType = dyn ConnectorIntegration<
     GetSubscriptionPlans,
@@ -379,6 +438,8 @@ pub type GetSubscriptionEstimateType = dyn ConnectorIntegration<
     GetSubscriptionEstimateResponse,
 >;
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Type alias for `ConnectorIntegration<ExternalVaultInsertFlow, VaultRequestData, VaultResponseData>`
 pub type ExternalVaultInsertType =
     dyn ConnectorIntegration<ExternalVaultInsertFlow, VaultRequestData, VaultResponseData>;
@@ -407,12 +468,15 @@ pub struct Proxy {
 
     /// A comma-separated list of hosts that should bypass the proxy.
     pub bypass_proxy_hosts: Option<String>,
+<<<<<<< HEAD
 
     /// The CA certificate used for man-in-the-middle (MITM) proxying, if enabled.
     pub mitm_ca_certificate: Option<masking::Secret<String>>,
 
     /// Whether man-in-the-middle (MITM) proxying is enabled.
     pub mitm_enabled: Option<bool>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl Default for Proxy {
@@ -422,6 +486,7 @@ impl Default for Proxy {
             https_url: Default::default(),
             idle_pool_connection_timeout: Some(90),
             bypass_proxy_hosts: Default::default(),
+<<<<<<< HEAD
             mitm_ca_certificate: None,
             mitm_enabled: None,
         }
@@ -435,3 +500,8 @@ pub type CreateCustomerTypeV2 = dyn ConnectorIntegrationV2<
     ConnectorCustomerData,
     PaymentsResponseData,
 >;
+=======
+        }
+    }
+}
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

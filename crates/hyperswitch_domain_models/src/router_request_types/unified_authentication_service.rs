@@ -3,6 +3,10 @@ use common_enums::MerchantCategoryCode;
 use common_types::payments::MerchantCountryCode;
 use common_utils::types::MinorUnit;
 use masking::Secret;
+<<<<<<< HEAD
+=======
+use time::PrimitiveDateTime;
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 
 use crate::address::Address;
 
@@ -63,7 +67,11 @@ pub struct CtpServiceDetails {
 pub struct PaymentDetails {
     pub pan: cards::CardNumber,
     pub digital_card_id: Option<String>,
+<<<<<<< HEAD
     pub payment_data_type: Option<common_enums::PaymentMethodType>,
+=======
+    pub payment_data_type: Option<String>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub encrypted_src_card_details: Option<String>,
     pub card_expiry_month: Secret<String>,
     pub card_expiry_year: Secret<String>,
@@ -168,7 +176,11 @@ pub struct UasConfirmationRequestData {
     pub checkout_event_status: Option<String>,
     pub confirmation_status: Option<String>,
     pub confirmation_reason: Option<String>,
+<<<<<<< HEAD
     pub confirmation_timestamp: Option<String>,
+=======
+    pub confirmation_timestamp: Option<PrimitiveDateTime>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     // Authorisation code associated with an approved transaction.
     pub network_authorization_code: Option<String>,
     // The unique authorisation related tracing value assigned by a Payment Network and provided in an authorisation response. Required only when checkoutEventType=01. If checkoutEventType=01 and the value of networkTransactionIdentifier is unknown, please pass UNAVLB
@@ -182,7 +194,11 @@ pub struct ThreeDsMetaData {
     pub merchant_category_code: Option<MerchantCategoryCode>,
     pub merchant_country_code: Option<MerchantCountryCode>,
     pub merchant_name: Option<String>,
+<<<<<<< HEAD
     pub endpoint_prefix: Option<String>,
+=======
+    pub endpoint_prefix: String,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub three_ds_requestor_name: Option<String>,
     pub three_ds_requestor_id: Option<String>,
     pub merchant_configuration_id: Option<String>,

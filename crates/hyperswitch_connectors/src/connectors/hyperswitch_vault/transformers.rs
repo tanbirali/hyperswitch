@@ -2,9 +2,13 @@ use common_utils::pii::Email;
 use hyperswitch_domain_models::{
     router_data::{ConnectorAuthType, RouterData},
     router_flow_types::vault::ExternalVaultCreateFlow,
+<<<<<<< HEAD
     router_response_types::{
         ConnectorCustomerResponseData, PaymentsResponseData, VaultResponseData,
     },
+=======
+    router_response_types::{PaymentsResponseData, VaultResponseData},
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     types::{ConnectorCustomerRouterData, VaultRouterData},
 };
 use hyperswitch_interfaces::errors;
@@ -110,9 +114,15 @@ impl<F, T>
         >,
     ) -> Result<Self, Self::Error> {
         Ok(Self {
+<<<<<<< HEAD
             response: Ok(PaymentsResponseData::ConnectorCustomerResponse(
                 ConnectorCustomerResponseData::new_with_customer_id(item.response.id),
             )),
+=======
+            response: Ok(PaymentsResponseData::ConnectorCustomerResponse {
+                connector_customer_id: item.response.id,
+            }),
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
             ..item.data
         })
     }

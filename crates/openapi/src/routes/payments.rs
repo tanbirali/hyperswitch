@@ -921,6 +921,7 @@ pub async fn profile_payments_list() {}
 )]
 pub fn payments_incremental_authorization() {}
 
+<<<<<<< HEAD
 /// Payments - Extended Authorization
 ///
 /// Extended authorization is available for payments currently in the `requires_capture` status
@@ -941,6 +942,8 @@ pub fn payments_incremental_authorization() {}
 )]
 pub fn payments_extend_authorization() {}
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Payments - External 3DS Authentication
 ///
 /// External 3DS Authentication is performed and returns the AuthenticationResponse
@@ -1032,6 +1035,7 @@ pub fn payments_post_session_tokens() {}
 )]
 pub fn payments_update_metadata() {}
 
+<<<<<<< HEAD
 /// Payments - Submit Eligibility Data
 #[utoipa::path(
     post,
@@ -1050,6 +1054,8 @@ pub fn payments_update_metadata() {}
 )]
 pub fn payments_submit_eligibility() {}
 
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 /// Payments - Create Intent
 ///
 /// **Creates a payment intent object when amount_details are passed.**
@@ -1306,6 +1312,7 @@ pub fn list_payment_methods() {}
     security(("api_key" = []), ("jwt_key" = []))
 )]
 pub fn payments_list() {}
+<<<<<<< HEAD
 
 /// Payments - Gift Card Balance Check
 ///
@@ -1333,3 +1340,5 @@ pub fn payments_list() {}
     security(("publishable_key" = []))
 )]
 pub fn payment_check_gift_card_balance() {}
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)

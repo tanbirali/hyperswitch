@@ -18,7 +18,11 @@ pub struct ConnectorAuthentication {
     #[cfg(feature = "payouts")]
     pub adyen_uk: Option<SignatureKey>,
     pub airwallex: Option<BodyKey>,
+<<<<<<< HEAD
     pub amazonpay: Option<BodyKey>,
+=======
+    pub amazonpay: Option<HeaderKey>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub archipel: Option<NoKey>,
     pub authipay: Option<SignatureKey>,
     pub authorizedotnet: Option<BodyKey>,
@@ -29,11 +33,18 @@ pub struct ConnectorAuthentication {
     pub billwerk: Option<HeaderKey>,
     pub bitpay: Option<HeaderKey>,
     pub blackhawknetwork: Option<HeaderKey>,
+<<<<<<< HEAD
     pub calida: Option<HeaderKey>,
     pub bluesnap: Option<BodyKey>,
     pub boku: Option<BodyKey>,
     pub breadpay: Option<BodyKey>,
     pub cardinal: Option<SignatureKey>,
+=======
+    pub bluecode: Option<HeaderKey>,
+    pub bluesnap: Option<BodyKey>,
+    pub boku: Option<BodyKey>,
+    pub breadpay: Option<BodyKey>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub cashtocode: Option<BodyKey>,
     pub celero: Option<HeaderKey>,
     pub chargebee: Option<HeaderKey>,
@@ -53,14 +64,20 @@ pub struct ConnectorAuthentication {
     pub ebanx: Option<HeaderKey>,
     pub elavon: Option<HeaderKey>,
     pub facilitapay: Option<BodyKey>,
+<<<<<<< HEAD
     pub finix: Option<HeaderKey>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub fiserv: Option<SignatureKey>,
     pub fiservemea: Option<HeaderKey>,
     pub fiuu: Option<HeaderKey>,
     pub flexiti: Option<HeaderKey>,
     pub forte: Option<MultiAuthKey>,
     pub getnet: Option<HeaderKey>,
+<<<<<<< HEAD
     pub gigadat: Option<SignatureKey>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub globalpay: Option<BodyKey>,
     pub globepay: Option<BodyKey>,
     pub gocardless: Option<HeaderKey>,
@@ -75,7 +92,10 @@ pub struct ConnectorAuthentication {
     pub jpmorgan: Option<BodyKey>,
     pub juspaythreedsserver: Option<HeaderKey>,
     pub katapult: Option<HeaderKey>,
+<<<<<<< HEAD
     pub loonio: Option<HeaderKey>,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub mifinity: Option<HeaderKey>,
     pub mollie: Option<BodyKey>,
     pub moneris: Option<SignatureKey>,
@@ -98,11 +118,18 @@ pub struct ConnectorAuthentication {
     pub payme: Option<BodyKey>,
     pub payone: Option<HeaderKey>,
     pub paypal: Option<BodyKey>,
+<<<<<<< HEAD
     pub paysafe: Option<BodyKey>,
     pub paystack: Option<HeaderKey>,
     pub paytm: Option<HeaderKey>,
     pub payu: Option<BodyKey>,
     pub peachpayments: Option<HeaderKey>,
+=======
+    pub paysafe: Option<HeaderKey>,
+    pub paystack: Option<HeaderKey>,
+    pub paytm: Option<HeaderKey>,
+    pub payu: Option<BodyKey>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub phonepe: Option<HeaderKey>,
     pub placetopay: Option<BodyKey>,
     pub plaid: Option<BodyKey>,
@@ -121,10 +148,15 @@ pub struct ConnectorAuthentication {
     pub stripe: Option<HeaderKey>,
     pub stripebilling: Option<HeaderKey>,
     pub taxjar: Option<HeaderKey>,
+<<<<<<< HEAD
     pub tesouro: Option<HeaderKey>,
     pub threedsecureio: Option<HeaderKey>,
     pub thunes: Option<HeaderKey>,
     pub tokenex: Option<BodyKey>,
+=======
+    pub threedsecureio: Option<HeaderKey>,
+    pub thunes: Option<HeaderKey>,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
     pub tokenio: Option<HeaderKey>,
     pub stripe_au: Option<HeaderKey>,
     pub stripe_uk: Option<HeaderKey>,

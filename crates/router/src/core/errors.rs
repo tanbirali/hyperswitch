@@ -157,8 +157,11 @@ pub enum WebhooksFlowError {
     OutgoingWebhookRetrySchedulingFailed,
     #[error("Outgoing webhook response encoding failed")]
     OutgoingWebhookResponseEncodingFailed,
+<<<<<<< HEAD
     #[error("ID generation failed")]
     IdGenerationFailed,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }
 
 impl WebhooksFlowError {
@@ -176,8 +179,12 @@ impl WebhooksFlowError {
             | Self::DisputeWebhookValidationFailed
             | Self::OutgoingWebhookEncodingFailed
             | Self::OutgoingWebhookProcessTrackerTaskUpdateFailed
+<<<<<<< HEAD
             | Self::OutgoingWebhookRetrySchedulingFailed
             | Self::IdGenerationFailed => true,
+=======
+            | Self::OutgoingWebhookRetrySchedulingFailed => true,
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         }
     }
 }

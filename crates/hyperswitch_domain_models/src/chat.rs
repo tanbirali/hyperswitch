@@ -12,5 +12,8 @@ pub struct HyperswitchAiDataRequest {
     pub profile_id: id_type::ProfileId,
     pub org_id: id_type::OrganizationId,
     pub query: GetDataMessage,
+<<<<<<< HEAD
     pub entity_type: common_enums::EntityType,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
 }

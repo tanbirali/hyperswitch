@@ -212,8 +212,11 @@ impl<F: Send + Clone + Sync> GetTracker<F, PaymentData<F>, api::PaymentsStartReq
             vault_operation: None,
             threeds_method_comp_ind: None,
             whole_connector_response: None,
+<<<<<<< HEAD
             is_manual_retry_enabled: None,
             is_l2_l3_enabled: false,
+=======
+>>>>>>> 330eaee0f (chore(version): 2025.08.28.0-hotfix1)
         };
 
         let get_trackers_response = operations::GetTrackerResponse {
